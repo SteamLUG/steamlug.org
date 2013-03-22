@@ -32,8 +32,29 @@ foreach ($Ports as $Port)
 	{
 		$Query->Connect( $ServerHost, $Port, SQ_TIMEOUT, SQ_ENGINE );
 		$Info = $Query->GetInfo( );
+
 		$serverString  = "\t<article>\n";
 		$serverString .= "\t\t<div class = 'shadow'>\n";
+
+
+		if (!isset($Info["GamePort"]))
+		{
+		$serverString .= "\t\t\t<h1>Server Offline</h1>\n";
+		$serverString .= "\t\t\t<a href='steam://connect/" . $ServerHost . ":" . $Info["GamePort"] . "'><img class='serverimg' src='images/server_offline.png' alt = 'Offline server' /></a>\n";
+		$serverString .= "\t\t\t<dl>\n";
+		$serverString .= "\t\t\t<dt>Map</dt><dd>Unknown</dd>\n";
+		$serverString .= "\t\t\t<dt>Host</dt><dd>" . $ServerHost . "</dd>\n";
+		$serverString .= "\t\t\t<dt>Port</dt><dd>Unknown</dd>\n";
+		$serverString .= "\t\t\t<dt>Players</dt><dd>Unknown</dd>\n";
+		$serverString .= "\t\t\t<dt>Max Players</dt><dd>Unknown</dd>\n";
+		$serverString .= "\t\t\t<dt>Bots</dt><dd>Unknown</dd>\n";
+		$serverString .= "\t\t\t<dt>Secure</dt><dd>Unknown</dd>\n";
+		$serverString .= "\t\t\t<dt>Version</dt><dd>Unknown</dd>\n";
+		$serverString .= "\t\t\t</dl>\n";
+		$serverString .= "\t\t\t<p class = 'serverlink'>&nbsp;</p>\n";		
+		}
+		else
+		{
 		$serverString .= "\t\t\t<h1><a href='steam://connect/" . $ServerHost . ":" . $Info["GamePort"] . "'>" . $Info["HostName"] . "</a></h1>\n";
 		$serverString .= "\t\t\t<a href='steam://connect/" . $ServerHost . ":" . $Info["GamePort"] . "'><img class='serverimg' src='http://cdn.steampowered.com/v/gfx/apps/" . $Info["AppID"] . "/header.jpg' alt = 'Game logo' /></a>\n";
 		$serverString .= "\t\t\t<dl>\n";
@@ -47,6 +68,7 @@ foreach ($Ports as $Port)
 		$serverString .= "\t\t\t<dt>Version</dt><dd>" . $Info["Version"] . "</dd>\n";
 		$serverString .= "\t\t\t</dl>\n";
 		$serverString .= "\t\t\t<p class = 'serverlink'><a href='steam://connect/" . $ServerHost . ":" . $Info["GamePort"] . "'>Click here to join</a></p>\n";
+		}
 		$serverString .= "\t\t</div>\n";
 		$serverString .= "\t</article>\n";
 		echo $serverString;
