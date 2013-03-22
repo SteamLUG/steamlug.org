@@ -40,7 +40,7 @@ foreach ($Ports as $Port)
 		if (!isset($Info["GamePort"]))
 		{
 		$serverString .= "\t\t\t<h1>Server Offline</h1>\n";
-		$serverString .= "\t\t\t<a href='steam://connect/" . $ServerHost . ":" . $Info["GamePort"] . "'><img class='serverimg' src='images/server_offline.png' alt = 'Offline server' /></a>\n";
+		$serverString .= "\t\t\t<img class='serverimg' src='images/server_offline.png' alt = 'Offline server' />\n";
 		$serverString .= "\t\t\t<dl>\n";
 		$serverString .= "\t\t\t<dt>Map</dt><dd>Unknown</dd>\n";
 		$serverString .= "\t\t\t<dt>Host</dt><dd>" . $ServerHost . "</dd>\n";
