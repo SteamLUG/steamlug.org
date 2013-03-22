@@ -31,12 +31,12 @@ $pageTitle = "Chat";
 				<div class = 'shadow'>
 				<h1>IRC Code of Conduct</h1>
 				<p>The only rules are:</p>
-				<ol>
+				<ul>
 					<li>try to think before you speak (<em>it's not that hard ^_^ </em>).</li>
 					<li>be patient with and civil towards others (<em>if you're getting cranky, take a break</em>)</li>
 					<li>don't distribute inappropriate content (<em>porn, warez, etc.</em>).</li>
 					<li>keep your language in check (<em>we have kids around</em>)</li>
-				</ol>
+				</ul>
 				<p>Wantonly ignoring these guidelines may get you kicked or banned.</p>
 				<p>If you need assistance or want to report something, one or more of the following channel operators should be nearby:</p>
 				<ul>
