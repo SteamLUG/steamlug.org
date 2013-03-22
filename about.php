@@ -32,11 +32,11 @@ $pageTitle = "About";
 					<h1>Activities</h1>
 					<p>The SteamLUG community coordinates a range of activities.</p>
 					<h2>Events</h2>
-					<p>We host regular gaming events to highlight native Linux games and bring Linux gamers together.</p>
+					<p>We host regular gaming events to highlight native Linux games and bring Linux gamers together. For more information, visit the <a href = 'events'>Events page</a>.</p>
 					<h2>Audiocast - Coming Soon</h2>
-					<p>___ is a regular, ongoing ___ly audio cast focusing on Steam/Valve news, F/OSS gaming news, Wine updates, SteamLUG happenings and othe Linux gaming related tech news. You can tune in live on our Mumble server, or download archived shows from the audiocast page.</p>
+					<p>___ is a regular, ongoing ___ly audio cast focusing on Steam/Valve news, F/OSS gaming news, Wine updates, SteamLUG happenings and othe Linux gaming related tech news. You can tune in live on our <a href = 'mumble'>Mumble server</a>, or download archived shows from the audiocast page.</p>
 					<h2>Projects</h2>
-					<p>Sometimes people in our community get excited enough to make something big happen. In the past this has included projects such as ____ and ____. Some of our projects are open. Others are hidden until completed. For more information and details of current projects, visit the projects page.</p>
+					<p>Sometimes people in our community get excited enough to make something big happen. Some of our projects are open. Others are hidden until completion. For more information and details of current public projects, visit the <a href = 'projects'>Projects page</a>.</p>
 				</div>
 			</article>
 			<article>
@@ -44,13 +44,16 @@ $pageTitle = "About";
 				<h1>History</h1>
 				<p>The SteamLUG community is an amalgamation of several communities which previously existed independently.</p>
 				<h2>Steam Group</h2>
-<p>Originally created by Skybon as "We Want Linux Client!". Gained popularity and quickly achieved the critical mass needed to sustain its position as the biggest Steam group of Linux users on Steam in spite of its dormancy. In 2012, Russian admin Zenitur handed ownership of the group over to Cheeseness, who brought the group back into an active state and merged it with the existing SteamLUG IRC community to coincide with the release of Steam for Linux.</p>
+<p>The <a href = 'http://forums.steampowered.com/forums/showthread.php?t=1897204'>Linux User Group</a> on Steam was created by vorot93 as "We Want Linux Client!" in June 2010. It gained popularity and quickly achieved the critical mass needed to sustain its position as the biggest Steam group of Linux users on Steam, and continued to grow in spite of its dormancy. In 2012, the current group admin Zenitur handed ownership of the group over to Cheeseness, who brought the group back into an active state and merged it with the existing SteamLUG IRC community to coincide with the release of Steam for Linux.</p>
+<p>In March 2013, a SteamLUG community member from Valve offered to assist with changing the group name. Following a community poll, ______ (<em>Steam currently can not be used in group names</em>) was settled on as the name for the Steam group moving forwards.</p>
 				<h2>SPUF Thread</h2>
-<p>Prior to the introduction of Steam for Linux, discussion of Linux on the Steam Powered User Forums was confined to a single thread, bringing together people of varying backgrounds and creating engaging discussion. In 2011, meklu registered the #SteamLUG IRC channel on Freenode.net following a suggestion by DerRidda in the ____th iteration of the Linux Thread (started by Madrang). Towards the end of 2012, as Steam for Linux became available, activity in the Linux Thread died down.</p>
+<p>Prior to the introduction of Steam for Linux, discussion of Linux on the Steam Powered User Forums was confined to a single thread, bringing together people of varying backgrounds and creating engaging discussion. The current iteration of the <a href = 'http://forums.steampowered.com/forums/showthread.php?t=1897204'>Linux Thread</a> was created by madrang in May 2011, and accumulated over 4,000 posts before the end of 2012.</p>
 				<h2>IRC Channel</h2>
-<p>Registered in 2011 by meklu, the #SteamLUG IRC channel became a place for the active members of the SteamLUG community to gather and plan their respective projects (steamlinux, humvis, etc. - probably don't need specific mention?), and continued to grow the community as activity in the Linux Thread died down. When the Steam for Linux beta was released, the average number of users more than doubled, bringing in a swath of Linux gaming enthusiasts.</p>
+<p>Registered in 2011 by meklu following discussion in the SPUF <a href = 'http://forums.steampowered.com/forums/showthread.php?t=1897204'>Linux Thread</a>, the #SteamLUG IRC channel became a place for the active members of the SteamLUG community to gather and plan their respective projects. As activity in the SPUF Linux Thread slowed, the IRC community continued to grow. When the Steam for Linux beta was released, the average number of users more than doubled, bringing in a swath of Linux gaming enthusiasts.</p>
 				<h2>SteamLUG.org</h2>
-<p>In March 2013, through the efforts of swordfischer, meklu and Cheeseness, SteamLUG.org was launched to provide a central hub for SteamLUG's many faceted community, providing webchat access to IRC, a portal for SteamLUG projects, a live list of upcoming and past SteamLUG events, details of SteamLUG's game and Mumble servers.</p>
+<p>In March 2013, through the efforts of swordfischer, meklu and Cheeseness, SteamLUG.org was launched to provide a hub for SteamLUG's many faceted community, giving centralised access to community news, upcoming event information, details of SteamLUG's game and Mumble servers, webchat access to IRC, and a portal for upcoming SteamLUG projects.</p>
+<p>Whilst developing SteamLUG.org, several libraries were created, which can be found in <a href = 'https://github.com/SteamLUG'>SteamLUG's repositories</a> on GitHub. Forks and contributions are welcome.</p>
+<p>SteamLUG.org also makes use of xPaw's <a href = 'https://github.com/xPaw/PHP-Source-Query-Class'>PHP-Source-Query-Class</a> library, Vojtech Semecky's <a href = 'http://lastrss.oslab.net/'>lastRSS</a>, and edmundask's <a href = 'https://github.com/edmundask/MurmurQuery'>MurmurQuery</a>.</p>
 
 				</div>
 			</article>
