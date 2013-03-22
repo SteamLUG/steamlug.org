@@ -3,7 +3,7 @@
 
 if (!isset($description))
 {
-	$descruption = "SteamLUG - the Steam Linux User Group!";
+	$descruption = "SteamLUG - the Steam Linux User Group! A multilingual community of Linux gamers which aims to be a fun, welcoming space for people of all backgrounds and aptitudes.";
 }
 if (!isset($keywords))
 {
@@ -56,7 +56,7 @@ if (!isset($pageTitle))
 	$isBeta = true;
 	if ($isBeta)
 	{
-		echo "BETA";
+		echo "<img id = 'betaStamp' src = 'images/ribbon_beta2.png'>";
 	}
 	
 	

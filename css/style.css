@@ -366,4 +366,10 @@ footer .copy
 }
 #tweet {
 }
-	
+
+#betaStamp
+{
+	position: fixed;
+	right: 0;
+	top: 0;
+}
