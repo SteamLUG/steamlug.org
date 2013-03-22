@@ -45,6 +45,7 @@ $extraJS = "			getTwitters('tweet', {
 			if (!preg_match("/steamlug\/events\//", $item['link']))
 			{
 			
+				$item['description'] = str_replace(array("\r", "\r\n", "\n", $item['description']);
 				$item['description'] = str_replace(" onclick=\"return AlertNonSteamSite( this );\"", "", $item['description']);
 				$item['description'] = str_replace(" class=\"bb_link\"", "", $item['description']);
 				$item['description'] = str_replace(" class=\"bb_ul\"", "", $item['description']);
@@ -53,9 +54,11 @@ $extraJS = "			getTwitters('tweet', {
 				$item['description'] = str_replace("</i>", "</em>", $item['description']);
 				$item['description'] = str_replace("<b>", "<strong>", $item['description']);
 				$item['description'] = str_replace("</b>", "</strong>", $item['description']);
-				$item['description'] = str_replace("<br>\r\n<br>", "</p><p>", $item['description']);
-				$item['description'] = str_replace("</ul>\r\n\r\n<br>", "</ul>\n<p>", $item['description']);
+				$item['description'] = str_replace("<br>-----", "-----", $item['description']);
+				$item['description'] = str_replace("<br>\n<br>", "</p><p>", $item['description']);
+				$item['description'] = str_replace("</ul>\n\n<br>", "</ul>\n<p>", $item['description']);
 				$item['description'] = str_replace("<ul>", "</p>\n<ul>", $item['description']);
+				$item['description'] = str_replace("<br>", "<br />", $item['description']);
 
 				$rssString .= "\t\t\t<article>\n";
 				$rssString .= "\t\t\t\t<div class = 'shadow'>\n";
