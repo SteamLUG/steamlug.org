@@ -3,11 +3,11 @@
 
 if (!isset($description))
 {
-	$description = "SteamLUG - the Steam Linux User Group!";
+	$descruption = "SteamLUG - the Steam Linux User Group!";
 }
 if (!isset($keywords))
 {
-	$keywords = "Linux, Gaming, Steam, Community";
+	$pageTitle = "Linux, Gaming, Steam, Community";
 }
 
 if (!isset($pageTitle))
@@ -75,9 +75,15 @@ if (!isset($pageTitle))
 	{
 		$newsPage = "current";
 	}
-	else if (strpos($_SERVER["SCRIPT_NAME"], "chat.php"))
+	else if (strpos($_SERVER["SCRIPT_NAME"], "irc.php"))
 	{
 		$chatPage = "current";
+		$ircPage = "current";
+	}
+	else if (strpos($_SERVER["SCRIPT_NAME"], "mumble.php"))
+	{
+		$chatPage = "current";
+		$mumblePage = "current";
 	}
 	else if (strpos($_SERVER["SCRIPT_NAME"], "group.php"))
 	{
@@ -97,11 +103,6 @@ if (!isset($pageTitle))
 		$gamingPage = "current";
 		$serversPage = "current";
 	}
-	else if (strpos($_SERVER["SCRIPT_NAME"], "mumble.php"))
-	{
-		$gamingPage = "current";
-		$mumblePage = "current";
-	}
 	else if (strpos($_SERVER["SCRIPT_NAME"], "projects.php"))
 	{
 		$projectsPage = "current";
@@ -114,9 +115,9 @@ if (!isset($pageTitle))
 		<nav>
 			<ul>
 				<li class = '<?php echo $newsPage; ?>'><a href = 'news'>News</a></li>
-				<li class = '<?php echo $chatPage; ?>'><a href = 'chat'>Chat</a></li>
+				<li class = '<?php echo $chatPage; ?>'><a href = 'chat'>Chat</a><ul class = '<?php echo $chatPage; ?>'><li class = '<?php echo $ircPage; ?>'><a href = 'irc'>IRC</a></li><li class = '<?php echo $mumblePage; ?>'><a href = 'mumble'>Mumble</a></li></ul></li>
 				<li class = '<?php echo $groupPage; ?>'><a href = 'http://steamcommunity.com/groups/steamlug/'>Group</a></li>
-				<li class = '<?php echo $gamingPage; ?>'><a href = 'events'>Gaming</a><ul><li class = '<?php echo $eventsPage; ?>'><a href = 'events'>Events</a></li><li class = '<?php echo $serversPage; ?>'><a href = 'servers'>Servers</a></li><li class = '<?php echo $mumblePage; ?>'><a href = 'mumble'>Mumble</a></li></ul></li>
+				<li class = '<?php echo $gamingPage; ?>'><a href = 'events'>Gaming</a><ul><li class = '<?php echo $eventsPage; ?>'><a href = 'events'>Events</a></li><li class = '<?php echo $serversPage; ?>'><a href = 'servers'>Servers</a></li></ul></li>
 				<li class = '<?php echo $projectsPage; ?>'><a href = 'projects'>Projects</a></li>
 				<li class = '<?php echo $aboutPage; ?>'><a href = 'about'>About</a></li>
 			</ul>
