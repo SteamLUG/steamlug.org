@@ -59,7 +59,12 @@ $extraJS = "			getTwitters('tweet', {
 				$item['description'] = str_replace("</ul>\n\n<br>", "</ul>\n<p>", $item['description']);
 				$item['description'] = str_replace("<ul>", "</p>\n<ul>", $item['description']);
 				$item['description'] = str_replace("<br>", "<br />", $item['description']);
-
+				
+				if (!isset($item['author']))
+				{
+					$item['author'] = "Author";
+				}				
+				
 				$rssString .= "\t\t\t<article>\n";
 				$rssString .= "\t\t\t\t<div class = 'shadow'>\n";
 				$rssString .= "\t\t\t\t\t<h1><a href = '" . $item['link'] . "'>" . $item['title'] . "</a></h1>\n";
