@@ -3,11 +3,11 @@
 
 if (!isset($description))
 {
-	$descruption = "SteamLUG - the Steam Linux User Group!";
+	$description = "SteamLUG - the Steam Linux User Group!";
 }
 if (!isset($keywords))
 {
-	$pageTitle = "Linux, Gaming, Steam, Community";
+	$keywords = "Linux, Gaming, Steam, Community";
 }
 
 if (!isset($pageTitle))
