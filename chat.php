@@ -1,5 +1,6 @@
 <?php
 $pageTitle = "Chat";
+
 ?>
 <?php include_once("includes/header.php"); ?>
 		<header>
