@@ -30,17 +30,15 @@ $pageTitle = "Chat";
 			<article>
 				<div class = 'shadow'>
 				<h1>IRC Code of Conduct</h1>
-				<p>Our community has an IRC channel designated for all matters related to us. To join the chat, please click on one of the links below.</p>
-				<p>IRC link: <a href="irc://irc.freenode.net/#steamlug">irc://irc.freenode.net/#steamlug</a></p>
-				<p>Webchat: <a href="http://webchat.freenode.net/?channels=steamlug">http://webchat.freenode.net/?channels=steamlug</a></p>
 				<p>The only rules are:</p>
 				<ol>
-					<li>don't spew out profanities like an old sailor,</li>
-					<li>don't insult others and</li>
-					<li>don't distribute warez or links leading to such material.</li>
+					<li>try to think before you speak (<em>it's not that hard ^_^ </em>).</li>
+					<li>be patient with and civil towards others (<em>if you're getting cranky, take a break</em>)</li>
+					<li>don't distribute inappropriate content (<em>porn, warez, etc.</em>).</li>
+					<li>keep your language in check (<em>we have kids around</em>)</li>
 				</ol>
-				<p>Not following this guideline may get you kicked. You do also have to obey the laws and whatnot.</p>
-				<p>The operator list is as follows:</p>
+				<p>Wantonly ignoring these guidelines may get you kicked or banned.</p>
+				<p>If you need assistance or want to report something, one or more of the following channel operators should be nearby:</p>
 				<ul>
 					<li><a href="http://cheesetalks.twolofbees.com/">Cheeseness</a></li>
 					<li><a href="http://www.flibitijibibo.com/">flibitijibibo</a></li>
@@ -49,7 +47,7 @@ $pageTitle = "Chat";
 					<li><a href="http://swordfischer.com">swordfischer</a></li>
 					<li><a href="#">johndrinkwater</a></li>
 				</ul>
-				<p>In case someone misuses their op rights, they'll be taken away.</p>
+				<p>Channel operators found to be abusing their status will have their op rights suspended.</p>
 				</div>
 			</article>
 		</section>
