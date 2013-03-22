@@ -42,10 +42,10 @@ $pageTitle = "Chat";
 				<ul>
 					<li><a href="http://steamcommunity.com/id/cheeseness">Cheeseness</a></li>
 					<li><a href="http://steamcommunity.com/id/flibitijibibo">flibitijibibo</a></li>
-					<li><a href="http://steamcommunity.com/id/meklu">meklu</a></li>
-					<li><a href="http://steamcommunity.com/id/xpander69">xpander</a></li>
-					<li><a href="http://steamcommunity.com/id/swordfischer">swordfischer</a></li>
 					<li><a href="http://steamcommunity.com/id/johndrinkwater">johndrinkwater</a></li>
+					<li><a href="http://steamcommunity.com/id/meklu">meklu</a></li>
+					<li><a href="http://steamcommunity.com/id/swordfischer">swordfischer</a></li>
+					<li><a href="http://steamcommunity.com/id/xpander69">xpander</a></li>
 				</ul>
 				<p>Channel operators found to be abusing their status will have their op rights suspended.</p>
 				</div>
