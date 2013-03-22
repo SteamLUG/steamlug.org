@@ -19,10 +19,10 @@
 		<div class = 'linkDiv'>
 			<h3>Valve</h3>
 			<ul>
-				<li><a href = 'http://blogs.valvesoftware.com/linux/'>Valve Linux Blog</a></li>
 				<li><a href = 'http://store.steampowered.com/linux'>Steam For Linux Store Page</a></li>
 				<li><a href = 'https://github.com/ValveSoftware/steam-for-linux/'>Steam For Linux on GitHub</a></li>
 				<li><a href = 'http://steamcommunity.com/app/221410'>Steam For Linux Hub</a></li>
+				<li><a href = 'http://blogs.valvesoftware.com/linux/'>Valve Linux Blog</a></li>
 			</ul>
 		</div>
 		<div class = 'linkDiv'>
