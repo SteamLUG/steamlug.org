@@ -45,7 +45,7 @@ $extraJS = "			getTwitters('tweet', {
 			if (!preg_match("/steamlug\/events\//", $item['link']))
 			{
 			
-				$item['description'] = str_replace(array("\r", "\r\n", "\n", $item['description']);
+				$item['description'] = str_replace(array("\r", "\r\n", "\n"), $item['description']);
 				$item['description'] = str_replace(" onclick=\"return AlertNonSteamSite( this );\"", "", $item['description']);
 				$item['description'] = str_replace(" class=\"bb_link\"", "", $item['description']);
 				$item['description'] = str_replace(" class=\"bb_ul\"", "", $item['description']);
