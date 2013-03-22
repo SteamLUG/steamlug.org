@@ -1,4 +1,21 @@
 <!DOCTYPE html>
+<?php
+
+if (!isset($description))
+{
+	$descruption = "SteamLUG - the Steam Linux User Group!";
+}
+if (!isset($keywords))
+{
+	$pageTitle = "Linux, Gaming, Steam, Community";
+}
+
+if (!isset($pageTitle))
+{
+	$pageTitle = "Super Secret Unnamed Page!";
+}
+
+?>
 <html lang="en">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -36,8 +53,16 @@
 	</head>
 	<body>
 <?php
+	$isBeta = true;
+	if ($isBeta)
+	{
+		echo "BETA";
+	}
+	
+	
+	
 	$newsPage = "";
-	$chatPage1 = "";
+	$chatPage = "";
 	$groupPage = "";
 	$gamingPage = "";
 	$eventsPage = "";
