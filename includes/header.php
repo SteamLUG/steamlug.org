@@ -63,11 +63,12 @@ if (!isset($pageTitle))
 	
 	$newsPage = "";
 	$chatPage = "";
+	$ircPage = "";
+	$mumblePage = "";
 	$groupPage = "";
 	$gamingPage = "";
 	$eventsPage = "";
 	$serversPage = "";
-	$mumblePage = "";
 	$projectsPage = "";
 	$aboutPage = "";
 
