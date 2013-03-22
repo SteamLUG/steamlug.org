@@ -36,7 +36,7 @@
 				<dl>
 				<dt>Host</dt><dd>dannebrog.steamlug.org</dd>
 				<dt>Port</dt><dd><?=$info['x_gtmurmur_connectport'];?> (<em>default port</em>)</dd>
-				<dt>Password</dt><dd><em>Will be mentioned in the event details</em></dd>
+				<dt>Password</dt><dd><em>Ask in <a href = 'irc'>IRC</a> or see the description of one of our <a href = 'http://steamcommunity.com/groups/steamlug/events'>Steam group events</a> (requires membership)</em></dd>
 				</dl>
 			</div>
 			</article>
