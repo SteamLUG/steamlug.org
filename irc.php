@@ -43,7 +43,7 @@ $pageTitle = "Chat";
 					<li><a href="http://steamcommunity.com/id/cheeseness">Cheeseness</a></li>
 					<li><a href="http://steamcommunity.com/id/flibitijibibo">flibitijibibo</a></li>
 					<li><a href="http://steamcommunity.com/id/meklu">meklu</a></li>
-					<li><a href="http://www.youtube.com/user/Xpander666">xpander</a></li>
+					<li><a href="http://steamcommunity.com/id/xpander69">xpander</a></li>
 					<li><a href="http://steamcommunity.com/id/swordfischer">swordfischer</a></li>
 					<li><a href="http://steamcommunity.com/id/johndrinkwater">johndrinkwater</a></li>
 				</ul>
