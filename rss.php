@@ -81,15 +81,6 @@
 			echo "<guid>" . $event['url'] . "</guid>\n";
 			echo "<category>Event</category>\n";
 		echo "</item>\n";
-		
-		/*
-				$eventString = "\t\t\t<li>\n";
-
-		$eventString .= "\t\t\t\t<img class = 'eventLogo' src = '" . $event["img_small"] . "' alt = " . $event["title"] . ">\n";
-		$eventString .= "\t\t\t\t<a class = 'eventName' href = '" . $event["url"] . "'>" . $event["title"] . "</a><span class = 'eventDate'>" . $event['date'] . " " . $event['time'] . " " . $event['tz'] . "</span>\n";
-
-		$eventString .= "\t\t\t</li>\n";
-		echo $eventString;*/
 	}
 	
 	echo "</channel>";
