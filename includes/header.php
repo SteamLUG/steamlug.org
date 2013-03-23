@@ -56,7 +56,7 @@ if (!isset($pageTitle))
 	$isBeta = true;
 	if ($isBeta)
 	{
-		echo "<img alt = 'beta ribbon' id = 'betaStamp' src = 'images/ribbon_beta2.png'>";
+		echo "<img alt = 'beta ribbon' id = 'betaStamp' src = 'images/ribbon_beta2.png' />";
 	}
 	
 	
