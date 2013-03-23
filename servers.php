@@ -1,10 +1,11 @@
 <?php
-
 $pageTitle = "Servers";
 ?>
 <?php
 	include_once("includes/header.php");
 	include_once("includes/SourceQuery/SourceQuery.class.php");
+	// 10 second cache
+	header("Cache-Control: public, max-age=10");
 ?>
 		<header>
 			<hgroup>
