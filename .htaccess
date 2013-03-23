@@ -1,0 +1,5 @@
+# no www-prefix
+RewriteBase /
+RewriteEngine on
+RewriteCond %{HTTP_HOST} ^www\.(.*)$
+RewriteRule ^(.*)$ http://%1/$1 [L,R=301]
