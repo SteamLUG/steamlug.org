@@ -29,7 +29,7 @@
 	echo "\t<lastBuildDate>";
 	echo date("r");
 	echo "</lastBuildDate>\n";
-	echo "\t<atom:link href='http://steamlug.org/rss.php' rel = 'self' type='application/rss+xml' />";
+	echo "\t<atom:link href='http://steamlug.org/rss.php' rel = 'self' type='application/rss+xml' />\n";
 	echo "\t<pubDate>";
 	echo date("r");
 	echo "</pubDate>\n";
@@ -37,7 +37,7 @@
 	$rss->cache_dir = './temp';
 	$rss->cache_time = 1200;
 	$rss->CDATA = 'content';
-	$rss->items_limit = 6;
+	$rss->items_limit = 20;
 	$rssString = "";
 	if ($rs = $rss->get('http://steamcommunity.com/groups/steamlug/rss'))
 	{
