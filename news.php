@@ -38,7 +38,7 @@ $extraJS = "			getTwitters('tweet', {
 	$rss->CDATA = 'content';
 	$rss->items_limit = 6;
 	$rssString = "";
-	if ($rs = $rss->get('http://steamcommunity.com/groups/steamlug/rss'))
+	if ($rs = $rss->get('http://cenobite.swordfischer.com/rss'))
 	{
 		foreach($rs['items'] as $item)
 		{
