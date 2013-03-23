@@ -29,7 +29,7 @@
 	echo "\t<lastBuildDate>";
 	echo date("r");
 	echo "</lastBuildDate>\n";
-	echo "\t<atom:link href='http://steamlug.org/rss.php type='application/rss+xml' />";
+	echo "\t<atom:link href='http://steamlug.org/rss.php' type='application/rss+xml' />";
 	echo "\t<pubDate>";
 	echo date("r");
 	echo "</pubDate>\n";
@@ -67,7 +67,7 @@
 
 				echo "<item>";
 					echo "<title>" . $item['title'] . "</title>";
-					echo "<link>" . $item['title'] . "</link>";
+					echo "<link>" . $item['link'] . "</link>";
 					echo "<description>" . $item['description'] . "</description>";
 					echo "<author>" . $item['author'] . "</author>";
 					echo "<pubDate>" .  $item['pubDate'] ."</pubDate>";
