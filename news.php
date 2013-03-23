@@ -64,8 +64,7 @@ $extraJS = "			getTwitters('tweet', {
 				{
 					$item['author'] = "Author";
 				}				
-				
-				$rssString .= "\t\t\t<article>\n";
+								$rssString .= "\t\t\t<article>\n";
 				$rssString .= "\t\t\t\t<div class = 'shadow'>\n";
 				$rssString .= "\t\t\t\t\t<h1><a href = '" . $item['link'] . "'>" . htmlspecialchars($item['title']) . "</a></h1>\n";
 				$rssString .= "\t\t\t\t\t<p class = 'attribution'>By " . $item['author'] . " on " . str_replace("+0000", "UTC", $item['pubDate']) . "</p>\n";
