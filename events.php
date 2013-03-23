@@ -72,11 +72,7 @@ $externalJS = array('scripts/events.js');
 		</article>
 		<article id='main'>
 		<div class="shadow">
-<!--<pre>
-<?php
-print_r($data2);
-?>
-</pre>-->
+		
 		<h1>Upcoming Events</h1>
 		<ul>
 
