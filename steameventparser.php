@@ -101,7 +101,7 @@ class SteamEventParser {
 		//$month = (strlen($month) === 1) ? "0" . $month : (string) $month;
 		$year = (empty($year)) ? gmstrftime("%Y") : $year;
 		// TODO: HTTPS?
-		$url = "http://cenobite.swordfischer.com/" . $group . "/events_$month_$year";
+		$url = "http://cenobite.swordfischer.com/" . $group . "/events_" . $month . "_" . $year;
 		// Setting the (upcoming) file handle to true for ultimate hackiness
 		$f = true;
 		// Checking robots.txt with rbt_prs (https://github.com/meklu/rbt_prs) if it's been included
