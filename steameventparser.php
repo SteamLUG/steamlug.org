@@ -43,8 +43,7 @@ class SteamEventParser {
 					if ($class === "eventDateBlock") {
 						// date
 						$_date = explode(" ", $subnode->firstChild->textContent);
-						//$_date = (strlen($_date[1]) === 1) ? "0" . $_date[1] : (string) $_date[1]; 
-						$_date = $_date[1];
+						$_date = (strlen($_date[1]) === 1) ? "0" . $_date[1] : (string) $_date[1]; 
 						$_date = "$year-$month-" . $_date;
 						
 						$_time = $subnode->childNodes->item(2)->textContent;
@@ -98,7 +97,7 @@ class SteamEventParser {
 		$pst = new DateTimeZone("America/Los_Angeles");
 		
 		$tzDest = new DateTimeZone($tz);
-		$month = (empty($month)) ? gmstrftime("%m") : $month;
+		$month = (empty($month)) ? intval(gmstrftime("%m")) : $month;
 		//$month = (strlen($month) === 1) ? "0" . $month : (string) $month;
 		$year = (empty($year)) ? gmstrftime("%Y") : $year;
 		// TODO: HTTPS?
