@@ -33,7 +33,6 @@
 	echo date("r");
 	echo "</pubDate>\n";
 
-
 	$parser = new SteamEventParser();
 	$data = $parser->genData("steamlug");
 	$d = explode("-", $data['events'][0]['date']);
