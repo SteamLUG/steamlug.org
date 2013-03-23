@@ -33,7 +33,9 @@
 				<li><a href = 'http://steamlinux.xpaw.ru/'>The Big List of Steam Games on Linux</a></li>
 			</ul>
 		</div>
-		<p class = 'copy'>© Copyleft and Copyright SteamLUG Community as noted</p>
+		<p class = 'copy'>This site is not affiliated with or endorsed by Valve, Steam, or any of their partners.<br />
+All registered trademarks or copyrights are property of ther respective owners.</p>
+		<p>All documents and information made available by this project are provided "as is". No participant in this project makes any warranties regarding use of any of the documents or information provided or made available by this project.</p>
 		</footer>
 	</body>
 </html>
