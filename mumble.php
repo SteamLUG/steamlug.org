@@ -3,6 +3,9 @@
 	include_once('includes/header.php');
 	include_once('includes/MurmurQuery.php');
 
+	// 10 second cache
+	header("Cache-Control: public, max-age=10");
+
 	$settings		=	array
 	(
 		'host'		=>	'130.226.217.214',

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <?php
-
+// caching (60 seconds)
+header("Cache-Control: public, max-age=60");
 if (!isset($description))
 {
 	$description = "SteamLUG - the Steam Linux User Group! A multilingual community of Linux gamers which aims to be a fun, welcoming space for people of all backgrounds and aptitudes.";
