@@ -44,6 +44,7 @@ class SteamEventParser {
 						// date
 						$_date = explode(" ", $subnode->firstChild->textContent);
 						//$_date = (strlen($_date[1]) === 1) ? "0" . $_date[1] : (string) $_date[1];
+						$_date = $_date[1];
 						$_date = "$year-$month-" . $_date;
 						
 						$_time = $subnode->childNodes->item(2)->textContent;
