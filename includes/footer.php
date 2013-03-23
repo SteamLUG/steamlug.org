@@ -34,8 +34,8 @@
 			</ul>
 		</div>
 		<p class = 'copy'>This site is not affiliated with or endorsed by Valve, Steam, or any of their partners.<br />
-All registered trademarks or copyrights are property of ther respective owners.</p>
-		<p>All documents and information made available by this project are provided "as is". No participant in this project makes any warranties regarding use of any of the documents or information provided or made available by this project.</p>
+All registered trademarks or copyrights are property of their respective owners.</p>
+		<p class = 'copy'>All documents and information made available by this project are provided "as is".<br />No participant in this project makes any warranties regarding use of any of the documents or information provided or made available by this project.</p>
 		</footer>
 	</body>
 </html>
