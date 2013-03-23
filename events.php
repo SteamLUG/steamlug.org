@@ -93,12 +93,6 @@ print_r($data2);
 	}
 ?>
 		</ul>
-		<!--
-			<li>
-				<div class="eventLogo"><img src="" alt=""/></div>
-				<div class="eventName"><a href="">SteamLUG FPS Friturday #</a><span class="eventDate">2013-00-00, 20:00 UTC</span></div>
-			</li>
-		!-->
 		</div>
 		</article>
 		<article id='history'>
