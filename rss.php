@@ -9,22 +9,22 @@
 	echo "<rss version='2.0' xmlns:atom='http://www.w3.org/2005/Atom'>\n";
 	echo "<channel>\n";
 	echo "\t<title>";
-	echo "twolofbees.com - Pretty pictures, cute comics and love letters.";
+	echo "SteamLUG events!.";
 	echo "</title>\n";
 	echo "\t<description>";
-	echo "Latest artwork and blog entries from Cheese and Mim of twolofbees.com.";
+	echo "This feed contains a list of SteamLUG game events.";
 	echo "</description>\n";
 	echo "\t<language>";
 	echo "en-au";
 	echo "</language>\n";
 	echo "\t<copyright>";
-	echo "Copyright " . date("Y") . " twolofbees.com";
+	echo "Copyright " . date("Y") . " SteamLUG community";
 	echo "</copyright>\n";
 	echo "\t<link>";
-	echo "http://twolofbees.com/";
+	echo "http://steamlug.org";
 	echo "</link>\n";
 	echo "\t<managingEditor>";
-	echo "contact@twolofbees.com (Mim)";
+	echo "steamlug@gmail.com";
 	echo "</managingEditor>\n";
 	echo "\t<lastBuildDate>";
 	echo date("r");
@@ -59,6 +59,11 @@
 				$item['description'] = str_replace("</ul>\n\n<br>", "</ul>\n<p>", $item['description']);
 				$item['description'] = str_replace("<ul>", "</p>\n<ul>", $item['description']);
 				$item['description'] = str_replace("<br>", "<br />", $item['description']);
+
+				if (!isset($item['author']))
+				{
+					$item['author'] = "Author";
+				}				
 
 				echo "<item>";
 					echo "<title>" . $item['title'] . "</title>";
