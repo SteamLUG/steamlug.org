@@ -60,7 +60,7 @@
 			if ($tempDate->sub(new TimeInterval("P23H")) > $nowDate)
 			{
 				$timeLeft = "Under 1 week";
-				if ($tempDate->sub(new TimeInterval("P6D")) > $nowDate)
+				if ($tempDate->sub(new DateInterval("P6D")) > $nowDate)
 				{
 					$timeLeft = "Ages ;_;";
 					continue;			
