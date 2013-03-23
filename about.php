@@ -33,7 +33,7 @@
 					<h2>Events</h2>
 					<p>We host regular gaming events to highlight native Linux games and bring Linux gamers together. For more information, visit the <a href = 'events'>Events page</a>.</p>
 					<h2>Audiocast - Coming Soon</h2>
-					<p>___ is a regular, ongoing ___ly audio cast focusing on Steam/Valve news, F/OSS gaming news, Wine updates, SteamLUG happenings and othe Linux gaming related tech news. You can tune in live on our <a href = 'mumble'>Mumble server</a>, or download archived shows from the audiocast page.</p>
+					<p>Our currently unnamed audio cast will be a regular, ongoing monthly (<em>subject to change</em>) audio cast focusing on Steam/Valve news, F/OSS gaming news, Wine updates, SteamLUG happenings and othe Linux gaming related tech news. You can tune in live on our <a href = 'mumble'>Mumble server</a>, or download archived shows from the audiocast page. Date and time are to be confirmed.</p>
 					<h2>Projects</h2>
 					<p>Sometimes people in our community get excited enough to make something big happen. Some of our projects are open. Others are hidden until completion. For more information and details of current public projects, visit the <a href = 'projects'>Projects page</a>.</p>
 				</div>
@@ -43,7 +43,7 @@
 				<h1>History</h1>
 				<p>The SteamLUG community is an amalgamation of several communities which previously existed independently.</p>
 				<h2>Steam Group</h2>
-<p>The <a href = 'http://forums.steampowered.com/forums/showthread.php?t=1897204'>Linux User Group</a> on Steam was created by vorot93 as "We Want Linux Client!" in June 2010. It gained popularity and quickly achieved the critical mass needed to sustain its position as the biggest Steam group of Linux users on Steam, and continued to grow in spite of its dormancy. In 2012, the current group admin Zenitur handed ownership of the group over to Cheeseness, who brought the group back into an active state and merged it with the existing SteamLUG IRC community to coincide with the release of Steam for Linux.</p>
+<p>The <a href = 'http://forums.steampowered.com/forums/showthread.php?t=1897204'>Linux User Group</a> on Steam was created by vorot93 as "We Want Linux Client!" in April 2010 as a petition-like effort to gain Valve's attention. It gained popularity and quickly achieved the critical mass needed to sustain its position as the biggest Steam group of Linux users on Steam, and continued to grow in spite of its dormancy. In 2012, the current group admin Zenitur handed ownership of the group over to Cheeseness, who brought the group back into an active state and merged it with the existing SteamLUG IRC community to coincide with the release of Steam for Linux.</p>
 <p>In March 2013, a SteamLUG community member from Valve offered to assist with changing the group name. Following a community poll, ______ (<em>Steam currently can not be used in group names</em>) was settled on as the name for the Steam group moving forwards.</p>
 				<h2>SPUF Thread</h2>
 <p>Prior to the introduction of Steam for Linux, discussion of Linux on the Steam Powered User Forums was confined to a single thread, bringing together people of varying backgrounds and creating engaging discussion. The current iteration of the <a href = 'http://forums.steampowered.com/forums/showthread.php?t=1897204'>Linux Thread</a> was created by madrang in May 2011, and accumulated over 4,000 posts before the end of 2012.</p>
