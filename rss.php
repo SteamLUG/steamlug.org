@@ -54,10 +54,10 @@
 		//TODO: We probably should be using whatever timezone the events were using to begin with
 		$tempDate = new DateTime($event['date'] . " " . $event['time'], $timezone);
 		$timeLeft = "Under an hour";
-		if ($tempDate->sub(new TimeInterval("P1H")) > $nowDate)
+		if ($tempDate->sub(new DateInterval("P1H")) > $nowDate)
 		{
 			$timeLeft = "Under 24 hours";
-			if ($tempDate->sub(new TimeInterval("P23H")) > $nowDate)
+			if ($tempDate->sub(new DateInterval("P23H")) > $nowDate)
 			{
 				$timeLeft = "Under 1 week";
 				if ($tempDate->sub(new DateInterval("P6D")) > $nowDate)
