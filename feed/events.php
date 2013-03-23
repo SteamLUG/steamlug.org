@@ -1,5 +1,4 @@
 <?php
-
 	header("Content-Type: application/rss+xml");
 	header("Access-Control-Allow-Origin: *");
 	require_once("../rbt_prs.php");
