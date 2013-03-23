@@ -60,15 +60,15 @@
 				$item['description'] = str_replace("<ul>", "</p>\n<ul>", $item['description']);
 				$item['description'] = str_replace("<br>", "<br />", $item['description']);
 
-				echo "<item>";
-					echo "<title>" . $item['title'] . "</title>";
-					echo "<link>" . $item['link'] . "</link>";
-					echo "<description>" . $item['description'] . "</description>";
-					echo "<author>steamlug@gmail.com (SteamLUG)</author>";
-					echo "<pubDate>" .  $item['pubDate'] ."</pubDate>";
-					echo "<guid>" . $item['link'] . "</guid>";
-					echo "<category>Event</category>";
-				echo "</item>";
+				echo "<item>\n";
+					echo "<title>" . $item['title'] . "</title>\n";
+					echo "<link>" . $item['link'] . "</link>\n";
+					echo "<description>" . $item['description'] . "</description>\n";
+					echo "<author>steamlug@gmail.com (SteamLUG)</author>\n";
+					echo "<pubDate>" .  $item['pubDate'] ."</pubDate>\n";
+					echo "<guid>" . $item['link'] . "</guid>\n";
+					echo "<category>Event</category>\n";
+				echo "</item>\n";
 			
 			}
 		}
