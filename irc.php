@@ -22,7 +22,7 @@ $pageTitle = "Chat";
 			</article>
 			<article>
 				<div class = 'shadow'>
-				<iframe src="http://webchat.freenode.net?channels=steamlug" width = "640px" height = "600px">
+				<iframe src="http://webchat.freenode.net?channels=steamlug" width = "640" height = "600">
 					<p>Your browser does not support iframes.</p>
 				</iframe>
 				</div>
