@@ -16,9 +16,9 @@ if (!isset($pageTitle))
 }
 
 ?>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<meta name = 'description' content = "<?php echo $description; ?>" />
 		<meta name = 'keywords' content = "<?php echo $keywords; ?>" />
 		<title>SteamLUG <?php echo $pageTitle; ?></title>
@@ -56,7 +56,7 @@ if (!isset($pageTitle))
 	$isBeta = true;
 	if ($isBeta)
 	{
-		echo "<img id = 'betaStamp' src = 'images/ribbon_beta2.png'>";
+		echo "<img alt = 'beta ribbon' id = 'betaStamp' src = 'images/ribbon_beta2.png'>";
 	}
 	
 	
