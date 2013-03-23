@@ -24,12 +24,12 @@
 	echo "http://steamlug.org";
 	echo "</link>\n";
 	echo "\t<managingEditor>";
-	echo "steamlug@gmail.com";
+	echo "steamlug@gmail.com (SteamLUG)";
 	echo "</managingEditor>\n";
 	echo "\t<lastBuildDate>";
 	echo date("r");
 	echo "</lastBuildDate>\n";
-	echo "\t<atom:link href='http://steamlug.org/rss.php' type='application/rss+xml' />";
+	echo "\t<atom:link href='http://steamlug.org/rss.php' rel = 'self' type='application/rss+xml' />";
 	echo "\t<pubDate>";
 	echo date("r");
 	echo "</pubDate>\n";
@@ -60,16 +60,11 @@
 				$item['description'] = str_replace("<ul>", "</p>\n<ul>", $item['description']);
 				$item['description'] = str_replace("<br>", "<br />", $item['description']);
 
-				if (!isset($item['author']))
-				{
-					$item['author'] = "Author";
-				}				
-
 				echo "<item>";
 					echo "<title>" . $item['title'] . "</title>";
 					echo "<link>" . $item['link'] . "</link>";
 					echo "<description>" . $item['description'] . "</description>";
-					echo "<author>" . $item['author'] . "</author>";
+					echo "<author>steamlug@gmail.com (SteamLUG)</author>";
 					echo "<pubDate>" .  $item['pubDate'] ."</pubDate>";
 					echo "<guid>" . $item['link'] . "</guid>";
 					echo "<category>Event</category>";
