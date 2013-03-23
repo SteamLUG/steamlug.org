@@ -1,5 +1,5 @@
 <?php
-$pageTitle = "About";
+	$pageTitle = "About";
 ?>
 <?php include_once("includes/header.php"); ?>
 		<header>
