@@ -53,15 +53,19 @@
 
 		//TODO: We probably should be using whatever timezone the events were using to begin with
 		$tempDate = new DateTime($event['date'] . " " . $event['time'], $timezone);
+		echo $tempDate->format("RSS");
 		$timeLeft = "Under an hour";
 		if ($tempDate->sub(new DateInterval("PT1H")) > $nowDate)
 		{
+		echo $tempDate->format("RSS");
 			$timeLeft = "Under 24 hours";
 			if ($tempDate->sub(new DateInterval("PT23H")) > $nowDate)
 			{
+		echo $tempDate->format("RSS");
 				$timeLeft = "Under 1 week";
 				if ($tempDate->sub(new DateInterval("P6D")) > $nowDate)
 				{
+		echo $tempDate->format("RSS");
 					$timeLeft = "Ages ;_;";
 					continue;			
 				}
@@ -71,21 +75,21 @@
 		echo "<item>\n";
 			echo "<title>" . $event['title'] . "</title>\n";
 			echo "<link>" . $event['url'] . "</link>\n";
-			echo "<description>" . $event['title'] . " at " . $event['date'] . " " . $event['time'] . " " . $event['tz'] . " (" . $timeUeft. " away)</description>\n";
+			echo "<description>" . $event['title'] . " at " . $event['date'] . " " . $event['time'] . " " . $event['tz'] . " (" . $timeLeft. " away)</description>\n";
 			echo "<author>steamlug@gmail.com (SteamLUG)</author>\n";
 			echo "<pubDate>". $tempDate->format("RSS") . "</pubDate>\n";
 			echo "<guid>" . $event['url'] . "</guid>\n";
 			echo "<category>Event</category>\n";
 		echo "</item>\n";
 		
-		
+		/*
 				$eventString = "\t\t\t<li>\n";
 
 		$eventString .= "\t\t\t\t<img class = 'eventLogo' src = '" . $event["img_small"] . "' alt = " . $event["title"] . ">\n";
 		$eventString .= "\t\t\t\t<a class = 'eventName' href = '" . $event["url"] . "'>" . $event["title"] . "</a><span class = 'eventDate'>" . $event['date'] . " " . $event['time'] . " " . $event['tz'] . "</span>\n";
 
 		$eventString .= "\t\t\t</li>\n";
-		echo $eventString;
+		echo $eventString;*/
 	}
 	
 	echo "</channel>";
