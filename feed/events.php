@@ -73,7 +73,7 @@
 			echo "<title>" . $event['title'] . "</title>\n";
 			echo "<link>" . $event['url'] . "</link>\n";
 			echo "<description>";
-			echo "&lt;img width='292' height='136' src='http://events.steamlug.org/" . $event['img_header_small'] . "' alt='" . $event['title'] . "'/&gt;";
+			echo "&lt;img width='292' height='136' src='" . $event['img_header_small'] . "' alt='" . $event['title'] . "'/&gt;";
 			echo "&lt;p&gt;A reminder that " . $event['title'] . " will be on " . $event['date'] . " at " . $event['time'] . " " . $event['tz'] . " (" . $timeLeft. " away)&lt;/p&gt;</description>\n";
 			echo "<author>steamlug@gmail.com (SteamLUG)</author>\n";
 			echo "<pubDate>". $tempDate->format("D, d M Y H:i:s O") . "</pubDate>\n";
