@@ -6,6 +6,7 @@
  * It prints the data as JSON and sets an appropriate heading for it as well
  */
 
+
 /* We mustn't forget to include the parser */
 require_once("steameventparser.php");
 /* Setting the MIME type */
