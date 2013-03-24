@@ -4,7 +4,7 @@ $pageTitle = "News";
 
 $extraJS = "			getTwitters('tweet', { 
 			id: 'steamlug', 
-			count: 5, 
+			count: 3, 
 			enableLinks: true, 
 			ignoreReplies: true, 
 			clearContents: true,
