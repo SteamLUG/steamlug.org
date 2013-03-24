@@ -69,7 +69,7 @@ $extraJS = "			getTwitters('tweet', {
 				$rssString .= "\t\t\t\t\t<h1><a href = '" . $item['link'] . "'>" . htmlspecialchars($item['title']) . "</a></h1>\n";
 				$rssString .= "\t\t\t\t\t<p class = 'attribution'>By " . $item['author'] . " on " . str_replace("+0000", "UTC", $item['pubDate']) . "</p>\n";
 				$rssString .= "\t\t\t\t\t<p>" . $item['description'] . "</p>\n";
-				$rssString .= "\t\t\t\t\t<p class = 'serverlink'><a href = '" . $item['link'] . "'>View and comment on Steamcommunity.com</a></p>\n";
+				$rssString .= "\t\t\t\t\t<p class = 'serverlink'><a href = '" . $item['link'] . "'>View and comment on our Steam group</a></p>\n";
 				$rssString .= "\t\t\t\t</div>\n";
 				$rssString .= "\t\t\t</article>\n";
 			}
