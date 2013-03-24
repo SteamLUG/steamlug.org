@@ -230,6 +230,11 @@ article ul, ol
 
 article ul
 {
+	list-style-type: square;
+}
+
+article ul .eventList
+{
 	list-style-type: none;
 }
 

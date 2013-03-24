@@ -18,7 +18,7 @@ $pageTitle = "Servers";
 			<div class="shadow">
 				<h1>About</h1>
 				<p>Below you can find a list of our currently active game servers. Where possible, live information for the current map, number of players, etc. will be shown.</p>
-				<p>If you would like to host a SteamLUG server, or help manage our existing ones, please see *** NEED A LINK HERE *** this discussion thread.</p>
+				<p>If you would like to host a SteamLUG server, or help manage our existing ones, , please contact <a href = 'http://steamcommunity.com/id/swordfischer'>swordfischer</a>.</p>
 			</div>
 		</article>
 <?php

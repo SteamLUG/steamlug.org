@@ -64,7 +64,7 @@ $externalJS = array('scripts/events.js');
 				<p>Here you can find a list of upcoming group gaming events hosted by the SteamLUG community. A countdown timer is shown above for the next upcoming event.</p>
 				<p>All times are listed in UTC, though we use the term "<em>Friturday</em>" to represent the overlap between Friday and Saturday around the world.</p>
 				<p>Click on an event title to post comments, find more information, and retrieve server passwords (for this, you will need to become a group member by clicking the Join Group button on the upper right of any of the event pages).</p>
-				<p>If you'd like to know more about our community, visit the <a href='about'>About page</a>, or hop into our <a href = 'chat'>IRC channel</a> and say hi. If you'd like to get involved with organising SteamLUG events, please see *** NEED A LINK HERE *** this discussion thread.</p>
+				<p>If you'd like to know more about our community, visit the <a href='about'>About page</a>, or hop into our <a href = 'chat'>IRC channel</a> and say hi. If you'd like to get involved with organising SteamLUG events, please contact <a href = 'http://steamcommunity.com/id/swordfischer'>swordfischer</a>.</p>
 
 				<h1>Mumble</h1>
 <p>We also run a <a href = 'http://mumble.sourceforge.net/'>Mumble</a> voice chat server which we use in place of in-game voice chat. You can learn more about it on our <a href = 'mumble'>Mumble page</a>.
@@ -74,7 +74,7 @@ $externalJS = array('scripts/events.js');
 		<div class="shadow">
 		
 		<h1>Upcoming Events</h1>
-		<ul>
+		<ul class = 'eventList'>
 
 <?php
 	foreach ($data['events'] as $event)
@@ -94,7 +94,7 @@ $externalJS = array('scripts/events.js');
 		<article id='history'>
 		<div class="shadow">
 		<h1>Past Events</h1>
-		<ul>
+		<ul class = 'eventList'>
 
 <?php
 	foreach ($data['pastevents'] as $event)
