@@ -233,7 +233,7 @@ article ul
 	list-style-type: square;
 }
 
-article ul .eventList
+article .eventList, #tweet ul
 {
 	list-style-type: none;
 }
