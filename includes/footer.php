@@ -31,6 +31,7 @@
 				<li><a href = 'http://www.reddit.com/r/linux_gaming/'>Linux_Gaming Subreddit</a></li>
 				<li><a href = 'http://steamdb.info/'>SteamDB.info</a></li>
 				<li><a href = 'http://steamlinux.xpaw.ru/'>The Big List of Steam Games on Linux</a></li>
+				<li><a href = 'http://gamingonlinux.com/'>Gaming On Linux</a></li>
 			</ul>
 		</div>
 		<p class = 'copy'>This site is not affiliated with or endorsed by Valve, Steam, or any of their partners.<br />
