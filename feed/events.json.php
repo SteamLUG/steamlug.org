@@ -1,6 +1,6 @@
 <?php
-require_once("rbt_prs.php");
-require_once("steameventparser.php");
+require_once("../rbt_prs.php");
+require_once("../steameventparser.php");
 $parser = new SteamEventParser();
 $data = $parser->genData("steamlug");
 $d = explode("-", $data['events'][0]['date']);
