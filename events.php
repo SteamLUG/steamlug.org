@@ -2,18 +2,22 @@
 require_once("rbt_prs.php");
 require_once("steameventparser.php");
 $parser = new SteamEventParser();
-$data = $parser->genData("steamlug");
-$d = explode("-", $data['events'][0]['date']);
-$t = explode(":", $data['events'][0]['time']);
-$dateString = "var target = Math.round( Date.UTC (" . $d[0] . ", " . $d[1] . " -1, " . $d[2] . ", " . $t[0] . ", " . $t[1] . ", 0, 0) / 1000);";
 
 $month = gmstrftime("%m");
 $year = gmstrftime("%Y");
+$data = $parser->genData("steamlug", $month, $year);
+
 $data2 = $parser->genData("steamlug", $month >= 12 ? 1: $month +1, $month >= 12 ? $year + 1: $year);
 $data3 = $parser->genData("steamlug", $month <= 1 ? 12: $month -1, $month <= 1 ? $year -1: $year);
 
 $data['events'] = array_merge($data['events'], $data2['events']);
 $data['pastevents'] = array_merge($data['pastevents'], $data3['pastevents']);
+
+$d = explode("-", $data['events'][0]['date']);
+$t = explode(":", $data['events'][0]['time']);
+$dateString = "var target = Math.round( Date.UTC (" . $d[0] . ", " . $d[1] . " -1, " . $d[2] . ", " . $t[0] . ", " . $t[1] . ", 0, 0) / 1000);";
+
+
 
 $pageTitle = "Events";
 $extraJS = $dateString;
@@ -64,7 +68,7 @@ $externalJS = array('scripts/events.js');
 				<p>Here you can find a list of upcoming group gaming events hosted by the SteamLUG community. A countdown timer is shown above for the next upcoming event. We also have an <a href = 'http://steamlug.org/feed/events'>RSS feed</a> of event reminders available.</p>
 				<p>All times are listed in UTC, though we use the term "<em>Friturday</em>" to represent the overlap between Friday and Saturday around the world.</p>
 				<p>Click on an event title to post comments, find more information, and retrieve server passwords (for this, you will need to become a group member by clicking the Join Group button on the upper right of any of the event pages).</p>
-				<p>If you'd like to know more about our community, visit the <a href='about'>About page</a>, or hop into our <a href = 'chat'>IRC channel</a> and say hi. If you'd like to get involved with organising SteamLUG events, please contact <a href = 'http://steamcommunity.com/id/swordfischer'>swordfischer</a>.</p>
+				<p>If you'd like to know more about our community, visit the <a href='about'>About page</a>, or hop into our <a href = 'irc'>IRC channel</a> and say hi. If you'd like to get involved with organising SteamLUG events, please contact <a href = 'http://steamcommunity.com/id/swordfischer'>swordfischer</a>.</p>
 
 				<h1>Mumble</h1>
 <p>We also run a <a href = 'http://mumble.sourceforge.net/'>Mumble</a> voice chat server which we use in place of in-game voice chat. You can learn more about it on our <a href = 'mumble'>Mumble page</a>.
