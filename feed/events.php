@@ -34,16 +34,16 @@
 	echo "</pubDate>\n";
 
 	$parser = new SteamEventParser();
-	$data = $parser->genData("steamlug");
+	$month = gmstrftime("%m");
+	$year = gmstrftime("%Y");
+	$data = $parser->genData("steamlug", $month, $year);
+	$data2 = $parser->genData("steamlug", $month >= 12 ? 1: $month +1, $month >= 12 ? $year + 1: $year);
+	$data['events'] = array_merge($data['events'], $data2['events']);
+	
 	$d = explode("-", $data['events'][0]['date']);
 	$t = explode(":", $data['events'][0]['time']);
 	$dateString = "var target = Math.round( Date.UTC (" . $d[0] . ", " . $d[1] . " -1, " . $d[2] . ", " . $t[0] . ", " . $t[1] . ", 0, 0) / 1000);";
-
-	$month = gmstrftime("%m");
-	$year = gmstrftime("%Y");
-	$data2 = $parser->genData("steamlug", $month >= 12 ? 1: $month +1, $month >= 12 ? $year + 1: $year);
-
-	$data['events'] = array_merge($data['events'], $data2['events']);
+	
 	$timezone = new DateTimeZone('UTC'); 
 	$nowDate = new DateTime("now", $timezone);
 	foreach($data['events'] as $event)
