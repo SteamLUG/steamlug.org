@@ -26,7 +26,7 @@ define( 'SQ_TIMEOUT', 1 );
 define( 'SQ_ENGINE', SourceQuery :: SOURCE );
 
 $ServerHost = "dannebrog.steamlug.org";
-$Ports = array( "27020", "27024", "27028", "27032", "27030", "27022", "27026", "27018");
+$Ports = file( "/var/www/cenobite.swordfischer.com/servers.txt");
 
 $Query = new SourceQuery( );
 foreach ($Ports as $Port)
