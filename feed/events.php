@@ -34,16 +34,12 @@
 	echo "</pubDate>\n";
 
 	$parser = new SteamEventParser();
-	$month = gmstrftime("%m");
+	$month = gmstrftime("%m")-0; // Yuck, apparently the 0 breaks something?
 	$year = gmstrftime("%Y");
 	$data = $parser->genData("steamlug", $month, $year);
-	$data2 = $parser->genData("steamlug", $month >= 11 ? 0: $month +1, $month >= 12 ? $year + 1: $year);
-	print_r($data);
-	print_r($data2);
-
+	$data2 = $parser->genData("steamlug", ( $month >= 12 ? 1 : ( $month +1 ) ), ( $month >= 12 ? ( $year + 1 ) : $year ));
 	$data['events'] = array_merge($data['events'], $data2['events']);
 	
-	print_r($data);
 	
 	$d = explode("-", $data['events'][0]['date']);
 	$t = explode(":", $data['events'][0]['time']);
@@ -56,23 +52,18 @@
 		//TODO: We probably should be using whatever timezone the events were using to begin with
 		$tempDate = new DateTime($event['date'] . " " . $event['time'], $timezone);
 		$timeLeft = "1 hour";
-		echo $event['title'] . ": " . $timeLeft;
 		if ($tempDate->sub(new DateInterval("PT1H")) > $nowDate)
 		{
 			$timeLeft = "24 hours";
-			echo $event['title'] . ": " . $timeLeft;
 			if ($tempDate->sub(new DateInterval("PT23H")) > $nowDate)
 			{
 				$timeLeft = "1 week";
-				echo $event['title'] . ": " . $timeLeft;
 				if ($tempDate->sub(new DateInterval("P6D")) > $nowDate)
 				{
 					$timeLeft = "2 weeks";
-					echo $event['title'] . ": " . $timeLeft;
 					if ($tempDate->sub(new DateInterval("P7D")) > $nowDate)
 					{
 						$timeLeft = "Ages ;_;";
-						echo $event['title'] . ": " . $timeLeft;
 						continue;			
 					}
 				}
