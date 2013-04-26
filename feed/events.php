@@ -38,6 +38,9 @@
 	$year = gmstrftime("%Y");
 	$data = $parser->genData("steamlug", $month, $year);
 	$data2 = $parser->genData("steamlug", $month >= 11 ? 0: $month +1, $month >= 12 ? $year + 1: $year);
+	print_r($data);
+	print_r($data2);
+
 	$data['events'] = array_merge($data['events'], $data2['events']);
 	
 	print_r($data);
