@@ -390,3 +390,21 @@ footer .copy
 {
 	margin-top: 1em;
 }
+
+.clearfix
+{
+	clear: both;
+}
+
+div.key {
+	width: 150px;
+	height: 75px;
+	border: 2px solid #529CDE;
+	border-radius: 5px;
+	display: block;
+	background-color: #1B1B1B;
+	background-repeat: no-repeat;
+	background-position: center;
+	margin: 29px;
+	float: left;
+}
