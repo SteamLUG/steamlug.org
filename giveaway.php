@@ -15,7 +15,7 @@
                     <li>2 (two) <a href="http://store.steampowered.com/app/1200/">Red Orchestra: Ostfront 41-45</a></li>
                     <li>2 (two) <a href="http://store.steampowered.com/app/65800/">Dungeon Defenders</a> <i>(includes all DLC)</i></li>
                 </ul>
-                <p>If you unlock a key, please let everyone know in the thread!</p>
+                <p>If you unlock a key, please let everyone know in <a href = 'http://steamcommunity.com/groups/steamlug/announcements/detail/1585542716798108495'>the thread</a>!</p>
 
                 <h1>The Puzzle</h1>
 <div style="background-image: url(https://hakd.org/~swordfischer/dump/2013-05-02_14.35.47_n58cdcjjri.png)" class="key"></div>
