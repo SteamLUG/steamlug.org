@@ -18,6 +18,8 @@
         $murmur->setup($settings);
         $murmur->query();
 
+	$pageTitle = "Live Stream";
+
         $statusOnline = "Pending";
         $statusChannels = 0;
         $statusUsers = 0;

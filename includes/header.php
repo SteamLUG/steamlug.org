@@ -72,6 +72,7 @@ if (!isset($pageTitle))
 	$serversPage = "";
 	$projectsPage = "";
 	$aboutPage = "";
+	$streamPage = "";
 
 	if (strpos($_SERVER["SCRIPT_NAME"], "news.php"))
 	{
@@ -104,6 +105,7 @@ if (!isset($pageTitle))
 	{
 		$gamingPage = "current";
 		$serversPage = "current";
+		$streamPage = "current";
 	}
 	else if (strpos($_SERVER["SCRIPT_NAME"], "projects.php"))
 	{
@@ -119,7 +121,7 @@ if (!isset($pageTitle))
 				<li class = '<?php echo $newsPage; ?>'><a href = 'news'>News</a></li>
 				<li class = '<?php echo $chatPage; ?>'><a href = 'irc'>Chat</a><ul class = '<?php echo $chatPage; ?>'><li class = '<?php echo $ircPage; ?>'><a href = 'irc'>IRC (text)</a></li><li class = '<?php echo $mumblePage; ?>'><a href = 'mumble'>Mumble (voice)</a></li></ul></li>
 				<li class = '<?php echo $groupPage; ?>'><a href = 'http://steamcommunity.com/groups/steamlug/'>Group</a></li>
-				<li class = '<?php echo $gamingPage; ?>'><a href = 'events'>Gaming</a><ul><li class = '<?php echo $eventsPage; ?>'><a href = 'events'>Events</a></li><li class = '<?php echo $serversPage; ?>'><a href = 'servers'>Servers</a></li></ul></li>
+				<li class = '<?php echo $gamingPage; ?>'><a href = 'events'>Gaming</a><ul><li class = '<?php echo $eventsPage; ?>'><a href = 'events'>Events</a></li><li class = '<?php echo $serversPage; ?>'><a href = 'servers'>Servers</a></li><li class = '<?php echo $streamPage; ?>'><a href = 'stream'>Live Stream</a></li></ul></li>
 				<li class = '<?php echo $projectsPage; ?>'><a href = 'projects'>Projects</a></li>
 				<li class = '<?php echo $aboutPage; ?>'><a href = 'about'>About</a></li>
 			</ul>
