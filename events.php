@@ -35,7 +35,7 @@ $externalJS = array('scripts/events.js');
 
 	$eventString = "\t\t\t\t<h2><a href='" . $data["events"][0]["url"] . "'>" .  $data["events"][0]["title"] . "</a></h2>";
 	if ($data["events"][0]["appid"] !== 0) {
-		$eventString .= "\t\t\t\t\t<img src='" . $data["events"][0]["img_header"] . "alt='" . $data["events"][0]["title"] . "'/>\n";
+		$eventString .= "\t\t\t\t\t<img src='" . $data["events"][0]["img_header"] . "' alt='" . $data["events"][0]["title"] . "'/>\n";
 	} else {
 		$eventString .= "\t\t\t\t\t<h1>?</h1>\n";
 	}
