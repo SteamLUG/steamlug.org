@@ -55,8 +55,8 @@ class SteamEventParser {
 						$img = $a->firstChild;
 						$_img_small = $img->getAttribute("src");
 						$_appid = explode("/", $_img_small);
-						$_appid = $_appid[count($_appid) - 2];
-						if (empty($_appid)) {
+						$_appid = intval($_appid[count($_appid) - 2]);
+						if ($_appid === 0) {
 							$_img_header = "";
 							$_img_header_small = "";
 						} else {
