@@ -1,6 +1,7 @@
 <?php
+	$pageTitle = "Streams";
 	include_once('includes/header.php');
-        include_once('includes/MurmurQuery.php');
+    include_once('includes/MurmurQuery.php');
 	require_once('rbt_prs.php');
 	require_once('steameventparser.php');
 
