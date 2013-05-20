@@ -145,6 +145,7 @@ if (!isset($pageTitle))
 				</li>
 				<li class = '<?php echo $projectsPage; ?>'><a href = 'projects'>Projects</a>
 					<ul>
+						<li class = '<?php echo $projectsPage; ?>'><a href = 'projects'>Overview</a></li>
 						<li class = '<?php echo $castPage; ?>'><a href = 'cast'>SteamLUG Cast</a></li>
 					</ul>
 				</li>
