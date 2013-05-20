@@ -47,7 +47,7 @@ nav ul ul
 .current ul, .current:hover ul
 {
 	display: block !important;
-	background: transparent;
+	background: transparent !important;
 }
 
 nav ul li:hover ul
