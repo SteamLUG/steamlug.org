@@ -49,6 +49,14 @@ nav ul ul
 	display: block !important;
 }
 
+nav ul li:hover ul
+{
+	background: url("../images/noise4.png") repeat scroll 0 0 #303030;
+	border-radius: 0 0 10px 10px;
+	box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
+	z-index: 99;
+}
+
 nav ul ul li a
 {
 	font-size: 14px;
