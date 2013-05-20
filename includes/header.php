@@ -71,6 +71,7 @@ if (!isset($pageTitle))
 	$eventsPage = "";
 	$serversPage = "";
 	$projectsPage = "";
+	$overviewPage = "";
 	$aboutPage = "";
 	$streamPage = "";
 	$castPage = "";
@@ -115,6 +116,7 @@ if (!isset($pageTitle))
 	else if (strpos($_SERVER["SCRIPT_NAME"], "projects.php"))
 	{
 		$projectsPage = "current";
+		$overviewPage = "current";
 	}
 	else if (strpos($_SERVER["SCRIPT_NAME"], "cast.php"))
 	{
@@ -145,7 +147,7 @@ if (!isset($pageTitle))
 				</li>
 				<li class = '<?php echo $projectsPage; ?>'><a href = 'projects'>Projects</a>
 					<ul>
-						<li class = '<?php echo $projectsPage; ?>'><a href = 'projects'>Overview</a></li>
+						<li class = '<?php echo $overviewPage; ?>'><a href = 'projects'>Overview</a></li>
 						<li class = '<?php echo $castPage; ?>'><a href = 'cast'>SteamLUG Cast</a></li>
 					</ul>
 				</li>
