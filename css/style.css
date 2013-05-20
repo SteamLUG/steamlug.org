@@ -44,12 +44,6 @@ nav ul ul
 	position: absolute;
 }
 
-.current ul, .current:hover ul
-{
-	display: block !important;
-	background: transparent !important;
-}
-
 nav ul li:hover ul
 {
 	display: block !important;
@@ -57,6 +51,12 @@ nav ul li:hover ul
 	border-radius: 0 0 10px 10px;
 	box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
 	z-index: 99;
+}
+
+.current ul, .current:hover ul
+{
+	display: block !important;
+	background: transparent !important;
 }
 
 nav ul ul li a
