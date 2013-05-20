@@ -81,12 +81,12 @@ if (!isset($pageTitle))
 	}
 	else if (strpos($_SERVER["SCRIPT_NAME"], "irc.php"))
 	{
-		$chatPage = "current";
+		$chatPage = "current"; //parent nav item
 		$ircPage = "current";
 	}
 	else if (strpos($_SERVER["SCRIPT_NAME"], "mumble.php"))
 	{
-		$chatPage = "current";
+		$chatPage = "current"; //parent nav item
 		$mumblePage = "current";
 	}
 	else if (strpos($_SERVER["SCRIPT_NAME"], "group.php"))
@@ -99,18 +99,26 @@ if (!isset($pageTitle))
 	}
 	else if (strpos($_SERVER["SCRIPT_NAME"], "events.php"))
 	{
-		$gamingPage = "current";
+		$gamingPage = "current"; //parent nav item
 		$eventsPage = "current";
 	}
 	else if (strpos($_SERVER["SCRIPT_NAME"], "servers.php"))
 	{
-		$gamingPage = "current";
+		$gamingPage = "current"; //parent nav item
 		$serversPage = "current";
+	}
+	else if (strpos($_SERVER["SCRIPT_NAME"], "stream.php"))
+	{
+		$gamingPage = "current"; //parent nav item
 		$streamPage = "current";
 	}
 	else if (strpos($_SERVER["SCRIPT_NAME"], "projects.php"))
 	{
 		$projectsPage = "current";
+	}
+	else if (strpos($_SERVER["SCRIPT_NAME"], "cast.php"))
+	{
+		$projectsPage = "current"; //parent nav item
 		$castPage = "current";
 	}
 	else if (strpos($_SERVER["SCRIPT_NAME"], "about.php"))
@@ -137,7 +145,7 @@ if (!isset($pageTitle))
 				</li>
 				<li class = '<?php echo $projectsPage; ?>'><a href = 'projects'>Projects</a>
 					<ul>
-						<li class = '<?php echo $castPage; ?>'><a href = 'archive'>Cast</a></li>
+						<li class = '<?php echo $castPage; ?>'><a href = 'cast'>SteamLUG Cast</a></li>
 					</ul>
 				</li>
 				<li class = '<?php echo $aboutPage; ?>'><a href = 'about'>About</a></li>

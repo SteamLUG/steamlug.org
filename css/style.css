@@ -57,6 +57,7 @@ nav ul li:hover ul
 {
 	display: block !important;
 	background: transparent !important;
+	box-shadow: none;
 }
 
 nav ul ul li a
