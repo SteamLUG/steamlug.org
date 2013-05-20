@@ -44,13 +44,15 @@ nav ul ul
 	position: absolute;
 }
 
-.current ul,nav ul li:hover ul
+.current ul, .current:hover ul
 {
 	display: block !important;
+	background: transparent;
 }
 
 nav ul li:hover ul
 {
+	display: block !important;
 	background: url("../images/noise4.png") repeat scroll 0 0 #303030;
 	border-radius: 0 0 10px 10px;
 	box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
