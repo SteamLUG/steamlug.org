@@ -1,4 +1,13 @@
 <?php
+	//
+	$d = explode("-", "2013-05-24");
+	$t = explode(":", "20:00");
+
+	$dateString = "var target = Math.round( Date.UTC (" . $d[0] . ", " . $d[1] . " -1, " . $d[2] . ", " . $t[0] . ", " . $t[1] . ", 0, 0) / 1000);";
+
+	$pageTitle = "Events";
+	$extraJS = $dateString;
+	$externalJS = array('scripts/events.js');
     $pageTitle = "Cast";
     include_once('includes/header.php');
 ?>
@@ -8,6 +17,48 @@
             </hgroup>
         </header>
 <section>
+        <article>
+        <div class="shadow">
+	<h1></h1>
+	<p>SteamLUG Cast is a casual, fortnightly* live audiocast held on the <a href = 'mumble'>SteamLUG Mumble server</a> which aims to provide interesting news and discussion for the SteamLUG and broader Linux gaming communities.</p>
+	<p>Our current hosts are:</p>
+	<ul>
+		<li><a href="http://steamcommunity.com/id/cheeseness">Cheeseness</a> - SteamLUG's benevolent leadery person</li>
+		<li><a href="http://steamcommunity.com/id/johndrinkwater">johndrinkwater</a> - SteamLUG admin and volunteer Valve github maintainer</li>
+		<li><a href="http://steamcommunity.com/id/swordfischer">swordfischer</a> - SteamLUG's chief event organiserer</li>
+	</ul>
+	<p>From time to time, we also have guests joining to share their insights on Linux, the gaming industry and the SteamLUG community. Check back for recording archives, shownotes and further announcements!</p>
+	<p class = 'footnote'>* Schedule subject to change ^_^</p>
+	</div>
+	</article>
+
+
+	<article>
+	<div class = 'shadow'>
+		<h1>Upcoming Episode: Season 01, Episode 01 - Introduction</h1>
+		<p>Cheese, john and sword talk about SteamLUG Cast</p>
+		<div id="countdown">
+			<div>Days<br />
+				<span id="d1" class = "counterDigit">0</span>
+				<span id="d2" class = "counterDigit">0</span>
+			</div>
+			<div>Hours<br />
+				<span id="h1" class = "counterDigit">0</span>
+				<span id="h2" class = "counterDigit">0</span>
+			</div>
+			<div>Minutes<br />
+				<span id="m1" class = "counterDigit">0</span>
+				<span id="m2" class = "counterDigit">0</span>
+			</div>
+			<div>Seconds<br />
+				<span id="s1" class = "counterDigit">0</span>
+				<span id="s2" class = "counterDigit">0</span>
+			</div>
+		</div>
+		<p>Feel free to join our <a href = 'mumble'>SteamLUG Mumble server</a> before, during and after the show!</p>
+	</div>
+	</article>
+
         <article>
         <div class="shadow">
             
