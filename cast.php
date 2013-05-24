@@ -19,7 +19,7 @@
 <section>
         <article>
         <div class="shadow">
-	<h1></h1>
+	<h1>About</h1>
 	<p>SteamLUG Cast is a casual, fortnightly* live audiocast held on the <a href = 'mumble'>SteamLUG Mumble server</a> which aims to provide interesting news and discussion for the SteamLUG and broader Linux gaming communities.</p>
 	<p>Our current hosts are:</p>
 	<ul>
@@ -33,9 +33,10 @@
 	</article>
 
 
-	<article>
-	<div class = 'shadow'>
-		<h1>Upcoming Episode: Season 01, Episode 01 - Introduction</h1>
+	<article id = 'nextevent'>
+	<div>
+		<h1>Upcoming Episode:</h1>
+		<h2>S01, E01 - Introduction</h2>
 		<p>Cheese, john and sword talk about SteamLUG Cast</p>
 		<div id="countdown">
 			<div>Days<br />
