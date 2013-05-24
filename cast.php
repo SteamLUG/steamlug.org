@@ -37,7 +37,7 @@
 	<div>
 		<h1>Upcoming Episode:</h1>
 		<h2>S01, E01 - Introduction</h2>
-		<p>Cheese, john and sword talk about SteamLUG Cast</p>
+		<p>Cheese, john and sword talk about SteamLUG Cast.</p>
 		<div id="countdown">
 			<div>Days<br />
 				<span id="d1" class = "counterDigit">0</span>
@@ -67,7 +67,7 @@
         <?php
             $path = "/var/www/archive.steamlug.org/";
             $url  = "http://archive.steamlug.org/";
-            if (!glob($path . "*.flac")) { echo "<h3>No files found</h3>"; } 
+            if (!glob($path . "*.flac")) { echo "<h3>No archives found</h3>"; } 
             foreach(glob($path . "*.flac") as $filename) {
                 $file = basename($filename, ".flac");
                 $regex = "/S([0-9]+)E([0-9]+)-(\w+)/";
