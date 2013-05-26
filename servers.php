@@ -60,8 +60,13 @@ foreach ( $ServerHost as $Index => $Host)
 		}
 		else
 		{
+		$imgPath = "http://cdn.steampowered.com/v/gfx/apps/" . $Info["AppID"] . "/header.jpg";
+		if ($Info["AppID"] == 223530)
+		{
+			$imgPath = 'images/l4d2_beta_temp.png';
+		}
 		$serverString .= "\t\t\t<h1><a href='steam://connect/" . $Host . ":" . $Info["GamePort"] . "'>" . $Info["HostName"] . "</a></h1>\n";
-		$serverString .= "\t\t\t<a href='steam://connect/" . $Host . ":" . $Info["GamePort"] . "'><img class='serverimg' src='http://cdn.steampowered.com/v/gfx/apps/" . $Info["AppID"] . "/header.jpg' alt = 'Game logo' /></a>\n";
+		$serverString .= "\t\t\t<a href='steam://connect/" . $Host . ":" . $Info["GamePort"] . "'><img class='serverimg' src='" . $. "' alt = 'Game logo' /></a>\n";
 		$serverString .= "\t\t\t<dl>\n";
 		$serverString .= "\t\t\t<dt>Map</dt><dd>" . $Info["Map"] . "</dd>\n";
 		$serverString .= "\t\t\t<dt>Host</dt><dd>" . $Host . "</dd>\n";
