@@ -61,7 +61,7 @@ foreach ( $ServerHost as $Index => $Host)
 		else
 		{
 		$imgPath = "http://cdn.steampowered.com/v/gfx/apps/" . $Info["AppID"] . "/header.jpg";
-		if ($Info["AppID"] == 223530)
+		if ($Info["AppID"] == 0) //Dodgey quick fix for the image-less L4D2 beta
 		{
 			$imgPath = 'images/l4d2_beta_temp.png';
 		}
