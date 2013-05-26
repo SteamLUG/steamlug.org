@@ -16,6 +16,7 @@ $pageTitle = "Chat";
 				<dl>
 				<dt>IRC Server</dt><dd>irc.freenode.net</dd>
 				<dt>Channel Name</dt><dd>#steamlug</dd>
+				<dt>Clickable Link</dt><dd><a href="irc://irc.freenode.net/steamlug">irc://irc.freenode.net/steamlug</a></dd>
 				</dl>
 				</div>
 			</article>

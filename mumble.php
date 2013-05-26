@@ -34,7 +34,7 @@
 			<article>
 			<div class = 'shadow'>
 				<h1>About</h1>
-				<p>In place of in-game voice chat, we host a <a href = 'http://mumble.sourceforge.net/'>Mumble</a> voice chat server, allowing our community members to talk across servers and between games. We have configurable "channels" for events, team talk and general chat. If you have the Mumble client installed, you can join by clicking <a href="mumble://dannebrog.steamlug.org">here</a>.</p>
+				<p>In place of in-game voice chat, we host a <a href = 'http://mumble.sourceforge.net/'>Mumble</a> voice chat server, allowing our community members to talk across servers and between games. We have configurable "channels" for events, team talk and general chat including the <a href = 'cast'>SteamLUG Cast</a>. If you have the Mumble client installed, you can join by clicking <a href="mumble://dannebrog.steamlug.org">here</a>.</p>
 				<p>You can join us on Mumble by connecting to:</p>
 				<dl>
 				<dt>Host</dt><dd>dannebrog.steamlug.org</dd>

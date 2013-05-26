@@ -32,7 +32,7 @@
 	</div>
 	</article>
 
-
+<!--
 	<article id = 'nextevent'>
 	<div>
 		<h1>Upcoming Episode:</h1>
@@ -59,7 +59,7 @@
 		<p>Feel free to join our <a href = 'mumble'>SteamLUG Mumble server</a> before, during and after the show!</p>
 	</div>
 	</article>
-
+!-->
         <article>
         <div class="shadow">
             

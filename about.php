@@ -10,6 +10,19 @@
 		<section>
 			<article>
 				<div class = 'shadow'>
+				<h1>Contact</h1>
+				<p>There are several ways to contact the SteamLUG administrators:</p>
+				<dl>
+					<dt>General</dt><dd>steamlug ( at ) gmail ( dot ) com</dd>
+					<dt>SteamLUG Cast</dt><dd>cast ( at ) steamlug ( dot ) org</dd>
+					<dt>Events</dt><dd><a href = 'http://steamcommunity.com/id/swordfischer'>@swordfischer</a> <em>(same handle on twitter)</em></dd>
+					<dt>Servers</dt><dd><a href = 'http://steamcommunity.com/id/swordfischer'>@swordfischer</a> <em>(same handle on twitter)</em></dd>
+					<dt>Community Projects</dt><dd><a href = 'http://steamcommunity.com/id/cheeseness'>Cheeseness</a> <em>(<a href = 'https://twitter.com/TwoLofBees'>@TwoLofBees</a> on twitter)</em></dd>
+				</dl>
+			</article>
+			</article>
+			<article>
+				<div class = 'shadow'>
 				<h1>Community</h1>
 				<p>Hi!</p>
 
@@ -32,8 +45,8 @@
 					<p>The SteamLUG community coordinates a range of activities.</p>
 					<h2>Events</h2>
 					<p>We host regular gaming events to highlight native Linux games and bring Linux gamers together. For more information, visit the <a href = 'events'>Events page</a>.</p>
-					<h2>Audiocast - Coming Soon</h2>
-					<p>Our currently unnamed audio cast will be a regular, ongoing monthly (<em>subject to change</em>) audio cast focusing on Steam/Valve news, F/OSS gaming news, Wine updates, SteamLUG happenings and othe Linux gaming related tech news. You can tune in live on our <a href = 'mumble'>Mumble server</a>, or download archived shows from the audiocast page. Date and time are to be confirmed.</p>
+					<h2>Audiocast</h2>
+					<p>Our <a href = 'cast'>SteamLUG Cast</a> is a regular, ongoing forthnightly (<em>subject to change</em>) audio cast focusing on Steam/Valve news, F/OSS gaming news, Wine updates, SteamLUG happenings and other Linux gaming related tech news. You can tune in live on our <a href = 'mumble'>Mumble server</a>, or download archived shows from the <a href = 'cast'>SteamLUG Cast page</a>.</p>
 					<h2>Projects</h2>
 					<p>Sometimes people in our community get excited enough to make something big happen. Some of our projects are open. Others are hidden until completion. For more information and details of current public projects, visit the <a href = 'projects'>Projects page</a>.</p>
 				</div>

@@ -1,5 +1,5 @@
 <?php
-	$pageTitle = "Streams";
+	$pageTitle = "Stream";
 	include_once('includes/header.php');
     include_once('includes/MurmurQuery.php');
 	require_once('rbt_prs.php');
@@ -39,6 +39,12 @@
             </hgroup>
         </header>
 <section>
+		<article>
+			<div class = 'shadow'>
+			<h1>Watch us as we play!</h1>
+			<p>You can live follow our event as they're streamed by a SteamLUG administrator.</p>
+			</div>
+		</article>
         <article class="streambox">
 		<div class="shadow">
 <?php
@@ -52,15 +58,15 @@
 	</article>
         <article>
             <div class="shadow">
-		<h1 class='streambox'><a href="https://swordfischer.com">swordfischer</a> @ Twitch.TV</h1>
-		<object type="application/x-shockwave-flash" width="640px" height="360px" id="live_embed_player_flash" data="http://www.twitch.tv/widgets/live_embed_player.swf?channel=swordfischer">
+		<h1 class='streambox'><a href="https://twitch.tv/steamlug">SteamLUG @ Twitch.TV</a></h1>
+		<object type="application/x-shockwave-flash" width="640px" height="360px" id="live_embed_player_flash" data="http://www.twitch.tv/widgets/live_embed_player.swf?channel=steamlug">
 		<param name="allowFullScreen" value="true" />
 		<param name="allowScriptAccess" value="always" />
 		<param name="allowNetworking" value="all" />
 		<param name="movie" value="http://www.twitch.tv/widgets/live_embed_player.swf" />
-		<param name="flashvars" value="hostname=www.twitch.tv&channel=swordfischer&auto_play=true&start_volume=25" />
+		<param name="flashvars" value="hostname=www.twitch.tv&channel=steamlug&auto_play=true&start_volume=25" />
 		</object>
-	    <h3 class='streambox'><a href="http://www.twitch.tv/swordfischer">Click for larger stream</a></h3><p></p>
+	    <h3 class='streambox'><a href="http://www.twitch.tv/steamlug">Click for larger stream</a></h3><p></p>
             </div>
 	</article>
 <?php
