@@ -17,8 +17,9 @@
 					<dt>SteamLUG Cast</dt><dd>cast ( at ) steamlug ( dot ) org</dd>
 					<dt>Events</dt><dd><a href = 'http://steamcommunity.com/id/swordfischer'>@swordfischer</a> <em>(same handle on twitter)</em></dd>
 					<dt>Servers</dt><dd><a href = 'http://steamcommunity.com/id/swordfischer'>@swordfischer</a> <em>(same handle on twitter)</em></dd>
-					<dt>Community Projects</dt><dd><a href = 'http://steamcommunity.com/id/cheeseness'>Cheeseness</a> <em>(<a href = 'https://twitter.com/TwoLofBees'>@TwoLofBees</a> on twitter)</em></dd>
+					<dt>Projects</dt><dd><a href = 'http://steamcommunity.com/id/cheeseness'>Cheeseness</a> <em>(<a href = 'https://twitter.com/TwoLofBees'>@TwoLofBees</a> on twitter)</em></dd>
 				</dl>
+			<p></p>
 			</article>
 			</article>
 			<article>
