@@ -28,7 +28,7 @@
 		<li><a href="http://steamcommunity.com/id/swordfischer">swordfischer</a> - SteamLUG's chief event organiserer</li>
 	</ul>
 	<p>From time to time, we also have guests joining to share their insights on Linux, the gaming industry and the SteamLUG community. Check back for recording archives, shownotes and further announcements!</p>
-	<p class = 'footnote'>* Schedule subject to change ^_^</p>
+	<p class = 'footnote'>* Schedule subject to change</p>
 	</div>
 	</article>
 

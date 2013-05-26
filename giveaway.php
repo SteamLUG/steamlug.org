@@ -9,7 +9,7 @@
             <div class="shadow">
                 <h1>About</h1>
                 <p>Welcome to the SteamLUG giveaway page!</p>
-                <p>If you managed to get to this super secret giveaway page, it must mean that you are a very special person!</p>
+                <p>If you managed to get to this super secret giveaway page, it must mean that you are a very special person!</p> 
 		<p>Below, you will find 4 (four) keys cut up into 3 (three) pieces each, making for a total of 12 (twelve) pieces. Mix and match these to unlock a key for</p>
                  <ul>
                     <li>2 (two) <a href="http://store.steampowered.com/app/1200/">Red Orchestra: Ostfront 41-45</a></li>
