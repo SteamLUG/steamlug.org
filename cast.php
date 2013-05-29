@@ -70,7 +70,7 @@
             if (!glob($path . "*.flac")) { echo "<h3>No archives found</h3>"; } 
             foreach(glob($path . "*.flac") as $filename) {
                 $file = basename($filename, ".flac");
-                $regex = "/[sS]([0-9]+)[eE]([0-9]+)\.(\w+)/";
+                $regex = "/[sS]([0-9]+)[eE]([0-9]+)\.(\w+-?(\w+)?)/";
                 preg_match($regex, $filename, $matches);
 
                 $listItem = "<li>";
