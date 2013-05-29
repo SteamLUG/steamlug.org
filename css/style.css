@@ -531,6 +531,7 @@ table.tablesorter thead tr.header
 
 table.tablesorter tbody td
 {
+	height: 20px;
         padding: 5px;
 }
 

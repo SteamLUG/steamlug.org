@@ -28,10 +28,10 @@ $pageTitle = "Servers";
 						<tr>
 							<th>
 							<th><img src='http://steamlug.org/images/vac.png'>
-							<th>Game<span class='sort'></span>
-							<th>Servers<span class='sort'></span>
-							<th>Players<span class='sort'></span>
-							<th>Map<span class='sort'></span>
+							<th>Game
+							<th>Servers
+							<th>Players
+							<th>Map
 							<th>
 						</tr>
 					</thead>
