@@ -70,11 +70,11 @@
             if (!glob($path . "*.flac")) { echo "<h3>No archives found</h3>"; } 
             foreach(glob($path . "*.flac") as $filename) {
                 $file = basename($filename, ".flac");
-                $regex = "/S([0-9]+)E([0-9]+)-(\w+)/";
+                $regex = "/[sS]([0-9]+)[eE]([0-9]+)\.(\w+)/";
                 preg_match($regex, $filename, $matches);
 
                 $listItem = "<li>";
-                $listItem .= "<h3>" . str_replace('_', ' ', $matches[3]) . "</h3>";
+                $listItem .= "<h3>" . str_replace('-', ' ', $matches[3]) . "</h3>";
                 $listItem .= "<p>Season: $matches[1], Episode: $matches[2]</p>";
                 $listItem .= "<audio preload='none' src='$url$file.ogg' type='audio/ogg' controls>Your browser does not support the &ltaudio&gt tag.</audio>";
                 $listItem .= "<span class='right'>";
