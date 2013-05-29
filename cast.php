@@ -62,7 +62,7 @@
 !-->
         <article>
         <div class="shadow">
-            
+        <h1>Archive</h1>
         <ul id="archive">
         <?php
             $path = "/var/www/archive.steamlug.org/";
@@ -81,6 +81,7 @@
                 $listItem .= round(filesize(str_replace('flac', 'ogg', $filename))/1024/1024,2) . " MB <a href='$url$file.ogg'>OGG</a> | ";
                 $listItem .= round(filesize($filename)/1024/1024,2) . " MB <a href='$url$file.flac'>FLAC</a> | ";
                 $listItem .= round(filesize(str_replace('flac', 'mp3', $filename))/1024/1024,2) . " MB <a href='$url$file.mp3'>MP3</a> ";
+				$listItem .= "<a href='http://creativecommons.org/licenses/by-sa/3.0/'><img class='license' src='http://mirrors.creativecommons.org/presskit/buttons/80x15/png/by-sa.png'></a>";
                 $listItem .= "</p>";
                 $listItem .= "</li>";
                 echo $listItem;
