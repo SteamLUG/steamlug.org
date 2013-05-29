@@ -255,6 +255,12 @@ a
 	text-decoration: none; color: #EBEBEB;
 }
 
+audio
+{
+	width: 520px;
+	height: 40px;
+}
+
 a:hover
 {
 	text-decoration: underline;
