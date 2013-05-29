@@ -479,7 +479,7 @@ table.tablesorter
 {
         margin: 50px -100px;
         width: 840px;
-	box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.5), -100px -300px 100px -200px #2B2B2B inset;
+	box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.5);
         font-size: 12px;
 }
 
@@ -540,18 +540,18 @@ table.tablesorter tbody tr:nth-child(even)
         background-color: #262626;
 }
 
-table.tablesorter thead tr.headerSortUp
+table.tablesorter thead th.headerSortUp
 {
         background-image: url('http://steamlug.org/images/asc.gif');
 }
 
-table.tablesorter thead tr.headerSortDown
+table.tablesorter thead th.headerSortDown
 {
         background-image: url('http://steamlug.org/images/desc.gif');
 }
 
-table.tablesorter thead tr.headerSortDown,
-table.tablesorter thead tr.headerSortUp
+table.tablesorter thead th.headerSortDown,
+table.tablesorter thead th.headerSortUp
 {
 	background-color: #3D4655;
 }
