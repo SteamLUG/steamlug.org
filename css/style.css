@@ -520,7 +520,7 @@ table.tablesorter thead tr
         text-align: left;
 }
 
-table.tablesorter thead tr.header
+table.tablesorter thead th.header
 {
         padding-left: 20px;
         background-image: url('http://steamlug.org/images/bg.gif');
