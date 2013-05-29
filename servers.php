@@ -37,7 +37,7 @@ $pageTitle = "Servers";
 					</thead>
 					<tbody>
 <?php
-define( 'SQ_TIMEOUT', 1 );
+define( 'SQ_TIMEOUT', 2 );
 define( 'SQ_ENGINE', SourceQuery :: SOURCE );
 
 $Servers = file( "/var/www/cenobite.swordfischer.com/servers2.txt" );
@@ -60,10 +60,10 @@ foreach ( $ServerHost as $Index => $Host)
 		$serverString .= "\t\t<tr>\n";
 		$serverString .= "\t\t\t<td>\n";
 		$serverString .= "\t\t\t<td>\n";
-		$serverString .= "\t\t\t<td>\n";
-		$serverString .= "\t\t\t<td>" . $Host . ":" . $Ports[$Index] . "\n";
-		$serverString .= "\t\t\t<td>\n";
-		$serverString .= "\t\t\t<td>\n";
+		$serverString .= "\t\t\t<td><em>Server Unresponsive</em>\n";
+		$serverString .= "\t\t\t<td><em>" . $Host . ":" . $Ports[$Index] . "</em>\n";
+		$serverString .= "\t\t\t<td><em>N/A</em>\n";
+		$serverString .= "\t\t\t<td><em>N/A</em>\n";
 		$serverString .= "\t\t\t<td><span class='offline'>Offline</span>\n";
 		$serverString .= "\t\t<tr>\n";
 		}
