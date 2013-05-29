@@ -206,6 +206,17 @@ article p, article dl, article ul
 	margin: 1em 30px;
 }
 
+ul#archive
+{
+	list-style-type: none;
+	margin: 30px;
+}
+
+ul#archive p
+{
+	margin: 10px 0;
+}
+
 article dl dt
 {
 	clear: left;
@@ -257,7 +268,7 @@ a
 
 audio
 {
-	width: 520px;
+	width: 580px;
 	height: 40px;
 }
 
