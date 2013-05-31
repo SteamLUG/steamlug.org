@@ -27,20 +27,19 @@ if (!isset($pageTitle))
 		<script>
 			var serverTime = <?php echo microtime(true); ?>;
 		</script>
-		<!--<script type = "text/javascript" src="http://dfgc.jbushproductions.com/microtime2.php" async="async"></script>!-->
 <?php
-	if (isset($extraJS))
-	{
-		echo "\t\t<script type = 'text/javascript'>\n";
-		echo $extraJS;
-		echo "\t\t</script>\n";
-	}
 	if (isset($externalJS))
 	{
 		foreach ($externalJS as $js)
 		{
 			echo "\t\t<script type = 'text/javascript' src = '" . $js . "' async = 'async'></script>\n";
 		}
+	}
+	if (isset($extraJS))
+	{
+		echo "\t\t<script type = 'text/javascript'>\n";
+		echo $extraJS;
+		echo "\t\t</script>\n";
 	}
 	if (isset($extraCSS))
 	{
