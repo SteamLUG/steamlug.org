@@ -1,6 +1,6 @@
 <?php
 $pageTitle = "Servers";
-$externalJS = array('http://steamlug.org/scripts/jquery.min.js','http://steamlug.org/scripts/jquery.tablesorter.js');
+$syncexternalJS = array('http://steamlug.org/scripts/jquery.min.js','http://steamlug.org/scripts/jquery.tablesorter.js');
 ?>
 <?php
 	include_once("includes/header.php");

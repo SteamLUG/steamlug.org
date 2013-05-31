@@ -35,6 +35,15 @@ if (!isset($pageTitle))
 			echo "\t\t<script type = 'text/javascript' src = '" . $js . "' async = 'async'></script>\n";
 		}
 	}
+
+	if (isset($syncexternalJS))
+	{
+		foreach ($syncexternalJS as $js)
+		{
+			echo "\t\t<script type = 'text/javascript' src = '" . $js . "'></script>\n";
+		}
+	}
+
 	if (isset($extraJS))
 	{
 		echo "\t\t<script type = 'text/javascript'>\n";
