@@ -24,9 +24,6 @@ if (!isset($pageTitle))
 		<meta name = 'keywords' content = "<?php echo $keywords; ?>" />
 		<title>SteamLUG <?php echo $pageTitle; ?></title>
 		<link rel="stylesheet" href="css/style.css" type="text/css" />
-		<script src="http://twitterjs.googlecode.com/svn/trunk/src/twitter.min.js" type="text/javascript"></script>
-		<script type='text/javascript' src='http://steamlug.org/scripts/jquery.min.js'></script>
-		<script type='text/javascript' src='http://steamlug.org/scripts/jquery.tablesorter.js'></script>
 		<script>
 			var serverTime = <?php echo microtime(true); ?>;
 		</script>
