@@ -24,25 +24,31 @@ if (!isset($pageTitle))
 		<meta name = 'keywords' content = "<?php echo $keywords; ?>" />
 		<title>SteamLUG <?php echo $pageTitle; ?></title>
 		<link rel="stylesheet" href="css/style.css" type="text/css" />
-		<script src="http://twitterjs.googlecode.com/svn/trunk/src/twitter.min.js" type="text/javascript"></script>
-
 		<script>
 			var serverTime = <?php echo microtime(true); ?>;
 		</script>
-		<!--<script type = "text/javascript" src="http://dfgc.jbushproductions.com/microtime2.php" async="async"></script>!-->
 <?php
-	if (isset($extraJS))
-	{
-		echo "\t\t<script type = 'text/javascript'>\n";
-		echo $extraJS;
-		echo "\t\t</script>\n";
-	}
 	if (isset($externalJS))
 	{
 		foreach ($externalJS as $js)
 		{
 			echo "\t\t<script type = 'text/javascript' src = '" . $js . "' async = 'async'></script>\n";
 		}
+	}
+
+	if (isset($syncexternalJS))
+	{
+		foreach ($syncexternalJS as $js)
+		{
+			echo "\t\t<script type = 'text/javascript' src = '" . $js . "'></script>\n";
+		}
+	}
+
+	if (isset($extraJS))
+	{
+		echo "\t\t<script type = 'text/javascript'>\n";
+		echo $extraJS;
+		echo "\t\t</script>\n";
 	}
 	if (isset($extraCSS))
 	{

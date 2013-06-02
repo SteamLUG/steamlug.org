@@ -1,5 +1,6 @@
 <?php
 $pageTitle = "Servers";
+$syncexternalJS = array('http://steamlug.org/scripts/jquery.min.js','http://steamlug.org/scripts/jquery.tablesorter.js');
 ?>
 <?php
 	include_once("includes/header.php");
@@ -21,8 +22,23 @@ $pageTitle = "Servers";
 				<p>If you would like to host a SteamLUG server, or help manage our existing ones,<br>please contact <a href = 'http://steamcommunity.com/id/swordfischer'>swordfischer</a>.</p>
 			</div>
 		</article>
+		<article>
+			<div class='shadow'>
+				<table id='servers' class='tablesorter' cellspacing=0>
+					<thead>
+						<tr>
+							<th>
+							<th><img src='http://steamlug.org/images/vac.png'>
+							<th>Game
+							<th>Servers
+							<th>Players
+							<th>Map
+							<th>
+						</tr>
+					</thead>
+					<tbody>
 <?php
-define( 'SQ_TIMEOUT', 1 );
+define( 'SQ_TIMEOUT', 2 );
 define( 'SQ_ENGINE', SourceQuery :: SOURCE );
 
 $Servers = file( "/var/www/cenobite.swordfischer.com/servers2.txt" );
@@ -38,51 +54,60 @@ foreach ( $ServerHost as $Index => $Host)
 		$Query->Connect( $Host, $Ports[$Index], SQ_TIMEOUT, SQ_ENGINE );
 		$Info = $Query->GetInfo( );
 
-		$serverString  = "\t<article>\n";
-		$serverString .= "\t\t<div class = 'shadow'>\n";
-
+		$serverString = "";
 
 		if (!isset($Info["GamePort"]))
 		{
-		$serverString .= "\t\t\t<h1>Server Offline</h1>\n";
-		$serverString .= "\t\t\t<img class='serverimg' src='images/server_offline.png' alt = 'Offline server' />\n";
-		$serverString .= "\t\t\t<dl>\n";
-		$serverString .= "\t\t\t<dt>Map</dt><dd>Unknown</dd>\n";
-		$serverString .= "\t\t\t<dt>Host</dt><dd>" . $Host . "</dd>\n";
-		$serverString .= "\t\t\t<dt>Port</dt><dd>Unknown</dd>\n";
-		$serverString .= "\t\t\t<dt>Players</dt><dd>Unknown</dd>\n";
-		$serverString .= "\t\t\t<dt>Max Players</dt><dd>Unknown</dd>\n";
-		$serverString .= "\t\t\t<dt>Bots</dt><dd>Unknown</dd>\n";
-		$serverString .= "\t\t\t<dt>Secure</dt><dd>Unknown</dd>\n";
-		$serverString .= "\t\t\t<dt>Version</dt><dd>Unknown</dd>\n";
-		$serverString .= "\t\t\t</dl>\n";
-		$serverString .= "\t\t\t<p class = 'serverlink'>&nbsp;</p>\n";		
+		$serverString .= "\t\t<tr>\n";
+		$serverString .= "\t\t\t<td>\n";
+		$serverString .= "\t\t\t<td>\n";
+		$serverString .= "\t\t\t<td><em>Server Unresponsive</em>\n";
+		$serverString .= "\t\t\t<td><em>" . $Host . ":" . $Ports[$Index] . "</em>\n";
+		$serverString .= "\t\t\t<td><em>N/A</em>\n";
+		$serverString .= "\t\t\t<td><em>N/A</em>\n";
+		$serverString .= "\t\t\t<td><span class='offline'>Offline</span>\n";
+		$serverString .= "\t\t<tr>\n";
 		}
 		else
 		{
-		$imgPath = "http://cdn.steampowered.com/v/gfx/apps/" . $Info["AppID"] . "/header.jpg";
-		if ($Info["AppID"] == 0) //Dodgey quick fix for the image-less L4D2 beta
-		{
-			$imgPath = 'images/l4d2_beta_temp.png';
+		$serverString .= "\t\t<tr>\n";
+		$serverString .= "\t\t\t<td><span style='display:none'>" . geoip_country_code_by_name($Host) . "</span><img src='http://steamlug.org/images/" . geoip_country_code_by_name($Host) . ".png'>\n";
+		$serverString .= "\t\t\t<td>" . ($Info["Secure"] ? "<img src='http://steamlug.org/images/vac.png'>" : "") . "\n";
+		$serverString .= "\t\t\t<td>" . $Info["ModDesc"] . "\n";
+		$serverString .= "\t\t\t<td><a href='steam://connect/" . $Host . ":" . $Info["GamePort"] . "'>" . $Info["HostName"] . "</a>\n";
+		$serverString .= "\t\t\t<td>" . $Info["Players"] . "\n";
+		$serverString .= "\t\t\t<td>" . $Info["Map"] . "\n";
+		$serverString .= "\t\t\t<td><span class='online'>Online</span>\n";
+		$serverString .= "\t\t<tr>\n";
 		}
-		$serverString .= "\t\t\t<h1><a href='steam://connect/" . $Host . ":" . $Info["GamePort"] . "'>" . $Info["HostName"] . "</a></h1>\n";
-		$serverString .= "\t\t\t<a href='steam://connect/" . $Host . ":" . $Info["GamePort"] . "'><img class='serverimg' src='" . $imgPath . "' alt = 'Game logo' /></a>\n";
-		$serverString .= "\t\t\t<dl>\n";
-		$serverString .= "\t\t\t<dt>Map</dt><dd>" . $Info["Map"] . "</dd>\n";
-		$serverString .= "\t\t\t<dt>Host</dt><dd>" . $Host . "</dd>\n";
-		$serverString .= "\t\t\t<dt>Port</dt><dd>" . $Info["GamePort"] . "</dd>\n";
-		$serverString .= "\t\t\t<dt>Players</dt><dd>" . $Info["Players"] . "</dd>\n";
-		$serverString .= "\t\t\t<dt>Max Players</dt><dd>" . $Info["MaxPlayers"] . "</dd>\n";
-		$serverString .= "\t\t\t<dt>Bots</dt><dd>" . $Info["Bots"] . "</dd>\n";
-		$serverString .= "\t\t\t<dt>Secure</dt><dd>" . $Info["Secure"] . "</dd>\n";
-		$serverString .= "\t\t\t<dt>Version</dt><dd>" . $Info["Version"] . "</dd>\n";
-		$serverString .= "\t\t\t</dl>\n";
-		$serverString .= "\t\t\t<p class = 'serverlink'><a href='steam://connect/" . $Host . ":" . $Info["GamePort"] . "'>Click here to join</a></p>\n";
-		}
-		$serverString .= "\t\t</div>\n";
-		$serverString .= "\t</article>\n";
 		echo $serverString;
 	}
 ?>
-		</section>
+					</tbody>
+					<tfoot>
+						<tr>
+							<td colspan=8>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
+		</article>
+	</section>
+	<script>
+		$(document).ready
+		(
+			function()
+			{
+				$("#servers").tablesorter
+				(
+					{
+						headers: {
+							1: { sorter: false }
+						},
+						sortList: [[6,1],[4,1],[0,0],[3,0]]
+					}
+				);
+			}
+		);
+	</script>
 <?php include_once("includes/footer.php"); ?>

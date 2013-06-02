@@ -206,6 +206,17 @@ article p, article dl, article ul
 	margin: 1em 30px;
 }
 
+ul#archive
+{
+	list-style-type: none;
+	margin: 30px;
+}
+
+ul#archive p
+{
+	margin: 10px 0;
+}
+
 article dl dt
 {
 	clear: left;
@@ -252,7 +263,14 @@ article .eventList, #tweet ul
 
 a
 {
-	text-decoration: none; color: #EBEBEB;
+	text-decoration: none;
+	color: #EBEBEB;
+}
+
+audio
+{
+	width: 580px;
+	height: 40px;
 }
 
 a:hover
@@ -385,14 +403,16 @@ footer .copy
 	font-style: italic;
 	margin-left: 40px;
 }
+
 #tweet ul {
 	margin: 0;
 }
+
 #tweet ul li p
 {
-    border-radius: 7px 7px 7px 7px;
-    box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.5), -0.5em -2em 2.5em -1em #2B2B2B inset;
-    padding: 1em 1em;
+    	border-radius: 7px 7px 7px 7px;
+    	box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.5), -0.5em -2em 2.5em -1em #2B2B2B inset;
+    	padding: 1em 1em;
 }
 
 #betaStamp
@@ -412,7 +432,8 @@ footer .copy
 	clear: both;
 }
 
-div.key {
+div.key
+{
 	width: 150px;
 	height: 75px;
 	border: 2px solid #529CDE;
@@ -424,12 +445,113 @@ div.key {
 	margin: 29px;
 	float: left;
 }
-.streambox {
-        text-align: center;
-}
-.streambox img {
-        border-radius: 20px;
-        box-shadow: 0 0 15px 1px rgba(0,0,0, 0.5);
 
+.streambox
+{
+	text-align: center;
 }
 
+.streambox img
+{
+	border-radius: 20px;
+	box-shadow: 0 0 15px 1px rgba(0,0,0, 0.5);
+}
+
+.license
+{
+	height: 16px;
+	margin-top: -1px;
+	float: right;
+}
+
+span.right
+{
+        float: right;
+}
+
+ul#archive
+{
+        list-style-type: none;
+}
+
+
+table.tablesorter
+{
+        margin: 50px -100px;
+        width: 840px;
+	box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.5);
+        font-size: 12px;
+}
+
+table.tablesorter > img
+{
+        height: 16px;
+}
+
+span.online,
+span.offline
+{
+        display: block;
+        height: 10px;
+        width: 10px;
+        border-radius: 5px;
+        text-indent: -10000px;
+}
+
+span.online
+{
+        background: #7C8E32;
+}
+
+span.offline
+{
+        background: #E54028;
+}
+
+table.tablesorter thead tr th,
+table.tablesorter tfoot tr th
+{
+        background-color: #3D4655;
+        padding: 5px;
+}
+
+table.tablesorter thead tr
+{
+        text-align: left;
+}
+
+table.tablesorter thead th.header
+{
+        padding-left: 20px;
+        background-image: url('http://steamlug.org/images/bg.gif');
+        background-repeat: no-repeat;
+        background-position: center left;
+        cursor: pointer;
+}
+
+table.tablesorter tbody td
+{
+	height: 20px;
+        padding: 5px;
+}
+
+table.tablesorter tbody tr:nth-child(even)
+{
+        background-color: #262626;
+}
+
+table.tablesorter thead th.headerSortUp
+{
+        background-image: url('http://steamlug.org/images/asc.gif');
+}
+
+table.tablesorter thead th.headerSortDown
+{
+        background-image: url('http://steamlug.org/images/desc.gif');
+}
+
+table.tablesorter thead th.headerSortDown,
+table.tablesorter thead th.headerSortUp
+{
+	background-color: #3D4655;
+}

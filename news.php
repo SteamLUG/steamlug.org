@@ -1,7 +1,7 @@
 <?php
 
 $pageTitle = "News";
-
+$syncexternalJS = array('http://twitterjs.googlecode.com/svn/trunk/src/twitter.min.js');
 $extraJS = "			getTwitters('tweet', { 
 			id: 'steamlug', 
 			count: 3, 

@@ -62,7 +62,7 @@
 !-->
         <article>
         <div class="shadow">
-            
+        <h1>Archive</h1>
         <ul id="archive">
         <?php
             $path = "/var/www/archive.steamlug.org/";
@@ -70,18 +70,19 @@
             if (!glob($path . "*.flac")) { echo "<h3>No archives found</h3>"; } 
             foreach(glob($path . "*.flac") as $filename) {
                 $file = basename($filename, ".flac");
-                $regex = "/S([0-9]+)E([0-9]+)-(\w+)/";
+                $regex = "/[sS]([0-9]+)[eE]([0-9]+)\.(\w+-?(\w+)?)/";
                 preg_match($regex, $filename, $matches);
 
                 $listItem = "<li>";
-                $listItem .= "<h3>" . str_replace('_', ' ', $matches[3]) . "</h3>";
+                $listItem .= "<h3>" . str_replace('-', ' ', $matches[3]) . "</h3>";
                 $listItem .= "<p>Season: $matches[1], Episode: $matches[2]</p>";
                 $listItem .= "<audio preload='none' src='$url$file.ogg' type='audio/ogg' controls>Your browser does not support the &ltaudio&gt tag.</audio>";
-                $listItem .= "<span class='right'>";
-                $listItem .= round(filesize($filename)/1024/1024,2) . " MB <a href='$url$file.flac'>FLAC</a> | ";
+                $listItem .= "<p>";
                 $listItem .= round(filesize(str_replace('flac', 'ogg', $filename))/1024/1024,2) . " MB <a href='$url$file.ogg'>OGG</a> | ";
+                $listItem .= round(filesize($filename)/1024/1024,2) . " MB <a href='$url$file.flac'>FLAC</a> | ";
                 $listItem .= round(filesize(str_replace('flac', 'mp3', $filename))/1024/1024,2) . " MB <a href='$url$file.mp3'>MP3</a> ";
-                $listItem .= "</span>";
+				$listItem .= "<a href='http://creativecommons.org/licenses/by-sa/3.0/'><img class='license' src='http://mirrors.creativecommons.org/presskit/buttons/80x15/png/by-sa.png'></a>";
+                $listItem .= "</p>";
                 $listItem .= "</li>";
                 echo $listItem;
             } 
