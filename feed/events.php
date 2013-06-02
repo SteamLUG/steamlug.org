@@ -78,7 +78,7 @@
 			echo "&lt;p&gt;A reminder that " . $event['title'] . " will be on " . $event['date'] . " at " . $event['time'] . " " . $event['tz'] . " (" . $timeLeft. " away)&lt;/p&gt;</description>\n";
 			echo "<author>steamlug@gmail.com (SteamLUG)</author>\n";
 			echo "<pubDate>". $tempDate->format("D, d M Y H:i:s O") . "</pubDate>\n";
-			echo "<guid>" . $event['url'] . "</guid>\n";
+			echo "<guid>" . $event['url'] . "#" . urlencode($timeLeft) . "</guid>\n";
 			echo "<category>Event</category>\n";
 		echo "</item>\n";
 	}
