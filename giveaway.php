@@ -5,7 +5,7 @@
             </hgroup>
         </header>
 <section>
-        <article id='about'>
+<!--        <article id='about'>
             <div class="shadow">
                 <h1>About</h1>
                 <p>Welcome to the SteamLUG giveaway page!</p>
@@ -33,5 +33,5 @@
             <br class="clearfix">
             </div>
         </article>
-        </section>
+        </section>!-->
 <?php include_once("/var/www/steamlug.org/includes/footer.php"); ?> 
