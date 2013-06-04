@@ -2,7 +2,7 @@
 @font-face
 {
 	font-family: 'OrbitronMedium';
-	src: url('Orbitron-fontfacekit/orbitron-medium-webfont.woff') format('woff');
+	src: url('/css/Orbitron-fontfacekit/orbitron-medium-webfont.woff') format('woff');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -19,7 +19,7 @@ body
 	font-size: 12px;
 	font-family: Arial,Helvetica,sans-serif;
 	text-shadow: 1px 1px 1px #000000;
-	background-image: url("../images/noise4.png");
+	background-image: url("/images/noise4.png");
 }
 
 
@@ -47,7 +47,7 @@ nav ul ul
 nav ul li:hover ul
 {
 	display: block !important;
-	background: url("../images/noise4.png") repeat scroll 0 0 #303030;
+	background: url("/images/noise4.png") repeat scroll 0 0 #303030;
 	border-radius: 0 0 10px 10px;
 	box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
 	z-index: 99;
@@ -101,7 +101,7 @@ nav > ul > li:hover > a, nav > ul > li.current > a
 	background-color: #393939;
 	border-left: 1px solid #3d3d3d;
 	border-right: 1px solid #3d3d3d;
-	background-image: url("../images/noise4.png");
+	background-image: url("/images/noise4.png");
 }
 
 nav img
@@ -197,7 +197,7 @@ div.shadow
 	background-color: #262627;
 	margin: 0 -20px;
 	width: 640px;
-	background-image: url("../images/noise4.png");
+	background-image: url("/images/noise4.png");
 }
 
 
@@ -241,6 +241,11 @@ article h2
 	font-size: 1.3em; margin: 0.5em 30px;
 }
 
+article h3, article audio
+{
+	margin: 0.5em 30px;
+}
+
 article h1 a
 {
 	color: #529cde;
@@ -250,7 +255,14 @@ article ul, ol
 {
 	margin-left: 60px;
 }
-
+article.shownotes ul
+{
+	margin-left: 0px;
+}
+article.shownotes ul.castsection
+{
+	margin-left: 30px;
+}
 article ul
 {
 	list-style-type: square;
@@ -523,7 +535,7 @@ table.tablesorter thead tr
 table.tablesorter thead th.header
 {
         padding-left: 20px;
-        background-image: url('http://steamlug.org/images/bg.gif');
+        background-image: url('/images/bg.gif');
         background-repeat: no-repeat;
         background-position: center left;
         cursor: pointer;
@@ -542,12 +554,12 @@ table.tablesorter tbody tr:nth-child(even)
 
 table.tablesorter thead th.headerSortUp
 {
-        background-image: url('http://steamlug.org/images/asc.gif');
+        background-image: url('/images/asc.gif');
 }
 
 table.tablesorter thead th.headerSortDown
 {
-        background-image: url('http://steamlug.org/images/desc.gif');
+        background-image: url('/images/desc.gif');
 }
 
 table.tablesorter thead th.headerSortDown,
@@ -555,3 +567,33 @@ table.tablesorter thead th.headerSortUp
 {
 	background-color: #3D4655;
 }
+        time {
+                margin-right: 10px;
+                color: #626262;
+        }
+        .casttopic {
+                font-weight: bold;
+                font-size: 14px;
+                line-height: 40px;
+        }
+        .shownotes {
+        text-align: left;
+        }
+        .shownotes li {
+                list-style-type: none !important;
+                line-height: 20px;
+        }
+        .castsource {
+                color: #529CDE;
+
+        }
+        .castabout {
+                line-height: 14px;
+        }
+        .nostamp {
+                margin-left: 60px;
+        }
+        .nostamp p {
+                margin: 0;
+        }
+

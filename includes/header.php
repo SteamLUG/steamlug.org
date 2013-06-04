@@ -23,7 +23,7 @@ if (!isset($pageTitle))
 		<meta name = 'description' content = "<?php echo $description; ?>" />
 		<meta name = 'keywords' content = "<?php echo $keywords; ?>" />
 		<title>SteamLUG <?php echo $pageTitle; ?></title>
-		<link rel="stylesheet" href="css/style.css" type="text/css" />
+		<link rel="stylesheet" href="/css/style.css" type="text/css" />
 		<script>
 			var serverTime = <?php echo microtime(true); ?>;
 		</script>
@@ -63,7 +63,7 @@ if (!isset($pageTitle))
 	$isBeta = true;
 	if ($isBeta)
 	{
-		echo "<img alt = 'beta ribbon' id = 'betaStamp' src = 'images/ribbon_beta2.png' />";
+		echo "<img alt = 'beta ribbon' id = 'betaStamp' src = '/images/ribbon_beta2.png' />";
 	}
 	
 	

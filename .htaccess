@@ -1,5 +1,11 @@
-# no www-prefix
 RewriteBase /
 RewriteEngine on
 RewriteCond %{HTTP_HOST} ^www\.(.*)$
 RewriteRule ^(.*)$ http://%1/$1 [L,R=301]
+RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -d
+RewriteRule ^(.*)$ - [L]
+
+RewriteCond %{DOCUMENT_ROOT}/$1.php -f
+RewriteRule ^((.*/)*[^./]+)/*$ $1.php [L]
+
+RewriteRule ^cast/s(\d+)e(\d+)$ /cast.php?s=$1&e=$2 [NC,L]
