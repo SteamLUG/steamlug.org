@@ -161,7 +161,9 @@ if ($season > "0" && $episode > "0" && glob($path . "/s" . basename($season) . "
                 echo $note . "\n";
         }
 }                                                                                                                                                                                                                                            else                                                                                                                                                                                                                                         {                                                                                                                                                                                                                                                    $listItem = "\t\t<ul>\n";
+	echo "<h1>Previous Casts</h1>";
         if (!glob_recursive($path . "*.txt")) { echo "<h3>No archives found</h3>"; }
+	
         foreach(glob_recursive($path . "*.txt") as $filename)                                                                                                                                                                                        {
                 $file = basename($filename, ".txt");                                                                                                                                                                                                         $regex = "/[sS]([0-9]+)[eE]([0-9]+)\.(\w+-?(\w+)?)/";
                 preg_match($regex, $filename, $matches);                                                                                                                                                                                                     $archiveBase = $url . "/s" . htmlentities($matches[1],ENT_QUOTES, "UTF-8") . "e" . htmlentities($matches[2],ENT_QUOTES, "UTF-8") . "/" . $file;
