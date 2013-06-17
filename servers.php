@@ -66,19 +66,19 @@ foreach ( $ServerHost as $Index => $Host)
 		$serverString .= "\t\t\t<td><em>N/A</em>\n";
 		$serverString .= "\t\t\t<td><em>N/A</em>\n";
 		$serverString .= "\t\t\t<td><span class='offline'>Offline</span>\n";
-		$serverString .= "\t\t<tr>\n";
+		$serverString .= "\t\t</tr>\n";
 		}
 		else
 		{
 		$serverString .= "\t\t<tr>\n";
-		$serverString .= "\t\t\t<td><span style='display:none'>" . geoip_country_code_by_name($Host) . "</span><img src='http://steamlug.org/images/" . geoip_country_code_by_name($Host) . ".png'>\n";
-		$serverString .= "\t\t\t<td>" . ($Info["Secure"] ? "<img src='http://steamlug.org/images/vac.png'>" : "") . "\n";
+		$serverString .= "\t\t\t<td><span style='display:none'>" . geoip_country_code_by_name($Host) . "</span><img src='http://steamlug.org/images/" . geoip_country_code_by_name($Host) . ".png' alt='Hosted in '" . geoip_country_code_by_name($Host) . "'>\n";
+		$serverString .= "\t\t\t<td>" . ($Info["Secure"] ? "<img src='http://steamlug.org/images/vac.png' alt='VAC Enabled'>" : "") . "\n";
 		$serverString .= "\t\t\t<td>" . $Info["ModDesc"] . "\n";
 		$serverString .= "\t\t\t<td><a href='steam://connect/" . $Host . ":" . $Info["GamePort"] . "'>" . $Info["HostName"] . "</a>\n";
 		$serverString .= "\t\t\t<td>" . $Info["Players"] . "\n";
 		$serverString .= "\t\t\t<td>" . $Info["Map"] . "\n";
 		$serverString .= "\t\t\t<td><span class='online'>Online</span>\n";
-		$serverString .= "\t\t<tr>\n";
+		$serverString .= "\t\t</tr>\n";
 		}
 		echo $serverString;
 	}
