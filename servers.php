@@ -71,7 +71,7 @@ foreach ( $ServerHost as $Index => $Host)
 		else
 		{
 		$serverString .= "\t\t<tr>\n";
-		$serverString .= "\t\t\t<td><span style='display:none'>" . geoip_country_code_by_name($Host) . "</span><img src='http://steamlug.org/images/" . geoip_country_code_by_name($Host) . ".png' alt='Hosted in '" . geoip_country_code_by_name($Host) . "'>\n";
+		$serverString .= "\t\t\t<td><span style='display:none'>" . geoip_country_code_by_name($Host) . "</span><img src='http://steamlug.org/images/" . geoip_country_code_by_name($Host) . ".png' alt='Hosted in " . geoip_country_code_by_name($Host) . "'>\n";
 		$serverString .= "\t\t\t<td>" . ($Info["Secure"] ? "<img src='http://steamlug.org/images/vac.png' alt='VAC Enabled'>" : "") . "\n";
 		$serverString .= "\t\t\t<td>" . $Info["ModDesc"] . "\n";
 		$serverString .= "\t\t\t<td><a href='steam://connect/" . $Host . ":" . $Info["GamePort"] . "'>" . $Info["HostName"] . "</a>\n";
