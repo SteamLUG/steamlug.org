@@ -24,9 +24,7 @@ $externalJS = array('scripts/events.js');
 ?>
 <?php include_once("includes/header.php"); ?>
 		<header>
-			<hgroup>
 				<h1>SteamLUG Events</h1>
-			</hgroup>
 		</header>
 		<section>
 			<article id='nextevent'>

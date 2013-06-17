@@ -4,9 +4,7 @@ $pageTitle = "About";
 ?>
 <?php include_once("includes/header.php"); ?>
 		<header>
-			<hgroup>
 				<h1>SteamLUG Projects - Coming Soon...</h1>
-			</hgroup>
 		</header>
 		<section>
 			<article>

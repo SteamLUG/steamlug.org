@@ -14,9 +14,7 @@ $url  = "http://archive.steamlug.org/steamlugcast";
 include_once('includes/header.php');
 ?>
         <header>
-            <hgroup>
                 <h1>SteamLUG Cast</h1>
-            </hgroup>
         </header>
 <section>
 <?

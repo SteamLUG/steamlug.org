@@ -26,9 +26,7 @@
 	$info = $status['original'];
 ?>
 		<header>
-			<hgroup>
 				<h1>SteamLUG Mumble Server</h1>
-			</hgroup>
 		</header>
 		<section>
 			<article>

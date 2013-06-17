@@ -9,9 +9,7 @@ $syncexternalJS = array('http://steamlug.org/scripts/jquery.min.js','http://stea
 	header("Cache-Control: public, max-age=10");
 ?>
 		<header>
-			<hgroup>
 				<h1>SteamLUG Game Servers</h1>
-			</hgroup>
 		</header>
 		<section>
 		
@@ -28,7 +26,7 @@ $syncexternalJS = array('http://steamlug.org/scripts/jquery.min.js','http://stea
 					<thead>
 						<tr>
 							<th>
-							<th><img src='http://steamlug.org/images/vac.png'>
+							<th><img src='http://steamlug.org/images/vac.png' alt='VAC Enabled'>
 							<th>Game
 							<th>Servers
 							<th>Players
@@ -86,7 +84,7 @@ foreach ( $ServerHost as $Index => $Host)
 					</tbody>
 					<tfoot>
 						<tr>
-							<td colspan=8>
+							<td colspan=7>
 						</tr>
 					</tfoot>
 				</table>

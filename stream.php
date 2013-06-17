@@ -34,9 +34,7 @@
 	$data = $parser->genData("steamlug", $month, $year);
 ?>
         <header>
-            <hgroup>
                 <h1>Live Stream</h1>
-            </hgroup>
         </header>
 <section>
 		<article>

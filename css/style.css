@@ -109,15 +109,14 @@ nav img
 	margin: 30px 0 0 20px
 }
 
-hgroup
+header
 {
-	
 	text-align: center;
 	margin-top: 5em;
 	margin-bottom: 0em;
 }
 
-hgroup h1
+header h1
 {
 	font-size: 2em;
 }
@@ -489,9 +488,10 @@ ul#archive
 
 table.tablesorter
 {
+		border-spacing: 0;
         margin: 50px -100px;
         width: 840px;
-	box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.5);
+		box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.5);
         font-size: 12px;
 }
 

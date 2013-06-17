@@ -16,9 +16,7 @@ $extraJS = "			getTwitters('tweet', {
 	include_once("includes/lastRSS.php");
 ?>
 		<header>
-			<hgroup>
 				<h1>SteamLUG News</h1>
-			</hgroup>
 		</header>
 		<section>
 			<article>

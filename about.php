@@ -3,9 +3,7 @@
 ?>
 <?php include_once("includes/header.php"); ?>
 		<header>
-			<hgroup>
 				<h1>About SteamLUG</h1>
-			</hgroup>
 		</header>
 		<section>
 			<article>

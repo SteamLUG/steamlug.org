@@ -3,9 +3,7 @@ $pageTitle = "Chat";
 ?>
 <?php include_once("includes/header.php"); ?>
 		<header>
-			<hgroup>
 				<h1>SteamLUG Chat</h1>
-			</hgroup>
 		</header>
 		<section>
 			<article>

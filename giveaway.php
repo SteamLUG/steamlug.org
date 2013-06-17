@@ -1,8 +1,6 @@
 <?php include_once("/var/www/steamlug.org/includes/header.php"); ?>
         <header>
-            <hgroup>
                 <h1>Giveaway</h1>
-            </hgroup>
         </header>
 <section>
 <!--        <article id='about'>
