@@ -22,7 +22,7 @@ $syncexternalJS = array('http://steamlug.org/scripts/jquery.min.js','http://stea
 		</article>
 		<article>
 			<div class='shadow'>
-				<table id='servers' class='tablesorter' cellspacing=0>
+				<table id='servers' class='tablesorter'>
 					<thead>
 						<tr>
 							<th>
