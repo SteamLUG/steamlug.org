@@ -36,7 +36,7 @@ if ($season == "0" || $episode == "0" || !glob($path . "/s" . basename($season) 
         $aboutPage .= "<article id = 'nextevent'>";
         $aboutPage .= "<div>";
         $aboutPage .= "\t<h1>Upcoming Episode:</h1>";
-        $aboutPage .= "\t<h2>S01, E03</h2>";
+        $aboutPage .= "\t<h2>S01, E04</h2>";
         $aboutPage .= "\t<p>Cheese, john and sword talk about SteamLUG Casty things!</p>";
         $aboutPage .= "\t<div id='countdown'>";
         $aboutPage .= "\t<div>Days<br />";
