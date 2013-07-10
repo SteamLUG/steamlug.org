@@ -168,6 +168,12 @@ if ($season > "0" && $episode > "0" && glob($path . "/s" . basename($season) . "
 		function($matches){ return "\t\t\t<p class='castabout'>" . $matches[1] . "</p>\n"; },
 		$note
 		);
+		$note = preg_replace_callback
+		(
+		'/\[\w\d+\w\d+\]/',
+		function($matches){ return "\t\t\t<a href='http://steamlug.org/cast/" . $matches[1] . "'>" . $matches[1] . "</a>\n"; },
+		$note
+		);
 		echo $note . "\n";
 	}
 }
