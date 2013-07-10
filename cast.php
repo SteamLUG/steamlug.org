@@ -86,7 +86,7 @@ if ($season > "0" && $episode > "0" && glob($path . "/s" . basename($season) . "
 	$showEpisode = glob($path . "/s" . basename($season) . "e" . basename($episode) . "/*");
 	$showEpisode = preg_replace("/\.(flac|mp3|ogg|txt)/", "", $showEpisode[0]);
 	$file = basename($showEpisode);
-	$regex = "/[sS]([0-9]+)[eE]([0-9]+)\.(\w+-?(\w+)?)/";
+	$regex = "/[sS]([0-9]+)[eE]([0-9]+)\.(\w+(-\w+)*)/";
 	preg_match($regex, $showEpisode, $matches);
 	$episodeBase = $path . "/s" . slenc($matches[1]) . "e" . slenc($matches[2]) . "/" . $file;
 	$archiveBase = $url . "/s" . slenc($matches[1]) . "e" . slenc($matches[2]) . "/" . $file;
