@@ -20,7 +20,7 @@ if (!function_exists('glob_recursive'))
 {
 	function glob_recursive($pattern, $flags = 0)
 	{
-		$files = glob($pattern, $flags);
+		$files = rsort(glob($pattern, $flags));
 		foreach (glob(dirname($pattern).'/*', GLOB_ONLYDIR) as $dir)
 		{
 			$files = array_merge($files, glob_recursive($dir.'/'.basename($pattern), $flags));
@@ -190,7 +190,7 @@ else
 
 <?php
 	if (!glob_recursive($path . "*.txt")) { echo "<h3>No archives found</h3>"; }
-	foreach(rsort(glob_recursive($path . "*.txt")) as $filename)
+	foreach(glob_recursive($path . "*.txt") as $filename)
 		{
 		$file = basename($filename, ".txt");
 		$regex = "/[sS]([0-9]+)[eE]([0-9]+)\.(\w+-?(\w+)?)/";
