@@ -25,7 +25,7 @@ if (!function_exists('glob_recursive'))
 		{
 			$files = array_merge($files, glob_recursive($dir.'/'.basename($pattern), $flags));
 		}
-	return rsort($files);
+	return $files;
 	}
 }
 include_once('includes/header.php');
@@ -190,7 +190,7 @@ else
 
 <?php
 	if (!glob_recursive($path . "*.txt")) { echo "<h3>No archives found</h3>"; }
-	foreach(glob_recursive($path . "*.txt") as $filename)
+	foreach(rsort(glob_recursive($path . "*.txt")) as $filename)
 		{
 		$file = basename($filename, ".txt");
 		$regex = "/[sS]([0-9]+)[eE]([0-9]+)\.(\w+-?(\w+)?)/";
