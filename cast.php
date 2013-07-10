@@ -170,7 +170,7 @@ if ($season > "0" && $episode > "0" && glob($path . "/s" . basename($season) . "
 		);
 		$note = preg_replace_callback
 		(
-		'/\[(\w\d+\w\d+\)]/',
+		'/\[(\w\d+\w\d+)\]/',
 		function($matches){ return "\t\t\t<a href='http://steamlug.org/cast/" . $matches[1] . "'>" . $matches[1] . "</a>\n"; },
 		$note
 		);
