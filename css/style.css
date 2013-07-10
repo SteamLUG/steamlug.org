@@ -109,16 +109,12 @@ nav img
 	margin: 30px 0 0 20px
 }
 
-header
-{
-	text-align: center;
-	margin-top: 5em;
-	margin-bottom: 0em;
-}
-
 header h1
 {
 	font-size: 2em;
+	text-align: center;
+	margin-top: 5em;
+	margin-bottom: 0em;
 }
 
 h1, h2, h3
@@ -472,7 +468,6 @@ div.key
 {
 	height: 16px;
 	margin-top: -1px;
-	float: right;
 }
 
 span.right
@@ -488,10 +483,10 @@ ul#archive
 
 table.tablesorter
 {
-		border-spacing: 0;
+	border-spacing: 0;
         margin: 50px -100px;
         width: 840px;
-		box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.5);
+	box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.5);
         font-size: 12px;
 }
 
