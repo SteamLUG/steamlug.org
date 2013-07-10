@@ -1,8 +1,9 @@
 <?php
 $season  = isset($_GET["s"]) ? $_GET["s"] : "0";
 $episode = isset($_GET["e"]) ? $_GET["e"] : "0";
-$d = explode("-", "2013-06-28");
+$d = explode("-", "2013-07-12");
 $t = explode(":", "20:00");
+$c = "E04";
 
 $dateString = "var target = Math.round( Date.UTC (" . $d[0] . ", " . $d[1] . " -1, " . $d[2] . ", " . $t[0] . ", " . $t[1] . ", 0, 0) / 1000);";
 $extraJS = $dateString;
@@ -55,7 +56,7 @@ if (strtotime($d[0] . "-" . $d[1] . "-" .$d[2])-strtotime(date("Y-m-d")) <= 3 * 
 	$aboutPage .= "<article id = 'nextevent'>";
 	$aboutPage .= "<div>";
 	$aboutPage .= "\t<h1>Upcoming Episode:</h1>";
-	$aboutPage .= "\t<h2>S01, E03</h2>";
+	$aboutPage .= "\t<h2>S01, ". $c . "</h2>";
 	$aboutPage .= "\t<p>Cheese, john and sword talk about SteamLUG Casty things!</p>";
 	$aboutPage .= "\t<div id='countdown'>";
 	$aboutPage .= "\t<div>Days<br />";
