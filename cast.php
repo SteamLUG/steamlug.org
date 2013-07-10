@@ -29,7 +29,7 @@ if (!function_exists('glob_recursive'))
 	}
 }
 include_once('includes/header.php');
-var_dump(glob_recursive);
+var_dump(glob_recursive());
 ?>
 	<header>
 		<h1>SteamLUG Cast</h1>
