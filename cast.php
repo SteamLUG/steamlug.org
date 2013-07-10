@@ -21,11 +21,11 @@ if (!function_exists('glob_recursive'))
 	function glob_recursive($pattern, $flags = 0)
 	{
 		$files = glob($pattern, $flags);
+		$files = rsort($files);
 		foreach (glob(dirname($pattern).'/*', GLOB_ONLYDIR) as $dir)
 		{
 			$files = array_merge($files, glob_recursive($dir.'/'.basename($pattern), $flags));
 		}
-		$files = rsort($files);
 	return $files;
 	}
 }
