@@ -193,7 +193,7 @@ else
 	foreach(glob_recursive($path . "*.txt") as $filename)
 		{
 		$file = basename($filename, ".txt");
-		$regex = "/[sS]([0-9]+)[eE]([0-9]+)\.(\w+-?(\w+)?)/";
+		$regex = "/[sS]([0-9]+)[eE]([0-9]+)\.(\w+(-\w+)*)/";
 		preg_match($regex, $filename, $matches);
 		$archiveBase = $url . "/s" . slenc($matches[1]) . "e" . slenc($matches[2]) . "/" . $file;
 		$episodeBase = $path . "/s" . slenc($matches[1]) . "e" . slenc($matches[2]) . "/" . $file;
