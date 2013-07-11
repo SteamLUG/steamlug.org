@@ -32,8 +32,8 @@ $externalJS = array('scripts/events.js');
 <?php
 
 	foreach ($data["events"] as $event) {
-		// skip if it's a special (non-game/non-app) event, unless it's a cast
-		if ($event["appid"] === 0 && strpos($event["title"], "Cast") === false) {
+		// skip if it's a special (non-game/non-app) event
+		if ($event["appid"] === 0) {
 			continue;
 		}
 
@@ -92,8 +92,8 @@ $externalJS = array('scripts/events.js');
 <?php
 	foreach ($data['events'] as $event)
 	{
-		// skip if it's a special (non-game/non-app) event, unless it's a cast
-		if ($event["appid"] === 0 && strpos($event["title"], "Cast") === false) {
+		// skip if it's a special (non-game/non-app) event
+		if ($event["appid"] === 0) {
 			continue;
 		}
 
@@ -117,8 +117,8 @@ $externalJS = array('scripts/events.js');
 <?php
 	foreach ($data['pastevents'] as $event)
 	{
-		// skip if it's a special (non-game/non-app) event, unless it's a cast
-		if ($event["appid"] === 0 && strpos($event["title"], "Cast") === false) {
+		// skip if it's a special (non-game/non-app) event
+		if ($event["appid"] === 0) {
 			continue;
 		}
 
