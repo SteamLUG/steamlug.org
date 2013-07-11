@@ -31,15 +31,23 @@ $externalJS = array('scripts/events.js');
 				<h1>Next Event</h1>
 <?php
 
-	$eventString = "\t\t\t\t<h2><a href='" . $data["events"][0]["url"] . "'>" .  $data["events"][0]["title"] . "</a></h2>";
-	if ($data["events"][0]["appid"] !== 0) {
-		$eventString .= "\t\t\t\t\t<img src='" . $data["events"][0]["img_header"] . "' alt='" . $data["events"][0]["title"] . "'/>\n";
-	} else {
-		$eventString .= "\t\t\t\t\t<h1>?</h1>\n";
+	foreach ($data["events"] as $event) {
+		// skip if it's a special (non-game/non-app) event, unless it's a cast
+		if ($event["appid"] === 0 && strpos($event["title"], "Cast") === false) {
+			continue;
+		}
+
+		$eventString = "\t\t\t\t<h2><a href='" . $event["url"] . "'>" .  $event["title"] . "</a></h2>";
+		if ($event["appid"] !== 0) {
+			$eventString .= "\t\t\t\t\t<img src='" . $event["img_header"] . "' alt='" . $event["title"] . "'/>\n";
+		} else {
+			$eventString .= "\t\t\t\t\t<h1>?</h1>\n";
+		}
+		$eventString .= "\t\t\t\t</a>\n";
+		$eventString .= "\t\t\t\t<h3 class = 'detailLink'><a href='" . $event["url"] . "'>Click for details</a></h3>\n";
+		echo $eventString;
+		break;
 	}
-	$eventString .= "\t\t\t\t</a>\n";
-	$eventString .= "\t\t\t\t<h3 class = 'detailLink'><a href='" . $data["events"][0]["url"] . "'>Click for details</a></h3>\n";
-	echo $eventString;
 ?>
 				<div id="countdown">
 					<div>Days<br />
@@ -84,6 +92,11 @@ $externalJS = array('scripts/events.js');
 <?php
 	foreach ($data['events'] as $event)
 	{
+		// skip if it's a special (non-game/non-app) event, unless it's a cast
+		if ($event["appid"] === 0 && strpos($event["title"], "Cast") === false) {
+			continue;
+		}
+
 		$eventString = "\t\t\t<li>\n";
 
 		$eventString .= "\t\t\t\t<img class = 'eventLogo' src = '" . $event["img_small"] . "' alt = '" . $event["title"] . "'>\n";
@@ -104,6 +117,11 @@ $externalJS = array('scripts/events.js');
 <?php
 	foreach ($data['pastevents'] as $event)
 	{
+		// skip if it's a special (non-game/non-app) event, unless it's a cast
+		if ($event["appid"] === 0 && strpos($event["title"], "Cast") === false) {
+			continue;
+		}
+
 		$eventString = "\t\t\t<li>\n";
 
 		$eventString .= "\t\t\t\t<img class = 'eventLogo' src = '" . $event["img_small"] . "' alt = '" . $event["title"] . "'>\n";
