@@ -17,8 +17,8 @@ foreach ($data["events"] as $event) {
 	if ($event["appid"] === 0) {
 		continue;
 	}
-	$d = explode("-", $data['events'][0]['date']);
-	$t = explode(":", $data['events'][0]['time']);
+	$d = explode("-", $event['date']);
+	$t = explode(":", $event['time']);
 	break;
 }
 $dateString = "var target = Math.round( Date.UTC (" . $d[0] . ", " . $d[1] . " -1, " . $d[2] . ", " . $t[0] . ", " . $t[1] . ", 0, 0) / 1000);";
