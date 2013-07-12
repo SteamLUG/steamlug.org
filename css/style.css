@@ -53,7 +53,7 @@ nav ul li:hover ul
 	z-index: 99;
 }
 
-.current ul, .current:hover ul
+.current:hover ul /*, .current ul*/
 {
 	display: block !important;
 	background: transparent !important;
