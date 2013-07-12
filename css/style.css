@@ -60,6 +60,13 @@ nav ul li:hover ul
 	box-shadow: none;
 }
 
+
+nav ul ul li
+{
+	display: block;
+	text-align: left;
+}
+
 nav ul ul li a
 {
 	font-size: 14px;
@@ -82,7 +89,7 @@ nav > ul > li > a
 {
 	font-variant: small-caps;
 	padding: 26px 1.25em 0;
-	font-size: 20px;
+	font-size: 1.5em;
 	line-height: 80px;
 	border-left: 1px solid transparent;
 	border-right: 1px solid transparent;
@@ -113,7 +120,7 @@ header h1
 {
 	font-size: 2em;
 	text-align: center;
-	margin-top: 5em;
+	margin-top: 3em;
 	margin-bottom: 0em;
 }
 
@@ -420,6 +427,42 @@ footer .copy
     	border-radius: 7px 7px 7px 7px;
     	box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.5), -0.5em -2em 2.5em -1em #2B2B2B inset;
     	padding: 1em 1em;
+}
+
+#groupLink
+{
+	margin-top: 20px;
+	background: url("/images/noise4.png") repeat scroll 0 0 #262627;
+	border-radius: 0 10px 10px 0;
+	box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
+	position: fixed;
+	display: block;
+	overflow: hidden;
+	/*width: 30px;*/
+	min-height: 127px;
+}
+
+#groupLink img
+{
+	position: relative;
+	background: url("/images/noise4.png") repeat scroll 0 0 #262627;
+	z-index: 5;
+	transition: margin-left 0.25s linear;
+}
+
+#groupLink:hover img
+{
+	margin-left: 220px;
+}
+
+#groupLink p
+{
+	position: absolute;
+	display: block;
+	width: 200px;
+	padding: 2em 1em;
+	vertical-align: top;
+	z-index: 4;
 }
 
 #betaStamp

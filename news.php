@@ -19,7 +19,7 @@ $extraJS = "			getTwitters('tweet', {
 				<h1>SteamLUG News</h1>
 		</header>
 		<section>
-			<article>
+<!--			<article>
 				<div class = 'shadow'>
 				<h1>Recent Tweets</h1>
 					<div id="tweet">
@@ -28,7 +28,7 @@ $extraJS = "			getTwitters('tweet', {
 					</div>
 					<p>Read more and follow <a href="http://twitter.com/SteamLUG">@SteamLUG</a> on Twitter.</p>
 				</div>
-			</article>
+			</article> -->
 <?
 	$rss = new lastRSS;
 	$rss->cache_dir = './temp';

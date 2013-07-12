@@ -96,10 +96,6 @@ if (!isset($pageTitle))
 		$chatPage = "current"; //parent nav item
 		$mumblePage = "current";
 	}
-	else if (strpos($_SERVER["SCRIPT_NAME"], "group.php"))
-	{
-		$groupPage = "current";
-	}
 	else if (strpos($_SERVER["SCRIPT_NAME"], "gaming.php"))
 	{
 		$gamingPage = "current";
@@ -111,7 +107,6 @@ if (!isset($pageTitle))
 	}
 	else if (strpos($_SERVER["SCRIPT_NAME"], "servers.php"))
 	{
-		$gamingPage = "current"; //parent nav item
 		$serversPage = "current";
 	}
 	else if (strpos($_SERVER["SCRIPT_NAME"], "stream.php"))
@@ -126,7 +121,6 @@ if (!isset($pageTitle))
 	}
 	else if (strpos($_SERVER["SCRIPT_NAME"], "cast.php"))
 	{
-		$projectsPage = "current"; //parent nav item
 		$castPage = "current";
 	}
 	else if (strpos($_SERVER["SCRIPT_NAME"], "about.php"))
@@ -134,6 +128,7 @@ if (!isset($pageTitle))
 		$aboutPage = "current";
 	}
 ?>
+
 		<nav>
 			<ul>
 				<li class = '<?php echo $newsPage; ?>'><a href = '/news'>News</a></li>
@@ -143,20 +138,21 @@ if (!isset($pageTitle))
 						<li class = '<?php echo $mumblePage; ?>'><a href = '/mumble'>Mumble (voice)</a></li>
 					</ul>
 				</li>
-				<li class = '<?php echo $groupPage; ?>'><a href = 'http://steamcommunity.com/groups/steamlug/'>Group</a></li>
-				<li class = '<?php echo $gamingPage; ?>'><a href = '/events'>Gaming</a>
+				<li class = '<?php echo $castPage; ?>'><a href = '/cast'>SteamLUG Cast</a></li>
+				<li class = '<?php echo $gamingPage; ?>'><a href = '/events'>Events</a>
 					<ul>
 						<li class = '<?php echo $eventsPage; ?>'><a href = '/events'>Events</a></li>
-						<li class = '<?php echo $serversPage; ?>'><a href = '/servers'>Servers</a></li>
 						<li class = '<?php echo $streamPage; ?>'><a href = '/stream'>Live Stream</a></li>
 					</ul>
 				</li>
+				<li class = '<?php echo $serversPage; ?>'><a href = '/servers'>Servers</a></li>
 				<li class = '<?php echo $projectsPage; ?>'><a href = '/projects'>Projects</a>
 					<ul>
 						<li class = '<?php echo $overviewPage; ?>'><a href = '/projects'>Overview</a></li>
-						<li class = '<?php echo $castPage; ?>'><a href = '/cast'>SteamLUG Cast</a></li>
 					</ul>
 				</li>
 				<li class = '<?php echo $aboutPage; ?>'><a href = '/about'>About</a></li>
 			</ul>
 		</nav>
+		
+		<a id = 'groupLink' href = 'http://steamcommunity.com/groups/steamlug/'><p>Join our Steam group of over 5,000 members and take part in the community!<br /><br />Joining will also allow you to make use of upcoming website features!</p><img alt = 'Join our Steam Group!' src = 'images/group.png'></a>
