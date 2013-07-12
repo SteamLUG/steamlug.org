@@ -41,7 +41,7 @@ if ($season == "0" || $episode == "0" || !glob($path . "/s" . basename($season) 
 	$aboutPage  = "<article>";
 	$aboutPage .= "<div class='shadow'>";
 	$aboutPage .= "<h1>About</h1>";
-	$aboutPage .= "<p>SteamLUG Cast is a casual, fortnightly live audiocast held on the <a href = 'mumble'>SteamLUG Mumble server</a> which aims to provide interesting news and discussion for the SteamLUG and broader Linux gaming communities.</p>";
+	$aboutPage .= "<p>SteamLUG Cast is a casual, fortnightly live audiocast held on the <a href = '/mumble'>SteamLUG Mumble server</a> which aims to provide interesting news and discussion for the SteamLUG and broader Linux gaming communities.</p>";
 	$aboutPage .= "<p>Our current hosts are:</p>";
 	$aboutPage .= "<ul>";
 	$aboutPage .= "<li><a href='http://steamcommunity.com/id/cheeseness'>Cheeseness</a> - SteamLUG's benevolent leadery person</li>";
