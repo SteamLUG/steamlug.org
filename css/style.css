@@ -56,8 +56,8 @@ nav ul li:hover ul
 .current:hover ul /*, .current ul*/
 {
 	display: block !important;
-	background: transparent !important;
-	box-shadow: none;
+	/*background: transparent !important;
+	box-shadow: none;*/
 }
 
 
