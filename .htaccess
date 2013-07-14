@@ -9,3 +9,4 @@ RewriteCond %{DOCUMENT_ROOT}/$1.php -f
 RewriteRule ^((.*/)*[^./]+)/*$ $1.php [L]
 
 RewriteRule ^cast/s(\d+)e(\d+)$ /cast.php?s=$1&e=$2 [NC,L]
+RewriteRule ^feed/cast/(\w+)$ /feed/cast.php?t=$1 [NC,L]
