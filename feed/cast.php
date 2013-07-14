@@ -1,13 +1,12 @@
 <?php
 	header("Content-Type: application/rss+xml");
 	header("Access-Control-Allow-Origin: *");
-	$type = isset($_GET['t']) ? $_GET['t'] : "ogg";
-	if ($_GET['t'] == "mp3")
-	{
-		$type = "mp3";
-	} else 
+	if (!isset($_GET['t'])|| $_GET['t'] == "ogg")
 	{
 		$type = "ogg";
+	} else 
+	{
+		$type = "mp3";
 	}
 	$path = "/var/www/archive.steamlug.org/steamlugcast";
 	$url  = "http://archive.steamlug.org/steamlugcast";
