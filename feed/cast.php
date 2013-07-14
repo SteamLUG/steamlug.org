@@ -83,14 +83,13 @@
 		preg_match($regex, $filename, $matches);
 		$archiveBase = $url . "/s" . slenc($matches[1]) . "e" . slenc($matches[2]) . "/" . $file;
 		$episodeBase = $path . "/s" . slenc($matches[1]) . "e" . slenc($matches[2]) . "/" . $file;
-		$episodeFS   = file_exists($episodeBase . "." . $type);
 		$description = file($episodeBase . ".txt");
 		echo "<item>\n";
-			echo "\t<title>" . gettitle($archiveBase . "." . $type) . "</title>\n";
+			echo "\t<title>" . gettitle($archiveBase . ".ogg") . "</title>\n";
 			echo "\t<description>" . substr($description[0],2) . "</description>\n";
 			echo "\t<itunes:subtitle>" . substr($description[0],2,161) . "…</itunes:subtitle>\n";
 			echo "\t<pubDate>" . date("D, d M Y H:i:s O", filemtime($episodeBase . ".txt")) . "</pubDate>\n";
-			echo "\t<itunes:duration>" . getlength($archiveBase . "." . $type) . "</itunes:duration>\n";
+			echo "\t<itunes:duration>" . getlength($archiveBase . ".ogg") . "</itunes:duration>\n";
 			echo "\t<link>http://steamlug.org/cast/s" . slenc($matches[1]) . "e" . slenc($matches[2]) . "</link>\n";
 			echo "\t<guid isPermaLink=\"false\">http://steamlug.org/cast/s" . slenc($matches[1]) . "e" . slenc($matches[2]) . "</guid>\n";
 			echo "\t<enclosure url=\"" . $archiveBase . "." . $type . "\" length=\"" . filesize($episodeBase . "." . $type) . "\" type=\"audio/" . $type . "\" />\n";
