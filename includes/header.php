@@ -28,7 +28,7 @@ if (!isset($pageTitle))
 		echo "\t\t<link rel='alternate' type='application/rss+xml' title='RSS' href='http://steamcommunity.com/groups/steamlug/rss/' />\n";
 	}
 	else
-	}
+	{
 		echo $rssLinks . "\n";
 	}
 ?>

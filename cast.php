@@ -29,6 +29,9 @@ if (!function_exists('glob_recursive'))
 	return $files;
 	}
 }
+
+$rssLinks = '<link rel="alternate" type="application/rss+xml" title="SteamLUG Cast (mp3) Feed" href="http://steamlug.org/feed/cast/mp3" /><link rel="alternate" type="application/rss+xml" title="SteamLUG Cast (Ogg) Feed" href="http://steamlug.org/feed/cast/ogg" />';
+
 include_once('includes/header.php');
 ?>
 	<header>
