@@ -90,8 +90,8 @@
 			echo "\t<itunes:duration>" . getlength($archiveBase . ".ogg") . "</itunes:duration>\n";
 			echo "\t<link>http://steamlug.org/cast/s" . slenc($matches[1]) . "e" . slenc($matches[2]) . "</link>\n";
 			echo "\t<guid isPermaLink=\"false\">http://steamlug.org/cast/s" . slenc($matches[1]) . "e" . slenc($matches[2]) . "</guid>\n";
-			echo "\t<enclosure url=\"" . $archiveBase . "." . $type . "\" length=\"" . filesize($episodeBase . "." . $type) . "\" type=\"audio/" . $type . "\" />\n";
-			echo "\t<media:content url=\"" . $archiveBase . "." . $type . "\" fileSize=\"" . filesize($episodeBase . "." . $type) . "\" type=\"audio/" . $type . "\" medium=\"audio\" expression=\"full\" />\n";
+			echo "\t<enclosure url=\"" . $archiveBase . "." . $type . "\" length=\"" . filesize($episodeBase . "." . $type) . "\" type=\"audio/" . ($type == "ogg" ? "ogg" : "mpeg") . "\" />\n";
+			echo "\t<media:content url=\"" . $archiveBase . "." . $type . "\" fileSize=\"" . filesize($episodeBase . "." . $type) . "\" type=\"audio/" . ($type == "ogg" ? "ogg" : "mpeg") . "\" medium=\"audio\" expression=\"full\" />\n";
 			echo "\t<itunes:explicit>no</itunes:explicit>\n";
 			echo "\t<media:rating scheme=\"urn:simple\">nonadult</media:rating>\n";
 		echo "</item>\n";	
