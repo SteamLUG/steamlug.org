@@ -1,13 +1,13 @@
 <?php
 $season  = isset($_GET["s"]) ? $_GET["s"] : "0";
 $episode = isset($_GET["e"]) ? $_GET["e"] : "0";
-$d = explode("-", "2013-07-12");
+$d = explode("-", "2013-07-28");
 $t = explode(":", "20:00");
-$c = "E04";
+$c = "E05";
 
 $dateString = "var target = Math.round( Date.UTC (" . $d[0] . ", " . $d[1] . " -1, " . $d[2] . ", " . $t[0] . ", " . $t[1] . ", 0, 0) / 1000);";
 $extraJS = $dateString;
-$externalJS = array('scripts/events.js');
+$externalJS = array('/scripts/events.js');
 $pageTitle = "Cast";
 
 $path = "/var/www/archive.steamlug.org/steamlugcast";

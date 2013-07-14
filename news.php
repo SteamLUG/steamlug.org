@@ -2,6 +2,7 @@
 
 $pageTitle = "News";
 $syncexternalJS = array('http://twitterjs.googlecode.com/svn/trunk/src/twitter.min.js');
+/*
 $extraJS = "			getTwitters('tweet', { 
 			id: 'steamlug', 
 			count: 3, 
@@ -9,7 +10,7 @@ $extraJS = "			getTwitters('tweet', {
 			ignoreReplies: true, 
 			clearContents: true,
 			template: '<p>\"<em>%text%</em>\" <a href=\"http://twitter.com/%user_screen_name%/statuses/%id_str%/\">%time%</a></p>'
-		});"
+		});"*/
 ?>
 <?php
 	include_once("includes/header.php");

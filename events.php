@@ -27,7 +27,7 @@ $dateString = "var target = Math.round( Date.UTC (" . $d[0] . ", " . $d[1] . " -
 
 $pageTitle = "Events";
 $extraJS = $dateString;
-$externalJS = array('scripts/events.js');
+$externalJS = array('/scripts/events.js');
 ?>
 <?php include_once("includes/header.php"); ?>
 		<header>

@@ -156,4 +156,4 @@ if (!isset($pageTitle))
 			</ul>
 		</nav>
 		
-		<a id = 'groupLink' href = 'http://steamcommunity.com/groups/steamlug/'><p>Join our Steam group of over 5,000 members and take part in the community!<br /><br />Joining will also allow you to make use of upcoming website features!</p><img alt = 'Join our Steam Group!' src = 'images/group.png'></a>
+		<a id = 'groupLink' href = 'http://steamcommunity.com/groups/steamlug/'><p>Join our Steam group of over 5,000 members and take part in the community!<br /><br />Joining will also allow you to make use of upcoming website features!</p><img alt = 'Join our Steam Group!' src = '/images/group.png'></a>
