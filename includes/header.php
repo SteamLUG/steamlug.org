@@ -22,7 +22,16 @@ if (!isset($pageTitle))
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<meta name = 'description' content = "<?php echo $description; ?>" />
 		<meta name = 'keywords' content = "<?php echo $keywords; ?>" />
-		<link rel="alternate" type="application/rss+xml" title="RSS" href="http://steamcommunity.com/groups/steamlug/rss/" />
+<?php
+	if (!isset($rssLinks))
+	{
+		echo "\t\t<link rel='alternate' type='application/rss+xml' title='RSS' href='http://steamcommunity.com/groups/steamlug/rss/' />\n";
+	}
+	else
+	}
+		echo $rssLinks . "\n";
+	}
+?>
 		<title>SteamLUG <?php echo $pageTitle; ?></title>
 		<link rel="stylesheet" href="/css/style.css" type="text/css" />
 		<script>
