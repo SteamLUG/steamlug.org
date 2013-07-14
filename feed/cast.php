@@ -1,9 +1,8 @@
 <?php
 	header("Content-Type: application/rss+xml");
 	header("Access-Control-Allow-Origin: *");
-	$type = "ogg";	
-	$type = isset($_GET["t"]) ? $_GET["t"] : "ogg";
-	if ($_GET["t"] == "mp3")
+	$type = isset($_GET['t']) ? $_GET['t'] : "ogg";
+	if ($_GET['t'] == "mp3")
 	{
 		$type = "mp3";
 	} else 
