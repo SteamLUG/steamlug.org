@@ -41,18 +41,18 @@ $externalJS = array('/scripts/events.js');
 	foreach ($data["events"] as $event) {
 		// skip if it's a special (non-game/non-app) event
 		
-		$imgPath = "http://cdn.steampowered.com/v/gfx/apps/" . $Info["appid"] . "/header.jpg";
+		$event['img_header'] = "http://cdn.steampowered.com/v/gfx/apps/" . $event["appid"] . "/header.jpg";
 
 		if ($event["appid"] === 0) {
 			continue;
 		}
-		else if ($Info["appid"] == 223530)
+		else if ($event["appid"] == 223530)
 		{
-			$imgPath = 'images/l4d2_beta_temp.png';
+			$event['img_header'] = 'images/l4d2_beta_temp.png';
 		}
-		else if ($Info["appid"] == 6)
+		else if ($event["appid"] == 6)
 		{
-			$imgPath = 'images/dota2_test_temp.png';
+			$event['img_header'] = 'images/dota2_test_temp.png';
 		}
 
 		$eventString = "\t\t\t\t<h2><a href='" . $event["url"] . "'>" .  $event["title"] . "</a></h2>";
