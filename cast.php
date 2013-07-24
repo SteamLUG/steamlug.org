@@ -1,9 +1,30 @@
 <?php
+require_once("rbt_prs.php");
+require_once("steameventparser.php");
 $season  = isset($_GET["s"]) ? $_GET["s"] : "0";
 $episode = isset($_GET["e"]) ? $_GET["e"] : "0";
-$d = explode("-", "2013-07-28");
-$t = explode(":", "20:00");
-$c = "E05";
+$parser = new SteamEventParser();
+
+$month = gmstrftime("%m")-0; // Yuck, apparently the 0 breaks something?
+$year = gmstrftime("%Y");
+$data = $parser->genData("steamlug", $month, $year);
+$data2 = $parser->genData("steamlug", ( $month >= 12 ? 1 : ( $month +1 ) ), ( $month >= 12 ? ( $year + 1 ) : $year ));
+/* merge the data */
+$data['events'] = array_merge($data['events'], $data2['events']);
+/* cleanup */
+unset($data2);
+
+/* loopety loop through the events */
+foreach ($data["events"] as $event) {
+	// only use if it's a special (non-game/non-app) event and a cast
+	if ($event["appid"] !== 0 || strpos($event["title"], "Cast") === false) {
+		continue;
+	}
+	$d = explode("-", $event['date']);
+	$t = explode(":", $event['time']);
+	$c = preg_replace("#(.*)(S[0-9][0-9])(E[0-9][0-9])(.*)#", "\$3", $event["title"]);
+	break;
+}
 
 $dateString = "var target = Math.round( Date.UTC (" . $d[0] . ", " . $d[1] . " -1, " . $d[2] . ", " . $t[0] . ", " . $t[1] . ", 0, 0) / 1000);";
 $extraJS = $dateString;
