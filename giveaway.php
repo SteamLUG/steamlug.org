@@ -2,7 +2,7 @@
         <header>
                 <h1>Giveaway</h1>
         </header>
-<section>
+<section> 
 <!--        <article id='about'>
             <div class="shadow">
                 <h1>About</h1>
