@@ -64,9 +64,22 @@ class SteamEventParser {
 							$_img_header_small = "http://cdn.steampowered.com/v/gfx/apps/" . $_appid . "/header_292x136.jpg";
 						}
 					} elseif ($class === "eventBlockTitle") {
-						// title
-						$a = $subnode->firstChild;
-						$_title = $a->textContent;
+						$l = $subnode->childNodes;
+						foreach ($l as $a) {
+							if ($a->nodeType === XML_ELEMENT_NODE) {
+								if ($a->tagName === "a") {
+									if ($a->getAttribute("class") === "headlineLink") {
+										// title
+										$a = $subnode->firstChild;
+										$_title = $a->textContent;
+									} else {
+										// comment count
+										$_comments = explode(" ", $a->textContent);
+										$_comments = intval($_comments[0]);
+									}
+								}
+							}
+						}
 					}
 				}
 			}
@@ -78,6 +91,7 @@ class SteamEventParser {
 		$event["id"] = $_id;
 		$event["url"] = $_url;
 		$event["title"] = $_title;
+		$event["comments"] = $_comments;
 		$event["date"] = $tempDate->format("Y-m-d");
 		$event["time"] = $tempDate->format("H:i");
 		$event["tz"] = $tempDate->format("e");
