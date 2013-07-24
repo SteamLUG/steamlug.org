@@ -38,7 +38,7 @@ $syncexternalJS = array('http://steamlug.org/scripts/jquery.min.js','http://stea
 	
 	function print_table($data)
 	 {
-		$serverHost = $data['gq_addressname'] . ":" . $data['gq_port'];
+		$serverHost = $data['gq_address'] . ":" . $data['gq_port'];
 		$serverString = "";
 		if (!$data['gq_online'])
 		{
