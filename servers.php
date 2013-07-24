@@ -62,7 +62,7 @@ $syncexternalJS = array('http://steamlug.org/scripts/jquery.min.js','http://stea
 			$serverString .= "\t\t\t<td>" . ($data['gq_password'] == "1" ? "<img src='images/padlock.png' alt='Password Protected'>" : "") . "\n";
 			$serverString .= "\t\t\t<td>" . (isset($data['game_descr']) ? $data['game_descr'] : ($data['gq_type'] == "killingfloor" ? "Killing Floor" : $data['gq_type'])) . "\n";
 			$serverString .= "\t\t\t<td><a href='steam://connect/" . $serverHost . "'>" . $data['gq_hostname'] . "</a>\n";
-			$serverString .= "\t\t\t<td>" . ($data['gq_numplayers'] ? $data['gq_numplayers'] : "0") . "/" . $data['gq_maxplayers'] . "\n";
+			$serverString .= "\t\t\t<td>" . ($data['gq_numplayers'] ? $data['gq_numplayers'] : "0") . " / " . $data['gq_maxplayers'] . "\n";
 			$serverString .= "\t\t\t<td>" . $data['gq_mapname'] . "\n";
 			$serverString .= "\t\t\t<td><span class='online'>Online</span>\n";
 			$serverString .= "\t\t</tr>\n";
@@ -121,7 +121,8 @@ $syncexternalJS = array('http://steamlug.org/scripts/jquery.min.js','http://stea
 				(
 					{
 						headers: {
-							1: { sorter: false }
+							1: { sorter: false },
+							2: { sorter: false },
 						},
 						sortList: [[7,1],[5,1],[0,0],[4,0]]
 					}
