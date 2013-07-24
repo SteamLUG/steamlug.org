@@ -168,7 +168,7 @@ article#nextevent h2
 	color: white;
 }
 
-article#nextevent img
+article#nextevent img.eventImage
 {
 	box-shadow: 0 0 15px 1px rgba(0,0,0, 0.5);
 	/*border: 3px solid #529cde;*/
@@ -176,7 +176,7 @@ article#nextevent img
 	/*height: 69px;*/
 }
 
-article#nextevent img:hover
+article#nextevent img.eventImage:hover
 {
 	box-shadow: 0 0 15px 1px rgba(82,156,222, 0.5);
 }
@@ -378,7 +378,18 @@ footer .copy
 	font-weight: bold;
 	color: #EBEBEB
 }
-
+.eventCal
+{
+	line-height: 36px;
+}
+.onlineg
+{
+	background-image: linear-gradient(to bottom, #9BC861 5%, #789E4C 95%);
+}
+.online
+{
+	background-image: linear-gradient(to bottom, #7BAFD6 5%, #506D92 95%);
+}
 .counterDigit
 {
 	font-family: 'OrbitronMedium', Arial, sans-serif;

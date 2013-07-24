@@ -4,9 +4,71 @@ $syncexternalJS = array('http://steamlug.org/scripts/jquery.min.js','http://stea
 ?>
 <?php
 	include_once("includes/header.php");
-	include_once("includes/SourceQuery/SourceQuery.class.php");
+	include_once("includes/GameQ.php");
 	// 10 second cache
 	header("Cache-Control: public, max-age=10");
+	$Servers = file( "/var/www/dev.steamlug.org/serverlist.txt" );
+
+	foreach ( $Servers as $Server )
+	{
+		list ( $ServerHost[], $Ports[], $GameType[] ) = preg_split ( "/(:|,)/", $Server );
+	}
+
+	$gq = new GameQ();
+	foreach ( $ServerHost as $Index => $Host)
+	{
+		$gq->addServer(array(
+			'type' => trim($GameType[$Index]),
+			'host' => trim($Host) . ":" . trim($Ports[$Index]),
+	));
+	}
+
+	$gq->setOption('timeout', 1); 
+	$gq->setFilter('normalise');
+	$results = $gq->requestData();
+
+	function print_results($results)
+	{
+		foreach ($results as $id => $data)
+		{
+			print_table($data);
+		}
+
+	}
+	
+	function print_table($data)
+	 {
+		$serverHost = $data['gq_hostname'] . ":" . $data['gq_port'];
+		$serverString = "";
+		if (!$data['gq_online'])
+		{
+			$serverString .= "\t\t<tr>\n";
+			$serverString .= "\t\t\t<td>\n";
+			$serverString .= "\t\t\t<td>\n";
+			$serverString .= "\t\t\t<td>\n";
+			$serverString .= "\t\t\t<td><em>Server Unresponsive</em>\n";
+			$serverString .= "\t\t\t<td><em>" . $serverHost . "</em>\n";
+			$serverString .= "\t\t\t<td><em>N/A</em>\n";
+			$serverString .= "\t\t\t<td><em>N/A</em>\n";
+			$serverString .= "\t\t\t<td><span class='offline'>Offline</span>\n";
+			$serverString .= "\t\t</tr>\n";
+		}
+		else
+		{
+			$serverLoc  = geoip_country_code_by_name($data['gq_address']);
+			$serverString .= "\t\t<tr>\n";
+			$serverString .= "\t\t\t<td><span style='display:none'>" . $serverLoc . "</span><img src='http://steamlug.org/images/" . $serverLoc . ".png' alt='Hosted in " . $serverLoc . "'>\n";
+			$serverString .= "\t\t\t<td>" . (isset($data['secure']) ? "<img src='http://steamlug.org/images/vac.png' alt='VAC Enabled'>" : "") . "\n";
+			$serverString .= "\t\t\t<td>" . ($data['gq_password'] == "1" ? "<img src='images/padlock.png' alt='Password Protected'>" : "") . "\n";
+			$serverString .= "\t\t\t<td>" . (isset($data['game_descr']) ? $data['game_descr'] : ($data['gq_type'] == "killingfloor" ? "Killing Floor" : $data['gq_type'])) . "\n";
+			$serverString .= "\t\t\t<td><a href='steam://connect/" . $serverHost . "'>" . $data['gq_hostname'] . "</a>\n";
+			$serverString .= "\t\t\t<td>" . ($data['gq_numplayers'] ? $data['gq_numplayers'] : "0") . "/" . $data['gq_maxplayers'] . "\n";
+			$serverString .= "\t\t\t<td>" . $data['gq_mapname'] . "\n";
+			$serverString .= "\t\t\t<td><span class='online'>Online</span>\n";
+			$serverString .= "\t\t</tr>\n";
+		}
+	echo $serverString;
+	}
 ?>
 		<header>
 				<h1>SteamLUG Game Servers</h1>
@@ -26,7 +88,8 @@ $syncexternalJS = array('http://steamlug.org/scripts/jquery.min.js','http://stea
 					<thead>
 						<tr>
 							<th>
-							<th><img src='http://steamlug.org/images/vac.png' alt='VAC Enabled'>
+							<th><img src='/images/vac.png' alt='VAC Enabled'>
+							<th><img src='/images/padlock.png' alt='Password Protected'>
 							<th>Game
 							<th>Servers
 							<th>Players
@@ -36,50 +99,8 @@ $syncexternalJS = array('http://steamlug.org/scripts/jquery.min.js','http://stea
 					</thead>
 					<tbody>
 <?php
-define( 'SQ_TIMEOUT', 2 );
-define( 'SQ_ENGINE', SourceQuery :: SOURCE );
 
-$Servers = file( "/var/www/cenobite.swordfischer.com/servers2.txt" );
-
-foreach ( $Servers as $Server )
-	{
-		list ( $ServerHost[], $Ports[] ) = preg_split ( "/:/", $Server );
-	}
-
-$Query = new SourceQuery( );
-foreach ( $ServerHost as $Index => $Host)
-	{
-		$Query->Connect( $Host, $Ports[$Index], SQ_TIMEOUT, SQ_ENGINE );
-		$Info = $Query->GetInfo( );
-
-		$serverString = "";
-
-		if (!isset($Info["GamePort"]))
-		{
-		$serverString .= "\t\t<tr>\n";
-		$serverString .= "\t\t\t<td>\n";
-		$serverString .= "\t\t\t<td>\n";
-		$serverString .= "\t\t\t<td><em>Server Unresponsive</em>\n";
-		$serverString .= "\t\t\t<td><em>" . $Host . ":" . $Ports[$Index] . "</em>\n";
-		$serverString .= "\t\t\t<td><em>N/A</em>\n";
-		$serverString .= "\t\t\t<td><em>N/A</em>\n";
-		$serverString .= "\t\t\t<td><span class='offline'>Offline</span>\n";
-		$serverString .= "\t\t</tr>\n";
-		}
-		else
-		{
-		$serverString .= "\t\t<tr>\n";
-		$serverString .= "\t\t\t<td><span style='display:none'>" . geoip_country_code_by_name($Host) . "</span><img src='http://steamlug.org/images/" . geoip_country_code_by_name($Host) . ".png' alt='Hosted in " . geoip_country_code_by_name($Host) . "'>\n";
-		$serverString .= "\t\t\t<td>" . ($Info["Secure"] ? "<img src='http://steamlug.org/images/vac.png' alt='VAC Enabled'>" : "") . "\n";
-		$serverString .= "\t\t\t<td>" . $Info["ModDesc"] . "\n";
-		$serverString .= "\t\t\t<td><a href='steam://connect/" . $Host . ":" . $Info["GamePort"] . "'>" . $Info["HostName"] . "</a>\n";
-		$serverString .= "\t\t\t<td>" . $Info["Players"] . "\n";
-		$serverString .= "\t\t\t<td>" . $Info["Map"] . "\n";
-		$serverString .= "\t\t\t<td><span class='online'>Online</span>\n";
-		$serverString .= "\t\t</tr>\n";
-		}
-		echo $serverString;
-	}
+	print_results($results);
 ?>
 					</tbody>
 					<tfoot>
@@ -102,7 +123,7 @@ foreach ( $ServerHost as $Index => $Host)
 						headers: {
 							1: { sorter: false }
 						},
-						sortList: [[6,1],[4,1],[0,0],[3,0]]
+						sortList: [[7,1],[5,1],[0,0],[4,0]]
 					}
 				);
 			}

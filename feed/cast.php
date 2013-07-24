@@ -49,7 +49,7 @@
 	echo "\t<channel>\n";
 	echo "\t\t<title>SteamLUG Cast</title>\n";
 	echo "\t\t<atom:link href=\"http://steamlug.org/feed/cast/" . $type . "\" rel=\"self\" type=\"application/rss+xml\" />\n";
-	echo "\t\t<atom:link href=\"http://steamlug.org/cast/rss\" rel=\"alternate\" title=\"SteamLUG Cast (". $type . ") Feed\" type=\"application/rss+xml\" />";
+#	echo "\t\t<atom:link href=\"http://steamlug.org/cast/rss\" rel=\"alternate\" title=\"SteamLUG Cast (". $type . ") Feed\" type=\"application/rss+xml\" />";
 	echo "\t\t<link>http://steamlug.org/cast</link>";
 	echo "\t\t<description>SteamLUG Cast is a casual, fortnightly audiocast which aims to provide interesting news and discussion for the SteamLUG and broader Linux gaming communities.</description>\n";
 	echo "\t\t<itunes:author>SteamLUG</itunes:author>\n";

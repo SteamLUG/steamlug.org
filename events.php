@@ -57,12 +57,13 @@ $externalJS = array('/scripts/events.js');
 
 		$eventString = "\t\t\t\t<h2><a href='" . $event["url"] . "'>" .  $event["title"] . "</a></h2>";
 		if ($event["appid"] !== 0) {
-			$eventString .= "\t\t\t\t\t<a href='" . $event["url"] . "'><img src='" . $event["img_header"] . "' alt='" . $event["title"] . "'/></a>\n";
+			$eventString .= "\t\t\t\t\t<a href='" . $event["url"] . "'><img class = 'eventImage' src='" . $event["img_header"] . "' alt='" . $event["title"] . "'/></a>\n";
 		} else {
 			$eventString .= "\t\t\t\t\t<h1>?</h1>\n";
 		}
 		$eventString .= "\t\t\t\t</a>\n";
-		$eventString .= "\t\t\t\t<h3 class = 'detailLink'><a href='" . $event["url"] . "'>Click for details</a></h3>\n";
+		$eventString .= "\t\t\t\t<h3 class = 'detailLink' ><a href = '" . $event["url"] . "'>Click for details</a></h3>\n";
+		$eventString .= "\t\t\t\t<h4 class = 'detailLink' ><a href = '/calendar.php'><img src='/images/calendar.svg' height='24px' width='24px'><br>Download iCal</a></h3>\n";
 		echo $eventString;
 		break;
 	}
@@ -118,8 +119,8 @@ $externalJS = array('/scripts/events.js');
 		$eventString = "\t\t\t<li>\n";
 
 		$eventString .= "\t\t\t\t<img class = 'eventLogo' src = '" . $event["img_small"] . "' alt = '" . $event["title"] . "'>\n";
-		$eventString .= "\t\t\t\t<a class = 'eventName' href = '" . $event["url"] . "'>" . $event["title"] . "</a><span class = 'eventDate'>" . $event['date'] . " " . $event['time'] . " " . $event['tz'] . "</span>\n";
-
+		$eventString .= "\t\t\t\t<a class = 'eventName' href = '" . $event["url"] . "'>" . $event["title"] . "</a><span class = 'eventDate'>" . $event['date'] . " " . $event['time'] . " " . $event['tz'] . "\n";
+		/*$eventString .= "\t\t\t\t<a class = 'eventCal' href = '" . $event["url"] . "'>iCal</a></span>";*/
 		$eventString .= "\t\t\t</li>\n";
 		echo $eventString;
 	}
@@ -141,10 +142,8 @@ $externalJS = array('/scripts/events.js');
 		}
 
 		$eventString = "\t\t\t<li>\n";
-
 		$eventString .= "\t\t\t\t<img class = 'eventLogo' src = '" . $event["img_small"] . "' alt = '" . $event["title"] . "'>\n";
 		$eventString .= "\t\t\t\t<a class = 'eventName' href = '" . $event["url"] . "'>" . $event["title"] . "</a><span class = 'eventDate'>" . $event['date'] . " " . $event['time'] . " " . $event['tz'] . "</span>\n";
-
 		$eventString .= "\t\t\t</li>\n";
 		echo $eventString;
 	}
