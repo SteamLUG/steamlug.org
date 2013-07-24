@@ -23,6 +23,7 @@ foreach ($data["events"] as $event) {
 	$d = explode("-", $event['date']);
 	$t = explode(":", $event['time']);
 	$c = preg_replace("#(.*)(S[0-9][0-9])(E[0-9][0-9])(.*)#", "\$3", $event["title"]);
+	$s = preg_replace("#(.*)(S[0-9][0-9])(E[0-9][0-9])(.*)#", "\$2", $event["title"]);
 	break;
 }
 
@@ -80,7 +81,7 @@ if (strtotime($d[0] . "-" . $d[1] . "-" .$d[2])-strtotime(date("Y-m-d")) <= 3 * 
 	$aboutPage .= "<article id = 'nextevent'>";
 	$aboutPage .= "<div>";
 	$aboutPage .= "\t<h1>Upcoming Episode:</h1>";
-	$aboutPage .= "\t<h2>S01, ". $c . "</h2>";
+	$aboutPage .= "\t<h2>" . $s . ", ". $c . "</h2>";
 	$aboutPage .= "\t<p>Cheese, john and sword talk about SteamLUG Casty things!</p>";
 	$aboutPage .= "\t<div id='countdown'>";
 	$aboutPage .= "\t<div>Days<br />";
