@@ -365,30 +365,51 @@ footer .copy
 
 .eventDate
 {
-	margin-right: 60px;
 	float: right;
-	line-height: 36px
+	line-height: 38px;
 }
 
 .eventName
 {
-	margin-left: 20px;
-	line-height: 36px;
 	font-size: 15px;
 	font-weight: bold;
 	color: #EBEBEB
 }
+
+.eventWrap
+{
+	width: 100%;
+	overflow: hidden;
+	height: 38px;
+}
+
+.eventWrap div
+{
+	float: left;
+}
+.eventWrap div.eventCommentWrap
+{
+	width: 366px;
+	margin-left: 20px;
+	padding-top: 2px;
+}
+
+.eventComments
+{
+	color: #BDBDBD;
+}
+
 .eventCal
 {
 	line-height: 36px;
 }
 .onlineg
 {
-	background-image: linear-gradient(to bottom, #9BC861 5%, #789E4C 95%);
+	border-color: #9BC861;
 }
 .online
 {
-	background-image: linear-gradient(to bottom, #7BAFD6 5%, #506D92 95%);
+	border-color: #7BAFD6;
 }
 .counterDigit
 {
@@ -477,7 +498,7 @@ footer .copy
 	width: 200px;
 	padding: 2em 1em;
 	vertical-align: top;
-	z-index: 4;
+	z-index: 4eventLogo;
 }
 
 #betaStamp
