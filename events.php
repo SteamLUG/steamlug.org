@@ -63,7 +63,7 @@ $externalJS = array('/scripts/events.js');
 		}
 		$eventString .= "\t\t\t\t</a>\n";
 		$eventString .= "\t\t\t\t<h3 class = 'detailLink' ><a href = '" . $event["url"] . "'>Click for details</a></h3>\n";
-		$eventString .= "\t\t\t\t<h4 class = 'detailLink' ><a href = '/calendar.php'><img src='/images/calendar.svg' height='24px' width='24px'><br>Download iCal</a></h3>\n";
+		/*$eventString .= "\t\t\t\t<h4 class = 'detailLink' ><a href = '/calendar.php'><img src='/images/calendar.svg' height='24px' width='24px'><br>Download iCal</a></h3>\n";*/
 		echo $eventString;
 		break;
 	}
