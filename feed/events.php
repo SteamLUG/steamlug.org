@@ -49,6 +49,10 @@
 	$nowDate = new DateTime("now", $timezone);
 	foreach($data['events'] as $event)
 	{
+		if ($event['appid'] === 0)
+		{
+			continue;
+		}
 		//TODO: We probably should be using whatever timezone the events were using to begin with
 		$tempDate = new DateTime($event['date'] . " " . $event['time'], $timezone);
 		$timeLeft = "1 hour";
