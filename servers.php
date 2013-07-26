@@ -57,9 +57,9 @@ $syncexternalJS = array('http://steamlug.org/scripts/jquery.min.js','http://stea
 		{
 			$serverLoc  = geoip_country_code_by_name($data['gq_address']);
 			$serverString .= "\t\t<tr>\n";
-			$serverString .= "\t\t\t<td><span style='display:none'>" . $serverLoc . "</span><img src='http://steamlug.org/images/" . $serverLoc . ".png' alt='Hosted in " . $serverLoc . "'>\n";
+			$serverString .= "\t\t\t<td><span style='display:none'>" . $serverLoc . "</span><img src='http://steamlug.org/images/flags/" . $serverLoc . ".png' alt='Hosted in " . $serverLoc . "'>\n";
 			$serverString .= "\t\t\t<td>" . (isset($data['secure']) ? "<img src='http://steamlug.org/images/vac.png' alt='VAC Enabled'>" : "") . "\n";
-			$serverString .= "\t\t\t<td>" . ($data['gq_password'] == "1" ? "<img src='images/padlock.png' alt='Password Protected'>" : "") . "\n";
+			$serverString .= "\t\t\t<td>" . ($data['gq_password'] == "1" ? "<img src='/images/padlock.png' alt='Password Protected'>" : "") . "\n";
 			$serverString .= "\t\t\t<td>" . (isset($data['game_descr']) ? ($data['game_descr'] == "Team Fortress" ? "Team Fortress 2" : $data['game_descr']) : ($data['gq_type'] == "killingfloor" ? "Killing Floor" : $data['gq_type'])) . "\n";
 			$serverString .= "\t\t\t<td><a href='steam://connect/" . $serverHost . "'>" . $data['gq_hostname'] . "</a>\n";
 			$serverString .= "\t\t\t<td>" . ($data['gq_numplayers'] ? $data['gq_numplayers'] : "0") . " / " . $data['gq_maxplayers'] . "\n";
