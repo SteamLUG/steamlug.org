@@ -76,8 +76,8 @@ if ($season == "0" || $episode == "0" || !glob($path . "/s" . basename($season) 
 	$aboutPage .= "<p>From time to time, we also have guests joining to share their insights on Linux, the gaming industry and the SteamLUG community. Check back for recording archives, shownotes and further announcements!</p>";
     $aboutPage .= "<h2>Make sure to subscribe to our lovely RSS feeds</h2>";
     $aboutPage .= "<ul>";
-    $aboutPage .= "<li><a href = 'http://steamlug.org/feed/cast/ogg'>OGG feed</li>";
-    $aboutPage .= "<li><a href = 'http://steamlug.org/feed/cast/mp3'>MP3 feed</li>";
+    $aboutPage .= "<li><a href = 'http://steamlug.org/feed/cast/ogg'>OGG feed</a></li>";
+    $aboutPage .= "<li><a href = 'http://steamlug.org/feed/cast/mp3'>MP3 feed</a></li>";
     $aboutPage .= "</ul>";
     $aboutPage .= "</div>";
 	$aboutPage .= "</div>";
