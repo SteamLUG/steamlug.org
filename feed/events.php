@@ -8,7 +8,7 @@
 	echo "<rss version='2.0' xmlns:atom='http://www.w3.org/2005/Atom'>\n";
 	echo "<channel>\n";
 	echo "\t<title>";
-	echo "SteamLUG events!.";
+	echo "SteamLUG Events";
 	echo "</title>\n";
 	echo "\t<description>";
 	echo "This feed contains a list of SteamLUG game events.";
