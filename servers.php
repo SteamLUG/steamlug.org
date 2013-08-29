@@ -47,7 +47,7 @@ $syncexternalJS = array('http://steamlug.org/scripts/jquery.min.js','http://stea
 			$serverString .= "\t\t\t<td>\n";
 			$serverString .= "\t\t\t<td>\n";
 			$serverString .= "\t\t\t<td><em>Server Unresponsive</em>\n";
-			$serverString .= "\t\t\t<td><em>N/A</em>\n";
+			$serverString .= "\t\t\t<td><em>" . $serverHost . "</em>\n";
 			$serverString .= "\t\t\t<td><em>N/A</em>\n";
 			$serverString .= "\t\t\t<td><em>N/A</em>\n";
 			$serverString .= "\t\t\t<td><span class='offline'>Offline</span>\n";
