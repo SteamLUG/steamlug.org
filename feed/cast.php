@@ -9,7 +9,7 @@
 		$type = "mp3";
 	}
 	$path = "/var/www/archive.steamlug.org/steamlugcast";
-	$url  = "https://archive.steamlug.org/steamlugcast";
+	$url  = "http://archive.steamlug.org/steamlugcast";
 
 	function getlength($u)
 	{
