@@ -3,16 +3,16 @@
 			<h3>Feeds</h3>
 			<ul>
 				<li><a href = 'http://steamcommunity.com/groups/steamlug/rss/'>SteamLUG News Feed</a></li>
-				<li><a href = 'http://steamlug.org/feed/events'>SteamLUG Events Feed</a></li>
-				<li><a href = 'http://twitter.com/steamlug'>SteamLUG Twitter</a></li>
+				<li><a href = '/feed/events'>SteamLUG Events Feed</a></li>
+				<li><a href = 'https://twitter.com/steamlug'>SteamLUG Twitter</a></li>
 			</ul>
 		</div>
 		<div class = 'linkDiv'>
 			<h3>SteamLUG</h3>
 			<ul>
 				<li><a href = 'http://steamcommunity.com/groups/steamlug/'>SteamLUG Steam Group</a></li>
-				<li><a href = 'http://steamlug.org/chat'>SteamLUG IRC Chat</a></li>
-				<li><a href = 'http://steamlug.org/mumble'>SteamLUG Mumble Server</a></li>
+				<li><a href = '/chat'>SteamLUG IRC Chat</a></li>
+				<li><a href = '/mumble'>SteamLUG Mumble Server</a></li>
 				<li><a href = 'http://forums.steampowered.com/forums/showthread.php?t=1897204'>SPUF Thread</a></li>
 			</ul>
 		</div>

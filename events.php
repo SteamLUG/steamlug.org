@@ -80,7 +80,7 @@ foreach ($data['events'] as $event)
 			<div class = 'shadow' >
 				<h1>About</h1>
 				<p>Welcome to the SteamLUG events page!</p>
-				<p>Here you can find a list of upcoming group gaming events hosted by the SteamLUG community. A countdown timer is shown above for the next upcoming event. We also have a <a href = 'http://steamlug.org/feed/events'>RSS feed</a> of event reminders available.</p>
+				<p>Here you can find a list of upcoming group gaming events hosted by the SteamLUG community. A countdown timer is shown above for the next upcoming event. We also have a <a href = '/feed/events'>RSS feed</a> of event reminders available.</p>
 				<p>All times are listed in UTC, and are subject to change.</p>
 				<p>Click on an event title to post comments, find more information, and retrieve server passwords (for this, you will need to become a group member by clicking the Join Group button on the upper right of any of the event pages).</p>
 				<p>If you'd like to know more about our community, visit the <a href = 'about' >About page</a>, or hop into our <a href = 'irc'>IRC channel</a> and say hi. If you'd like to get involved with organising SteamLUG events, please contact <a href = 'http://steamcommunity.com/id/swordfischer' >swordfischer</a>.</p>

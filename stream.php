@@ -85,14 +85,14 @@
         }
         $statusString  = "\t\t\t<article>\n";
         $statusString .= "\t\t\t\t<div class='shadow'>\n";
-        $statusString .= "\t\t\t\t\t<h1 class='streambox'><a href='http://steamlug.org/mumble'>Mumble Status</a></h1>\n";
+        $statusString .= "\t\t\t\t\t<h1 class='streambox'><a href='/mumble'>Mumble Status</a></h1>\n";
         $statusString .= "\t\t\t\t\t<dl>\n";
         $statusString .= "\t\t\t\t\t\t<dt>Server</dt><dd>Online</dd>\n";
         $statusString .= "\t\t\t\t\t\t<dt>Version</dt><dd>" . $info['x_gtmurmur_server_version'] . "</dd>\n";
         $statusString .= "\t\t\t\t\t\t<dt>Channels</dt><dd>" . $statusChannels ."</dd>\n";
         $statusString .= "\t\t\t\t\t\t<dt>Users</dt><dd>" . $statusUsers . " / " . $info['x_gtmurmur_max_users'] . "</dd>\n";
         $statusString .= "\t\t\t\t\t</dl>\n";
-	$statusString .= "\t\t\t\t\t<h3 class = 'detailLink streambox'><a href='http://steamlug.org/mumble'>Click for details</a></h3><p></p>\n";
+	$statusString .= "\t\t\t\t\t<h3 class = 'detailLink streambox'><a href='/mumble'>Click for details</a></h3><p></p>\n";
         $statusString .= "\t\t\t\t</div>\n";
         $statusString .= "\t\t\t</article>\n";
 	echo $statusString;

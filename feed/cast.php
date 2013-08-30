@@ -9,7 +9,7 @@
 		$type = "mp3";
 	}
 	$path = "/var/www/archive.steamlug.org/steamlugcast";
-	$url  = "http://archive.steamlug.org/steamlugcast";
+	$url  = "https://archive.steamlug.org/steamlugcast";
 
 	function getlength($u)
 	{
@@ -82,8 +82,8 @@
 		$itemContent .= "\t<title>" . gettitle($archiveBase . ".ogg") . "</title>\n";
 		$itemContent .= "\t<pubDate>" . date("D, d M Y H:i:s O", filemtime($episodeBase . ".txt")) . "</pubDate>\n";
 		$itemContent .= "\t<itunes:duration>" . getlength($archiveBase . ".ogg") . "</itunes:duration>\n";
-		$itemContent .= "\t<link>http://steamlug.org/cast/s" . slenc($matches[1]) . "e" . slenc($matches[2]) . "</link>\n";
-		$itemContent .= "\t<guid>http://steamlug.org/cast/s" . slenc($matches[1]) . "e" . slenc($matches[2]) . "</guid>\n";
+		$itemContent .= "\t<link>https://steamlug.org/cast/s" . slenc($matches[1]) . "e" . slenc($matches[2]) . "</link>\n";
+		$itemContent .= "\t<guid>https://steamlug.org/cast/s" . slenc($matches[1]) . "e" . slenc($matches[2]) . "</guid>\n";
 		$itemContent .= "\t<enclosure url=\"" . $archiveBase . "." . $type . "\" length=\"" . filesize($episodeBase . "." . $type) . "\" type=\"audio/" . ($type == "ogg" ? "ogg" : "mpeg") . "\" />\n";
 		$itemContent .= "\t<media:content url=\"" . $archiveBase . "." . $type . "\" fileSize=\"" . filesize($episodeBase . "." . $type) . "\" type=\"audio/" . ($type == "ogg" ? "ogg" : "mpeg") . "\" medium=\"audio\" expression=\"full\" />\n";
 		$itemContent .= "\t<itunes:explicit>no</itunes:explicit>\n";

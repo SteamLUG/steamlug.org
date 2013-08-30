@@ -33,7 +33,7 @@ $externalJS = array('/scripts/events.js');
 $pageTitle = "Cast";
 
 $path = "/var/www/archive.steamlug.org/steamlugcast";
-$url  = "http://archive.steamlug.org/steamlugcast";
+$url  = "https://archive.steamlug.org/steamlugcast";
 
 function slenc($u)
 {
@@ -52,7 +52,7 @@ if (!function_exists('glob_recursive'))
 	}
 }
 
-$rssLinks = '<link rel="alternate" type="application/rss+xml" title="SteamLUG Cast (mp3) Feed" href="http://steamlug.org/feed/cast/mp3" /><link rel="alternate" type="application/rss+xml" title="SteamLUG Cast (Ogg) Feed" href="http://steamlug.org/feed/cast/ogg" />';
+$rssLinks = '<link rel="alternate" type="application/rss+xml" title="SteamLUG Cast (mp3) Feed" href="https://steamlug.org/feed/cast/mp3" /><link rel="alternate" type="application/rss+xml" title="SteamLUG Cast (Ogg) Feed" href="https://steamlug.org/feed/cast/ogg" />';
 
 include_once('includes/header.php');
 ?>
@@ -76,8 +76,8 @@ if ($season == "0" || $episode == "0" || !glob($path . "/s" . basename($season) 
 	$aboutPage .= "<p>From time to time, we also have guests joining to share their insights on Linux, the gaming industry and the SteamLUG community. Check back for recording archives, shownotes and further announcements!</p>";
     $aboutPage .= "<h2>Make sure to subscribe to our lovely RSS feeds</h2>";
     $aboutPage .= "<ul>";
-    $aboutPage .= "<li><a href = 'http://steamlug.org/feed/cast/ogg'>OGG feed</a></li>";
-    $aboutPage .= "<li><a href = 'http://steamlug.org/feed/cast/mp3'>MP3 feed</a></li>";
+    $aboutPage .= "<li><a href = '/feed/cast/ogg'>OGG feed</a></li>";
+    $aboutPage .= "<li><a href = '/feed/cast/mp3'>MP3 feed</a></li>";
     $aboutPage .= "</ul>";
     $aboutPage .= "</div>";
 	$aboutPage .= "</div>";
@@ -133,7 +133,7 @@ if ($season > "0" && $episode > "0" && glob($path . "/s" . basename($season) . "
 	$listItem .= "\t\t\t\t" . ($episodeOggFS > 0 ? $episodeOggFS . " MB <a href='$archiveBase.ogg'>OGG</a>" : "N/A OGG") . " | \n";
 	$listItem .= "\t\t\t\t" . ($episodeFlacFS > 0 ? $episodeFlacFS . " MB <a href='$archiveBase.flac'>FLAC</a>" : "N/A FLAC") . " | \n";
 	$listItem .= "\t\t\t\t" . ($episodeMp3FS > 0 ? $episodeMp3FS . " MB <a href='$archiveBase.mp3'>MP3</a>\n" : "N/A MP3");
-	$listItem .= "\t\t\t\t<span class='right'><a href='http://creativecommons.org/licenses/by-sa/3.0/'><img class='license' src='http://mirrors.creativecommons.org/presskit/buttons/80x15/png/by-sa.png' alt='Licensed under CC-BY-SA'></a></span>\n";
+	$listItem .= "\t\t\t\t<span class='right'><a href='http://creativecommons.org/licenses/by-sa/3.0/'><img class='license' src='/images/by-sa.png' alt='Licensed under CC-BY-SA'></a></span>\n";
 	$listItem .= "\t\t\t</p>\n";
 	$listItem .= "\t\t\t<h3>Shownotes</h3>\n";
 	echo $listItem;
@@ -166,7 +166,7 @@ if ($season > "0" && $episode > "0" && glob($path . "/s" . basename($season) . "
 		$note = preg_replace_callback
 		(
 		'/(?<=^|\s)@([a-z0-9_]+)/i',
-		function($matches){ return "<a href='http://twitter.com/" . slenc($matches[1]) . "'>" . slenc($matches[0]) . "</a>"; },
+		function($matches){ return "<a href='https://twitter.com/" . slenc($matches[1]) . "'>" . slenc($matches[0]) . "</a>"; },
 		$note
 		);
 		$note = preg_replace_callback
@@ -202,7 +202,7 @@ if ($season > "0" && $episode > "0" && glob($path . "/s" . basename($season) . "
 		$note = preg_replace_callback
 		(
 		'/\[(\w\d+\w\d+)\]/',
-		function($matches){ return "\t\t\t<a href='http://steamlug.org/cast/" . $matches[1] . "'>" . $matches[1] . "</a>\n"; },
+		function($matches){ return "\t\t\t<a href='/cast/" . $matches[1] . "'>" . $matches[1] . "</a>\n"; },
 		$note
 		);
 		echo $note . "\n";
@@ -245,7 +245,7 @@ else
 		$listItem .= "\t\t\t\t<td>" . ( $episodeOggFS > 0 ? "<a href='$archiveBase.ogg'><img src='/images/disk.png' alt='Download'>" . $episodeOggFS . " MB" : "N/A" ) . "</a></td>\n";
 		$listItem .= "\t\t\t\t<td>" . ( $episodeFlacFS > 0 ? "<a href='$archiveBase.flac'><img src='/images/disk.png' alt='Download'>" . $episodeFlacFS . " MB" : "N/A" ) . "</a></td>\n";
 		$listItem .= "\t\t\t\t<td>" . ( $episodeMp3FS > 0 ? "<a href='$archiveBase.mp3'><img src='/images/disk.png' alt='Download'>" . $episodeMp3FS . " MB" : "N/A" ) . "</a></td>\n";
-		$listItem .= "\t\t\t\t<td><a href='http://creativecommons.org/licenses/by-sa/3.0/'><img class='license' src='http://mirrors.creativecommons.org/presskit/buttons/80x15/png/by-sa.png' alt='Licensed under CC-BY-SA'></a></td>\n";
+		$listItem .= "\t\t\t\t<td><a href='http://creativecommons.org/licenses/by-sa/3.0/'><img class='license' src='/images/by-sa.png' alt='Licensed under CC-BY-SA'></a></td>\n";
 		$listItem .= "\t\t\t</tr>\n";
 	}
 	$listItem .= "\t\t</table>\n";

@@ -20,7 +20,7 @@
 	echo "Copyright " . date("Y") . " SteamLUG community";
 	echo "</copyright>\n";
 	echo "\t<link>";
-	echo "http://steamlug.org";
+	echo "https://steamlug.org";
 	echo "</link>\n";
 	echo "\t<managingEditor>";
 	echo "steamlug@gmail.com (SteamLUG)";
@@ -28,7 +28,7 @@
 	echo "\t<lastBuildDate>";
 	echo date("r");
 	echo "</lastBuildDate>\n";
-	echo "\t<atom:link href='http://steamlug.org/feed/events' rel = 'self' type='application/rss+xml' />\n";
+	echo "\t<atom:link href='https://steamlug.org/feed/events' rel = 'self' type='application/rss+xml' />\n";
 	echo "\t<pubDate>";
 	echo date("r");
 	echo "</pubDate>\n";
