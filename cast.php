@@ -74,16 +74,15 @@ if ($season == "0" || $episode == "0" || !glob($path . "/s" . basename($season) 
 	$aboutPage .= "<li><a href='http://steamcommunity.com/id/swordfischer'>swordfischer</a> - SteamLUG's chief event organiserer</li>";
 	$aboutPage .= "</ul>";
 	$aboutPage .= "<p>From time to time, we also have guests joining to share their insights on Linux, the gaming industry and the SteamLUG community. Check back for recording archives, shownotes and further announcements!</p>";
-    $aboutPage .= "<h2>Make sure to subscribe to our lovely RSS feeds</h2>";
-    $aboutPage .= "<ul>";
-    $aboutPage .= "<li><a href = '/feed/cast/ogg'>OGG feed</a></li>";
-    $aboutPage .= "<li><a href = '/feed/cast/mp3'>MP3 feed</a></li>";
-    $aboutPage .= "</ul>";
-    $aboutPage .= "</div>";
+	$aboutPage .= "<h2>Make sure to subscribe to our lovely RSS feeds</h2>";
+	$aboutPage .= "<ul>";
+	$aboutPage .= "<li><a href = '/feed/cast/ogg'>OGG feed</a></li>";
+	$aboutPage .= "<li><a href = '/feed/cast/mp3'>MP3 feed</a></li>";
+	$aboutPage .= "</ul>";
 	$aboutPage .= "</div>";
 	$aboutPage .= "</article>";
 
-if (strtotime($d[0] . "-" . $d[1] . "-" .$d[2])-strtotime(date("Y-m-d")) <= 3 * 86400) {
+if (isset($d) && strtotime($d[0] . "-" . $d[1] . "-" .$d[2])-strtotime(date("Y-m-d")) <= 14 * 86400) {
 	$aboutPage .= "<article id = 'nextevent'>";
 	$aboutPage .= "<div>";
 	$aboutPage .= "\t<h1>Upcoming Episode:</h1>";
