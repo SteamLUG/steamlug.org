@@ -152,7 +152,7 @@ if ($season > "0" && $episode > "0" && glob($path . "/s" . basename($season) . "
 		);
 		$note = preg_replace_callback(
 		'/(\d+:\d+:\d+)/',
-		function($matches){ return "<time datetime='" . slenc($matches[1]) . "'>" . slenc($matches[1]) . "</time>"; },
+		function($matches){ return "<time id='ts-" . slenc($matches[1]) . "' datetime='" . slenc($matches[1]) . "'>" . slenc($matches[1]) . "</time>"; },
 		$note
 		);
 		$note = preg_replace_callback(
