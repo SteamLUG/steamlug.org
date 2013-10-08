@@ -645,6 +645,9 @@ table.tablesorter thead th.headerSortUp
                 margin-right: 10px;
                 color: #626262;
         }
+time:target {
+	color: #FF7F00;
+}
         .casttopic {
                 font-weight: bold;
                 font-size: 14px;
