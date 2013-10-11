@@ -29,7 +29,7 @@ foreach ($data["events"] as $event) {
 
 $dateString = "var target = Math.round( Date.UTC (" . $d[0] . ", " . $d[1] . " -1, " . $d[2] . ", " . $t[0] . ", " . $t[1] . ", 0, 0) / 1000);";
 $extraJS = $dateString;
-$externalJS = array('/scripts/events.js');
+$externalJS = array('/scripts/events.js', '/scripts/castseek.js');
 $pageTitle = "Cast";
 
 $path = "/var/www/archive.steamlug.org/steamlugcast";
@@ -133,7 +133,6 @@ if ($season > "0" && $episode > "0" && glob($path . "/s" . basename($season) . "
 	$listItem .= "\t\t\t<h3>Season: $season, Episode: $episode</h3>\n";
 	$listItem .= "\t\t\t<audio preload='none' src='$archiveBase.ogg' type='audio/ogg' controls>Your browser does not support the &lt;audio&gt; tag.</audio>\n";
 	$listItem .= "\t\t\t<p>\n";
-	$listItem .= "\t\t\t<script src='/scripts/castseek.js' type='text/javascript'></script>\n";
 	$listItem .= "\t\t\t\t" . ($episodeOggFS > 0 ? $episodeOggFS . " MB <a href='$archiveBase.ogg'>OGG</a>" : "N/A OGG") . " | \n";
 	$listItem .= "\t\t\t\t" . ($episodeFlacFS > 0 ? $episodeFlacFS . " MB <a href='$archiveBase.flac'>FLAC</a>" : "N/A FLAC") . " | \n";
 	$listItem .= "\t\t\t\t" . ($episodeMp3FS > 0 ? $episodeMp3FS . " MB <a href='$archiveBase.mp3'>MP3</a>\n" : "N/A MP3");
