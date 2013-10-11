@@ -11,7 +11,7 @@
 			<h3>SteamLUG</h3>
 			<ul>
 				<li><a href = 'http://steamcommunity.com/groups/steamlug/'>SteamLUG Steam Group</a></li>
-				<li><a href = '/chat'>SteamLUG IRC Chat</a></li>
+				<li><a href = '/irc'>SteamLUG IRC Chat</a></li>
 				<li><a href = '/mumble'>SteamLUG Mumble Server</a></li>
 				<li><a href = 'http://forums.steampowered.com/forums/showthread.php?t=1897204'>SPUF Thread</a></li>
 			</ul>
