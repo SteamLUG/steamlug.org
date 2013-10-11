@@ -1,0 +1,152 @@
+function time_to_seconds(time) {
+  var s = time.attributes["datetime"].value.split(":");
+  return parseInt(s[0]*3600) + parseInt(s[1]*60) + parseInt(s[2]);
+}
+
+highlighter = {
+
+  /*
+   * Collect and parse the time tags, annotate them with their time in seconds,
+   * and stash them in an array called "nodes".
+   */
+  init: function () {
+    // collect time tags
+    var nodes = document.getElementsByTagName("time");
+
+    for (var i = 0; i < nodes.length; i++) {
+      var time = nodes[i];
+      var seconds = time_to_seconds(time);
+
+      time.seconds = seconds;
+      time.onclick = this.click_handler;
+    }
+
+    this.nodes = nodes;
+
+    // listen to audio events
+    var audio = document.getElementsByTagName("audio")[0];
+    audio.addEventListener("timeupdate", this.timeupdate_handler);
+    audio.addEventListener("progress", this.progress_handler);
+
+    this.audio = audio;
+
+    console.log("highlighter initialized!")
+  },
+
+  /*
+   * A callback that fires constantly while the audio is playing.
+   */
+  timeupdate_handler: function (event) {
+    var secs = event.target.currentTime;
+    highlighter.highlight_time(secs);
+  },
+
+  /*
+   * A callback that fires when the audio player is loading content. (Not used.)
+   */
+  progress_handler: function (event) { 
+    // this.amount_loaded = event.target.buffered.end(0);
+  },
+
+  /*
+   * A callback that fires when the user clicks a time tag on the page.
+   */
+  click_handler: function (node) {
+    // console.log("seeking to", this.seconds);
+
+    var audio = highlighter.audio;
+    if (audio.paused) {
+      audio.play();
+
+      // The following mess is needed to seek after the audio has started playing,
+      var seconds = this.seconds;
+      var seek_once = function (event) {
+        console.log("seeking to", seconds);
+        this.currentTime = seconds;
+        this.removeEventListener('canplay', seek_once, false);
+      };
+      audio.addEventListener('canplay', seek_once, false);
+    } else {
+      // Seek!
+      audio.currentTime = this.seconds;
+    }
+  },
+
+  /*
+   * Find the time tag at position "n" in the "nodes" array, and
+   * highlight it.
+   */
+  highlight: function (n) {
+    // console.log("highlighting", n);
+
+    // unhighlight old node
+    if (this.highlighted >= 0)
+      this.nodes[this.highlighted].parentNode.classList.remove("highlighted");
+
+    // highlight new node
+    this.nodes[n].parentNode.classList.add("highlighted");
+
+    // remember which node we've highlighted
+    this.highlighted = n;
+  },
+
+  /*
+   * Do a linear search of the "nodes" array for the first time tag that is 
+   * less than "secs".
+   */
+  find_node_before: function (secs) {
+    var p = 0;
+
+    // find the node just before "secs"
+    while (1) {
+      // console.log(p, "checking", secs, ">", this.nodes[p].seconds);
+
+      if (p+1 >= this.nodes.length) break;
+      if (secs < this.nodes[p+1].seconds) break;
+
+      p++;
+
+      // console.log("p", p)
+    }
+
+    return p;
+  },
+
+  /*
+   * Check if the player is still playing the "this.highlighted" time tag.
+   */
+  in_range: function (secs) {
+    if (secs > this.nodes[this.highlighted].seconds) {
+      if (this.highlighted+1 > this.nodes.length-1) {
+        return true;
+      } else {
+        if (secs < this.nodes[this.highlighted+1].seconds) {
+          return true;
+        }
+      }
+    }
+    return false;
+  },
+
+
+  /*
+   * This is the main workhorse function. It's called every time the audio "timeupdate"
+   * callback is fired, and constantly checks to make sure the highlighted element
+   * matches what's in the player.
+   */
+  highlight_time: function (secs) {
+    if (this.highlighted >= 0) {
+      if (!this.in_range(secs)) {
+        var n = this.find_node_before(secs);
+        this.highlight(n);
+      }
+    } else {
+      // nothing was highlighted, so highlight the first thing.
+      this.highlight(0);
+    }
+  },
+
+}
+
+
+highlighter.init();

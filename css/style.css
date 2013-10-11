@@ -674,3 +674,14 @@ time:target {
                 margin: 0;
         }
 
+/* highlighter */
+time {
+	cursor: pointer;
+}
+time:hover {
+	color: #eee;
+}
+li.highlighted, .highlighted time {
+	background-color: #06a;
+	color: #eee;
+}
