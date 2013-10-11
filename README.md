@@ -1,3 +1,4 @@
-Tasks-and-Bugs
+SteamLUG
 ==============
-TODO: add stuff here!
+
+TODO: Everything!
