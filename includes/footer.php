@@ -38,4 +38,11 @@
 All registered trademarks or copyrights are property of their respective owners.</p>
 		</footer>
 	</body>
+<?php
+if (isset($tailJS)) {
+	foreach ($tailJS as $js) {
+		echo "\t<script src='" . htmlspecialchars($js) . "' type='text/javascript'></script>\n";
+	}
+}
+?>
 </html>

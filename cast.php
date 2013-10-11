@@ -29,7 +29,8 @@ foreach ($data["events"] as $event) {
 
 $dateString = "var target = Math.round( Date.UTC (" . $d[0] . ", " . $d[1] . " -1, " . $d[2] . ", " . $t[0] . ", " . $t[1] . ", 0, 0) / 1000);";
 $extraJS = $dateString;
-$externalJS = array('/scripts/events.js', '/scripts/castseek.js');
+$externalJS = array('/scripts/events.js');
+$tailJS = array('/scripts/castseek.js');
 $pageTitle = "Cast";
 
 $path = "/var/www/archive.steamlug.org/steamlugcast";
