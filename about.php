@@ -15,7 +15,7 @@
 					<dt>SteamLUG Cast</dt><dd>cast ( at ) steamlug ( dot ) org</dd>
 					<dt>Events</dt><dd><a href = 'http://steamcommunity.com/id/swordfischer'>@swordfischer</a> <em>(same handle on twitter)</em></dd>
 					<dt>Servers</dt><dd><a href = 'http://steamcommunity.com/id/swordfischer'>@swordfischer</a> <em>(same handle on twitter)</em></dd>
-					<dt>Projects</dt><dd><a href = 'http://steamcommunity.com/id/cheeseness'>Cheeseness</a> <em>(<a href = 'https://twitter.com/TwoLofBees'>@TwoLofBees</a> on twitter)</em></dd>
+					<dt>Projects</dt><dd><a href = 'http://steamcommunity.com/id/cheeseness'>Cheeseness</a> <em>(<a href = 'https://twitter.com/ValiantCheese'>@ValiantCheese</a> on twitter)</em></dd>
 				</dl>
 			<p></p>
 			</article>
@@ -29,9 +29,9 @@
 
 				<p>We are a multilingual community which aims to be a fun, welcoming space for people of all backgrounds and aptitudes.</p>
 				
-				<p>We also cover <a href = 'news'>Steam for Linux news</a> (<em>Valve news, Steam news, and native Linux games</em>), as well as host <a href = 'servers'>game servers</a> and regular <a href = 'events'>gaming events</a>.
+				<p>We also cover <a href = '/news'>Steam for Linux news</a> (<em>Valve news, Steam news, and native Linux games</em>), as well as host <a href = 'servers'>game servers</a> and regular <a href = 'events'>gaming events</a>.
 
-				<p>The SteamLUG community operates the <a href = 'chat'>#SteamLUG IRC channel</a> (<em>click for details and webchat</em>), runs a Mumble <a href = 'mumble'>voice chat server</a> (<em>using the same password that we use for our game servers - you can see this on the Steam group event pages if you are a member of our Steam group</em>), and a <a href = 'http://steamcommunity.com/groups/steamlug/'>Steam group</a> with over 5,000 members.</p>
+				<p>The SteamLUG community operates the <a href = '/irc'>#SteamLUG IRC channel</a> on irc.freenode.net (<em>click for details and webchat</em>), runs a Mumble <a href = 'mumble'>voice chat server</a> (<em>using the same password that we use for our game servers - you can see this on the Steam group event pages if you are a member of our Steam group</em>), and a <a href = 'http://steamcommunity.com/groups/steamlug/'>Steam group</a> with over 5,000 members.</p>
 				
 				<p>Our rich and diverse community consists of people ranging from first-time Linux users through to developers, long-time gamers through to industry commentators. You may even see a Valve person hanging around from time to time (<em>if you do spot one, we ask that you respect their desire to be a normal part of our community and not bombard them with questions, complaints or bug reports - there are <a href = 'https://github.com/ValveSoftware/steam-for-linux/'>other channels</a> for that</em>).</p>
 				<p>We always aim to be as welcoming of newcomers as possible, so please feel free to join us! :)</p>
@@ -45,7 +45,7 @@
 					<h2>Events</h2>
 					<p>We host regular gaming events to highlight native Linux games and bring Linux gamers together. For more information, visit the <a href = 'events'>Events page</a>.</p>
 					<h2>Audiocast</h2>
-					<p>Our <a href = 'cast'>SteamLUG Cast</a> is a regular, ongoing forthnightly (<em>subject to change</em>) audio cast focusing on Steam/Valve news, F/OSS gaming news, Wine updates, SteamLUG happenings and other Linux gaming related tech news. You can tune in live on our <a href = 'mumble'>Mumble server</a>, or download archived shows from the <a href = 'cast'>SteamLUG Cast page</a>.</p>
+					<p>Our <a href = '/cast'>SteamLUG Cast</a> is a regular, ongoing forthnightly (<em>subject to change</em>) audio cast focusing on Steam/Valve news, F/OSS gaming news, Wine updates, SteamLUG happenings and other Linux gaming related tech news. You can tune in live on our <a href = 'mumble'>Mumble server</a>, or download archived shows from the <a href = 'cast'>SteamLUG Cast page</a>.</p>
 					<h2>Projects</h2>
 					<p>Sometimes people in our community get excited enough to make something big happen. Some of our projects are open. Others are hidden until completion. For more information and details of current public projects, visit the <a href = 'projects'>Projects page</a>.</p>
 				</div>
