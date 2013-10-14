@@ -58,7 +58,7 @@ $extraJS = "			getTwitters('tweet', {
 				$item['description'] = str_replace("</ul>\n\n<br>", "</ul>\n<p>", $item['description']);
 				$item['description'] = str_replace("<ul>", "</p>\n<ul>", $item['description']);
 				$item['description'] = str_replace("<blockquote>", "</p>\n<blockquote>", $item['description']);
-				$item['description'] = str_replace("</blockquote>", "<blockquote>\n<p>", $item['description']);
+				$item['description'] = str_replace("</blockquote>", "</blockquote>\n<p>", $item['description']);
 				$item['description'] = str_replace("<br>", "<br />", $item['description']);
 				
 				if (!isset($item['author']))
