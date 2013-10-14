@@ -210,6 +210,11 @@ article p, article dl, article ul
 	margin: 1em 30px;
 }
 
+article blockquote
+{
+	margin: 1em 40px;
+}
+
 ul#archive
 {
 	list-style-type: none;
