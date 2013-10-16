@@ -262,7 +262,7 @@ article h1 a
 
 article ul, ol
 {
-	margin-left: 60px;
+	margin-left: 90px;
 }
 article.shownotes ul
 {
@@ -646,38 +646,48 @@ table.tablesorter thead th.headerSortUp
 {
 	background-color: #3D4655;
 }
-        time {
-                margin-right: 10px;
-                color: #626262;
-        }
+
+time {
+	margin-right: 10px;
+	color: #626262;
+}
+
 time:target {
 	color: #FF7F00;
 }
-        .casttopic {
-                font-weight: bold;
-                font-size: 14px;
-                line-height: 40px;
-        }
-        .shownotes {
-        text-align: left;
-        }
-        .shownotes li {
-                list-style-type: none !important;
-                line-height: 20px;
-        }
-        .castsource {
-                color: #529CDE;
 
-        }
-        .castabout {
-                line-height: 14px;
-        }
-        .nostamp {
-                margin-left: 60px;
-        }
-        .nostamp p {
-                margin: 0;
-        }
+.casttopic {
+        font-weight: bold;
+        font-size: 14px;
+        line-height: 40px;
+}
+
+.shownotes {
+	text-align: left;
+}
+
+.shownotes li {
+        list-style-type: none !important;
+        line-height: 20px;
+        text-indent: -60px;
+}
+
+.castsource {
+        color: #529CDE;
+
+}
+
+.castabout {
+        line-height: 14px;
+}
+
+.nostamp {
+	text-indent: 0 !important;
+}
+
+.nostamp p {
+        margin: 0;
+}
 
 /* highlighter */
 time {
