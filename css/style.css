@@ -443,6 +443,21 @@ footer .copy
 	margin-top: 3px;
 }
 
+.mumbleUser
+ {
+	color: #9BC861;
+	list-style-type: disc;
+	margin: 0 -22px;
+}
+ul > li.mumbleChannel > ul > li.mumbleChannel
+{
+	color: #7BAFD6;
+	margin: 0 -22px;
+}
+ul > li.mumbleChannel > ul > li.mumbleChannel ul:nth-child even
+{
+	color: #FF00AA;
+}
 #countdown div
 {
 	display: inline-block;
