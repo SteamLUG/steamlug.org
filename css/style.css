@@ -262,7 +262,7 @@ article h1 a
 
 article ul, ol
 {
-	margin-left: 90px;
+	margin-left: 60px;
 }
 article.shownotes ul
 {
@@ -270,7 +270,7 @@ article.shownotes ul
 }
 article.shownotes ul.castsection
 {
-	margin-left: 30px;
+	margin-left: 90px;
 }
 article ul
 {
