@@ -210,8 +210,19 @@ article p, article dl, article ul
 	margin: 1em 30px;
 }
 
+article blockquote:before
+{
+	color: #529CDE;
+	content: open-quote;
+	font-size: 40px;
+	line-height: 1px;
+	margin-right: 10px;
+	vertical-align: -17px;
+}
 article blockquote
 {
+	color: #BBB;
+	padding: 10px;
 	margin: 1em 40px;
 }
 
@@ -432,6 +443,21 @@ footer .copy
 	margin-top: 3px;
 }
 
+.mumbleUser
+ {
+	color: #9BC861;
+	list-style-type: disc;
+	margin: 0 -22px;
+}
+ul > li.mumbleChannel > ul > li.mumbleChannel
+{
+	color: #7BAFD6;
+	margin: 0 -22px;
+}
+ul > li.mumbleChannel > ul > li.mumbleChannel ul:nth-child even
+{
+	color: #FF00AA;
+}
 #countdown div
 {
 	display: inline-block;
