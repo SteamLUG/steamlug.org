@@ -438,6 +438,24 @@ footer .copy
 	padding: 1em 1.5em;
 }
 
+.mumbleUser
+ {
+        color: #9BC861;
+        list-style-type: disc;
+        margin: 0 -22px;
+}
+
+ul > li.mumbleChannel > ul > li.mumbleChannel
+{
+        color: #7BAFD6;
+        margin: 0 -22px;
+}
+
+ul > li.mumbleChannel > ul > li.mumbleChannel ul:nth-child(even)
+{
+        color: #FF00AA;
+}
+
 .serverimg {
 	box-shadow: 0 0 15px 1px rgba(0,0,0, 0.5);
 	border-radius: 10px;
