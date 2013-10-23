@@ -30,7 +30,7 @@ $extraJS = "			getTwitters('tweet', {
 					<p>Read more and follow <a href="http://twitter.com/SteamLUG">@SteamLUG</a> on Twitter.</p>
 				</div>
 			</article> -->
-<?
+<?php
 	$rss = new lastRSS;
 	$rss->cache_dir = './temp';
 	$rss->cache_time = 1200;
