@@ -61,7 +61,7 @@ include_once('includes/header.php');
 		<h1>SteamLUG Cast</h1>
 	</header>
 <section>
-<?
+<?php
 if ($season == "0" || $episode == "0" || !glob($path . "/s" . basename($season) . "e" . basename($episode) . "/*"))
 {
 	$aboutPage  = "\t<article>\n";
