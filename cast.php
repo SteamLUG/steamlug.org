@@ -134,9 +134,9 @@ if ($season > "0" && $episode > "0" && glob($path . "/s" . basename($season) . "
 	$listItem .= "\t\t\t<h3>Season: $season, Episode: $episode</h3>\n";
 	$listItem .= "\t\t\t<audio preload='none' src='$archiveBase.ogg' type='audio/ogg' controls>Your browser does not support the &lt;audio&gt; tag.</audio>\n";
 	$listItem .= "\t\t\t<p>\n";
-	$listItem .= "\t\t\t\t" . ($episodeOggFS > 0 ? $episodeOggFS . " MB <a href='$archiveBase.ogg'>OGG</a>" : "N/A OGG") . " | \n";
-	$listItem .= "\t\t\t\t" . ($episodeFlacFS > 0 ? $episodeFlacFS . " MB <a href='$archiveBase.flac'>FLAC</a>" : "N/A FLAC") . " | \n";
-	$listItem .= "\t\t\t\t" . ($episodeMp3FS > 0 ? $episodeMp3FS . " MB <a href='$archiveBase.mp3'>MP3</a>\n" : "N/A MP3");
+	$listItem .= "\t\t\t\t" . ($episodeOggFS > 0 ? $episodeOggFS . " MB <a download href='$archiveBase.ogg'>OGG</a>" : "N/A OGG") . " | \n";
+	$listItem .= "\t\t\t\t" . ($episodeFlacFS > 0 ? $episodeFlacFS . " MB <a download href='$archiveBase.flac'>FLAC</a>" : "N/A FLAC") . " | \n";
+	$listItem .= "\t\t\t\t" . ($episodeMp3FS > 0 ? $episodeMp3FS . " MB <a download href='$archiveBase.mp3'>MP3</a>\n" : "N/A MP3");
 	$listItem .= "\t\t\t\t<span class='right'><a href='http://creativecommons.org/licenses/by-sa/3.0/'><img class='license' src='/images/by-sa.png' alt='Licensed under CC-BY-SA'></a></span>\n";
 	$listItem .= "\t\t\t</p>\n";
 	$listItem .= "\t\t\t<h3>Shownotes</h3>\n";
@@ -246,9 +246,9 @@ else
 		$listItem .= "\t\t\t\t<td><a href='/cast/s" . slenc($matches[1]) . "e" . slenc($matches[2]) . "'>S" . slenc($matches[1]) . "E" .  slenc($matches[2]) . "</a></td>\n";
 		$listItem .= "\t\t\t\t<td><img src='/images/sound_grey.png' alt='Listen'><a href='/cast/s" . slenc($matches[1]) . "e"
 			  . slenc($matches[2]) . "'>" .  slenc(str_replace('-', ' ', ucfirst($matches[3]))) . "</a></td>\n";
-		$listItem .= "\t\t\t\t<td>" . ( $episodeOggFS > 0 ? "<a href='$archiveBase.ogg'><img src='/images/disk.png' alt='Download'>" . $episodeOggFS . " MB" : "N/A" ) . "</a></td>\n";
-		$listItem .= "\t\t\t\t<td>" . ( $episodeFlacFS > 0 ? "<a href='$archiveBase.flac'><img src='/images/disk.png' alt='Download'>" . $episodeFlacFS . " MB" : "N/A" ) . "</a></td>\n";
-		$listItem .= "\t\t\t\t<td>" . ( $episodeMp3FS > 0 ? "<a href='$archiveBase.mp3'><img src='/images/disk.png' alt='Download'>" . $episodeMp3FS . " MB" : "N/A" ) . "</a></td>\n";
+		$listItem .= "\t\t\t\t<td>" . ( $episodeOggFS > 0 ? "<a download href='$archiveBase.ogg'><img src='/images/disk.png' alt='Download'>" . $episodeOggFS . " MB" : "N/A" ) . "</a></td>\n";
+		$listItem .= "\t\t\t\t<td>" . ( $episodeFlacFS > 0 ? "<a download href='$archiveBase.flac'><img src='/images/disk.png' alt='Download'>" . $episodeFlacFS . " MB" : "N/A" ) . "</a></td>\n";
+		$listItem .= "\t\t\t\t<td>" . ( $episodeMp3FS > 0 ? "<a download href='$archiveBase.mp3'><img src='/images/disk.png' alt='Download'>" . $episodeMp3FS . " MB" : "N/A" ) . "</a></td>\n";
 		$listItem .= "\t\t\t\t<td><a href='http://creativecommons.org/licenses/by-sa/3.0/'><img class='license' src='/images/by-sa.png' alt='Licensed under CC-BY-SA'></a></td>\n";
 		$listItem .= "\t\t\t</tr>\n";
 	}
