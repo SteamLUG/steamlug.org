@@ -212,7 +212,19 @@ article p, article dl, article ul
 
 article blockquote
 {
+	color: #BBB;
+	padding: 10px;
 	margin: 1em 40px;
+}
+
+article blockquote:before
+{
+	color: #529CDE;
+	content: open-quote;
+	font-size: 40px;
+	line-height: 1px;
+	margin-right: 10px;
+	vertical-align: -17px;
 }
 
 ul#archive
