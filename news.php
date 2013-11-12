@@ -1,18 +1,5 @@
 <?php
-
-$pageTitle = "News";
-$syncexternalJS = array('https://twitterjs.googlecode.com/svn/trunk/src/twitter.min.js');
-/*
-$extraJS = "			getTwitters('tweet', { 
-			id: 'steamlug', 
-			count: 3, 
-			enableLinks: true, 
-			ignoreReplies: true, 
-			clearContents: true,
-			template: '<p>\"<em>%text%</em>\" <a href=\"http://twitter.com/%user_screen_name%/statuses/%id_str%/\">%time%</a></p>'
-		});"*/
-?>
-<?php
+	$pageTitle = "News";
 	include_once("includes/header.php");
 	include_once("includes/lastRSS.php");
 ?>
@@ -20,17 +7,7 @@ $extraJS = "			getTwitters('tweet', {
 				<h1>SteamLUG News</h1>
 		</header>
 		<section>
-<!--			<article>
-				<div class = 'shadow'>
-				<h1>Recent Tweets</h1>
-					<div id="tweet">
-						<p>Please wait while our tweets load</p>
-						<p><a href="http://twitter.com/SteamLUG">If you can't wait - check out what we've been tweeting</a></p>
-					</div>
-					<p>Read more and follow <a href="http://twitter.com/SteamLUG">@SteamLUG</a> on Twitter.</p>
-				</div>
-			</article> -->
-<?
+<?php
 	$rss = new lastRSS;
 	$rss->cache_dir = './temp';
 	$rss->cache_time = 1200;
@@ -57,6 +34,8 @@ $extraJS = "			getTwitters('tweet', {
 				$item['description'] = str_replace("<br>\n<br>", "</p><p>", $item['description']);
 				$item['description'] = str_replace("</ul>\n\n<br>", "</ul>\n<p>", $item['description']);
 				$item['description'] = str_replace("<ul>", "</p>\n<ul>", $item['description']);
+				$item['description'] = str_replace("<blockquote>", "</p>\n<blockquote>", $item['description']);
+				$item['description'] = str_replace("</blockquote>", "</blockquote>\n<p>", $item['description']);
 				$item['description'] = str_replace("<br>", "<br />", $item['description']);
 				
 				if (!isset($item['author']))
@@ -73,7 +52,7 @@ $extraJS = "			getTwitters('tweet', {
 				$rssString .= "\t\t\t</article>\n";
 			}
 		}
-    	}
+    }
 	else
 	{
 		$rssString .= "\t\t\t<article>\n";

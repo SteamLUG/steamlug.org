@@ -8,20 +8,6 @@
 		<section>
 			<article>
 				<div class = 'shadow'>
-				<h1>Contact</h1>
-				<p>There are several ways to contact the SteamLUG administrators:</p>
-				<dl>
-					<dt>General</dt><dd>steamlug ( at ) gmail ( dot ) com</dd>
-					<dt>SteamLUG Cast</dt><dd>cast ( at ) steamlug ( dot ) org</dd>
-					<dt>Events</dt><dd><a href = 'http://steamcommunity.com/id/swordfischer'>@swordfischer</a> <em>(same handle on twitter)</em></dd>
-					<dt>Servers</dt><dd><a href = 'http://steamcommunity.com/id/swordfischer'>@swordfischer</a> <em>(same handle on twitter)</em></dd>
-					<dt>Projects</dt><dd><a href = 'http://steamcommunity.com/id/cheeseness'>Cheeseness</a> <em>(<a href = 'https://twitter.com/TwoLofBees'>@TwoLofBees</a> on twitter)</em></dd>
-				</dl>
-			<p></p>
-			</article>
-			</article>
-			<article>
-				<div class = 'shadow'>
 				<h1>Community</h1>
 				<p>Hi!</p>
 
@@ -49,6 +35,18 @@
 					<h2>Projects</h2>
 					<p>Sometimes people in our community get excited enough to make something big happen. Some of our projects are open. Others are hidden until completion. For more information and details of current public projects, visit the <a href = 'projects'>Projects page</a>.</p>
 				</div>
+			</article>
+			<article>
+				<div class = 'shadow'>
+				<h1>Contact</h1>
+				<p>There are several ways to contact the SteamLUG administrators:</p>
+				<dl>
+					<dt>General</dt><dd>steamlug ( at ) gmail ( dot ) com</dd>
+					<dt>SteamLUG Cast</dt><dd>cast ( at ) steamlug ( dot ) org</dd>
+					<dt>Events</dt><dd><a href = 'http://steamcommunity.com/id/swordfischer'>@swordfischer</a> <em>(same handle on twitter)</em></dd>
+					<dt>Servers</dt><dd><a href = 'http://steamcommunity.com/id/swordfischer'>@swordfischer</a> <em>(same handle on twitter)</em></dd>
+					<dt>Projects</dt><dd><a href = 'http://steamcommunity.com/id/cheeseness'>Cheeseness</a> <em>(<a href = 'https://twitter.com/ValiantCheese'>@ValiantCheese</a> on twitter)</em></dd>
+				</dl>
 			</article>
 			<article>
 				<div class = 'shadow'>
