@@ -1,0 +1,49 @@
+{
+	"servers": [{ 
+		"host": "gs1.dk.steamlug.org",
+		"games": [
+			{ "game": "Team Fortress 2", "desc": "Team Fortress 2 - Arche", "port": 27020, "gameq": "tf2" },
+			{ "game": "Left 4 Dead 2", "desc": "Left 4 Dead 2 - Hegemone", "port": 27022, "gameq": "l4d2" },
+			{ "game": "Left 4 Dead 2", "desc": "Left 4 Dead 2 - Arche", "port": 27024, "gameq": "l4d2" },
+			{ "game": "Left 4 Dead 2", "desc": "Left 4 Dead 2 - Isonoe", "port": 27026, "gameq": "l4d2" },
+			{ "game": "Left 4 Dead 2", "desc": "Left 4 Dead 2 - Pasipha", "port": 27028, "gameq": "l4d2" },
+			{ "game": "Left 4 Dead 2", "desc": "Left 4 Dead 2 - Eukelade", "port": 27030, "gameq": "l4d2" }
+		]}, {
+		"host": "gs2.dk.steamlug.org",
+		"games": [
+			{ "game": "Counter-Strike: Source", "desc": "Dannebrog - Ganymede", "port": 27020, "gameq": "css" },
+			{ "game": "Day of Defeat: Source", "desc": "Dannebrog - Callisto", "port": 27022, "gameq": "dods" },
+			{ "game": "Half Life 2: Deathmatch", "desc": "Dannebrog - Themisto", "port": 27024, "gameq": "hl2dm" },
+			{ "game": "Team Fortress 2", "desc": "Dannebrog - Io / Halloween", "port": 27026, "gameq": "tf2" },
+			{ "game": "Team Fortress Classic", "desc": "Dannebrog - Leda", "port": 27028, "gameq": "tfc" },
+			{ "game": "Counter-Strike: Condition Zero", "desc": "Dannebrog - Europa", "port": 27030, "gameq": "cscz" },
+			{ "game": "DMC", "desc": "Dannebrog - Praxidike", "port": 27032, "gameq": "source" },
+			{ "game": "Day of Defeat", "desc": "Dannebrog - Kalyke", "port": 27034, "gameq": "dod" },
+			{ "game": "Ricochet", "desc": "Dannebrog - Mneme", "port": 27036, "gameq": "source" },
+			{ "game": "Counter-Strike", "desc": "Dannebrog - Thyone", "port": 27038, "gameq": "source" },
+			{ "game": "Killing Floor", "desc": "Dannebrog - Sinope", "port": 7708, "gameq": "killingfloor" },
+			{ "game": "Killing Floor", "desc": "Dannebrog - Sponde", "port": 7710, "gameq": "killingfloor" },
+			{ "game": "Killing Floor", "desc": "Dannebrog - Megaclite", "port": 7712, "gameq": "killingfloor" }
+		]}, {
+		"host": "gs1.de.steamlug.org",
+		"games": [
+			{ "game": "Natural Selection 2", "desc": "Hasenbein - Nibbler", "port": 27016, "gameq": "ns2" },
+			{ "game": "HL GunGame", "desc": "Hasenbein - Hermes", "port": 27018, "gameq": "source" },
+			{ "game": "Half Life", "desc": "Hasenbein - Amy", "port": 27020, "gameq": "hldm" },
+			{ "game": "ND - Warfare", "desc": "Hasenbein - Fry", "port": 27022, "gameq": "source" },
+			{ "game": "Left 4 Dead 2", "desc": "Hasenbein - Leela", "port": 27024, "gameq": "l4d2" },
+			{ "game": "Team Fortress 2", "desc": "Hasenbein - Bender", "port": 27026, "gameq": "tf2" },
+			{ "game": "No More Room in Hell", "desc": "Hasenbein - Scruffy", "port": 27028, "gameq": "source" },
+			{ "game": "No More Room in Hell", "desc": "Hasenbein - Mom", "port": 27030, "gameq": "source" }
+		]}, {
+		"host": "gs2.de.steamlug.org",
+		"games": [
+			{ "game": "Serious Sam 3", "desc": "Hasenbein - Zoidberg", "port": 27016, "gameq": "source" }
+		]}, {
+		"host": "sky-play.ru",
+		"games": [
+			{ "game": "Counter-Strike: Source", "desc": "Sky-Play #1 | D E A T H M A T C H #1", "port": 27031, "gameq": "css" }
+		]}
+	]	
+}
+

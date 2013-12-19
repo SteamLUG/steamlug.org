@@ -1,111 +1,84 @@
 <?php
 $pageTitle = "Servers";
-$syncexternalJS = array('https://steamlug.org/scripts/jquery.min.js','https://steamlug.org/scripts/jquery.tablesorter.js');
+$syncexternalJS = array("https://steamlug.org/scripts/jquery.min.js", "https://steamlug.org/scripts/jquery.tablesorter.js", "https://steamlug.org/scripts/gameqajax.js");
 ?>
 <?php
 	include_once("includes/header.php");
-	include_once("includes/GameQ.php");
 	// 10 second cache
 	header("Cache-Control: public, max-age=10");
-	$Servers = file( "/var/www/dev.steamlug.org/serverlist.txt" );
+	$gameqajax = "https://steamlug.org/gameqajax.php";
+	$json = json_decode(file_get_contents("./serverlist.json"), true);
+	$js = "";
 
-	foreach ( $Servers as $Server )
-	{
-		list ( $ServerHost[], $Ports[], $GameType[] ) = preg_split ( "/(:|,)/", $Server );
-	}
-
-	$gq = new GameQ();
-	foreach ( $ServerHost as $Index => $Host)
-	{
-		$gq->addServer(array(
-			'type' => trim($GameType[$Index]),
-			'host' => trim($Host) . ":" . trim($Ports[$Index]),
-	));
-	}
-
-	$gq->setOption('timeout', 1); 
-	$gq->setFilter('normalise');
-	$results = $gq->requestData();
-
-	function print_results($results)
-	{
-		foreach ($results as $id => $data)
-		{
-			print_table($data);
+	function print_rows($json, $gameqajax) {
+		$servers = $json["servers"];
+		foreach ($servers as $server) {
+			$games = $server["games"];
+			$host = $server["host"];
+			foreach ($games as $game) {
+				print_row($host, $game);
+				$GLOBALS["js"] .= "\t\t\t$('tr[id=\"" . $host . ":" . $game["port"] . "\"]').gameqajax({\n";
+				$GLOBALS["js"] .= "\t\t\t\t url: '" . $gameqajax . "',\n";
+				$GLOBALS["js"] .= "\t\t\t\t host: '" . $host . "',\n";
+				$GLOBALS["js"] .= "\t\t\t\t port: '" . $game["port"] . "',\n";
+				$GLOBALS["js"] .= "\t\t\t\t type: '" . $game["gameq"] . "'\n";
+				$GLOBALS["js"] .= "\t\t\t});\n";
+			}
 		}
-
 	}
 	
-	function print_table($data)
-	 {
-		$serverHost = $data['gq_address'] . ":" . $data['gq_port'];
-		$serverString = "";
-		if (!$data['gq_online'])
-		{
-			$serverString .= "\t\t<tr>\n";
-			$serverString .= "\t\t\t<td>\n";
-			$serverString .= "\t\t\t<td>\n";
-			$serverString .= "\t\t\t<td>\n";
-			$serverString .= "\t\t\t<td><em>Server Unresponsive</em>\n";
-			$serverString .= "\t\t\t<td><em>" . $serverHost . "</em>\n";
-			$serverString .= "\t\t\t<td><em>N/A</em>\n";
-			$serverString .= "\t\t\t<td><em>N/A</em>\n";
-			$serverString .= "\t\t\t<td><span class='offline'>Offline</span>\n";
-			$serverString .= "\t\t</tr>\n";
-		}
-		else
-		{
-			$serverLoc  = geoip_country_code_by_name($data['gq_address']);
-			$serverString .= "\t\t<tr>\n";
-			$serverString .= "\t\t\t<td><span style='display:none'>" . $serverLoc . "</span><img src='/images/flags/" . $serverLoc . ".png' alt='Hosted in " . $serverLoc . "'>\n";
-			$serverString .= "\t\t\t<td>" . (isset($data['secure']) ? "<img src='/images/vac.png' alt='VAC Enabled'>" : "") . "\n";
-			$serverString .= "\t\t\t<td>" . ($data['gq_password'] == "1" ? "<img src='/images/padlock.png' alt='Password Protected'>" : "") . "\n";
-			$serverString .= "\t\t\t<td>" . (isset($data['game_descr']) ? ($data['game_descr'] == "Team Fortress" ? "Team Fortress 2" : $data['game_descr']) : ($data['gq_type'] == "killingfloor" ? "Killing Floor" : $data['gq_type'])) . "\n";
-			$serverString .= "\t\t\t<td><a href='steam://connect/" . $serverHost . "'>" . $data['gq_hostname'] . "</a>\n";
-			$serverString .= "\t\t\t<td>" . ($data['gq_numplayers'] ? $data['gq_numplayers'] : "0") . " / " . $data['gq_maxplayers'] . "\n";
-			$serverString .= "\t\t\t<td>" . $data['gq_mapname'] . "\n";
-			$serverString .= "\t\t\t<td><span class='online'>Online</span>\n";
-			$serverString .= "\t\t</tr>\n";
-		}
-	echo $serverString;
+	function print_row($host, $game) {
+		$country = geoip_country_code_by_name($host);
+		$row = "";
+		$row .= "\t\t<tr id='" . $host . ":" . $game["port"] . "'></td>\n";
+		$row .= "\t\t\t<td><span style='display:none'>" . $country . "</span><img src='/images/flags/" . $country . ".png' alt='Hosted in " . $country . "'></td>\n";
+		$row .= "\t\t\t<td></td>\n";
+		$row .= "\t\t\t<td></td>\n";
+		$row .= "\t\t\t<td>" . $game["game"] . "</td>\n";
+		$row .= "\t\t\t<td><a href='steam://connect/" . $host . ":" . $game["port"] . "'>" . $game["desc"] . "</a></td>\n";
+		$row .= "\t\t\t<td></td>\n";
+		$row .= "\t\t\t<td></td>\n";
+		$row .= "\t\t\t<td></td>\n";
+		$row .= "\t\t</tr>\n";
+		echo $row;
 	}
 ?>
 		<header>
-				<h1>SteamLUG Game Servers</h1>
+			<h1>SteamLUG Game Servers</h1>
 		</header>
 		<section>
 		
-		<article id='about'>
+		<article id="about">
 			<div class="shadow">
 				<h1>About</h1>
 				<p>Below you can find a list of our currently active game servers. Where possible, live information for the current map, number of players, etc. will be shown.</p>
-				<p>If you would like to host a SteamLUG server, or help manage our existing ones,<br>please contact <a href = 'http://steamcommunity.com/id/swordfischer'>swordfischer</a>.</p>
+				<p>If you would like to host a SteamLUG server, or help manage our existing ones,<br>please contact <a href="http://steamcommunity.com/id/swordfischer">swordfischer</a>.</p>
 			</div>
 		</article>
 		<article>
-			<div class='shadow'>
-				<table id='servers' class='tablesorter'>
+			<noscript><div class="shadow"><h2>To see the status and availability of our servers, please enable Javascript</h2></div></noscript>
+			<div class="shadow">
+				<table id="servers" class="tablesorter">
 					<thead>
 						<tr>
-							<th>
-							<th><img src='/images/vac.png' alt='VAC Enabled'>
-							<th><img src='/images/padlock.png' alt='Password Protected'>
-							<th>Game
-							<th>Servers
-							<th>Players
-							<th>Map
-							<th>
+							<th></th>
+							<th><img src="/images/vac.png" alt="VAC Enabled"/></th>
+							<th><img src="/images/padlock.png" alt="Password Protected"/></th>
+							<th>Game</th>
+							<th>Servers</th>
+							<th>Players</th>
+							<th>Map</th>
+							<th></th>
 						</tr>
 					</thead>
 					<tbody>
 <?php
-
-	print_results($results);
+					print_rows($json, $gameqajax);
 ?>
 					</tbody>
 					<tfoot>
 						<tr>
-							<td colspan=7>
+							<td colspan="7"></td>
 						</tr>
 					</tfoot>
 				</table>
@@ -113,21 +86,17 @@ $syncexternalJS = array('https://steamlug.org/scripts/jquery.min.js','https://st
 		</article>
 	</section>
 	<script>
-		$(document).ready
-		(
-			function()
-			{
-				$("#servers").tablesorter
-				(
-					{
-						headers: {
-							1: { sorter: false },
-							2: { sorter: false },
-						},
-						sortList: [[7,1],[5,1],[0,0],[4,0]]
-					}
-				);
-			}
-		);
+		$(document).ready(function() {
+			$("#servers").tablesorter ({
+				headers: {
+					1: { sorter: false },
+					2: { sorter: false },
+				},
+				sortList: [[7,1],[5,1],[0,0],[4,0]]
+			});
+<?php
+			echo $GLOBALS["js"];
+?>
+		});
 	</script>
 <?php include_once("includes/footer.php"); ?>
