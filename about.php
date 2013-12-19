@@ -17,7 +17,7 @@
 				
 				<p>We also cover <a href = 'news'>Steam for Linux news</a> (<em>Valve news, Steam news, and native Linux games</em>), as well as host <a href = 'servers'>game servers</a> and regular <a href = 'events'>gaming events</a>.
 
-				<p>The SteamLUG community operates the <a href = 'chat'>#SteamLUG IRC channel</a> (<em>click for details and webchat</em>), runs a Mumble <a href = 'mumble'>voice chat server</a> (<em>using the same password that we use for our game servers - you can see this on the Steam group event pages if you are a member of our Steam group</em>), and a <a href = 'http://steamcommunity.com/groups/steamlug/'>Steam group</a> with over 5,000 members.</p>
+				<p>The SteamLUG community operates the <a href = 'chat'>#SteamLUG IRC channel</a> (<em>click for details and webchat</em>), runs a Mumble <a href = 'mumble'>voice chat server</a>, and a <a href = 'http://steamcommunity.com/groups/steamlug/'>Steam group</a> with over 5,000 members.</p>
 				
 				<p>Our rich and diverse community consists of people ranging from first-time Linux users through to developers, long-time gamers through to industry commentators. You may even see a Valve person hanging around from time to time (<em>if you do spot one, we ask that you respect their desire to be a normal part of our community and not bombard them with questions, complaints or bug reports - there are <a href = 'https://github.com/ValveSoftware/steam-for-linux/'>other channels</a> for that</em>).</p>
 				<p>We always aim to be as welcoming of newcomers as possible, so please feel free to join us! :)</p>
