@@ -683,14 +683,14 @@ li.highlighted,
 	color: #EEE;
 }
 
-/* Twitter Feed */
+/* twitter Feed */
 .follow
 {
 	float: right;
 	margin: auto;
 }
 
-.timeline 
+.timeline
 {
 	width: 520px;
 	margin: auto;
