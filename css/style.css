@@ -682,3 +682,16 @@ li.highlighted,
 	background-color: #06A;
 	color: #EEE;
 }
+
+/* Twitter Feed */
+.follow
+{
+	float: right;
+	margin: auto;
+}
+
+.timeline 
+{
+	width: 520px;
+	margin: auto;
+}
