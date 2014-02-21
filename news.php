@@ -3,10 +3,22 @@
 	include_once("includes/header.php");
 	include_once("includes/lastRSS.php");
 ?>
+		<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 		<header>
 				<h1>SteamLUG News</h1>
 		</header>
 		<section>
+		<article>
+			<div class="shadow">
+				<h1>
+					Recent Tweets
+					<span class="follow"><a href="https://twitter.com/SteamLUG" class="twitter-follow-button" data-show-count="false" data-lang="en">Follow @SteamLUG</a></span>	
+				</h1>
+				<div class="timeline">
+					<a class="twitter-timeline" href="https://twitter.com/SteamLUG" data-widget-id="423854063487160320" data-link-color="#ebebeb" data-chrome="nofooter noheader transparent noborders" data-tweet-limit="3" lang="EN">Tweets by @SteamLUG</a>
+				</div>
+			</div>
+		</article>
 <?php
 	$rss = new lastRSS;
 	$rss->cache_dir = './temp';
