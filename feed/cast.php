@@ -4,7 +4,7 @@
 	if (!isset($_GET['t'])|| $_GET['t'] == "ogg")
 	{
 		$type = "ogg";
-	} else 
+	} else
 	{
 		$type = "mp3";
 	}
@@ -14,11 +14,11 @@
 	function getlength($u)
 	{
 		$avconv = "/usr/bin/avconv";
-		$time =  exec("$avconv -i $u 2>&1 | grep 'Duration' | cut -d ' ' -f 4 | sed s/,//");   
-		$duration = explode(".",$time);   
-#		$duration_in_seconds = $duration[0]*3600 + $duration[1]*60+ round($duration[2]);   
+		$time =  exec("$avconv -i $u 2>&1 | grep 'Duration' | cut -d ' ' -f 4 | sed s/,//");
+		$duration = explode(".",$time);
+#		$duration_in_seconds = $duration[0]*3600 + $duration[1]*60+ round($duration[2]);
 
-		return $duration[0];   
+		return $duration[0];
 	}
 	function gettitle($u)
 	{
@@ -29,46 +29,46 @@
 		return $title;
 	}
 	function slenc($u)
-	{    
-        	return htmlentities($u,ENT_QUOTES, "UTF-8");
-	}    
+	{
+        return htmlentities($u,ENT_QUOTES, "UTF-8");
+	}
 	if (!function_exists('glob_recursive'))
-	{    
-        	function glob_recursive($pattern, $flags = 0)
-		{      
+	{
+        function glob_recursive($pattern, $flags = 0)
+		{
 			$files = glob($pattern, $flags);
 			foreach (array_reverse(glob(dirname($pattern).'/*', GLOB_ONLYDIR)) as $dir)
-      			{
-				$files = array_merge($files, glob_recursive($dir.'/'.basename($pattern), $flags));         
-      			}
-        	return $files;   
-        	}      
+			{
+				$files = array_merge($files, glob_recursive($dir.'/'.basename($pattern), $flags));
+			}
+			return $files;
+        }
 	}
 
 	if (!function_exists('glob_reversive'))
-	{    
-        	function glob_reversive($pattern, $flags = 0)
-		{      
+	{
+        function glob_reversive($pattern, $flags = 0)
+		{
 			$files = glob($pattern, $flags);
 			foreach (glob(dirname($pattern).'/*', GLOB_ONLYDIR) as $dir)
-      			{
-				$files = array_merge($files, glob_reversive($dir.'/'.basename($pattern), $flags));         
-      			}
-        	return $files;   
-        	}      
+			{
+				$files = array_merge($files, glob_reversive($dir.'/'.basename($pattern), $flags));
+			}
+			return $files;
+        }
 	}
 	function latestCast()
 	{
 		global $path;
 		foreach(glob_reversive($path . "*.txt") as $filename)
 		{
-	                $file = basename($filename, ".txt");
-        	        $regex = "/[sS]([0-9]+)[eE]([0-9]+)\.(\w+(-\w+)*)/";
-               		preg_match($regex, $filename, $matches);
-	                $episodeBase = $path . "/s" . slenc($matches[1]) . "e" . slenc($matches[2]) . "/" . $file;
+			$file = basename($filename, ".txt");
+			$regex = "/[sS]([0-9]+)[eE]([0-9]+)\.(\w+(-\w+)*)/";
+			preg_match($regex, $filename, $matches);
+			$episodeBase = $path . "/s" . slenc($matches[1]) . "e" . slenc($matches[2]) . "/" . $file;
 		}
 		return date("D, d M Y H:i:s O", filemtime($episodeBase . ".txt"));
-	}	
+	}
 	$items = "";
 	foreach(glob_recursive($path . "*.txt") as $filename)
 	{
@@ -155,7 +155,7 @@
 			$note
 			);
 			$itemContent .= $note;
-			}			
+			}
 			$itemContent .= "\t]]></description>\n";
 			$itemContent .= "\t<itunes:subtitle>" . substr($description[0],2,161) . "…</itunes:subtitle>\n";
 			$itemContent .= "</item>\n";
