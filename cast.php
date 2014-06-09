@@ -40,6 +40,47 @@ function slenc($u)
 {
 	return htmlentities($u,ENT_QUOTES, "UTF-8");
 }
+
+/* move this to an includes? */
+$twitterAvatars = array(
+		"swordfischer" =>	"https://pbs.twimg.com/profile_images/3091650213/abd95819b5fa2ac94d26866446404b65.png",
+		"ValiantCheese" =>	"https://pbs.twimg.com/profile_images/378800000742171339/65a50a761a997aae3a1fcf4912747609.png",
+		"johndrinkwater" =>	"https://pbs.twimg.com/profile_images/18196842/john-eye-glow-xface-colour-alpha.png",
+		"MimLofBees" =>		"https://pbs.twimg.com/profile_images/2458841225/cnm856lvnaz4hhkgz6yg.jpeg",
+		"DerRidda" =>		"https://pbs.twimg.com/profile_images/2150739768/pigava.jpeg",
+		"mnarikka" =>		"https://pbs.twimg.com/profile_images/1343985841/meklu.png",
+);
+
+/* we take a ‘johndrinkwater’ / ‘@johndrinkwater’ / ‘John Drinkwater (@twitter)’ and spit out HTML */
+/* TODO: optional the avatars */
+function nameplate( $string ) {
+
+	global $twitterAvatars;
+
+	/* first case, johndrinkwater */
+	if ( array_key_exists( $string, $twitterAvatars ) ) {
+		return '<img src="' . $twitterAvatars["$string"] . '" class="avatar"/>' . $string . "\n";
+	}
+
+	/* third case, John Drinkwater (@twitter) */
+	if ( preg_match( '/([[:alnum:] ]+)\s+\(@([a-z0-9_]+)\)/i', $string, $matches) ) {
+		$avatar = $matches[2];
+		if ( array_key_exists( $avatar, $twitterAvatars ) )
+			$avatar = '<img src="' . $twitterAvatars["$avatar"] . '" class="avatar"/>' . $avatar;
+		return "<a href=\"https://twitter.com/" . $matches[2] . "\">" . $avatar . "</a>\n";
+	}
+
+	/* second case, @johndrinkwater */
+	if (preg_match( '/@([a-z0-9_]+)/i', $string, $matches)) {
+		$avatar = $matches[1];
+		if ( array_key_exists( $avatar, $twitterAvatars ) )
+			$avatar = '<img src="' . $twitterAvatars["$avatar"] . '" class="avatar"/>' . $avatar;
+		return "<a href=\"https://twitter.com/" . $matches[1] . "\">" . $avatar . "</a>\n";
+	}
+	/* unmatched, why? blank or Nemoder :^) */
+	return $string;
+}
+
 if (!function_exists('glob_recursive'))
 {
 	function glob_recursive($pattern, $flags = 0)
@@ -117,10 +158,10 @@ if (isset($d) && strtotime($d[0] . "-" . $d[1] . "-" .$d[2])-strtotime(date("Y-m
 	<article class='shownotes'>
 		<div class="shadow">
 <?php
-if ($season > "0" && $episode > "0" && glob($path . "/s" . basename($season) . "e" . basename($episode) . "/*.txt*"))
+if ($season > "0" && $episode > "0" && glob($path . "/s" . basename($season) . "e" . basename($episode) . "/episode.txt"))
 {
 	$showEpisode = glob($path . "/s" . basename($season) . "e" . basename($episode) . "/*");
-	$showEpisode = preg_replace("/\.(flac|mp3|ogg|txt|txts)\Z/", "", $showEpisode[0]);
+	$showEpisode = preg_replace("/\.(flac|mp3|ogg|txt)\Z/", "", $showEpisode[0]);
 	$shownotes = $showEpisode . ".txt";
 	$castRecorded = "";
 	$castPublished = "";
@@ -143,33 +184,15 @@ if ($season > "0" && $episode > "0" && glob($path . "/s" . basename($season) . "
 		$castEpisode		= slenc(trim(preg_filter('/\AEPISODE:\s+(\d+)\Z/i', '$1', $shownotes[4])));
 		$castDescription	= slenc(trim(preg_filter('/\ADESCRIPTION:\s+(.*)\Z/i', '$1', $shownotes[5])));
 		$castHosts			= slenc(preg_filter('/\AHOSTS:\s+(.*)\Z/i', '$1', $shownotes[6]));
-		$castHosts			= preg_split('/,/', $castHosts);
+		$castHosts			= array_map('trim', explode(',', $castHosts));
 		$castGuests			= slenc(preg_filter('/\AGUESTS:\s+(.*)\Z/i', '$1', $shownotes[7]));
-		$castGuests			= preg_split('/,/', $castGuests);
+		$castGuests			= array_map('trim', explode(',', $castGuests));
 		foreach ($castHosts as $Hosts) {
-			$Hosts = preg_replace_callback(
-				'/([a-z0-9_]+)\s+\(@([a-z0-9_]+)\)/i',
-				function($matches){ return "<a href=\"https://twitter.com/" . $matches[2] . "\">" . $matches[1] . "</a>\n"; },
-				$Hosts
-				);
-				$Hosts = preg_replace_callback(
-				'/(?<=^|\s)@([a-z0-9_]+)/i',
-				function($matches){ return "<a href=\"https://twitter.com/" . $matches[1] . "\">" . $matches[1] . "</a>\n"; },
-				$Hosts
-		);
+			$Hosts = nameplate( $Hosts );
 			$listHosts = $listHosts . $Hosts;
-			}
+		}
 		foreach ($castGuests as $Guests) {
-			$Hosts = preg_replace_callback(
-				'/([a-z0-9_]+)\s+\(@([a-z0-9_]+)\)/i',
-				function($matches){ return "<a href=\"https://twitter.com/" . $matches[2] . "\">" . $matches[1] . "</a>\n"; },
-				$Hosts
-				);
-				$Hosts = preg_replace_callback(
-				'/(?<=^|\s)@([a-z0-9_]+)/i',
-				function($matches){ return "<a href=\"https://twitter.com/" . $matches[1] . "\">" . $matches[1] . "</a>\n"; },
-				$Hosts
-				);
+			$Guests = nameplate( $Guests );
 			$listGuests = $listGuests . $Guests;
 		}
 	}
@@ -407,52 +430,26 @@ return $ret;
 }
 // TODO: Eliminate spaces after $castEpisode and $castSeason!
 //
-	$castHostAvatars = array(
-			"swordfischer" =>	"https://pbs.twimg.com/profile_images/3091650213/abd95819b5fa2ac94d26866446404b65.png",
-			"ValiantCheese" =>	"https://pbs.twimg.com/profile_images/378800000742171339/65a50a761a997aae3a1fcf4912747609.png",
-			"johndrinkwater" =>	"https://pbs.twimg.com/profile_images/18196842/john-eye-glow-xface-colour-alpha.png",
-			"MimLofBees" =>		"https://pbs.twimg.com/profile_images/2458841225/cnm856lvnaz4hhkgz6yg.jpeg",
-			"DerRidda" =>		"https://pbs.twimg.com/profile_images/2150739768/pigava.jpeg",
-			"mnarikka" =>		"https://pbs.twimg.com/profile_images/1343985841/meklu.png",
-	);
-	if (!glob_recursive($path . "*.txt*")) { echo "<h3>No archives found</h3>"; }
-	foreach(glob_recursive($path . "*.txt*") as $filename)
+	if (!glob_recursive($path . "*/episode.txt")) { echo "<h3>No archives found</h3>"; }
+	foreach(glob_recursive($path . "*/episode.txt") as $filename)
 		{
 			$ListHosts = "";
-			$file = basename($filename, ".txt");
-			$shownotes = file($filename);
+			/* let’s grab less here, 2K ought to be enough */
+			$tempIncoming = file_get_contents($filename, false, NULL, 0, 2048);
+			$shownotes = explode( "\n", $tempIncoming);
 			$castRecorded		= slenc(trim(preg_filter('/\ARECORDED:\s+(.*)\Z/i', '$1', $shownotes[0])));
 			$castPublished		= slenc(trim(preg_filter('/\APUBLISHED:\s+(.*)\Z/i', '$1', $shownotes[1])));
 			$castTitle			= slenc(trim(preg_filter('/\ATITLE:\s+(.*)\Z/i', '$1', $shownotes[2])));
 			$castSeason			= slenc(trim(preg_filter('/\ASEASON:\s+(\d+)\Z/i', '\1', $shownotes[3])));
 			$castEpisode		= slenc(trim(preg_filter('/\AEPISODE:\s+(\d+)\Z/i', '$1', $shownotes[4])));
+			/*$castDescription	= slenc(trim(preg_filter('/\ADESCRIPTION:\s+(\d+)\Z/i', '$1', $shownotes[5])));*/
 			$castHosts			= slenc(preg_filter('/\AHOSTS:\s+(.*)\Z/i', '$1', $shownotes[6]));
-			$castHosts			= preg_split('/,/', $castHosts);
+			$castHosts			= array_map('trim', explode(',', $castHosts));
 			$filenameInfo = pathinfo($filename);
 			foreach ($castHosts as $Hosts) {
-					$Hosts = preg_replace_callback(
-							'/([a-z0-9_]+)\s+\(@([a-z0-9_]+)\)/i',
-							function($matches){ return "<a href=\"https://twitter.com/" . $matches[2] . "\">" . $matches[1] . "</a>\n"; },
-							$Hosts
-					);
-					$Hosts = preg_replace_callback(
-							'/(?<=^|\s)@([a-z0-9_]+)/i',
-							function($matches){ return "<a href=\"https://twitter.com/" . $matches[1] . "\">" . $matches[1] . "</a>\n"; },
-							$Hosts
-					);
-					foreach($castHostAvatars as $host => $hostAvatar)
-					{
-							$avatis = $castHostAvatars["$host"];
-							if (strpos($Hosts, $host)){
-									$Hosts = preg_replace_callback(
-											'/(.*>)(.*)(<\/a>)/',
-											function ($matches) use ($avatis) { return $matches[1] . "<img src=\"" . $avatis . "\" />\n" . $matches[3] . "\n"; },
-											$Hosts
-									);
-							}
-					}
-		$ListHosts = $ListHosts . $Hosts;
-		}
+				$Hosts = nameplate( $Hosts );
+				$ListHosts = $ListHosts . $Hosts;
+			}
 		$listItem .= "\t\t\t<tr>\n";
 		$listItem .= "\t\t\t\t<td><a href='/cast/s" . $castSeason . "e" . $castEpisode . "'>S" . $castSeason . "E" .  $castEpisode . "</a></td>\n";
 		$listItem .= "\t\t\t\t<td>" . ($castRecorded ? "<time datetime=\"" . $castRecorded . "\">" . $castRecorded . "</time>" : "N/A") . "</td>\n";
