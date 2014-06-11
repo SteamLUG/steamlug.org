@@ -55,7 +55,7 @@
 		<itunes:explicit>no</itunes:explicit><media:rating scheme="urn:simple">nonadult</media:rating>
 CASTHEAD;
 
-	foreach( $casts as $castdir)
+	foreach( $casts as $castdir )
 	{
 		if ($castdir === '.' or $castdir === '..')
 			break;
@@ -74,7 +74,7 @@ CASTHEAD;
 
 		$epi = "s" . slenc($meta['SEASON']) . "e" . slenc($meta['EPISODE']);
 		$archiveBase = $url . '/' . $epi . '/' . $meta['FILENAME'];
-		$episodeBase = $path .'/' . $epi . '/' . $meta['FILENAME'];
+		$episodeBase = $path .'/' . $castdir . '/' . $meta['FILENAME'];
 
 		/* if file missing, skip this entry */
 		if (!file_exists( $episodeBase . "." . $type))
