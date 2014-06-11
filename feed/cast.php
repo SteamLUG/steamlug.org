@@ -94,69 +94,50 @@ CASTHEAD;
 		$itemContent .= "\t<description><![CDATA[";
 		foreach ( array_slice( $shownotes, 12 ) as $note)
 		{
-			$note = preg_replace_callback
-			(
-			'/\d+:\d+:\d+\s+\*(.*)\*/',
-			function($matches){ return "<p>" . slenc($matches[1]) . "</p>\n<ul>\n"; }, $note
-			);
 			$note = preg_replace_callback(
-			'/(\d+:\d+:\d+)/',
-			function($matches){ return "<time datetime='" . slenc($matches[1]) . "'>" . slenc($matches[1]) . "</time>"; },
-			$note
-			);
+				'/\d+:\d+:\d+\s+\*(.*)\*/',
+				function($matches){ return "<p>" . slenc($matches[1]) . "</p>\n<ul>\n"; },
+				$note);
 			$note = preg_replace_callback(
-			'/^<time.*$/',
-			function($matches){ return "<li>" . $matches[0] . "</li>\n"; },
-			$note
-			);
-			$note = preg_replace_callback
-			(
-			'/(?i)\b((?:(https?|irc):\/\/|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:\'".,<>?«]))/',
-			function($matches){ return "[<a href='" . slenc($matches[0]) . "'>" . slenc($matches[0]) . "</a>]"; },
-			$note
-			);
-			$note = preg_replace_callback
-			(
-			'/(?<=^|\s)@([a-z0-9_]+)/i',
-			function($matches){ return "<a href='http://twitter.com/" . slenc($matches[1]) . "'>" . slenc($matches[0]) . "</a>"; },
-			$note
-			);
-			$note = preg_replace_callback
-			(
-			'/\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}\b/',
-			function($matches){ return "<a href='mailto:". slenc($matches[0]) . "'>" . slenc($matches[0]) . "</a>"; },
-			$note
-			);
-			$note = preg_replace_callback
-			(
-			'/^\n$/',
-			function($matches){ return "</ul>\n"; },
-			$note
-			);
-			$note = preg_replace_callback
-			(
-			'/\t\[(\w+)\](.*)/',
-			function($matches){ return "<li>&lt;" . $matches[1] . "&gt; " . $matches[2] . "</li>\n"; },
-			$note
-			);
-			$note = preg_replace_callback
-			(
-			'/\t(.*)/',
-			function($matches){ return "<li>" . $matches[1] . "</li>\n"; },
-			$note
-			);
-			$note = preg_replace_callback
-			(
-			'/  (.*)/',
-			function($matches){ return "\t\t\t<p>" . $matches[1] . "</p>\n"; },
-			$note
-			);
-			$note = preg_replace_callback
-			(
-			'/\[(\w\d+\w\d+)\]/',
-			function($matches){ return "\t\t\t<a href='http://steamlug.org/cast/" . $matches[1] . "'>" . $matches[1] . "</a>\n"; },
-			$note
-			);
+				'/(\d+:\d+:\d+)/',
+				function($matches){ return "<time datetime='" . slenc($matches[1]) . "'>" . slenc($matches[1]) . "</time>"; },
+				$note);
+			$note = preg_replace_callback(
+				'/^<time.*$/',
+				function($matches){ return "<li>" . $matches[0] . "</li>\n"; },
+				$note);
+			$note = preg_replace_callback(
+				'/(?i)\b((?:(https?|irc):\/\/|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:\'".,<>?«]))/',
+				function($matches){ return "[<a href='" . slenc($matches[0]) . "'>" . slenc($matches[0]) . "</a>]"; },
+				$note);
+			$note = preg_replace_callback(
+				'/(?<=^|\s)@([a-z0-9_]+)/i',
+				function($matches){ return "<a href='http://twitter.com/" . slenc($matches[1]) . "'>" . slenc($matches[0]) . "</a>"; },
+				$note);
+			$note = preg_replace_callback(
+				'/\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}\b/',
+				function($matches){ return "<a href='mailto:". slenc($matches[0]) . "'>" . slenc($matches[0]) . "</a>"; },
+				$note);
+			$note = preg_replace_callback(
+				'/^\n$/',
+				function($matches){ return "</ul>\n"; },
+				$note);
+			$note = preg_replace_callback(
+				'/\t\[(\w+)\](.*)/',
+				function($matches){ return "<li>&lt;" . $matches[1] . "&gt; " . $matches[2] . "</li>\n"; },
+				$note);
+			$note = preg_replace_callback(
+				'/\t(.*)/',
+				function($matches){ return "<li>" . $matches[1] . "</li>\n"; },
+				$note);
+			$note = preg_replace_callback(
+				'/  (.*)/',
+				function($matches){ return "\t\t\t<p>" . $matches[1] . "</p>\n"; },
+				$note);
+			$note = preg_replace_callback(
+				'/\[(\w\d+\w\d+)\]/',
+				function($matches){ return "\t\t\t<a href='http://steamlug.org/cast/" . $matches[1] . "'>" . $matches[1] . "</a>\n"; },
+				$note);
 			$itemContent .= $note;
 		}
 		$itemContent .= "\t]]></description>\n";

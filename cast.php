@@ -224,106 +224,51 @@ CASTENTRY;
 */
 	foreach ( array_slice( $shownotes, 12 ) as $note)
 	{
-
-			$note = preg_replace_callback
-				(
-					'/\d+:\d+:\d+\s+\*(.*)\*/',
-					function($matches)
-					{
-							return "<ul class='castsection'><li><span class='casttopic'>" . slenc($matches[1]) . "</span></li>\n";
-					},
-					$note
-				);
-			$note = preg_replace_callback
-				(
-					'/(\d+:\d+:\d+)/',
-					function($matches)
-					{
-						return "<time id='ts-" . slenc($matches[1]) . "' datetime='" . slenc($matches[1]) . "'>" . slenc($matches[1]) . "</time>";
-					},
-					$note
-				);
-			$note = preg_replace_callback(
-					'/^<time.*$/',
-					function($matches)
-					{
-						return "<li>" . $matches[0] . "</li>\n";
-					},
-					$note
-				);
-			$note = preg_replace_callback
-				(
-					'/(?i)\b((?:(https?|irc):\/\/|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:\'".,<>?«]))/',
-					function($matches)
-					{
-						return "[<a href='" . slenc($matches[0]) . "' class='castsource'>source</a>]";
-					},
-					$note
-				);
-			$note = preg_replace_callback
-				(
-					'/(?<=^|\s)@([a-z0-9_]+)/i',
-					function($matches)
-					{
-						return "<a href='https://twitter.com/" . slenc($matches[1]) . "'>" . slenc($matches[0]) . "</a>";
-					},
-					$note
-				);
-			$note = preg_replace_callback
-				(
-					'/\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}\b/',
-					function($matches)
-					{
-						return "<a href='mailto:". slenc($matches[0]) . "'>" . slenc($matches[0]) . "</a>";
-					},
-					$note
-				);
-			$note = preg_replace_callback
-				(
-					'/^\n$/',
-					function($matches)
-					{
-						return "</ul>\n";
-					},
-					$note
-				);
-			$note = preg_replace_callback
-				(
-					'/\t\[(\w+)\](.*)/',
-					function($matches)
-					{
-						return "<li class='nostamp'>&lt;<span class='nickname'>" . $matches[1] . "&gt;</span> " . $matches[2] . "</li>\n";
-					},
-					$note
-				);
-			$note = preg_replace_callback
-				(
-					'/\t(.*)/',
-					function($matches)
-					{
-						return "<li class='nostamp'>" . $matches[1] . "</li>\n";
-					},
-					$note
-				);
-			$note = preg_replace_callback
-				(
-					'/  (.*)/',
-					function($matches)
-					{
-						return "\t\t\t<p class='castabout'>" . $matches[1] . "</p>\n";
-					},
-					$note
-				);
-			$note = preg_replace_callback
-				(
-					'/\[(\w\d+\w\d+)\]/',
-					function($matches)
-					{
-						return "\t\t\t<a href='/cast/" . $matches[1] . "'>" . $matches[1] . "</a>\n";
-					},
-					$note
-				);
-			echo $note . "\n";
+		$note = preg_replace_callback(
+			'/\d+:\d+:\d+\s+\*(.*)\*/',
+			function($matches) { return '<ul class="castsection"><li><span class="casttopic">' . slenc($matches[1]) . "</span></li>\n"; },
+			$note );
+		$note = preg_replace_callback(
+			'/(\d+:\d+:\d+)/',
+			function($matches) { return '<time id="ts-' . slenc($matches[1]) . '" datetime="' . slenc($matches[1]) . '">' . slenc($matches[1]) . '</time>'; },
+			$note );
+		$note = preg_replace_callback(
+			'/^<time.*$/',
+			function($matches) { return "<li>" . $matches[0] . "</li>\n"; },
+			$note );
+		$note = preg_replace_callback(
+			'/(?i)\b((?:(https?|irc):\/\/|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:\'".,<>?«]))/',
+			function($matches) { return "[<a href='" . slenc($matches[0]) . "' class='castsource'>source</a>]"; },
+			$note );
+		$note = preg_replace_callback(
+			'/(?<=^|\s)@([a-z0-9_]+)/i',
+			function($matches) { return '<a href="https://twitter.com/' . slenc($matches[1]) . '">' . slenc($matches[0]) . '</a>'; },
+			$note );
+		$note = preg_replace_callback(
+			'/\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}\b/',
+			function($matches) { return "<a href='mailto:". slenc($matches[0]) . "'>" . slenc($matches[0]) . '</a>'; },
+			$note );
+		$note = preg_replace_callback(
+			'/^\n$/',
+			function($matches) { return "</ul>\n"; },
+			$note );
+		$note = preg_replace_callback(
+			'/\t\[(\w+)\](.*)/',
+			function($matches) { return '<li class="nostamp">&lt;<span class="nickname">' . $matches[1] . "&gt;</span> " . $matches[2] . "</li>\n";	},
+			$note );
+		$note = preg_replace_callback(
+			'/\t(.*)/',
+			function($matches) { return '<li class="nostamp">' . $matches[1] . "</li>\n"; },
+			$note );
+		$note = preg_replace_callback(
+			'/  (.*)/',
+			function($matches) { return '<p class="castabout">' . $matches[1] . "</p>\n";	},
+			$note );
+		$note = preg_replace_callback(
+			'/\[(\w\d+\w\d+)\]/',
+			function($matches) { return '<a href="/cast/' . $matches[1] . '">' . $matches[1] . "</a>\n"; },
+			$note );
+		echo $note . "\n";
 	}
 } else {
 /* Show cast list */
