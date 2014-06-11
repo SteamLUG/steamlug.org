@@ -169,40 +169,55 @@ if ($season !== "00" && $episode !== "00" && file_exists($filename))
 		$meta[$k] = trim($v); /* TODO remember to slenc() stuff! */
 	}
 
+	$meta['RECORDED']  = ( $meta['RECORDED'] === "" ? "N/A" : '<time datetime="' . $meta['RECORDED'] . '">' . $meta['RECORDED'] . '</time>' );
+	$meta['PUBLISHED'] = ($meta['PUBLISHED'] === "" ? '<span class="warning">In Progress</span>' : '<time datetime="' . $meta['PUBLISHED'] . '">' . $meta['PUBLISHED'] . '</time>');
+	$meta['TITLE'] = slenc($meta['TITLE']);
+
 	$castHosts			= array_map('trim', explode(',', $meta['HOSTS']));
 	$castGuests			= array_map('trim', explode(',', $meta['GUESTS']));
 	$listHosts = ""; $listGuests = "";
 	foreach ($castHosts as $Host) {
 		$listHosts .= nameplate( $Host);
 	}
+	$listHosts = ( empty($listHosts) ? 'No Hosts' : $listHosts );
 	foreach ($castGuests as $Guest) {
 		$listGuests .= nameplate( $Guest);
 	}
-	$epi = "s" . slenc($meta['SEASON']) . "e" . slenc($meta['EPISODE']);
+	$listGuests = ( empty($listGuests) ? 'No Guests' : $listGuests );
+
+	$epi = 's' . slenc($meta['SEASON']) . 'e' . slenc($meta['EPISODE']);
 	$archiveBase = $url . '/' . $epi . '/' . $meta['FILENAME'];
 	$episodeBase = $path .'/' . $epi . '/' . $meta['FILENAME'];
 
-	$episodeOggFS  = (file_exists($episodeBase . ".ogg") ? round(filesize($episodeBase . ".ogg")/1024/1024,2) : 0);
-	$episodeFlacFS = (file_exists($episodeBase . ".flac") ? round(filesize($episodeBase . ".flac")/1024/1024,2) : 0);
-	$episodeMp3FS  = (file_exists($episodeBase . ".mp3") ? round(filesize($episodeBase . ".mp3")/1024/1024,2) : 0);
-	$listItem  = "\t\t\t<h1>" . slenc($meta[ 'TITLE' ]) . "</h1>\n";
-	$listItem .= "\t\t\t<h3>Season: {$meta[ 'SEASON' ]}, Episode: {$meta[ 'EPISODE' ]}</h3>\n";
-	$listItem .= "\t\t\t" . ($episodeOggFS > 0 ? "<audio preload='none' src='$archiveBase.ogg' type='audio/ogg' controls>Your browser does not support the &lt;audio&gt; tag.</audio>\n" : "");
-	$listItem .= "\t\t\t<p>\n";
-	$listItem .= "\t\t\t\t" . ($episodeOggFS > 0 ? $episodeOggFS . " MB <a download href='$archiveBase.ogg'>OGG</a>" : "N/A OGG") . " | \n";
-	$listItem .= "\t\t\t\t" . ($episodeFlacFS > 0 ? $episodeFlacFS . " MB <a download href='$archiveBase.flac'>FLAC</a>" : "N/A FLAC") . " | \n";
-	$listItem .= "\t\t\t\t" . ($episodeMp3FS > 0 ? $episodeMp3FS . " MB <a download href='$archiveBase.mp3'>MP3</a>\n" : "N/A MP3");
-	$listItem .= "\t\t\t\t<span class='right'><a href='http://creativecommons.org/licenses/by-sa/3.0/'><img class='license' src='/images/by-sa.png' alt='Licensed under CC-BY-SA'></a></span>\n";
-	$listItem .= "\t\t\t</p>\n";
-	$listItem .= "\t\t\t<dl>\n";
-	$listItem .= "\t\t\t<dt>Recorded</dt><dd>" . (empty($meta['RECORDED']) ? "N/A" : $meta['RECORDED']) . "</dd>\n";
-	$listItem .= "\t\t\t<dt>Published</dt><dd>" . (empty($meta['PUBLISHED'] ) ? "N/A" : $meta['PUBLISHED']) . "</dd>\n";
-	$listItem .= "\t\t\t<dt>Hosts</dt><dd>" . (empty($listHosts) ? "No Hosts" : $listHosts) . "</dd>\n";
-	$listItem .= "\t\t\t<dt>Special Guests</dt><dd>" . (empty($listGuests) ? "No Guests" : $listGuests) . "</dd>\n";
-	$listItem .= "\t\t\t</dl>\n";
-	$listItem .= "\t\t\t<h3>Description</h3>\n";
-	$listItem .= "\t\t\t<p>{$meta['DESCRIPTION']}</p>";
-	$listItem .= "\t\t\t<h3>Shownotes</h3>\n";
+	print $episodeBase;
+	$episodeOggFS	= (file_exists($episodeBase . ".ogg")  ? round(filesize($episodeBase . ".ogg") /1024/1024,2) : 0);
+	$siteListen		= ($episodeOggFS > 0 ? '<audio preload="none" src="' . $archiveBase . '.ogg" type="audio/ogg" controls>Your browser does not support the &lt;audio&gt; tag.</audio>' : '');
+	$episodeOddDS	= ($episodeOggFS > 0 ? $episodeOggFS . ' MB <a download href="' . $archiveBase . '.ogg">OGG</a>' : 'N/A OGG');
+	$episodeFlacFS	= (file_exists($episodeBase . ".flac") ? round(filesize($episodeBase . ".flac")/1024/1024,2) : 0);
+	$episodeFlacDS	= ($episodeFlacFS > 0 ? $episodeFlacFS . ' MB <a download href="' . $archiveBase . '.flac">FLAC</a>' : 'N/A FLAC');
+	$episodeMp3FS	= (file_exists($episodeBase . ".mp3")  ? round(filesize($episodeBase . ".mp3") /1024/1024,2) : 0);
+	$episodeMP3DS	= ($episodeMp3FS > 0 ? $episodeMp3S . ' MB <a download href="' .$archiveBase . '.mp3">MP3</a>' : 'N/A MP3');
+
+echo <<<CASTENTRY
+			<h1>{$meta[ 'TITLE' ]}</h1>
+			<h3>Season: {$meta[ 'SEASON' ]}, Episode: {$meta[ 'EPISODE' ]}</h3>
+			{$siteListen}
+			<p>
+				$episodeOddDS
+				$episodeFlacDS
+				$episodeMP3DS
+				<span class='right'><a href='http://creativecommons.org/licenses/by-sa/3.0/'><img class='license' src='/images/by-sa.png' alt='Licensed under CC-BY-SA'></a></span>
+			</p>
+			<dl>
+			<dt>Recorded</dt><dd>{$meta['RECORDED']}</dd>
+			<dt>Published</dt><dd>{$meta['PUBLISHED']}</dd>
+			<dt>Hosts</dt><dd>$listHosts</dd>
+			<dt>Special Guests</dt><dd>$listGuests</dd>
+			</dl>
+			<h3>Description</h3>
+			<p>{$meta['DESCRIPTION']}</p>
+			<h3>Shownotes</h3>
+CASTENTRY;
 
 /*
 	TODO: decide case for making this appear? no PUBLISHED? no FILENAME?
@@ -314,23 +329,21 @@ if ($season !== "00" && $episode !== "00" && file_exists($filename))
 	}
 } else {
 /* Show cast list */
-	$listItem = "";
 ?>
-				<h1>Previous Casts</h1>
-				<table id='servers' class='tablesorter'>
-					<thead>
-						<tr>
-							<th>No.
-							<th>Recorded
-							<th>Published
-							<th>Title
-							<th>Hosts
-						</tr>
-					</thead>
-					<tbody>
+			<h1>Previous Casts</h1>
+			<table id='servers' class='tablesorter'>
+				<thead>
+					<tr>
+						<th>No.
+						<th>Recorded
+						<th>Published
+						<th>Title
+						<th>Hosts
+					</tr>
+				</thead>
+				<tbody>
 <?php
 	$casts = scandir($path, 1);
-	$listItem  = "";
 	foreach( $casts as $castdir )
 	{
 		if ($castdir === '.' or $castdir === '..')
@@ -352,25 +365,29 @@ if ($season !== "00" && $episode !== "00" && file_exists($filename))
 		foreach ($castHosts as $Host) {
 			$listHosts .= nameplate( $Host);
 		}
+		$meta['RECORDED']  = ( $meta['RECORDED'] === "" ? "N/A" : '<time datetime="' . $meta['RECORDED'] . '">' . $meta['RECORDED'] . '</time>' );
+		$meta['PUBLISHED'] = ($meta['PUBLISHED'] === "" ? '<span class="warning">In Progress</span>' : '<time datetime="' . $meta['PUBLISHED'] . '">' . $meta['PUBLISHED'] . '</time>');
+		$meta['TITLE'] = slenc($meta['TITLE']);
 		/* TODO: add these in HTML, we want to show off guests!
 		$castGuests			= array_map('trim', explode(',', $meta['GUESTS']));
 		foreach ($castGuests as $Guest) {
 			$listGuests .= nameplate( $Guest);
 		}*/
-		$listItem .= "\t\t\t<tr>\n";
-		$listItem .= "\t\t\t\t<td><a href='/cast/s" . $meta['SEASON'] . "e" . $meta['EPISODE'] . "'>S" . $meta['SEASON'] . "E" . $meta['EPISODE'] . "</a></td>\n";
-		$listItem .= "\t\t\t\t<td>" . ($meta['RECORDED'] === "" ? "N/A" : "<time datetime=\"" . $meta['RECORDED'] . "\">" . $meta['RECORDED'] . "</time>") . "</td>\n";
-		$listItem .= "\t\t\t\t<td>" . ($meta['PUBLISHED'] === "" ? "<span class=\"warning\">In Progress</span>" : ($meta['PUBLISHED'] ? "<time datetime=\"" . $meta['PUBLISHED'] . "\">" . $meta['PUBLISHED'] . "</time>" : "N/A")) . "</td>\n";
-		$listItem .= "\t\t\t\t<td><img src='/images/sound_grey.png' alt='Listen'><a href='/cast/s" . $meta['SEASON'] . "e" . $meta['EPISODE'] . "'>" . slenc($meta[ 'TITLE' ]) . "</a></td>\n";
-		$listItem .= "\t\t\t\t<td>" . $listHosts . "</td>\n";
-		$listItem .= "\t\t\t</tr>\n";
-		echo $listItem;
-		$listItem  = "";
+		echo <<<CASTENTRY
+			<tr>
+				<td><a href="/cast/s{$meta['SEASON']}e{$meta['EPISODE']}">S{$meta['SEASON']}E{$meta['EPISODE']}</a></td>
+				<td>{$meta['RECORDED']}</td>
+				<td>{$meta['PUBLISHED']}</td>
+				<td><img src="/images/sound_grey.png" alt="Listen"><a href="/cast/s{$meta['SEASON']}e{$meta['EPISODE']}">{$meta[ 'TITLE' ]}</a></td>
+				<td>$listHosts</td>
+			</tr>
+
+CASTENTRY;
 	}
-	echo "\t\t</table>\n";
+	echo "\t\t\t</table>\n";
 }
 ?>
-	</div>
+		</div>
     </article>
 </section>
 <?php
