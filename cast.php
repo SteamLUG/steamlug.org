@@ -189,7 +189,6 @@ if ($season !== "00" && $episode !== "00" && file_exists($filename))
 	$archiveBase = $url . '/' . $epi . '/' . $meta['FILENAME'];
 	$episodeBase = $path .'/' . $epi . '/' . $meta['FILENAME'];
 
-	print $episodeBase;
 	$episodeOggFS	= (file_exists($episodeBase . ".ogg")  ? round(filesize($episodeBase . ".ogg") /1024/1024,2) : 0);
 	$siteListen		= ($episodeOggFS > 0 ? '<audio preload="none" src="' . $archiveBase . '.ogg" type="audio/ogg" controls>Your browser does not support the &lt;audio&gt; tag.</audio>' : '');
 	$episodeOddDS	= ($episodeOggFS > 0 ? $episodeOggFS . ' MB <a download href="' . $archiveBase . '.ogg">OGG</a>' : 'N/A OGG');
@@ -223,7 +222,6 @@ CASTENTRY;
 	TODO: decide case for making this appear? no PUBLISHED? no FILENAME?
 	$listItem .= "<p>The shownotes are currently in the works, however they're not finished as of yet.</p>\n<p>However you're able to enjoy listening to the cast until we finalize the notes.</p>\n";
 */
-	echo $listItem;
 	foreach ( array_slice( $shownotes, 12 ) as $note)
 	{
 

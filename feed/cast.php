@@ -75,12 +75,18 @@ CASTHEAD;
 		$epi = "s" . slenc($meta['SEASON']) . "e" . slenc($meta['EPISODE']);
 		$archiveBase = $url . '/' . $epi . '/' . $meta['FILENAME'];
 		$episodeBase = $path .'/' . $epi . '/' . $meta['FILENAME'];
+
+		/* if file missing, skip this entry */
+		if (!file_exists( $episodeBase . "." . $type))
+			continue;
+
 		$itemContent = "<item>\n";
 		$itemContent .= "\t<title>" . slenc($meta[ 'TITLE' ]) . "</title>\n";
 		$itemContent .= "\t<pubDate>" . date(DATE_RFC2822, strtotime( $meta['PUBLISHED'] )) . "</pubDate>\n";
 		$itemContent .= "\t<itunes:duration>" . $meta['DURATION'] . "</itunes:duration>\n";
 		$itemContent .= "\t<link>https://steamlug.org/cast/" . $epi . "</link>\n";
 		$itemContent .= "\t<guid>https://steamlug.org/cast/" . $epi . "</guid>\n";
+		
 		$itemContent .= "\t<enclosure url=\"" . $archiveBase . "." . $type . "\" length=\"" . filesize($episodeBase . "." . $type) . "\" type=\"audio/" . ($type == "ogg" ? "ogg" : "mpeg") . "\" />\n";
 		$itemContent .= "\t<media:content url=\"" . $archiveBase . "." . $type . "\" fileSize=\"" . filesize($episodeBase . "." . $type) . "\" type=\"audio/" . ($type == "ogg" ? "ogg" : "mpeg") . "\" medium=\"audio\" expression=\"full\" />\n";
 		$itemContent .= "\t<itunes:explicit>no</itunes:explicit>\n";
