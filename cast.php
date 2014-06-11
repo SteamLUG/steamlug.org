@@ -2,7 +2,9 @@
 require_once("rbt_prs.php");
 require_once("steameventparser.php");
 $season  = isset($_GET["s"]) ? $_GET["s"] : "0";
+$season  = str_pad($season, 2, '0', STR_PAD_LEFT);
 $episode = isset($_GET["e"]) ? $_GET["e"] : "0";
+$episode = str_pad($episode, 2, '0', STR_PAD_LEFT);
 $parser = new SteamEventParser();
 
 $month = gmstrftime("%m")-0; // Yuck, apparently the 0 breaks something?
@@ -81,19 +83,6 @@ function nameplate( $string ) {
 	return $string;
 }
 
-if (!function_exists('glob_recursive'))
-{
-	function glob_recursive($pattern, $flags = 0)
-	{
-		$files = glob($pattern, $flags);
-		foreach (array_reverse(glob(dirname($pattern).'/*', GLOB_ONLYDIR)) as $dir)
-		{
-			$files = array_merge($files, glob_recursive($dir.'/'.basename($pattern), $flags));
-		}
-	return $files;
-	}
-}
-
 $rssLinks = '<link rel="alternate" type="application/rss+xml" title="SteamLUG Cast (mp3) Feed" href="https://steamlug.org/feed/cast/mp3" /><link rel="alternate" type="application/rss+xml" title="SteamLUG Cast (Ogg) Feed" href="https://steamlug.org/feed/cast/ogg" />';
 
 include_once('includes/header.php');
@@ -103,110 +92,101 @@ include_once('includes/header.php');
 	</header>
 <section>
 <?php
-if ($season == "0" || $episode == "0" || !glob($path . "/s" . basename($season) . "e" . basename($episode) . "/*"))
+/* User hitting main /cast/ page */
+if ( $season == "00" || $episode == "00" )
 {
-	$aboutPage  = "\t<article>\n";
-	$aboutPage .= "\t\t<div class='shadow'>\n";
-	$aboutPage .= "\t\t\t<h1>About</h1>\n";
-	$aboutPage .= "\t\t\t<p>SteamLUG Cast is a casual, fortnightly live audiocast held on the <a href = '/mumble'>SteamLUG Mumble server</a> which aims to provide interesting news and discussion for the SteamLUG and broader Linux gaming communities.</p>\n";
-	$aboutPage .= "\t\t\t<p>Our current hosts are:</p>\n";
-	$aboutPage .= "\t\t\t<ul>\n";
-	$aboutPage .= "\t\t\t\t<li><a href='http://steamcommunity.com/id/cheeseness'>Cheeseness</a> - SteamLUG's benevolent leadery person</li>\n";
-	$aboutPage .= "\t\t\t\t<li><a href='http://steamcommunity.com/id/johndrinkwater'>johndrinkwater</a> - SteamLUG admin and volunteer Valve github maintainer</li>\n";
-	$aboutPage .= "\t\t\t\t<li><a href='http://steamcommunity.com/id/swordfischer'>swordfischer</a> - SteamLUG's chief event organiserer</li>\n";
-	$aboutPage .= "\t\t\t</ul>\n";
-	$aboutPage .= "\t\t\t<p>From time to time, we also have guests joining to share their insights on Linux, the gaming industry and the SteamLUG community. Check back for recording archives, shownotes and further announcements!</p>\n";
-	$aboutPage .= "\t\t\t<h2>Make sure to subscribe to our lovely RSS feeds</h2>\n";
-	$aboutPage .= "\t\t\t<ul>\n";
-	$aboutPage .= "\t\t\t\t<li><a href = '/feed/cast/ogg'>OGG feed</a></li>\n";
-	$aboutPage .= "\t\t\t\t<li><a href = '/feed/cast/mp3'>MP3 feed</a></li>\n";
-	$aboutPage .= "\t\t\t</ul>\n";
-	$aboutPage .= "\t\t</div>\n";
-	$aboutPage .= "\t</article>\n";
+	echo <<<ABOUTCAST
+	<article>
+		<div class="shadow">
+			<h1>About</h1>
+			<p>SteamLUG Cast is a casual, fortnightly live audiocast held on the <a href="/mumble">SteamLUG Mumble server</a> which aims to provide interesting news and discussion for the SteamLUG and broader Linux gaming communities.</p>
+			<p>Our current hosts are:</p>
+			<ul>
+				<li><a href="http://steamcommunity.com/id/cheeseness">Cheeseness</a> - SteamLUG’s benevolent leadery person</li>
+				<li><a href="http://steamcommunity.com/id/johndrinkwater">johndrinkwater</a> - SteamLUG admin and volunteer Valve github maintainer</li>
+				<li><a href="http://steamcommunity.com/id/swordfischer">swordfischer</a> - SteamLUG’s chief event organiserer</li>
+			</ul>
+			<p>From time to time, we also have guests joining to share their insights on Linux, the gaming industry and the SteamLUG community. Check back for recording archives, shownotes and further announcements!</p>
+			<h2>Make sure to subscribe to our lovely RSS feeds</h2>
+			<ul>
+				<li><a href="/feed/cast/ogg">OGG feed</a></li>
+				<li><a href="/feed/cast/mp3">MP3 feed</a></li>
+			</ul>
+		</div>
+	</article>
+
+ABOUTCAST;
 
 if (isset($d) && strtotime($d[0] . "-" . $d[1] . "-" .$d[2])-strtotime(date("Y-m-d")) <= 21 * 86400) {
-	$aboutPage .= "\t<article id = 'nextevent'>\n";
-	$aboutPage .= "\t\t<div>\n";
-	$aboutPage .= "\t\t\t<h1>Upcoming Episode:</h1>\n";
-	$aboutPage .= "\t\t\t<h2>" . $s . ", ". $c . "</h2>\n";
-	$aboutPage .= "\t\t\t<p>Cheese, john and sword talk about SteamLUG Casty things!</p>\n";
-	$aboutPage .= "\t\t\t<div id='countdown'>\n";
-	$aboutPage .= "\t\t\t\t<div>Days<br />\n";
-	$aboutPage .= "\t\t\t\t\t<span id='d1' class = 'counterDigit'>0</span>\n";
-	$aboutPage .= "\t\t\t\t\t<span id='d2' class = 'counterDigit'>0</span>\n";
-	$aboutPage .= "\t\t\t\t</div>";
-	$aboutPage .= "\t\t\t\t<div>Hours<br />\n";
-	$aboutPage .= "\t\t\t\t\t<span id='h1' class = 'counterDigit'>0</span>\n";
-	$aboutPage .= "\t\t\t\t\t<span id='h2' class = 'counterDigit'>0</span>\n";
-	$aboutPage .= "\t\t\t\t</div>";
-	$aboutPage .= "\t\t\t\t<div>Minutes<br />\n";
-	$aboutPage .= "\t\t\t\t\t<span id='m1' class = 'counterDigit'>0</span>\n";
-	$aboutPage .= "\t\t\t\t\t<span id='m2' class = 'counterDigit'>0</span>\n";
-	$aboutPage .= "\t\t\t\t</div>";
-	$aboutPage .= "\t\t\t\t<div>Seconds<br />\n";
-	$aboutPage .= "\t\t\t\t\t<span id='s1' class = 'counterDigit'>0</span>\n";
-	$aboutPage .= "\t\t\t\t\t<span id='s2' class = 'counterDigit'>0</span>\n";
-	$aboutPage .= "\t\t\t\t</div>\n";
-	$aboutPage .= "\t\t\t</div>\n";
-	$aboutPage .= "\t\t\t<p>Feel free to join our <a href = 'mumble'>SteamLUG Mumble server</a> before, during and after the show!</p>\n";
-	$aboutPage .= "\t\t</div>\n";
-	$aboutPage .= "\t</article>\n";
+
+	echo <<<NEXTCAST
+	<article id="nextevent">
+		<div>
+			<h1>Upcoming Episode:</h1>
+			<h2>$s, $c</h2>
+			<p>Cheese, john and sword talk about SteamLUG Casty things!</p>
+			<div id="countdown">
+				<div>Days<br />
+					<span id="d1" class="counterDigit">0</span>
+					<span id="d2" class="counterDigit">0</span>
+				</div>";
+				<div>Hours<br />
+					<span id="h1" class="counterDigit">0</span>
+					<span id="h2" class="counterDigit">0</span>
+				</div>";
+				<div>Minutes<br />
+					<span id="m1" class="counterDigit">0</span>
+					<span id="m2" class="counterDigit">0</span>
+				</div>";
+				<div>Seconds<br />
+					<span id="s1" class="counterDigit">0</span>
+					<span id="s2" class="counterDigit">0</span>
+				</div>
+			</div>
+			<p>Feel free to join our <a href="mumble">SteamLUG Mumble server</a> before, during and after the show!</p>
+		</div>
+	</article>
+
+NEXTCAST;
 }
-	echo $aboutPage;
 }
 ?>
 	<article class='shownotes'>
 		<div class="shadow">
 <?php
-if ($season > "0" && $episode > "0" && glob($path . "/s" . basename($season) . "e" . basename($episode) . "/episode.txt"))
+$filename = $path . "/s" . $season . "e" . $episode . "/episode.txt";
+/* User wanting to see a specific cast, and shownotes file exists */
+if ($season !== "00" && $episode !== "00" && file_exists($filename))
 {
-	$showEpisode = glob($path . "/s" . basename($season) . "e" . basename($episode) . "/*");
-	$showEpisode = preg_replace("/\.(flac|mp3|ogg|txt)\Z/", "", $showEpisode[0]);
-	$shownotes = $showEpisode . ".txt";
-	$castRecorded = "";
-	$castPublished = "";
-	$castTitle = "";
-	$castSeason = "";
-	$castEpisode = "";
-	$castDescription = "";
-	$castHosts = "";
-	$castGuests = "";
-	foreach(glob_recursive($shownotes) as $filename)
-	{
-		$listHosts = "";
-		$listGuests = "";
-		$file = basename($filename, ".txt");
-		$shownotes = file($filename);
-		$castRecorded		= slenc(trim(preg_filter('/\ARECORDED:\s+(.*)\Z/i', '$1', $shownotes[0])));
-		$castPublished		= slenc(trim(preg_filter('/\APUBLISHED:\s+(.*)\Z/i', '$1', $shownotes[1])));
-		$castTitle			= slenc(trim(preg_filter('/\ATITLE:\s+(.*)\Z/i', '$1', $shownotes[2])));
-		$castSeason			= slenc(trim(preg_filter('/\ASEASON:\s+(\d+)\Z/i', '$1', $shownotes[3])));
-		$castEpisode		= slenc(trim(preg_filter('/\AEPISODE:\s+(\d+)\Z/i', '$1', $shownotes[4])));
-		$castDescription	= slenc(trim(preg_filter('/\ADESCRIPTION:\s+(.*)\Z/i', '$1', $shownotes[7])));
-		$castHosts			= slenc(preg_filter('/\AHOSTS:\s+(.*)\Z/i', '$1', $shownotes[8]));
-		$castHosts			= array_map('trim', explode(',', $castHosts));
-		$castGuests			= slenc(preg_filter('/\AGUESTS:\s+(.*)\Z/i', '$1', $shownotes[9]));
-		$castGuests			= array_map('trim', explode(',', $castGuests));
-		foreach ($castHosts as $Hosts) {
-			$Hosts = nameplate( $Hosts );
-			$listHosts = $listHosts . $Hosts;
-		}
-		foreach ($castGuests as $Guests) {
-			$Guests = nameplate( $Guests );
-			$listGuests = $listGuests . $Guests;
-		}
+	$shownotes		= file($filename);
+
+	$head = array_slice( $shownotes, 0, 10 );
+	$meta = array_fill_keys( array('RECORDED', 'PUBLISHED', 'TITLE',
+						'SEASON', 'EPISODE', 'DURATION', 'FILENAME',
+				'DESCRIPTION','HOSTS','GUESTS','ADDITIONAL' ), '');
+	foreach ( $head as $entry ) {
+		list($k, $v) = explode( ':', $entry, 2 );
+		$meta[$k] = trim($v); /* TODO remember to slenc() stuff! */
 	}
 
-	$file = basename($showEpisode);
-	$regex = "/[sS]([0-9]+)[eE]([0-9]+)\.(\w+(-\w+)*)/";
-	preg_match($regex, $showEpisode, $matches);
-	$episodeBase = $path . "/s" . slenc($matches[1]) . "e" . slenc($matches[2]) . "/" . $file;
-	$archiveBase = $url . "/s" . slenc($matches[1]) . "e" . slenc($matches[2]) . "/" . $file;
-	$episodeOggFS  = (file_exists($episodeBase . ".ogg") ? round(filesize($episodeBase . ".ogg")/1024/1024,2) : "N/A");
-	$episodeFlacFS  = (file_exists($episodeBase . ".flac") ? round(filesize($episodeBase . ".flac")/1024/1024,2) : "N/A");
-	$episodeMp3FS  = (file_exists($episodeBase . ".mp3") ? round(filesize($episodeBase . ".mp3")/1024/1024,2) : "N/A");
-	$listItem  = "\t\t\t<h1>" . $castTitle . "</h1>\n";
-	$listItem .= "\t\t\t<h3>Season: $season, Episode: $episode</h3>\n";
+	$castHosts			= array_map('trim', explode(',', $meta['HOSTS']));
+	$castGuests			= array_map('trim', explode(',', $meta['GUESTS']));
+	$listHosts = ""; $listGuests = "";
+	foreach ($castHosts as $Host) {
+		$listHosts .= nameplate( $Host);
+	}
+	foreach ($castGuests as $Guest) {
+		$listGuests .= nameplate( $Guest);
+	}
+	$epi = "s" . slenc($meta['SEASON']) . "e" . slenc($meta['EPISODE']);
+	$archiveBase = $url . '/' . $epi . '/' . $meta['FILENAME'];
+	$episodeBase = $path .'/' . $epi . '/' . $meta['FILENAME'];
+
+	$episodeOggFS  = (file_exists($episodeBase . ".ogg") ? round(filesize($episodeBase . ".ogg")/1024/1024,2) : 0);
+	$episodeFlacFS = (file_exists($episodeBase . ".flac") ? round(filesize($episodeBase . ".flac")/1024/1024,2) : 0);
+	$episodeMp3FS  = (file_exists($episodeBase . ".mp3") ? round(filesize($episodeBase . ".mp3")/1024/1024,2) : 0);
+	$listItem  = "\t\t\t<h1>" . slenc($meta[ 'TITLE' ]) . "</h1>\n";
+	$listItem .= "\t\t\t<h3>Season: {$meta[ 'SEASON' ]}, Episode: {$meta[ 'EPISODE' ]}</h3>\n";
 	$listItem .= "\t\t\t" . ($episodeOggFS > 0 ? "<audio preload='none' src='$archiveBase.ogg' type='audio/ogg' controls>Your browser does not support the &lt;audio&gt; tag.</audio>\n" : "");
 	$listItem .= "\t\t\t<p>\n";
 	$listItem .= "\t\t\t\t" . ($episodeOggFS > 0 ? $episodeOggFS . " MB <a download href='$archiveBase.ogg'>OGG</a>" : "N/A OGG") . " | \n";
@@ -215,89 +195,23 @@ if ($season > "0" && $episode > "0" && glob($path . "/s" . basename($season) . "
 	$listItem .= "\t\t\t\t<span class='right'><a href='http://creativecommons.org/licenses/by-sa/3.0/'><img class='license' src='/images/by-sa.png' alt='Licensed under CC-BY-SA'></a></span>\n";
 	$listItem .= "\t\t\t</p>\n";
 	$listItem .= "\t\t\t<dl>\n";
-	$listItem .= "\t\t\t<dt>Recorded</dt><dd>" . (empty($castRecorded) ? "N/A" : $castRecorded) . "</dd>\n";
-	$listItem .= "\t\t\t<dt>Published</dt><dd>" . (empty($castPublished) ? "N/A" : $castPublished) . "</dd>\n";
+	$listItem .= "\t\t\t<dt>Recorded</dt><dd>" . (empty($meta['RECORDED']) ? "N/A" : $meta['RECORDED']) . "</dd>\n";
+	$listItem .= "\t\t\t<dt>Published</dt><dd>" . (empty($meta['PUBLISHED'] ) ? "N/A" : $meta['PUBLISHED']) . "</dd>\n";
 	$listItem .= "\t\t\t<dt>Hosts</dt><dd>" . (empty($listHosts) ? "No Hosts" : $listHosts) . "</dd>\n";
 	$listItem .= "\t\t\t<dt>Special Guests</dt><dd>" . (empty($listGuests) ? "No Guests" : $listGuests) . "</dd>\n";
 	$listItem .= "\t\t\t</dl>\n";
 	$listItem .= "\t\t\t<h3>Description</h3>\n";
-	$listItem .= "\t\t\t<p>$castDescription</p>";
+	$listItem .= "\t\t\t<p>{$meta['DESCRIPTION']}</p>";
 	$listItem .= "\t\t\t<h3>Shownotes</h3>\n";
 
-	if (file_exists($showEpisode . ".txts"))
+/*
+	TODO: decide case for making this appear? no PUBLISHED? no FILENAME?
+	$listItem .= "<p>The shownotes are currently in the works, however they're not finished as of yet.</p>\n<p>However you're able to enjoy listening to the cast until we finalize the notes.</p>\n";
+*/
+	echo $listItem;
+	foreach ( array_slice( $shownotes, 12 ) as $note)
 	{
-			$listItem .= "<p>The shownotes are currently in the works, however they're not finished as of yet.</p>\n<p>However you're able to enjoy listening to the cast until we finalize the notes.</p>\n";
-			echo $listItem;
-	}
-	else if (file_exists($showEpisode . ".txt"))
-	{
-		echo $listItem;
-		$showNotes = file($showEpisode . ".txt");
-		foreach (array_slice($showNotes, 12) as $note)
-		{
-/*			$note = preg_replace_callback
-				(
-					'/RECORDED:\s+(.*)\Z/i',
-					function($matches)
-					{
-						return "<p class=\"castrecordedDate\">" . slenc($matches[1]) . "</p>\n";
-					},
-					$note
-				);
-			$note = preg_replace_callback
-				(
-					'/PUBLISHED:\s+(.*)\Z/i',
-					function($matches)
-					{
-						return "<p class=\"castpublishedDate\">" . slenc($matches[1]) . "</p>\n";
-					},
-					$note
-				);
-			$note = preg_replace_callback
-				(
-					'/TITLE:\s+(.*)\Z/i',
-					function($matches)
-					{
-						return "<p class=\"castTitle\">" . slenc($matches[1]) . "</p>\n";
-					},
-					$note
-				);
-			$note = preg_replace_callback
-				(
-					'/DESCRIPTION:\s+(.*)\Z/i',
-					function($matches)
-					{
-						return "<p class=\"castDescription\">" . slenc($matches[1]) . "</p>\n";
-					},
-					$note
-				);
-			$note = preg_replace_callback
-				(
-					'/HOSTS:\s+(.*)\Z/i',
-					function($matches)
-					{
-						return "<p class=\"castHosts\">" . slenc($matches[1]) . "</p>\n";
-					},
-					$note
-				);
-			$note = preg_replace_callback
-				(
-					'/GUESTS:\s+(.*)\Z/i',
-					function($matches)
-					{
-						return "<p class=\"castGuests\">" . slenc($matches[1]) . "</p>\n";
-					},
-					$note
-				);
-			$note = preg_replace_callback
-				(
-					'/ADDITIONAL:\s+(.*)\Z/i',
-					function($matches)
-					{
-						return "<p class=\"castGuests\">" . slenc($matches[1]) . "</p>\n";
-					},
-					$note
-			);*/
+
 			$note = preg_replace_callback
 				(
 					'/\d+:\d+:\d+\s+\*(.*)\*/',
@@ -397,11 +311,9 @@ if ($season > "0" && $episode > "0" && glob($path . "/s" . basename($season) . "
 					$note
 				);
 			echo $note . "\n";
-		}
 	}
-}
-else
-	{
+} else {
+/* Show cast list */
 	$listItem = "";
 ?>
 				<h1>Previous Casts</h1>
@@ -417,54 +329,49 @@ else
 					</thead>
 					<tbody>
 <?php
-function atcmp($a, $b) {
-	$a = ltrim($a, "@ \t");
-	$b = ltrim($b, "@ \t");
-	$ret = strcasecmp($a, $b);
-	if ($ret < 0) {
-		$ret = -1;
-	} else if ($ret > 0) {
-	$ret = 1;
-	}
-return $ret;
-}
-// TODO: Eliminate spaces after $castEpisode and $castSeason!
-//
-	if (!glob_recursive($path . "*/episode.txt")) { echo "<h3>No archives found</h3>"; }
-	foreach(glob_recursive($path . "*/episode.txt") as $filename)
-		{
-			$ListHosts = "";
-			/* let’s grab less here, 2K ought to be enough */
-			$tempIncoming		= file_get_contents($filename, false, NULL, 0, 2048);
-			$shownotes			= explode( "\n", $tempIncoming);
-			$castRecorded		= slenc(trim(preg_filter('/\ARECORDED:\s+(.*)\Z/i', '$1', $shownotes[0])));
-			$castPublished		= slenc(trim(preg_filter('/\APUBLISHED:\s+(.*)\Z/i', '$1', $shownotes[1])));
-			$castTitle			= slenc(trim(preg_filter('/\ATITLE:\s+(.*)\Z/i', '$1', $shownotes[2])));
-			$castSeason			= slenc(trim(preg_filter('/\ASEASON:\s+(\d+)\Z/i', '\1', $shownotes[3])));
-			$castEpisode		= slenc(trim(preg_filter('/\AEPISODE:\s+(\d+)\Z/i', '$1', $shownotes[4])));
-			$castDuration		= slenc(trim(preg_filter('/\ADURATION:\s+(\d+)\Z/i', '$1', $shownotes[5])));
-			/* 6 = FILENAME */
-			/*$castDescription	= slenc(trim(preg_filter('/\ADESCRIPTION:\s+(\d+)\Z/i', '$1', $shownotes[7])));*/
-			$castHosts			= slenc(preg_filter('/\AHOSTS:\s+(.*)\Z/i', '$1', $shownotes[8]));
-			$castHosts			= array_map('trim', explode(',', $castHosts));
-			$filenameInfo = pathinfo($filename);
-			foreach ($castHosts as $Hosts) {
-				$Hosts = nameplate( $Hosts );
-				$ListHosts = $ListHosts . $Hosts;
-			}
+	$casts = scandir($path, 1);
+	$listItem  = "";
+	foreach( $casts as $castdir )
+	{
+		if ($castdir === '.' or $castdir === '..')
+			break;
+
+		$filename		= $path .'/'. $castdir . "/episode.txt";
+		/* let’s grab less here, 2K ought to be enough */
+		$shownotes			= explode( "\n", file_get_contents($filename, false, NULL, 0, 2048) );
+		$head = array_slice( $shownotes, 0, 10 );
+		$meta = array_fill_keys( array('RECORDED', 'PUBLISHED', 'TITLE',
+							'SEASON', 'EPISODE', 'DURATION', 'FILENAME',
+					'DESCRIPTION','HOSTS','GUESTS','ADDITIONAL' ), '');
+		foreach ( $head as $entry ) {
+			list($k, $v) = explode( ':', $entry, 2 );
+			$meta[$k] = trim($v); /* TODO remember to slenc() stuff! */
+		}
+		$castHosts = array_map('trim', explode(',', $meta['HOSTS']));
+		$listHosts = ""; $listGuests = "";
+		foreach ($castHosts as $Host) {
+			$listHosts .= nameplate( $Host);
+		}
+		/* TODO: add these in HTML, we want to show off guests!
+		$castGuests			= array_map('trim', explode(',', $meta['GUESTS']));
+		foreach ($castGuests as $Guest) {
+			$listGuests .= nameplate( $Guest);
+		}*/
 		$listItem .= "\t\t\t<tr>\n";
-		$listItem .= "\t\t\t\t<td><a href='/cast/s" . $castSeason . "e" . $castEpisode . "'>S" . $castSeason . "E" .  $castEpisode . "</a></td>\n";
-		$listItem .= "\t\t\t\t<td>" . ($castRecorded ? "<time datetime=\"" . $castRecorded . "\">" . $castRecorded . "</time>" : "N/A") . "</td>\n";
-		$listItem .= "\t\t\t\t<td>" . ($filenameInfo["extension"] == "txts" ? "<span class=\"warning\">In Progress</span>" : ($castPublished ? "<time datetime=\"" . $castPublished . "\">" . $castPublished . "</time>" : "N/A")) . "</td>\n";
-		$listItem .= "\t\t\t\t<td><img src='/images/sound_grey.png' alt='Listen'><a href='/cast/s" . $castSeason . "e" . $castEpisode . "'>" .  $castTitle . "</a></td>\n";
-		$listItem .= "\t\t\t\t<td>" . $ListHosts . "</td>\n";
+		$listItem .= "\t\t\t\t<td><a href='/cast/s" . $meta['SEASON'] . "e" . $meta['EPISODE'] . "'>S" . $meta['SEASON'] . "E" . $meta['EPISODE'] . "</a></td>\n";
+		$listItem .= "\t\t\t\t<td>" . ($meta['RECORDED'] === "" ? "N/A" : "<time datetime=\"" . $meta['RECORDED'] . "\">" . $meta['RECORDED'] . "</time>") . "</td>\n";
+		$listItem .= "\t\t\t\t<td>" . ($meta['PUBLISHED'] === "" ? "<span class=\"warning\">In Progress</span>" : ($meta['PUBLISHED'] ? "<time datetime=\"" . $meta['PUBLISHED'] . "\">" . $meta['PUBLISHED'] . "</time>" : "N/A")) . "</td>\n";
+		$listItem .= "\t\t\t\t<td><img src='/images/sound_grey.png' alt='Listen'><a href='/cast/s" . $meta['SEASON'] . "e" . $meta['EPISODE'] . "'>" . slenc($meta[ 'TITLE' ]) . "</a></td>\n";
+		$listItem .= "\t\t\t\t<td>" . $listHosts . "</td>\n";
 		$listItem .= "\t\t\t</tr>\n";
+		echo $listItem;
+		$listItem  = "";
 	}
-	$listItem .= "\t\t</table>\n";
-	echo $listItem;
+	echo "\t\t</table>\n";
 }
 ?>
 	</div>
     </article>
 </section>
-<?php include_once("includes/footer.php"); ?>
+<?php
+include_once("includes/footer.php");
