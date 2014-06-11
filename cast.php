@@ -182,10 +182,10 @@ if ($season > "0" && $episode > "0" && glob($path . "/s" . basename($season) . "
 		$castTitle			= slenc(trim(preg_filter('/\ATITLE:\s+(.*)\Z/i', '$1', $shownotes[2])));
 		$castSeason			= slenc(trim(preg_filter('/\ASEASON:\s+(\d+)\Z/i', '$1', $shownotes[3])));
 		$castEpisode		= slenc(trim(preg_filter('/\AEPISODE:\s+(\d+)\Z/i', '$1', $shownotes[4])));
-		$castDescription	= slenc(trim(preg_filter('/\ADESCRIPTION:\s+(.*)\Z/i', '$1', $shownotes[5])));
-		$castHosts			= slenc(preg_filter('/\AHOSTS:\s+(.*)\Z/i', '$1', $shownotes[6]));
+		$castDescription	= slenc(trim(preg_filter('/\ADESCRIPTION:\s+(.*)\Z/i', '$1', $shownotes[7])));
+		$castHosts			= slenc(preg_filter('/\AHOSTS:\s+(.*)\Z/i', '$1', $shownotes[8]));
 		$castHosts			= array_map('trim', explode(',', $castHosts));
-		$castGuests			= slenc(preg_filter('/\AGUESTS:\s+(.*)\Z/i', '$1', $shownotes[7]));
+		$castGuests			= slenc(preg_filter('/\AGUESTS:\s+(.*)\Z/i', '$1', $shownotes[9]));
 		$castGuests			= array_map('trim', explode(',', $castGuests));
 		foreach ($castHosts as $Hosts) {
 			$Hosts = nameplate( $Hosts );
@@ -233,7 +233,7 @@ if ($season > "0" && $episode > "0" && glob($path . "/s" . basename($season) . "
 	{
 		echo $listItem;
 		$showNotes = file($showEpisode . ".txt");
-		foreach (array_slice($showNotes, 10) as $note)
+		foreach (array_slice($showNotes, 12) as $note)
 		{
 /*			$note = preg_replace_callback
 				(
@@ -435,15 +435,17 @@ return $ret;
 		{
 			$ListHosts = "";
 			/* let’s grab less here, 2K ought to be enough */
-			$tempIncoming = file_get_contents($filename, false, NULL, 0, 2048);
-			$shownotes = explode( "\n", $tempIncoming);
+			$tempIncoming		= file_get_contents($filename, false, NULL, 0, 2048);
+			$shownotes			= explode( "\n", $tempIncoming);
 			$castRecorded		= slenc(trim(preg_filter('/\ARECORDED:\s+(.*)\Z/i', '$1', $shownotes[0])));
 			$castPublished		= slenc(trim(preg_filter('/\APUBLISHED:\s+(.*)\Z/i', '$1', $shownotes[1])));
 			$castTitle			= slenc(trim(preg_filter('/\ATITLE:\s+(.*)\Z/i', '$1', $shownotes[2])));
 			$castSeason			= slenc(trim(preg_filter('/\ASEASON:\s+(\d+)\Z/i', '\1', $shownotes[3])));
 			$castEpisode		= slenc(trim(preg_filter('/\AEPISODE:\s+(\d+)\Z/i', '$1', $shownotes[4])));
-			/*$castDescription	= slenc(trim(preg_filter('/\ADESCRIPTION:\s+(\d+)\Z/i', '$1', $shownotes[5])));*/
-			$castHosts			= slenc(preg_filter('/\AHOSTS:\s+(.*)\Z/i', '$1', $shownotes[6]));
+			$castDuration		= slenc(trim(preg_filter('/\ADURATION:\s+(\d+)\Z/i', '$1', $shownotes[5])));
+			/* 6 = FILENAME */
+			/*$castDescription	= slenc(trim(preg_filter('/\ADESCRIPTION:\s+(\d+)\Z/i', '$1', $shownotes[7])));*/
+			$castHosts			= slenc(preg_filter('/\AHOSTS:\s+(.*)\Z/i', '$1', $shownotes[8]));
 			$castHosts			= array_map('trim', explode(',', $castHosts));
 			$filenameInfo = pathinfo($filename);
 			foreach ($castHosts as $Hosts) {
