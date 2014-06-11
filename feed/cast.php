@@ -62,21 +62,23 @@ CASTHEAD;
 
 		$filename		= $path .'/'. $castdir . "/episode.txt";
 		$shownotes		= file($filename);
-		$castRecorded	= slenc(trim(preg_filter('/\ARECORDED:\s+(.*)\Z/i', '$1', $shownotes[0])));
-		$castPublished	= slenc(trim(preg_filter('/\APUBLISHED:\s+(.*)\Z/i', '$1', $shownotes[1])));
-		$castTitle		= slenc(trim(preg_filter('/\ATITLE:\s+(.*)\Z/i', '$1', $shownotes[2])));
-		$castSeason		= slenc(trim(preg_filter('/\ASEASON:\s+(\d+)\Z/i', '\1', $shownotes[3])));
-		$castEpisode	= slenc(trim(preg_filter('/\AEPISODE:\s+(\d+)\Z/i', '$1', $shownotes[4])));
-		$castDuration	= slenc(trim(preg_filter('/\ADURATION:\s+(\d+)\Z/i', '$1', $shownotes[5])));
-		$castFilename	= slenc(trim(preg_filter('/\AFILENAME:\s+(.*)\Z/i', '$1', $shownotes[6])));
-		$castDescription= slenc(trim(preg_filter('/\ADESCRIPTION:\s+(\d+)\Z/i', '$1', $shownotes[7])));
-		$epi = "s" . slenc($castSeason) . "e" . slenc($castEpisode);
-		$archiveBase = $url . '/' . $epi . '/' . $castFilename;
-		$episodeBase = $path .'/' . $epi . '/' . $castFilename;
+
+		$head = array_slice( $shownotes, 0, 10 );
+		$meta = array_fill_keys( array('RECORDED', 'PUBLISHED', 'TITLE',
+							'SEASON', 'EPISODE', 'DURATION', 'FILENAME',
+					'DESCRIPTION','HOSTS','GUESTS','ADDITIONAL' ), '');
+		foreach ( $head as $entry ) {
+			list($k, $v) = explode( ':', $entry, 2 );
+			$meta[$k] = trim($v); /* TODO remember to slenc() stuff! */
+		}
+
+		$epi = "s" . slenc($meta['SEASON']) . "e" . slenc($meta['EPISODE']);
+		$archiveBase = $url . '/' . $epi . '/' . $meta['FILENAME'];
+		$episodeBase = $path .'/' . $epi . '/' . $meta['FILENAME'];
 		$itemContent = "<item>\n";
-		$itemContent .= "\t<title>" . $castTitle . "</title>\n";
-		$itemContent .= "\t<pubDate>" . date(DATE_RFC2822, strtotime($castPublished)) . "</pubDate>\n";
-		$itemContent .= "\t<itunes:duration>" . $castDuration . "</itunes:duration>\n";
+		$itemContent .= "\t<title>" . slenc($meta[ 'TITLE' ]) . "</title>\n";
+		$itemContent .= "\t<pubDate>" . date(DATE_RFC2822, strtotime( $meta['PUBLISHED'] )) . "</pubDate>\n";
+		$itemContent .= "\t<itunes:duration>" . $meta['DURATION'] . "</itunes:duration>\n";
 		$itemContent .= "\t<link>https://steamlug.org/cast/" . $epi . "</link>\n";
 		$itemContent .= "\t<guid>https://steamlug.org/cast/" . $epi . "</guid>\n";
 		$itemContent .= "\t<enclosure url=\"" . $archiveBase . "." . $type . "\" length=\"" . filesize($episodeBase . "." . $type) . "\" type=\"audio/" . ($type == "ogg" ? "ogg" : "mpeg") . "\" />\n";
@@ -153,7 +155,7 @@ CASTHEAD;
 			$itemContent .= $note;
 		}
 		$itemContent .= "\t]]></description>\n";
-		$itemContent .= "\t<itunes:subtitle>" . substr($castDescription,2,161) . "…</itunes:subtitle>\n";
+		$itemContent .= "\t<itunes:subtitle>" . slenc(substr($meta['DESCRIPTION'],0,158)) . "…</itunes:subtitle>\n";
 		$itemContent .= "</item>\n";
 		echo $itemContent;
 		$itemContent = "";
