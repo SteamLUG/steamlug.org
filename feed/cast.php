@@ -86,8 +86,7 @@ CASTHEAD;
 		$itemContent .= "\t<itunes:explicit>no</itunes:explicit>\n";
 		$itemContent .="\t<media:rating scheme=\"urn:simple\">nonadult</media:rating>\n";
 		$itemContent .= "\t<description><![CDATA[";
-		$shownotes = array_slice( $shownotes, 12 );
-		foreach ($shownotes as $note)
+		foreach ( array_slice( $shownotes, 12 ) as $note)
 		{
 			$note = preg_replace_callback
 			(
