@@ -13,7 +13,7 @@
 
 	function slenc($u)
 	{
-        return htmlentities($u,ENT_QUOTES, "UTF-8");
+		return htmlspecialchars($u, ENT_NOQUOTES, "UTF-8");
 	}
 
 	/* gives us a list, like s02e03, s02e02, etc of all of our casts */
