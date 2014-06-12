@@ -51,13 +51,16 @@
          */
         click_handler: function () {
             var audio, seconds, seek_once;
+            seconds = this.seconds;
 
+            if (history.pushState)
+                history.pushState( { time: seconds }, "Skipped to" + seconds,
+                        "#ts-" + (new Date(seconds*1000)).toTimeString().replace(/.*(\d{2}:\d{2}:\d{2}).*/, "$1") );
             audio = highlighter.audio;
             if (audio.paused) {
                 audio.play();
 
                 // The following mess is needed to seek after the audio has started playing,
-                seconds = this.seconds;
                 seek_once = function () {
                     console.log("seeking to", seconds);
                     this.currentTime = seconds;
@@ -66,7 +69,7 @@
                 audio.addEventListener('canplay', seek_once, false);
             } else {
                 // Seek!
-                audio.currentTime = this.seconds;
+                audio.currentTime = seconds;
             }
         },
 
