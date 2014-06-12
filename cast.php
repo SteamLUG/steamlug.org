@@ -43,14 +43,15 @@ function slenc($u)
 	return htmlentities($u,ENT_QUOTES, "UTF-8");
 }
 
-/* move this to an includes? */
+/* TODO: join this to our steamlug user system; TODO: make steamlug user system */
 $twitterAvatars = array(
 		"swordfischer" =>	"https://pbs.twimg.com/profile_images/3091650213/abd95819b5fa2ac94d26866446404b65.png",
-		"ValiantCheese" =>	"https://pbs.twimg.com/profile_images/378800000742171339/65a50a761a997aae3a1fcf4912747609.png",
+		"ValiantCheese" =>	"https://pbs.twimg.com/profile_images/378800000805813456/cecaa38c6d23004e4ca53c85773b456d.png",
 		"johndrinkwater" =>	"https://pbs.twimg.com/profile_images/18196842/john-eye-glow-xface-colour-alpha.png",
 		"MimLofBees" =>		"https://pbs.twimg.com/profile_images/2458841225/cnm856lvnaz4hhkgz6yg.jpeg",
 		"DerRidda" =>		"https://pbs.twimg.com/profile_images/2150739768/pigava.jpeg",
-		"mnarikka" =>		"https://pbs.twimg.com/profile_images/1343985841/meklu.png",
+		"mnarikka" =>		"https://pbs.twimg.com/profile_images/430414134018977792/gnI7LKDc.png",
+		"Nemoder" =>		"http://cdn.akamai.steamstatic.com/steamcommunity/public/images/avatars/0d/0d4a058f786ea71153f85262c65bb94490205b59_full.jpg",
 );
 
 /* we take a ‘johndrinkwater’ / ‘@johndrinkwater’ / ‘John Drinkwater (@twitter)’ and spit out HTML */
