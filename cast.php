@@ -170,6 +170,7 @@ if ($season !== "00" && $episode !== "00" && file_exists($filename))
 	}
 
 	$meta['RECORDED']  = ( $meta['RECORDED'] === "" ? "N/A" : '<time datetime="' . $meta['RECORDED'] . '">' . $meta['RECORDED'] . '</time>' );
+	$meta['PUBLIC'] = $meta['PUBLISHED'];
 	$meta['PUBLISHED'] = ($meta['PUBLISHED'] === "" ? '<span class="warning">In Progress</span>' : '<time datetime="' . $meta['PUBLISHED'] . '">' . $meta['PUBLISHED'] . '</time>');
 	$meta['TITLE'] = slenc($meta['TITLE']);
 
@@ -216,14 +217,18 @@ echo <<<CASTENTRY
 			<h3>Description</h3>
 			<p>{$meta['DESCRIPTION']}</p>
 			<h3>Shownotes</h3>
+
 CASTENTRY;
 
-/*
-	TODO: decide case for making this appear? no PUBLISHED? no FILENAME?
-	$listItem .= "<p>The shownotes are currently in the works, however they're not finished as of yet.</p>\n<p>However you're able to enjoy listening to the cast until we finalize the notes.</p>\n";
-*/
-	foreach ( array_slice( $shownotes, 12 ) as $note)
+	/* if published unset, skip this entry */
+	if ( $meta['PUBLIC'] === '' )
 	{
+		/* RSS hides the episode, but the site just hides the notes */
+		echo "<p>The shownotes are currently in the works, however they're not finished as of yet.</p>\n<p>You're still able to enjoy listening to the cast until we finalize the notes.</p>\n";
+	} else {
+
+		foreach ( array_slice( $shownotes, 12 ) as $note)
+		{
 		$note = preg_replace_callback(
 			'/\d+:\d+:\d+\s+\*(.*)\*/',
 			function($matches) { return '<ul class="castsection"><li><span class="casttopic">' . slenc($matches[1]) . "</span></li>\n"; },
@@ -303,13 +308,20 @@ CASTENTRY;
 			list($k, $v) = explode( ':', $entry, 2 );
 			$meta[$k] = trim($v); /* TODO remember to slenc() stuff! */
 		}
+
+		/* if published unset, skip this entry */
+		if ( $meta['PUBLISHED'] === '' )
+			continue;
+
 		$castHosts = array_map('trim', explode(',', $meta['HOSTS']));
 		$listHosts = ""; $listGuests = "";
 		foreach ($castHosts as $Host) {
 			$listHosts .= nameplate( $Host);
 		}
-		$meta['RECORDED']  = ( $meta['RECORDED'] === "" ? "N/A" : '<time datetime="' . $meta['RECORDED'] . '">' . $meta['RECORDED'] . '</time>' );
-		$meta['PUBLISHED'] = ($meta['PUBLISHED'] === "" ? '<span class="warning">In Progress</span>' : '<time datetime="' . $meta['PUBLISHED'] . '">' . $meta['PUBLISHED'] . '</time>');
+		/* TODO: pretty the datetime= & public value up */
+		$meta['RECORDED']  = '<time datetime="' . $meta['RECORDED'] . '">' . $meta['RECORDED'] . '</time>';
+		$meta['PUBLISHED'] = '<time datetime="' . $meta['PUBLISHED'] . '">' . $meta['PUBLISHED'] . '</time>';
+
 		$meta['TITLE'] = slenc($meta['TITLE']);
 		/* TODO: add these in HTML, we want to show off guests!
 		$castGuests			= array_map('trim', explode(',', $meta['GUESTS']));

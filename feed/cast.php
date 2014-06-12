@@ -72,6 +72,15 @@ CASTHEAD;
 			$meta[$k] = trim($v); /* TODO remember to slenc() stuff! */
 		}
 
+		/* if published unset, skip this entry */
+		if ( $meta['PUBLISHED'] === '' )
+			continue;
+
+		$meta['PUBLISHED'] = date(DATE_RFC2822, strtotime( $meta['PUBLISHED'] ));
+		$meta['TITLE'] = slenc($meta['TITLE']);
+		$meta['SHORTDESCRIPTION'] = slenc(substr($meta['DESCRIPTION'],0,158));
+		$meta['DESCRIPTION'] = slenc($meta['DESCRIPTION']);
+
 		$epi = "s" . slenc($meta['SEASON']) . "e" . slenc($meta['EPISODE']);
 		$archiveBase = $url . '/' . $epi . '/' . $meta['FILENAME'];
 		$episodeBase = $path .'/' . $castdir . '/' . $meta['FILENAME'];
@@ -80,18 +89,24 @@ CASTHEAD;
 		if (!file_exists( $episodeBase . "." . $type))
 			continue;
 
-		$itemContent = "<item>\n";
-		$itemContent .= "\t<title>" . slenc($meta[ 'TITLE' ]) . "</title>\n";
-		$itemContent .= "\t<pubDate>" . date(DATE_RFC2822, strtotime( $meta['PUBLISHED'] )) . "</pubDate>\n";
-		$itemContent .= "\t<itunes:duration>" . $meta['DURATION'] . "</itunes:duration>\n";
-		$itemContent .= "\t<link>https://steamlug.org/cast/" . $epi . "</link>\n";
-		$itemContent .= "\t<guid>https://steamlug.org/cast/" . $epi . "</guid>\n";
-		
-		$itemContent .= "\t<enclosure url=\"" . $archiveBase . "." . $type . "\" length=\"" . filesize($episodeBase . "." . $type) . "\" type=\"audio/" . ($type == "ogg" ? "ogg" : "mpeg") . "\" />\n";
-		$itemContent .= "\t<media:content url=\"" . $archiveBase . "." . $type . "\" fileSize=\"" . filesize($episodeBase . "." . $type) . "\" type=\"audio/" . ($type == "ogg" ? "ogg" : "mpeg") . "\" medium=\"audio\" expression=\"full\" />\n";
-		$itemContent .= "\t<itunes:explicit>no</itunes:explicit>\n";
-		$itemContent .="\t<media:rating scheme=\"urn:simple\">nonadult</media:rating>\n";
-		$itemContent .= "\t<description><![CDATA[";
+		$episodeSize	= filesize($episodeBase . '.' . $type );
+		$episodeMime	= $type == "ogg" ? "audio/ogg" : "audio/mpeg";
+
+		echo <<<CASTENTRY
+
+		<item>
+			<title>{$meta[ 'TITLE' ]}</title>
+			<pubDate>{$meta['PUBLISHED']}</pubDate>
+			<itunes:duration>{$meta['DURATION']}</itunes:duration>
+			<link>https://steamlug.org/cast/{$epi}</link>
+			<guid>https://steamlug.org/cast/{$epi}</guid>
+			<enclosure url="{$archiveBase}.{$type}" length="{$episodeSize}" type="{$episodeMime}" />
+			<media:content url="{$archiveBase}.{$type}" fileSize="{$episodeSize}" type="{$episodeMime}" medium="audio" expression="full" />
+			<itunes:explicit>no</itunes:explicit>
+			<media:rating scheme="urn:simple">nonadult</media:rating>
+			<description><![CDATA[<p>{$meta['DESCRIPTION']}</p>
+
+CASTENTRY;
 		foreach ( array_slice( $shownotes, 12 ) as $note)
 		{
 			$note = preg_replace_callback(
@@ -106,6 +121,8 @@ CASTHEAD;
 				'/^<time.*$/',
 				function($matches){ return "<li>" . $matches[0] . "</li>\n"; },
 				$note);
+			/* TODO: recent episode included www.nordicgames.at which parses OK for us, but feed validators
+				say no to relative URLs */
 			$note = preg_replace_callback(
 				'/(?i)\b((?:(https?|irc):\/\/|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:\'".,<>?«]))/',
 				function($matches){ return "[<a href='" . slenc($matches[0]) . "'>" . slenc($matches[0]) . "</a>]"; },
@@ -138,14 +155,16 @@ CASTHEAD;
 				'/\[(\w\d+\w\d+)\]/',
 				function($matches){ return "\t\t\t<a href='http://steamlug.org/cast/" . $matches[1] . "'>" . $matches[1] . "</a>\n"; },
 				$note);
-			$itemContent .= $note;
+			echo $note;
 		}
-		$itemContent .= "\t]]></description>\n";
-		$itemContent .= "\t<itunes:subtitle>" . slenc(substr($meta['DESCRIPTION'],0,158)) . "…</itunes:subtitle>\n";
-		$itemContent .= "</item>\n";
-		echo $itemContent;
-		$itemContent = "";
+		echo <<<CASTENTRY
+			]]></description>
+			<itunes:subtitle>{$meta['SHORTDESCRIPTION']}…</itunes:subtitle>
+		</item>
+CASTENTRY;
 	}
-	echo "</channel>\n";
-	echo "</rss>\n";
+	echo <<<CASTFOOT
+	</channel>
+</rss>
+CASTFOOT;
 ?>
