@@ -111,7 +111,7 @@ CASTENTRY;
 		{
 			$note = preg_replace_callback(
 				'/\d+:\d+:\d+\s+\*(.*)\*/',
-				function($matches){ return "<p>" . slenc($matches[1]) . "</p>\n<ul>\n"; },
+				function($matches){ return "<p>" . slenc($matches[1]) . "</p>\n<ul>"; },
 				$note);
 			$note = preg_replace_callback(
 				'/(\d+:\d+:\d+)/',
@@ -119,7 +119,7 @@ CASTENTRY;
 				$note);
 			$note = preg_replace_callback(
 				'/^<time.*$/',
-				function($matches){ return "<li>" . $matches[0] . "</li>\n"; },
+				function($matches){ return "<li>" . $matches[0] . "</li>"; },
 				$note);
 			/* TODO: recent episode included www.nordicgames.at which parses OK for us, but feed validators
 				say no to relative URLs */
@@ -141,15 +141,15 @@ CASTENTRY;
 				$note);
 			$note = preg_replace_callback(
 				'/\t\[(\w+)\](.*)/',
-				function($matches){ return "<li>&lt;" . $matches[1] . "&gt; " . $matches[2] . "</li>\n"; },
+				function($matches){ return "<li>&lt;" . $matches[1] . "&gt; " . $matches[2] . "</li>"; },
 				$note);
 			$note = preg_replace_callback(
 				'/\t(.*)/',
-				function($matches){ return "<li>" . $matches[1] . "</li>\n"; },
+				function($matches){ return "<li>" . $matches[1] . "</li>"; },
 				$note);
 			$note = preg_replace_callback(
 				'/  (.*)/',
-				function($matches){ return "\t\t\t<p>" . $matches[1] . "</p>\n"; },
+				function($matches){ return "\t\t\t<p>" . $matches[1] . "</p>"; },
 				$note);
 			$note = preg_replace_callback(
 				'/\[(\w\d+\w\d+)\]/',
