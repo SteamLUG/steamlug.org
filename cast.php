@@ -44,7 +44,7 @@ function slenc($u)
 }
 
 /* TODO: join this to our steamlug user system; TODO: make steamlug user system */
-$twitterAvatars = array(
+$hostAvatars = array(
 		"swordfischer" =>	"https://pbs.twimg.com/profile_images/3091650213/abd95819b5fa2ac94d26866446404b65.png",
 		"ValiantCheese" =>	"https://pbs.twimg.com/profile_images/378800000805813456/cecaa38c6d23004e4ca53c85773b456d.png",
 		"johndrinkwater" =>	"https://pbs.twimg.com/profile_images/18196842/john-eye-glow-xface-colour-alpha.png",
@@ -56,28 +56,28 @@ $twitterAvatars = array(
 
 /* we take a ‘johndrinkwater’ / ‘@johndrinkwater’ / ‘John Drinkwater (@twitter)’ and spit out HTML */
 /* TODO: optional the avatars */
-function nameplate( $string ) {
+function nameplate( $string, $size ) {
 
-	global $twitterAvatars;
+	global $hostAvatars;
 
 	/* first case, johndrinkwater */
-	if ( array_key_exists( $string, $twitterAvatars ) ) {
-		return '<img src="' . $twitterAvatars["$string"] . '" class="avatar"/>' . $string . "\n";
+	if ( array_key_exists( $string, $hostAvatars ) ) {
+		return '<img src="' . $hostAvatars["$string"] . "\" width=\"$size\" height=\"$size\" title=\"$string\" class=\"avatar\"/>\n";
 	}
 
 	/* third case, John Drinkwater (@twitter) */
 	if ( preg_match( '/([[:alnum:] ]+)\s+\(@([a-z0-9_]+)\)/i', $string, $matches) ) {
 		$avatar = $matches[2];
-		if ( array_key_exists( $avatar, $twitterAvatars ) )
-			$avatar = '<img src="' . $twitterAvatars["$avatar"] . '" class="avatar"/>' . $avatar;
+		if ( array_key_exists( $avatar, $hostAvatars ) )
+			$avatar = '<img src="' . $hostAvatars["$avatar"] . "\" width=\"$size\" height=\"$size\" title=\"$avatar\" class=\"avatar\"/>";
 		return "<a href=\"https://twitter.com/" . $matches[2] . "\">" . $avatar . "</a>\n";
 	}
 
 	/* second case, @johndrinkwater */
 	if (preg_match( '/@([a-z0-9_]+)/i', $string, $matches)) {
 		$avatar = $matches[1];
-		if ( array_key_exists( $avatar, $twitterAvatars ) )
-			$avatar = '<img src="' . $twitterAvatars["$avatar"] . '" class="avatar"/>' . $avatar;
+		if ( array_key_exists( $avatar, $hostAvatars ) )
+			$avatar = '<img src="' . $hostAvatars["$avatar"] . "\" width=\"$size\" height=\"$size\" title=\"$avatar\" class=\"avatar\"/>";
 		return "<a href=\"https://twitter.com/" . $matches[1] . "\">" . $avatar . "</a>\n";
 	}
 	/* unmatched, why? blank or Nemoder :^) */
@@ -183,11 +183,11 @@ if ($season !== "00" && $episode !== "00" && file_exists($filename))
 	$castGuests			= array_map('trim', explode(',', $meta['GUESTS']));
 	$listHosts = ""; $listGuests = "";
 	foreach ($castHosts as $Host) {
-		$listHosts .= nameplate( $Host);
+		$listHosts .= nameplate( $Host, 48 );
 	}
 	$listHosts = ( empty($listHosts) ? 'No Hosts' : $listHosts );
 	foreach ($castGuests as $Guest) {
-		$listGuests .= nameplate( $Guest);
+		$listGuests .= nameplate( $Guest, 48 );
 	}
 	$listGuests = ( empty($listGuests) ? 'No Guests' : $listGuests );
 
@@ -321,7 +321,7 @@ CASTENTRY;
 		$castHosts = array_map('trim', explode(',', $meta['HOSTS']));
 		$listHosts = ""; $listGuests = "";
 		foreach ($castHosts as $Host) {
-			$listHosts .= nameplate( $Host);
+			$listHosts .= nameplate( $Host, 16 );
 		}
 		/* TODO: pretty the datetime= & public value up */
 		$meta['RECORDED']  = '<time datetime="' . $meta['RECORDED'] . '">' . $meta['RECORDED'] . '</time>';
@@ -331,7 +331,7 @@ CASTENTRY;
 		/* TODO: add these in HTML, we want to show off guests! */
 		$castGuests			= array_map('trim', explode(',', $meta['GUESTS']));
 		foreach ($castGuests as $Guest) {
-			$listGuests .= nameplate( $Guest);
+			$listGuests .= nameplate( $Guest, 16 );
 		}
 		echo <<<CASTENTRY
 			<tr>
