@@ -288,6 +288,7 @@ CASTENTRY;
 						<th>Recorded
 						<th>Title
 						<th>Hosts
+						<th>Guests
 					</tr>
 				</thead>
 				<tbody>
@@ -327,17 +328,18 @@ CASTENTRY;
 		$meta['PUBLISHED'] = '<time datetime="' . $meta['PUBLISHED'] . '">' . $meta['PUBLISHED'] . '</time>';
 
 		$meta['TITLE'] = slenc($meta['TITLE']);
-		/* TODO: add these in HTML, we want to show off guests!
+		/* TODO: add these in HTML, we want to show off guests! */
 		$castGuests			= array_map('trim', explode(',', $meta['GUESTS']));
 		foreach ($castGuests as $Guest) {
 			$listGuests .= nameplate( $Guest);
-		}*/
+		}
 		echo <<<CASTENTRY
 			<tr>
 				<td><a href="/cast/s{$meta['SEASON']}e{$meta['EPISODE']}">S{$meta['SEASON']}E{$meta['EPISODE']}</a></td>
 				<td>{$meta['RECORDED']}</td>
 				<td><img src="/images/sound_grey.png" alt="Listen"><a href="/cast/s{$meta['SEASON']}e{$meta['EPISODE']}">{$meta[ 'TITLE' ]}</a></td>
 				<td>$listHosts</td>
+				<td>$listGuests</td>
 			</tr>
 
 CASTENTRY;
