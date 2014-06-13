@@ -45,12 +45,12 @@ function slenc($u)
 
 /* TODO: join this to our steamlug user system; TODO: make steamlug user system */
 $hostAvatars = array(
-		"swordfischer" =>	"https://pbs.twimg.com/profile_images/3091650213/abd95819b5fa2ac94d26866446404b65.png",
-		"ValiantCheese" =>	"http://gravatar.com/avatar/916ffbb1cd00d10f5de27ef4f9846390",
-		"johndrinkwater" =>	"http://gravatar.com/avatar/751a360841982f0d0418d6d81b4beb6d",
-		"MimLofBees" =>		"https://pbs.twimg.com/profile_images/2458841225/cnm856lvnaz4hhkgz6yg.jpeg",
-		"DerRidda" =>		"https://pbs.twimg.com/profile_images/2150739768/pigava.jpeg",
-		"mnarikka" =>		"https://pbs.twimg.com/profile_images/430414134018977792/gnI7LKDc.png",
+		"swordfischer" =>	"//pbs.twimg.com/profile_images/3091650213/abd95819b5fa2ac94d26866446404b65.png",
+		"ValiantCheese" =>	"//gravatar.com/avatar/916ffbb1cd00d10f5de27ef4f9846390",
+		"johndrinkwater" =>	"//gravatar.com/avatar/751a360841982f0d0418d6d81b4beb6d",
+		"MimLofBees" =>		"//pbs.twimg.com/profile_images/2458841225/cnm856lvnaz4hhkgz6yg.jpeg",
+		"DerRidda" =>		"//pbs.twimg.com/profile_images/2150739768/pigava.jpeg",
+		"mnarikka" =>		"//pbs.twimg.com/profile_images/430414134018977792/gnI7LKDc.png",
 		"Nemoder" =>		"http://cdn.akamai.steamstatic.com/steamcommunity/public/images/avatars/0d/0d4a058f786ea71153f85262c65bb94490205b59_full.jpg",
 );
 
