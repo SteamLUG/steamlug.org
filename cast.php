@@ -286,7 +286,6 @@ CASTENTRY;
 					<tr>
 						<th>No.
 						<th>Recorded
-						<th>Published
 						<th>Title
 						<th>Hosts
 					</tr>
@@ -337,7 +336,6 @@ CASTENTRY;
 			<tr>
 				<td><a href="/cast/s{$meta['SEASON']}e{$meta['EPISODE']}">S{$meta['SEASON']}E{$meta['EPISODE']}</a></td>
 				<td>{$meta['RECORDED']}</td>
-				<td>{$meta['PUBLISHED']}</td>
 				<td><img src="/images/sound_grey.png" alt="Listen"><a href="/cast/s{$meta['SEASON']}e{$meta['EPISODE']}">{$meta[ 'TITLE' ]}</a></td>
 				<td>$listHosts</td>
 			</tr>
