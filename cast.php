@@ -24,6 +24,8 @@ foreach ($data["events"] as $event) {
 	}
 	$d = explode("-", $event['date']);
 	$t = explode(":", $event['time']);
+	$dt = $event['date'] . " " . $event['time'] . " " . $event['tz'];
+	$u = $event['url'];
 	$c = preg_replace("#(.*)(S[0-9][0-9])(E[0-9][0-9])(.*)#", "\$3", $event["title"]);
 	$s = preg_replace("#(.*)(S[0-9][0-9])(E[0-9][0-9])(.*)#", "\$2", $event["title"]);
 	break;
@@ -100,13 +102,7 @@ if ( $season == "00" || $episode == "00" )
 	<article>
 		<div class="shadow">
 			<h1>About</h1>
-			<p>SteamLUG Cast is a casual, fortnightly live audiocast held on the <a href="/mumble">SteamLUG Mumble server</a> which aims to provide interesting news and discussion for the SteamLUG and broader Linux gaming communities.</p>
-			<p>Our current hosts are:</p>
-			<ul>
-				<li><a href="http://steamcommunity.com/id/cheeseness">Cheeseness</a> - SteamLUG’s benevolent leadery person</li>
-				<li><a href="http://steamcommunity.com/id/johndrinkwater">johndrinkwater</a> - SteamLUG admin and volunteer Valve github maintainer</li>
-				<li><a href="http://steamcommunity.com/id/swordfischer">swordfischer</a> - SteamLUG’s chief event organiserer</li>
-			</ul>
+			<p>SteamLUG Cast is a casual, fortnightly live audiocast held on the <a href="/mumble">SteamLUG Mumble server</a> which aims to provide interesting news and discussion for the SteamLUG and broader Linux gaming communities. SteamLUG Cast is licenced <a href = 'http://creativecommons.org/licenses/by-sa/3.0/'>CC BY-SA</a></p>
 			<p>From time to time, we also have guests joining to share their insights on Linux, the gaming industry and the SteamLUG community. Check back for recording archives, shownotes and further announcements!</p>
 			<h2>Make sure to subscribe to our lovely RSS feeds</h2>
 			<ul>
@@ -124,8 +120,10 @@ if (isset($d) && strtotime($d[0] . "-" . $d[1] . "-" .$d[2])-strtotime(date("Y-m
 	<article id="nextevent">
 		<div>
 			<h1>Upcoming Episode:</h1>
-			<h2>$s, $c</h2>
-			<p>Cheese, john and sword talk about SteamLUG Casty things!</p>
+			<h2><a href = '{$u}'>{$s},{$c}</a></h2>
+			<p>Listen in live as our hosts and guests discuss Linux gaming!</p>
+			<p>This episode will be recorded on {$dt}</p>
+			<h3 class = 'detailLink' ><a href = '{$u}'>Click for details</a></h3>
 			<div id="countdown">
 				<div>Days<br />
 					<span id="d1" class="counterDigit">0</span>
@@ -337,7 +335,7 @@ CASTENTRY;
 			<tr>
 				<td><a href="/cast/s{$meta['SEASON']}e{$meta['EPISODE']}">S{$meta['SEASON']}E{$meta['EPISODE']}</a></td>
 				<td>{$meta['RECORDED']}</td>
-				<td><img src="/images/sound_grey.png" alt="Listen"><a href="/cast/s{$meta['SEASON']}e{$meta['EPISODE']}">{$meta[ 'TITLE' ]}</a></td>
+				<td><a href="/cast/s{$meta['SEASON']}e{$meta['EPISODE']}"><img src="/images/sound_grey.png" alt="Listen">{$meta[ 'TITLE' ]}</a></td>
 				<td>$listHosts</td>
 				<td>$listGuests</td>
 			</tr>
