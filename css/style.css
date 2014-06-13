@@ -543,6 +543,7 @@ table.tablesorter
 table.tablesorter img
 {
 	height: 16px;
+	vertical-align: middle;
 }
 
 span.online,
@@ -613,6 +614,11 @@ table.tablesorter thead th.headerSortUp
 	background-color: #3D4655;
 }
 
+table avatar, .shownotes avatar
+{
+	border-radius: 4px;
+}
+
 time
 {
 	margin-right: 10px;
@@ -681,6 +687,12 @@ li.highlighted,
 {
 	background-color: #06A;
 	color: #EEE;
+}
+
+/*Steamcommunity bbcode ugliness*/
+.bb_link_host
+{
+	display:none;
 }
 
 /* twitter Feed */
