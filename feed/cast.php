@@ -19,7 +19,7 @@
 	/* gives us a list, like s02e03, s02e02, etc of all of our casts */
 	$casts = scandir($path, 1);
 	/* naïve as fook, but we know this. */
-	$latestCast = date("D, d M Y H:i:s O", filemtime( $path . '/' . $casts[0] . '/episode.txt' ));
+	$latestCast = date("D, d M Y H:i:s O", filemtime( $path . '/' . $casts[0] ));
 
 	// <atom:link href=\"http://steamlug.org/cast/rss\" rel=\"alternate\" title=\"SteamLUG Cast (". $type . ") Feed\" type=\"application/rss+xml\" />";
 
