@@ -58,9 +58,12 @@ CASTHEAD;
 	foreach( $casts as $castdir )
 	{
 		if ($castdir === '.' or $castdir === '..')
-			break;
+			continue;
 
 		$filename		= $path .'/'. $castdir . "/episode.txt";
+		if (!file_exists($filename))
+			continue;
+
 		$shownotes		= file($filename);
 
 		$head = array_slice( $shownotes, 0, 10 );

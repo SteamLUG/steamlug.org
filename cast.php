@@ -297,11 +297,14 @@ CASTENTRY;
 	foreach( $casts as $castdir )
 	{
 		if ($castdir === '.' or $castdir === '..')
-			break;
+			continue;
 
 		$filename		= $path .'/'. $castdir . "/episode.txt";
+		if (!file_exists($filename))
+			continue;
 		/* let’s grab less here, 2K ought to be enough */
 		$header			= explode( "\n", file_get_contents($filename, false, NULL, 0, 1024) );
+
 		$head = array_slice( $header, 0, 10 );
 		$meta = array_fill_keys( array('RECORDED', 'PUBLISHED', 'TITLE',
 							'SEASON', 'EPISODE', 'DURATION', 'FILENAME',
