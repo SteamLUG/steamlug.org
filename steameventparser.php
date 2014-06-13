@@ -60,8 +60,8 @@ class SteamEventParser {
 							$_img_header = "";
 							$_img_header_small = "";
 						} else {
-							$_img_header = "http://cdn.steampowered.com/v/gfx/apps/" . $_appid . "/header.jpg";
-							$_img_header_small = "http://cdn.steampowered.com/v/gfx/apps/" . $_appid . "/header_292x136.jpg";
+							$_img_header = "http://cdn.akamai.steamstatic.com/steam/apps/" . $_appid . "/header.jpg";
+							$_img_header_small = "http://cdn.akamai.steamstatic.com/steam/apps/" . $_appid . "/header_292x136.jpg";
 						}
 					} elseif ($class === "eventBlockTitle") {
 						$l = $subnode->childNodes;

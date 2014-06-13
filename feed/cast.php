@@ -4,193 +4,170 @@
 	if (!isset($_GET['t'])|| $_GET['t'] == "ogg")
 	{
 		$type = "ogg";
-	} else 
+	} else
 	{
 		$type = "mp3";
 	}
 	$path = "/var/www/archive.steamlug.org/steamlugcast";
 	$url  = "http://archive.steamlug.org/steamlugcast";
 
-	function getlength($u)
-	{
-		$avconv = "/usr/bin/avconv";
-		$time =  exec("$avconv -i $u 2>&1 | grep 'Duration' | cut -d ' ' -f 4 | sed s/,//");   
-		$duration = explode(".",$time);   
-#		$duration_in_seconds = $duration[0]*3600 + $duration[1]*60+ round($duration[2]);   
-
-		return $duration[0];   
-	}
-	function gettitle($u)
-	{
-		$avconv = "/usr/bin/avconv";
-		$title  = exec("$avconv -i $u 2>&1 | grep 'TITLE' | cut -d ':' -f 2");
-		$title  = substr($title,1);
-
-		return $title;
-	}
 	function slenc($u)
-	{    
-        	return htmlentities($u,ENT_QUOTES, "UTF-8");
-	}    
-	if (!function_exists('glob_recursive'))
-	{    
-        	function glob_recursive($pattern, $flags = 0)
-		{      
-			$files = glob($pattern, $flags);
-			foreach (array_reverse(glob(dirname($pattern).'/*', GLOB_ONLYDIR)) as $dir)
-      			{
-				$files = array_merge($files, glob_recursive($dir.'/'.basename($pattern), $flags));         
-      			}
-        	return $files;   
-        	}      
+	{
+		return htmlspecialchars($u, ENT_NOQUOTES, "UTF-8");
 	}
 
-	if (!function_exists('glob_reversive'))
-	{    
-        	function glob_reversive($pattern, $flags = 0)
-		{      
-			$files = glob($pattern, $flags);
-			foreach (glob(dirname($pattern).'/*', GLOB_ONLYDIR) as $dir)
-      			{
-				$files = array_merge($files, glob_reversive($dir.'/'.basename($pattern), $flags));         
-      			}
-        	return $files;   
-        	}      
+	/* gives us a list, like s02e03, s02e02, etc of all of our casts */
+	$casts = scandir($path, 1);
+	/* naïve as fook, but we know this. */
+	$latestCast = date("D, d M Y H:i:s O", filemtime( $path . '/' . $casts[0] ));
+
+	// <atom:link href=\"http://steamlug.org/cast/rss\" rel=\"alternate\" title=\"SteamLUG Cast (". $type . ") Feed\" type=\"application/rss+xml\" />";
+
+	/* for sake of reading/modification, use HEREDOC syntax */
+	echo <<<CASTHEAD
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:media="http://search.yahoo.com/mrss/" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:cc="http://web.resource.org/cc/">
+	<channel>
+		<title>SteamLUG Cast</title>
+		<atom:link href="http://steamlug.org/feed/cast/$type" rel="self" type="application/rss+xml" />
+		<link>http://steamlug.org/cast</link>
+		<description>SteamLUG Cast is a casual, fortnightly audiocast which aims to provide interesting news and discussion for the SteamLUG and broader Linux gaming communities.</description>
+		<itunes:author>SteamLUG</itunes:author>
+		<itunes:owner>
+			<itunes:name>SteamLUG</itunes:name>
+			<itunes:email>cast@steamlug.org</itunes:email>
+		</itunes:owner>
+		<language>en</language>
+		<image>
+			<url>http://steamlug.org/images/steamlugcast.png</url>
+			<title>SteamLUG Cast</title>
+			<link>http://steamlug.org/cast</link>
+		</image>
+		<itunes:image href="http://steamlug.org/images/steamlugcast.png" />
+		<copyright>2013 © SteamLUG cast, CC-BY-SA http://creativecommons.org/licenses/by-sa/3.0/</copyright>
+		<cc:license rdf:resource="http://creativecommons.org/licenses/by-sa/3.0/" />
+		<pubDate>$latestCast</pubDate>
+		<itunes:category text="Games &amp; Hobbies">
+			<itunes:category text="Video Games" />
+		</itunes:category>
+		<itunes:keywords>Linux, Steam, SteamLUG, Gaming, FOSS</itunes:keywords>
+		<media:keywords>Linux, Steam, SteamLUG, Gaming, FOSS</media:keywords>
+		<itunes:explicit>no</itunes:explicit><media:rating scheme="urn:simple">nonadult</media:rating>
+CASTHEAD;
+
+	foreach( $casts as $castdir )
+	{
+		if ($castdir === '.' or $castdir === '..')
+			continue;
+
+		$filename		= $path .'/'. $castdir . "/episode.txt";
+		if (!file_exists($filename))
+			continue;
+
+		$shownotes		= file($filename);
+
+		$head = array_slice( $shownotes, 0, 10 );
+		$meta = array_fill_keys( array('RECORDED', 'PUBLISHED', 'TITLE',
+							'SEASON', 'EPISODE', 'DURATION', 'FILENAME',
+					'DESCRIPTION','HOSTS','GUESTS','ADDITIONAL' ), '');
+		foreach ( $head as $entry ) {
+			list($k, $v) = explode( ':', $entry, 2 );
+			$meta[$k] = trim($v); /* TODO remember to slenc() stuff! */
+		}
+
+		/* if published unset, skip this entry */
+		if ( $meta['PUBLISHED'] === '' )
+			continue;
+
+		$epi = "s" . slenc($meta['SEASON']) . "e" . slenc($meta['EPISODE']);
+		$archiveBase = $url . '/' . $epi . '/' . $meta['FILENAME'];
+		$episodeBase = $path .'/' . $castdir . '/' . $meta['FILENAME'];
+
+		/* if file missing, skip this entry */
+		if (!file_exists( $episodeBase . "." . $type))
+			continue;
+
+		$meta['PUBLISHED'] = date(DATE_RFC2822, strtotime( $meta['PUBLISHED'] ));
+		$meta['TITLE'] = slenc($meta['TITLE']);
+		$meta['SHORTDESCRIPTION'] = slenc(substr($meta['DESCRIPTION'],0,158));
+		$meta['DESCRIPTION'] = slenc($meta['DESCRIPTION']);
+
+		$episodeSize	= filesize($episodeBase . '.' . $type );
+		$episodeMime	= $type == "ogg" ? "audio/ogg" : "audio/mpeg";
+
+		echo <<<CASTENTRY
+
+		<item>
+			<title>{$meta[ 'TITLE' ]}</title>
+			<pubDate>{$meta['PUBLISHED']}</pubDate>
+			<itunes:duration>{$meta['DURATION']}</itunes:duration>
+			<link>https://steamlug.org/cast/{$epi}</link>
+			<guid>https://steamlug.org/cast/{$epi}</guid>
+			<enclosure url="{$archiveBase}.{$type}" length="{$episodeSize}" type="{$episodeMime}" />
+			<media:content url="{$archiveBase}.{$type}" fileSize="{$episodeSize}" type="{$episodeMime}" medium="audio" expression="full" />
+			<itunes:explicit>no</itunes:explicit>
+			<media:rating scheme="urn:simple">nonadult</media:rating>
+			<description><![CDATA[<p>{$meta['DESCRIPTION']}</p>
+
+CASTENTRY;
+		foreach ( array_slice( $shownotes, 12 ) as $note)
+		{
+			$note = preg_replace_callback(
+				'/\d+:\d+:\d+\s+\*(.*)\*/',
+				function($matches){ return "<p>" . slenc($matches[1]) . "</p>\n<ul>"; },
+				$note);
+			$note = preg_replace_callback(
+				'/(\d+:\d+:\d+)/',
+				function($matches){ return "<time datetime='" . slenc($matches[1]) . "'>" . slenc($matches[1]) . "</time>"; },
+				$note);
+			$note = preg_replace_callback(
+				'/^<time.*$/',
+				function($matches){ return "<li>" . $matches[0] . "</li>"; },
+				$note);
+			/* TODO: recent episode included www.nordicgames.at which parses OK for us, but feed validators
+				say no to relative URLs */
+			$note = preg_replace_callback(
+				'/(?i)\b((?:(https?|irc):\/\/|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:\'".,<>?«]))/',
+				function($matches){ return "[<a href='" . slenc($matches[0]) . "'>" . slenc($matches[0]) . "</a>]"; },
+				$note);
+			$note = preg_replace_callback(
+				'/(?<=^|\s)@([a-z0-9_]+)/i',
+				function($matches){ return "<a href='http://twitter.com/" . slenc($matches[1]) . "'>" . slenc($matches[0]) . "</a>"; },
+				$note);
+			$note = preg_replace_callback(
+				'/\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}\b/',
+				function($matches){ return "<a href='mailto:". slenc($matches[0]) . "'>" . slenc($matches[0]) . "</a>"; },
+				$note);
+			$note = preg_replace_callback(
+				'/^\n$/',
+				function($matches){ return "</ul>\n"; },
+				$note);
+			$note = preg_replace_callback(
+				'/\t\[(\w+)\](.*)/',
+				function($matches){ return "<li>&lt;" . $matches[1] . "&gt; " . $matches[2] . "</li>"; },
+				$note);
+			$note = preg_replace_callback(
+				'/\t(.*)/',
+				function($matches){ return "<li>" . $matches[1] . "</li>"; },
+				$note);
+			$note = preg_replace_callback(
+				'/  (.*)/',
+				function($matches){ return "\t\t\t<p>" . $matches[1] . "</p>"; },
+				$note);
+			$note = preg_replace_callback(
+				'/\[(\w\d+\w\d+)\]/',
+				function($matches){ return "\t\t\t<a href='http://steamlug.org/cast/" . $matches[1] . "'>" . $matches[1] . "</a>\n"; },
+				$note);
+			echo $note;
+		}
+		echo <<<CASTENTRY
+			]]></description>
+			<itunes:subtitle>{$meta['SHORTDESCRIPTION']}…</itunes:subtitle>
+		</item>
+CASTENTRY;
 	}
-	function latestCast()
-	{
-		global $path;
-		foreach(glob_reversive($path . "*.txt") as $filename)
-		{
-	                $file = basename($filename, ".txt");
-        	        $regex = "/[sS]([0-9]+)[eE]([0-9]+)\.(\w+(-\w+)*)/";
-               		preg_match($regex, $filename, $matches);
-	                $episodeBase = $path . "/s" . slenc($matches[1]) . "e" . slenc($matches[2]) . "/" . $file;
-		}
-		return date("D, d M Y H:i:s O", filemtime($episodeBase . ".txt"));
-	}	
-	$items = "";
-	foreach(glob_recursive($path . "*.txt") as $filename)
-	{
-		$file = basename($filename, ".txt");
-		$regex = "/[sS]([0-9]+)[eE]([0-9]+)\.(\w+(-\w+)*)/";
-		preg_match($regex, $filename, $matches);
-		$archiveBase = $url . "/s" . slenc($matches[1]) . "e" . slenc($matches[2]) . "/" . $file;
-		$episodeBase = $path . "/s" . slenc($matches[1]) . "e" . slenc($matches[2]) . "/" . $file;
-		$description = file($episodeBase . ".txt");
-		$itemContent = "<item>\n";
-		$itemContent .= "\t<title>" . gettitle($archiveBase . ".ogg") . "</title>\n";
-		$itemContent .= "\t<pubDate>" . date("D, d M Y H:i:s O", filemtime($episodeBase . ".txt")) . "</pubDate>\n";
-		$itemContent .= "\t<itunes:duration>" . getlength($archiveBase . ".ogg") . "</itunes:duration>\n";
-		$itemContent .= "\t<link>https://steamlug.org/cast/s" . slenc($matches[1]) . "e" . slenc($matches[2]) . "</link>\n";
-		$itemContent .= "\t<guid>https://steamlug.org/cast/s" . slenc($matches[1]) . "e" . slenc($matches[2]) . "</guid>\n";
-		$itemContent .= "\t<enclosure url=\"" . $archiveBase . "." . $type . "\" length=\"" . filesize($episodeBase . "." . $type) . "\" type=\"audio/" . ($type == "ogg" ? "ogg" : "mpeg") . "\" />\n";
-		$itemContent .= "\t<media:content url=\"" . $archiveBase . "." . $type . "\" fileSize=\"" . filesize($episodeBase . "." . $type) . "\" type=\"audio/" . ($type == "ogg" ? "ogg" : "mpeg") . "\" medium=\"audio\" expression=\"full\" />\n";
-		$itemContent .= "\t<itunes:explicit>no</itunes:explicit>\n";
-		$itemContent .="\t<media:rating scheme=\"urn:simple\">nonadult</media:rating>\n";
-		$itemContent .= "\t<description><![CDATA[";
-		foreach ($description as $note)
-		{
-			$note = preg_replace_callback
-			(
-			'/\d+:\d+:\d+\s+\*(.*)\*/',
-			function($matches){ return "<p>" . slenc($matches[1]) . "</p>\n<ul>\n"; }, $note
-			);
-			$note = preg_replace_callback(
-			'/(\d+:\d+:\d+)/',
-			function($matches){ return "<time datetime='" . slenc($matches[1]) . "'>" . slenc($matches[1]) . "</time>"; },
-			$note
-			);
-			$note = preg_replace_callback(
-			'/^<time.*$/',
-			function($matches){ return "<li>" . $matches[0] . "</li>\n"; },
-			$note
-			);
-			$note = preg_replace_callback
-			(
-			'/(?i)\b((?:(https?|irc):\/\/|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:\'".,<>?«]))/',
-			function($matches){ return "[<a href='" . slenc($matches[0]) . "'>" . slenc($matches[0]) . "</a>]"; },
-			$note
-			);
-			$note = preg_replace_callback
-			(
-			'/(?<=^|\s)@([a-z0-9_]+)/i',
-			function($matches){ return "<a href='http://twitter.com/" . slenc($matches[1]) . "'>" . slenc($matches[0]) . "</a>"; },
-			$note
-			);
-			$note = preg_replace_callback
-			(
-			'/\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}\b/',
-			function($matches){ return "<a href='mailto:". slenc($matches[0]) . "'>" . slenc($matches[0]) . "</a>"; },
-			$note
-			);
-			$note = preg_replace_callback
-			(
-			'/^\n$/',
-			function($matches){ return "</ul>\n"; },
-			$note
-			);
-			$note = preg_replace_callback
-			(
-			'/\t\[(\w+)\](.*)/',
-			function($matches){ return "<li>&lt;" . $matches[1] . "&gt; " . $matches[2] . "</li>\n"; },
-			$note
-			);
-			$note = preg_replace_callback
-			(
-			'/\t(.*)/',
-			function($matches){ return "<li>" . $matches[1] . "</li>\n"; },
-			$note
-			);
-			$note = preg_replace_callback
-			(
-			'/  (.*)/',
-			function($matches){ return "\t\t\t<p>" . $matches[1] . "</p>\n"; },
-			$note
-			);
-			$note = preg_replace_callback
-			(
-			'/\[(\w\d+\w\d+)\]/',
-			function($matches){ return "\t\t\t<a href='http://steamlug.org/cast/" . $matches[1] . "'>" . $matches[1] . "</a>\n"; },
-			$note
-			);
-			$itemContent .= $note;
-			}			
-			$itemContent .= "\t]]></description>\n";
-			$itemContent .= "\t<itunes:subtitle>" . substr($description[0],2,161) . "…</itunes:subtitle>\n";
-			$itemContent .= "</item>\n";
-			$items	.= $itemContent;
-		}
-	echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
-	echo "<rss xmlns:media=\"http://search.yahoo.com/mrss/\" xmlns:itunes=\"http://www.itunes.com/dtds/podcast-1.0.dtd\" xmlns:atom=\"http://www.w3.org/2005/Atom\" version=\"2.0\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:cc=\"http://web.resource.org/cc/\">\n";
-	echo "\t<channel>\n";
-	echo "\t\t<title>SteamLUG Cast</title>\n";
-	echo "\t\t<atom:link href=\"http://steamlug.org/feed/cast/" . $type . "\" rel=\"self\" type=\"application/rss+xml\" />\n";
-#	echo "\t\t<atom:link href=\"http://steamlug.org/cast/rss\" rel=\"alternate\" title=\"SteamLUG Cast (". $type . ") Feed\" type=\"application/rss+xml\" />";
-	echo "\t\t<link>http://steamlug.org/cast</link>\n";
-	echo "\t\t<description>SteamLUG Cast is a casual, fortnightly audiocast which aims to provide interesting news and discussion for the SteamLUG and broader Linux gaming communities.</description>\n";
-	echo "\t\t<itunes:author>SteamLUG</itunes:author>\n";
-	echo "\t\t<itunes:owner>\n";
-	echo "\t\t\t<itunes:name>SteamLUG</itunes:name>\n";
-	echo "\t\t\t<itunes:email>cast@steamlug.org</itunes:email>\n";
-	echo "\t\t</itunes:owner>\n";
-	echo "\t\t<language>en</language>\n";
-	echo "\t\t<image>\n";
-	echo "\t\t\t<url>http://steamlug.org/images/steamlugcast.png</url>\n";
-	echo "\t\t\t<title>SteamLUG Cast</title>\n";
-	echo "\t\t\t<link>http://steamlug.org/cast</link>\n";
-	echo "\t\t</image>\n";
-	echo "\t\t<itunes:image href=\"http://steamlug.org/images/steamlugcast.png\" />\n";
-	echo "\t\t<copyright>2013 © SteamLUG cast, CC-BY-SA http://creativecommons.org/licenses/by-sa/3.0/</copyright>\n";
-	echo "\t\t<cc:license rdf:resource=\"http://creativecommons.org/licenses/by-sa/3.0/\" />\n";
-	echo "\t\t<pubDate>" . latestCast() . "</pubDate>\n";
-	echo "\t\t<itunes:category text=\"Games &amp; Hobbies\">\n";
-	echo "\t\t\t<itunes:category text=\"Video Games\" />\n";
-	echo "\t\t</itunes:category>\n";
-	echo "\t\t<itunes:keywords>Linux, Steam, SteamLUG, Gaming, FOSS</itunes:keywords>\n";
-	echo "\t\t<media:keywords>Linux, Steam, SteamLUG, Gaming, FOSS</media:keywords>\n";
-	echo "\t\t<itunes:explicit>no</itunes:explicit><media:rating scheme=\"urn:simple\">nonadult</media:rating>\n";
-	echo $items;
-	echo "</channel>\n";
-	echo "</rss>\n";
+	echo <<<CASTFOOT
+	</channel>
+</rss>
+CASTFOOT;
 ?>

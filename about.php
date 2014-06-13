@@ -11,7 +11,7 @@
 				<h1>Community</h1>
 				<p>Hi!</p>
 
-				<p>SteamLUG (<em>Steam Linux Users Group</em>) is a community of Steam gamers who are also users (<em>old and new</em>) and fans of <a href = 'http://en.wikipedia.org/wiki/Linux'>GNU/Linux</a> - GNU based Free Software operating systems which use the Linux kernel, which we sometimes refer to as just "<em>Linux</em>".</p>
+				<p>SteamLUG (<em>Steam Linux User Group</em>) is a community of Steam gamers who are also users (<em>old and new</em>) and fans of <a href = 'http://en.wikipedia.org/wiki/Linux'>GNU/Linux</a> - GNU based Free Software operating systems which use the Linux kernel, which we sometimes refer to as just "<em>Linux</em>".</p>
 
 				<p>We are a multilingual community which aims to be a fun, welcoming space for people of all backgrounds and aptitudes.</p>
 				

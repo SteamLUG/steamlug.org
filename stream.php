@@ -48,7 +48,7 @@
 <?php
 
         $eventString = "\t\t\t\t<h2><a href='" . $data["events"][0]["url"] . "'>" .  $data["events"][0]["title"] . "</a></h2>";
-        $eventString .= "\t\t\t\t\t<img src='http://cdn.steampowered.com/v/gfx/apps/" . $data["events"][0]["appid"] . "/header.jpg' alt='" . $data["events"][0]["title"] . "'/>\n";
+        $eventString .= "\t\t\t\t\t<img src='http://cdn.akamai.steamstatic.com/steam/apps/" . $data["events"][0]["appid"] . "/header.jpg' alt='" . $data["events"][0]["title"] . "'/>\n";
         $eventString .= "\t\t\t\t</a>\n";
         $eventString .= "\t\t\t\t<h3 class = 'detailLink'><a href='" . $data["events"][0]["url"] . "'>Click for details</a></h3><p></p>\n";
         echo $eventString;

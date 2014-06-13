@@ -42,7 +42,7 @@ include_once( "includes/header.php" );
 <?php
 foreach ($data['events'] as $event)
 {
-	$event['img_header'] = "http://cdn.steampowered.com/v/gfx/apps/" . $event["appid"] . "/header.jpg";
+	$event['img_header'] = "http://cdn.akamai.steamstatic.com/steam/apps/" . $event["appid"] . "/header.jpg";
 	if ($event['appid'] === 0)
 	{
 		continue;
