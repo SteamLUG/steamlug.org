@@ -76,11 +76,6 @@ CASTHEAD;
 		if ( $meta['PUBLISHED'] === '' )
 			continue;
 
-		$meta['PUBLISHED'] = date(DATE_RFC2822, strtotime( $meta['PUBLISHED'] ));
-		$meta['TITLE'] = slenc($meta['TITLE']);
-		$meta['SHORTDESCRIPTION'] = slenc(substr($meta['DESCRIPTION'],0,158));
-		$meta['DESCRIPTION'] = slenc($meta['DESCRIPTION']);
-
 		$epi = "s" . slenc($meta['SEASON']) . "e" . slenc($meta['EPISODE']);
 		$archiveBase = $url . '/' . $epi . '/' . $meta['FILENAME'];
 		$episodeBase = $path .'/' . $castdir . '/' . $meta['FILENAME'];
@@ -88,6 +83,11 @@ CASTHEAD;
 		/* if file missing, skip this entry */
 		if (!file_exists( $episodeBase . "." . $type))
 			continue;
+
+		$meta['PUBLISHED'] = date(DATE_RFC2822, strtotime( $meta['PUBLISHED'] ));
+		$meta['TITLE'] = slenc($meta['TITLE']);
+		$meta['SHORTDESCRIPTION'] = slenc(substr($meta['DESCRIPTION'],0,158));
+		$meta['DESCRIPTION'] = slenc($meta['DESCRIPTION']);
 
 		$episodeSize	= filesize($episodeBase . '.' . $type );
 		$episodeMime	= $type == "ogg" ? "audio/ogg" : "audio/mpeg";
