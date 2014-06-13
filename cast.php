@@ -47,7 +47,7 @@ function slenc($u)
 $hostAvatars = array(
 		"swordfischer" =>	"https://pbs.twimg.com/profile_images/3091650213/abd95819b5fa2ac94d26866446404b65.png",
 		"ValiantCheese" =>	"https://pbs.twimg.com/profile_images/378800000805813456/cecaa38c6d23004e4ca53c85773b456d.png",
-		"johndrinkwater" =>	"https://pbs.twimg.com/profile_images/18196842/john-eye-glow-xface-colour-alpha.png",
+		"johndrinkwater" =>	"http://gravatar.com/avatar/751a360841982f0d0418d6d81b4beb6d",
 		"MimLofBees" =>		"https://pbs.twimg.com/profile_images/2458841225/cnm856lvnaz4hhkgz6yg.jpeg",
 		"DerRidda" =>		"https://pbs.twimg.com/profile_images/2150739768/pigava.jpeg",
 		"mnarikka" =>		"https://pbs.twimg.com/profile_images/430414134018977792/gnI7LKDc.png",
