@@ -130,15 +130,15 @@ if (isset($d) && strtotime($d[0] . "-" . $d[1] . "-" .$d[2])-strtotime(date("Y-m
 				<div>Days<br />
 					<span id="d1" class="counterDigit">0</span>
 					<span id="d2" class="counterDigit">0</span>
-				</div>";
+				</div>
 				<div>Hours<br />
 					<span id="h1" class="counterDigit">0</span>
 					<span id="h2" class="counterDigit">0</span>
-				</div>";
+				</div>
 				<div>Minutes<br />
 					<span id="m1" class="counterDigit">0</span>
 					<span id="m2" class="counterDigit">0</span>
-				</div>";
+				</div>
 				<div>Seconds<br />
 					<span id="s1" class="counterDigit">0</span>
 					<span id="s2" class="counterDigit">0</span>
