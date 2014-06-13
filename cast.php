@@ -170,6 +170,10 @@ if ($season !== "00" && $episode !== "00" && file_exists($filename))
 		$meta[$k] = trim($v); /* TODO remember to slenc() stuff! */
 	}
 
+	$epi = 's' . slenc($meta['SEASON']) . 'e' . slenc($meta['EPISODE']);
+	$archiveBase = $url . '/' . $epi . '/' . $meta['FILENAME'];
+	$episodeBase = $path .'/' . $epi . '/' . $meta['FILENAME'];
+
 	$meta['RECORDED']  = ( $meta['RECORDED'] === "" ? "N/A" : '<time datetime="' . $meta['RECORDED'] . '">' . $meta['RECORDED'] . '</time>' );
 	$meta['PUBLIC'] = $meta['PUBLISHED'];
 	$meta['PUBLISHED'] = ($meta['PUBLISHED'] === "" ? '<span class="warning">In Progress</span>' : '<time datetime="' . $meta['PUBLISHED'] . '">' . $meta['PUBLISHED'] . '</time>');
@@ -186,10 +190,6 @@ if ($season !== "00" && $episode !== "00" && file_exists($filename))
 		$listGuests .= nameplate( $Guest);
 	}
 	$listGuests = ( empty($listGuests) ? 'No Guests' : $listGuests );
-
-	$epi = 's' . slenc($meta['SEASON']) . 'e' . slenc($meta['EPISODE']);
-	$archiveBase = $url . '/' . $epi . '/' . $meta['FILENAME'];
-	$episodeBase = $path .'/' . $epi . '/' . $meta['FILENAME'];
 
 	$episodeOggFS	= (file_exists($episodeBase . ".ogg")  ? round(filesize($episodeBase . ".ogg") /1024/1024,2) : 0);
 	$siteListen		= ($episodeOggFS > 0 ? '<audio preload="none" src="' . $archiveBase . '.ogg" type="audio/ogg" controls>Your browser does not support the &lt;audio&gt; tag.</audio>' : '');
