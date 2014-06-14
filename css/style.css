@@ -614,7 +614,7 @@ table.tablesorter thead th.headerSortUp
 	background-color: #3D4655;
 }
 
-table avatar, .shownotes avatar
+table .avatar, .shownotes .avatar
 {
 	border-radius: 4px;
 }
