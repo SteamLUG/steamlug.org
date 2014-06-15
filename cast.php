@@ -47,7 +47,7 @@ function slenc($u)
 
 /* TODO: join this to our steamlug user system; TODO: make steamlug user system */
 $hostAvatars = array(
-		"swordfischer" =>	"//pbs.twimg.com/profile_images/3091650213/abd95819b5fa2ac94d26866446404b65.png",
+		"swordfischer" =>	"//gravatar.com/avatar/12da0ce50a5376a78188583f963cb3ee",
 		"ValiantCheese" =>	"//gravatar.com/avatar/916ffbb1cd00d10f5de27ef4f9846390",
 		"johndrinkwater" =>	"//gravatar.com/avatar/751a360841982f0d0418d6d81b4beb6d",
 		"MimLofBees" =>		"//pbs.twimg.com/profile_images/2458841225/cnm856lvnaz4hhkgz6yg.jpeg",
