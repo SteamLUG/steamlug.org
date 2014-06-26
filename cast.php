@@ -64,14 +64,14 @@ function nameplate( $string, $size ) {
 
 	/* first case, johndrinkwater */
 	if ( array_key_exists( $string, $hostAvatars ) ) {
-		return '<img src="' . $hostAvatars["$string"] . "\" width=\"$size\" height=\"$size\" title=\"$string\" class=\"avatar\"/>\n";
+		return '<img src="' . $hostAvatars["$string"] . "\" width=\"$size\" height=\"$size\" title=\"$string\" alt=\"$string\" class=\"avatar\"/>\n";
 	}
 
 	/* third case, John Drinkwater (@twitter) */
 	if ( preg_match( '/([[:alnum:] ]+)\s+\(@([a-z0-9_]+)\)/i', $string, $matches) ) {
 		$avatar = $matches[2];
 		if ( array_key_exists( $avatar, $hostAvatars ) )
-			$avatar = '<img src="' . $hostAvatars["$avatar"] . "\" width=\"$size\" height=\"$size\" title=\"$avatar\" class=\"avatar\"/>";
+			$avatar = '<img src="' . $hostAvatars["$avatar"] . "\" width=\"$size\" height=\"$size\" title=\"$string\" alt=\"$avatar\" class=\"avatar\"/>";
 		return "<a href=\"https://twitter.com/" . $matches[2] . "\">" . $avatar . "</a>\n";
 	}
 
@@ -79,7 +79,7 @@ function nameplate( $string, $size ) {
 	if (preg_match( '/@([a-z0-9_]+)/i', $string, $matches)) {
 		$avatar = $matches[1];
 		if ( array_key_exists( $avatar, $hostAvatars ) )
-			$avatar = '<img src="' . $hostAvatars["$avatar"] . "\" width=\"$size\" height=\"$size\" title=\"$avatar\" class=\"avatar\"/>";
+			$avatar = '<img src="' . $hostAvatars["$avatar"] . "\" width=\"$size\" height=\"$size\" title=\"$string\" alt=\"$avatar\" class=\"avatar\"/>";
 		return "<a href=\"https://twitter.com/" . $matches[1] . "\">" . $avatar . "</a>\n";
 	}
 	/* unmatched, why? blank or Nemoder :^) */
