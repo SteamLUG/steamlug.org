@@ -50,7 +50,7 @@ $syncexternalJS = array('https://steamlug.org/scripts/jquery.min.js','https://st
 			$serverString .= "\t\t\t<td><em>" . $serverHost . "</em>\n";
 			$serverString .= "\t\t\t<td><em>N/A</em>\n";
 			$serverString .= "\t\t\t<td><em>N/A</em>\n";
-			$serverString .= "\t\t\t<td><span class='offline'>Offline</span>\n";
+			$serverString .= "\t\t\t<td><span class='offline' title='Offline'>Offline</span>\n";
 			$serverString .= "\t\t</tr>\n";
 		}
 		else
@@ -58,13 +58,13 @@ $syncexternalJS = array('https://steamlug.org/scripts/jquery.min.js','https://st
 			$serverLoc  = geoip_country_code_by_name($data['gq_address']);
 			$serverString .= "\t\t<tr>\n";
 			$serverString .= "\t\t\t<td><span style='display:none'>" . $serverLoc . "</span><img src='/images/flags/" . $serverLoc . ".png' alt='Hosted in " . $serverLoc . "'>\n";
-			$serverString .= "\t\t\t<td>" . (isset($data['secure']) ? "<img src='/images/vac.png' alt='VAC Enabled'>" : "") . "\n";
-			$serverString .= "\t\t\t<td>" . ($data['gq_password'] == "1" ? "<img src='/images/padlock.png' alt='Password Protected'>" : "") . "\n";
+			$serverString .= "\t\t\t<td>" . (isset($data['secure']) ? "<img src='/images/vac.png' title='VAC Enabled' alt='VAC Enabled'>" : "") . "\n";
+			$serverString .= "\t\t\t<td>" . ($data['gq_password'] == "1" ? "<img src='/images/padlock.png' title='Password Protected' alt='Password Protected'>" : "") . "\n";
 			$serverString .= "\t\t\t<td>" . (isset($data['game_descr']) ? ($data['game_descr'] == "Team Fortress" ? "Team Fortress 2" : $data['game_descr']) : ($data['gq_type'] == "killingfloor" ? "Killing Floor" : $data['gq_type'])) . "\n";
 			$serverString .= "\t\t\t<td><a href='steam://connect/" . $serverHost . "'>" . $data['gq_hostname'] . "</a>\n";
 			$serverString .= "\t\t\t<td>" . ($data['gq_numplayers'] ? $data['gq_numplayers'] : "0") . " / " . $data['gq_maxplayers'] . "\n";
 			$serverString .= "\t\t\t<td>" . $data['gq_mapname'] . "\n";
-			$serverString .= "\t\t\t<td><span class='online'>Online</span>\n";
+			$serverString .= "\t\t\t<td><span class='online' title='Online'>Online</span>\n";
 			$serverString .= "\t\t</tr>\n";
 		}
 	echo $serverString;
