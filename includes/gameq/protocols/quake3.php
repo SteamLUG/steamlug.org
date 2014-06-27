@@ -119,21 +119,22 @@ class GameQ_Protocols_Quake3 extends GameQ_Protocols
 
 		// Set the result to a new result instance
 		$result = new GameQ_Result();
+		$result->add('game_descr', $this->name_long);
 
 		// Lets pre process and make sure these things are in the proper order by id
-    	$data = $this->preProcess_status($this->packets_response[self::PACKET_STATUS]);
+	    	$data = $this->preProcess_status($this->packets_response[self::PACKET_STATUS]);
 
-    	// Make buffer
-    	$buf = new GameQ_Buffer($data);
+	    	// Make buffer
+	    	$buf = new GameQ_Buffer($data);
 
-    	// First section is the server info, the rest is player info
-    	$server_info = $buf->readString("\x0A");
-    	$player_info = $buf->getBuffer();
+	    	// First section is the server info, the rest is player info
+	    	$server_info = $buf->readString("\x0A");
+	    	$player_info = $buf->getBuffer();
 
-    	unset($buf);
+	    	unset($buf);
 
-    	// Make a new buffer for the server info
-    	$buf_server = new GameQ_Buffer($server_info);
+	    	// Make a new buffer for the server info
+	    	$buf_server = new GameQ_Buffer($server_info);
 
 		// Key / value pairs
 		while ($buf_server->getLength())
