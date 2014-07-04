@@ -190,7 +190,7 @@ if ($season !== "00" && $episode !== "00" && file_exists($filename))
 	$listGuests = ( empty($listGuests) ? 'No Guests' : $listGuests );
 
 	$episodeOggFS	= (file_exists($episodeBase . ".ogg")  ? round(filesize($episodeBase . ".ogg") /1024/1024,2) : 0);
-	$siteListen		= ($episodeOggFS > 0 ? '<audio preload="none" src="' . $archiveBase . '.ogg" type="audio/ogg" controls>Your browser does not support the &lt;audio&gt; tag.</audio>' : '');
+	$siteListen		= ($episodeOggFS > 0 ? '<audio id="castplayer" preload="none" src="' . $archiveBase . '.ogg" type="audio/ogg" controls>Your browser does not support the &lt;audio&gt; tag.</audio>' : '');
 	$episodeOddDS	= ($episodeOggFS > 0 ? $episodeOggFS . ' MB <a download href="' . $archiveBase . '.ogg">OGG</a>' : 'N/A OGG');
 	$episodeFlacFS	= (file_exists($episodeBase . ".flac") ? round(filesize($episodeBase . ".flac")/1024/1024,2) : 0);
 	$episodeFlacDS	= ($episodeFlacFS > 0 ? $episodeFlacFS . ' MB <a download href="' . $archiveBase . '.flac">FLAC</a>' : 'N/A FLAC');
@@ -234,7 +234,7 @@ CASTENTRY;
 			$note );
 		$note = preg_replace_callback(
 			'/(\d+:\d+:\d+)/',
-			function($matches) { return '<time id="ts-' . slenc($matches[1]) . '" datetime="' . slenc($matches[1]) . '">' . slenc($matches[1]) . '</time>'; },
+			function($matches) { return '<time class="casttimestamp" id="ts-' . slenc($matches[1]) . '" datetime="' . slenc($matches[1]) . '">' . slenc($matches[1]) . '</time>'; },
 			$note );
 		$note = preg_replace_callback(
 			'/^<time.*$/',
