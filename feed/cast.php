@@ -9,7 +9,7 @@
 		$type = "mp3";
 	}
 	$path = "/var/www/archive.steamlug.org/steamlugcast";
-	$url  = "http://archive.steamlug.org/steamlugcast";
+	$url  = "https://archive.steamlug.org/steamlugcast";
 
 	function slenc($u)
 	{
@@ -21,7 +21,7 @@
 	/* naïve as fook, but we know this. */
 	$latestCast = date("D, d M Y H:i:s O", filemtime( $path . '/' . $casts[0] ));
 
-	// <atom:link href=\"http://steamlug.org/cast/rss\" rel=\"alternate\" title=\"SteamLUG Cast (". $type . ") Feed\" type=\"application/rss+xml\" />";
+	// <atom:link href=\"https://steamlug.org/cast/rss\" rel=\"alternate\" title=\"SteamLUG Cast (". $type . ") Feed\" type=\"application/rss+xml\" />";
 
 	/* for sake of reading/modification, use HEREDOC syntax */
 	echo <<<CASTHEAD
@@ -29,8 +29,8 @@
 <rss xmlns:media="http://search.yahoo.com/mrss/" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:cc="http://web.resource.org/cc/">
 	<channel>
 		<title>SteamLUG Cast</title>
-		<atom:link href="http://steamlug.org/feed/cast/$type" rel="self" type="application/rss+xml" />
-		<link>http://steamlug.org/cast</link>
+		<atom:link href="https://steamlug.org/feed/cast/$type" rel="self" type="application/rss+xml" />
+		<link>https://steamlug.org/cast</link>
 		<description>SteamLUG Cast is a casual, fortnightly audiocast which aims to provide interesting news and discussion for the SteamLUG and broader Linux gaming communities.</description>
 		<itunes:author>SteamLUG</itunes:author>
 		<itunes:owner>
@@ -39,11 +39,11 @@
 		</itunes:owner>
 		<language>en</language>
 		<image>
-			<url>http://steamlug.org/images/steamlugcast.png</url>
+			<url>https://steamlug.org/images/steamlugcast.png</url>
 			<title>SteamLUG Cast</title>
-			<link>http://steamlug.org/cast</link>
+			<link>https://steamlug.org/cast</link>
 		</image>
-		<itunes:image href="http://steamlug.org/images/steamlugcast.png" />
+		<itunes:image href="https://steamlug.org/images/steamlugcast.png" />
 		<copyright>2013 © SteamLUG cast, CC-BY-SA http://creativecommons.org/licenses/by-sa/3.0/</copyright>
 		<cc:license rdf:resource="http://creativecommons.org/licenses/by-sa/3.0/" />
 		<pubDate>$latestCast</pubDate>
@@ -156,7 +156,7 @@ CASTENTRY;
 				$note);
 			$note = preg_replace_callback(
 				'/\[(\w\d+\w\d+)\]/',
-				function($matches){ return "\t\t\t<a href='http://steamlug.org/cast/" . $matches[1] . "'>" . $matches[1] . "</a>\n"; },
+				function($matches){ return "\t\t\t<a href='https://steamlug.org/cast/" . $matches[1] . "'>" . $matches[1] . "</a>\n"; },
 				$note);
 			echo $note;
 		}

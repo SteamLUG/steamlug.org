@@ -38,7 +38,7 @@ $tailJS = array('/scripts/castseek.js');
 $pageTitle = "Cast";
 
 $path = "/var/www/archive.steamlug.org/steamlugcast";
-$url  = "http://archive.steamlug.org/steamlugcast";
+$url  = "//archive.steamlug.org/steamlugcast";
 
 function slenc($u)
 {
