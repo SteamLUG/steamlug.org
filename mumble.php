@@ -8,7 +8,7 @@
 
 	$settings		=	array
 	(
-		'host'		=>	'130.226.217.214',
+		'host'		=>	'130.226.217.215',
 		'port'		=>	27800,
 		'timeout'	=>	200,
 		'format'	=>	'json'
