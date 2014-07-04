@@ -1,7 +1,7 @@
 RewriteBase /
 RewriteEngine on
 RewriteCond %{HTTP_HOST} ^www\.(.*)$
-RewriteRule ^(.*)$ http://%1/$1 [L,R=301]
+RewriteRule ^(.*)$ https://%1/$1 [L,R=301]
 RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -d
 RewriteRule ^(.*)$ - [L]
 
