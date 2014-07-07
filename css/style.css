@@ -619,13 +619,13 @@ table .avatar, .shownotes .avatar
 	border-radius: 4px;
 }
 
-time
+.casttimestamp
 {
 	margin-right: 10px;
 	color: #626262;
 }
 
-time:target
+.casttimestamp:target
 {
 	color: #FF7F00;
 }
@@ -672,12 +672,12 @@ time:target
 
 /* highlighter */
 
-time
+.casttimestamp
 {
 	cursor: pointer;
 }
 
-time:hover
+.casttimestamp:hover
 {
 	color: #EEE;
 }

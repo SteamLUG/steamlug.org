@@ -16,7 +16,7 @@
             var nodes, i, time, seconds, audio;
 
             // collect time tags
-            nodes = document.getElementsByTagName("time");
+            nodes = document.querySelectorAll('.casttimestamp');
 
             for (i = 0; i < nodes.length; i += 1) {
                 time = nodes[i];
@@ -29,7 +29,7 @@
             this.nodes = nodes;
 
             // listen to audio events
-            audio = document.getElementsByTagName("audio")[0];
+            audio = document.getElementById('castplayer');
             audio.addEventListener("timeupdate", this.timeupdate_handler);
             audio.addEventListener("progress", this.progress_handler);
 
