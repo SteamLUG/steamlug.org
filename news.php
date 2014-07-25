@@ -58,7 +58,7 @@
 				$rssString .= "\t\t\t\t<div class = 'shadow'>\n";
 				$rssString .= "\t\t\t\t\t<h1><a href = '" . $item['link'] . "'>" . htmlspecialchars($item['title']) . "</a></h1>\n";
 				$rssString .= "\t\t\t\t\t<p class = 'attribution'>By " . $item['author'] . " on " . str_replace("+0000", "UTC", $item['pubDate']) . "</p>\n";
-				$rssString .= "\t\t\t\t\t<p>" . $item['description'] . "</p>\n";
+				$rssString .= "\t\t\t\t\t<p>" . htmlspecialchars_decode($item['description']) . "</p>\n";
 				$rssString .= "\t\t\t\t\t<p class = 'serverlink'><a href = '" . $item['link'] . "'>View and comment on our Steam group</a></p>\n";
 				$rssString .= "\t\t\t\t</div>\n";
 				$rssString .= "\t\t\t</article>\n";
