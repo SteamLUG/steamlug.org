@@ -478,13 +478,6 @@ footer .copy
 	z-index: 4;
 }
 
-#betaStamp
-{
-	position: fixed;
-	right: 0;
-	top: 0;
-}
-
 .detailLink
 {
 	margin-top: 1em;

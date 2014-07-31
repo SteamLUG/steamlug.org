@@ -70,14 +70,6 @@ if (!isset($pageTitle))
 	</head>
 	<body>
 <?php
-	$isBeta = true;
-	if ($isBeta)
-	{
-		echo "<img alt = 'beta ribbon' id = 'betaStamp' src = '/images/ribbon_beta2.png' />";
-	}
-	
-	
-	
 	$newsPage = "";
 	$chatPage = "";
 	$ircPage = "";
