@@ -68,14 +68,14 @@ function nameplate( $string, $size ) {
 
 	/* first case, johndrinkwater */
 	if ( array_key_exists( $string, $hostAvatars ) ) {
-		return '<img src="' . $hostAvatars["$string"] . "\" width=\"$size\" height=\"$size\" title=\"$string\" alt=\"$string\" class=\"avatar\"/>\n";
+		return '<img src="' . $hostAvatars["$string"] . "\" title=\"$string\" alt=\"$string\" class=\"img-rounded\"/>\n";
 	}
 
 	/* third case, John Drinkwater (@twitter) */
 	if ( preg_match( '/([[:alnum:] ]+)\s+\(@([a-z0-9_]+)\)/i', $string, $matches) ) {
 		$avatar = $matches[2];
 		if ( array_key_exists( $avatar, $hostAvatars ) )
-			$avatar = '<img src="' . $hostAvatars["$avatar"] . "\" width=\"$size\" height=\"$size\" title=\"$string\" alt=\"$avatar\" class=\"avatar\"/>";
+			$avatar = '<img src="' . $hostAvatars["$avatar"] . "\"  title=\"$string\" alt=\"$avatar\" class=\"img-rounded\"/>";
 		return "<a href=\"https://twitter.com/" . $matches[2] . "\">" . $avatar . "</a>\n";
 	}
 
@@ -83,7 +83,7 @@ function nameplate( $string, $size ) {
 	if (preg_match( '/@([a-z0-9_]+)/i', $string, $matches)) {
 		$avatar = $matches[1];
 		if ( array_key_exists( $avatar, $hostAvatars ) )
-			$avatar = '<img src="' . $hostAvatars["$avatar"] . "\" width=\"$size\" height=\"$size\" title=\"$string\" alt=\"$avatar\" class=\"avatar\"/>";
+			$avatar = '<img src="' . $hostAvatars["$avatar"] . "\" title=\"$string\" alt=\"$avatar\" class=\"img-rounded\"/>";
 		return "<a href=\"https://twitter.com/" . $matches[1] . "\">" . $avatar . "</a>\n";
 	}
 	/* unmatched, why? blank or Nemoder :^) */
@@ -94,68 +94,70 @@ $rssLinks = '<link rel="alternate" type="application/rss+xml" title="SteamLUG Ca
 
 include_once('includes/header.php');
 ?>
-	<header>
-		<h1>SteamLUG Cast</h1>
-	</header>
-<section>
+		<h1 class="text-center">SteamLUG Cast</h1>
+		<div class="row">
 <?php
 /* User hitting main /cast/ page */
 if ( $season == "00" || $episode == "00" )
 {
+if (isset($d) && strtotime($d[0] . "-" . $d[1] . "-" .$d[2])-strtotime(date("Y-m-d")) <= 21 * 86400) {
+
+	echo <<<NEXTCAST
+<div class="col-md-6">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title">Upcoming Episode</h3>
+		</div>
+		<div class="panel-body">
+			<h4><a href = '{$u}'>{$s} {$c}</a></h4>
+			<p>Listen in live as our hosts and guests discuss Linux gaming!</p>
+			<p>This episode will be recorded on {$dt}</p>
+			<p>Feel free to join our <a href="mumble">SteamLUG Mumble server</a> before, during and after the show!</p>
+			<p>
+				<div class="btn-group">
+					<span class="btn btn-primary btn-sm">Days</span>
+					<span id="d1" class="btn btn-default btn-sm">0</span>
+					<span id="d2" class="btn btn-default btn-sm">0</span>
+					<span class="btn btn-primary btn-sm">Hours</span>
+					<span id="h1" class="btn btn-default btn-sm">0</span>
+					<span id="h2" class="btn btn-default btn-sm">0</span>
+					<span class="btn btn-primary btn-sm">Minutes</span>
+					<span id="m1" class="btn btn-default btn-sm">0</span>
+					<span id="m2" class="btn btn-default btn-sm">0</span>
+					<span class="btn btn-primary btn-sm">Seconds</span>
+					<span id="s1" class="btn btn-default btn-sm">0</span>
+					<span id="s2" class="btn btn-default btn-sm">0</span>
+				</div>
+			</p>
+			<p><button class="btn btn-info"><a href ="{$u}">Click for details</a></button></p>
+		</div>
+	</div>
+</div>
+NEXTCAST;
+}
 	echo <<<ABOUTCAST
-	<article>
-		<div class="shadow">
-			<h1>About</h1>
+<div class="col-md-6">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title">About</h3>
+		</div>
+		<div class="panel-body">
 			<p>SteamLUG Cast is a casual, fortnightly live audiocast held on the <a href="/mumble">SteamLUG Mumble server</a> which aims to provide interesting news and discussion for the SteamLUG and broader Linux gaming communities. SteamLUG Cast is licenced <a href = 'http://creativecommons.org/licenses/by-sa/3.0/'>CC BY-SA</a></p>
 			<p>From time to time, we also have guests joining to share their insights on Linux, the gaming industry and the SteamLUG community. Check back for recording archives, shownotes and further announcements!</p>
-			<h2>Make sure to subscribe to our lovely RSS feeds</h2>
+			<h4>Make sure to subscribe to our lovely RSS feeds</h4>
 			<ul>
 				<li><a href="/feed/cast/ogg">OGG feed</a></li>
 				<li><a href="/feed/cast/mp3">MP3 feed</a></li>
 			</ul>
 		</div>
-	</article>
-
+	</div>
+</div>
 ABOUTCAST;
 
-if (isset($d) && strtotime($d[0] . "-" . $d[1] . "-" .$d[2])-strtotime(date("Y-m-d")) <= 21 * 86400) {
-
-	echo <<<NEXTCAST
-	<article id="nextevent">
-		<div>
-			<h1>Upcoming Episode:</h1>
-			<h2><a href = '{$u}'>{$s},{$c}</a></h2>
-			<p>Listen in live as our hosts and guests discuss Linux gaming!</p>
-			<p>This episode will be recorded on {$dt}</p>
-			<h3 class = 'detailLink' ><a href = '{$u}'>Click for details</a></h3>
-			<div id="countdown">
-				<div>Days<br />
-					<span id="d1" class="counterDigit">0</span>
-					<span id="d2" class="counterDigit">0</span>
-				</div>
-				<div>Hours<br />
-					<span id="h1" class="counterDigit">0</span>
-					<span id="h2" class="counterDigit">0</span>
-				</div>
-				<div>Minutes<br />
-					<span id="m1" class="counterDigit">0</span>
-					<span id="m2" class="counterDigit">0</span>
-				</div>
-				<div>Seconds<br />
-					<span id="s1" class="counterDigit">0</span>
-					<span id="s2" class="counterDigit">0</span>
-				</div>
-			</div>
-			<p>Feel free to join our <a href="mumble">SteamLUG Mumble server</a> before, during and after the show!</p>
-		</div>
-	</article>
-
-NEXTCAST;
-}
 }
 ?>
-	<article class='shownotes'>
-		<div class="shadow">
+	</div>
+
 <?php
 $filename = $path . "/s" . $season . "e" . $episode . "/episode.txt";
 /* User wanting to see a specific cast, and shownotes file exists */
@@ -202,24 +204,45 @@ if ($season !== "00" && $episode !== "00" && file_exists($filename))
 	$episodeMP3DS	= ($episodeMp3FS > 0 ? $episodeMp3FS . ' MB <a download href="' .$archiveBase . '.mp3">MP3</a>' : 'N/A MP3');
 
 echo <<<CASTENTRY
-			<h1>{$meta[ 'TITLE' ]}</h1>
-			<h3>Season: {$meta[ 'SEASON' ]}, Episode: {$meta[ 'EPISODE' ]}</h3>
-			{$siteListen}
-			<p>
-				$episodeOddDS
-				$episodeFlacDS
-				$episodeMP3DS
-				<span class='right'><a href='http://creativecommons.org/licenses/by-sa/3.0/'><img class='license' src='/images/by-sa.png' alt='Licensed under CC-BY-SA'></a></span>
-			</p>
-			<dl>
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title">{$meta[ 'TITLE' ]}</h3>
+		</div>
+		<div class="panel-body">
+			<div class="row">
+			<div class="col-md-7">
+			<h4>Season: {$meta[ 'SEASON' ]}, Episode: {$meta[ 'EPISODE' ]}</h4>
+			<dl class="dl-horizontal">
 			<dt>Recorded</dt><dd>{$meta['RECORDED']}</dd>
 			<dt>Published</dt><dd>{$meta['PUBLISHED']}</dd>
 			<dt>Hosts</dt><dd>$listHosts</dd>
 			<dt>Special Guests</dt><dd>$listGuests</dd>
 			</dl>
-			<h3>Description</h3>
+			</div>
+			<div class="col-md-4">
+			<h4>Description</h4>
 			<p>{$meta['DESCRIPTION']}</p>
-			<h3>Shownotes</h3>
+			</div>
+			</div>
+			{$siteListen}
+			<div class="clearfix"></div>
+			<p class="pull-left">
+				$episodeOddDS
+				$episodeFlacDS
+				$episodeMP3DS
+			</p>
+			<p class="pull-right">
+				<a href='http://creativecommons.org/licenses/by-sa/3.0/'>
+					<img class='license' src='/images/by-sa.png' alt='Licensed under CC-BY-SA'>
+				</a>
+			</p>
+		</div>
+	</div>
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title" id="shownotes">Shownotes</h3>
+		</div>
+		<div class="panel-body shownotes">
 
 CASTENTRY;
 
@@ -234,7 +257,7 @@ CASTENTRY;
 		{
 		$note = preg_replace_callback(
 			'/\d+:\d+:\d+\s+\*(.*)\*/',
-			function($matches) { return '<ul class="castsection"><li><span class="casttopic">' . slenc($matches[1]) . "</span></li>\n"; },
+			function($matches) { return '<ul class="list-unstyled castsection"><li><span class="casttopic">' . slenc($matches[1]) . "</span></li>\n"; },
 			$note );
 		$note = preg_replace_callback(
 			'/(\d+:\d+:\d+)/',
@@ -246,7 +269,7 @@ CASTENTRY;
 			$note );
 		$note = preg_replace_callback(
 			'/(?i)\b((?:(https?|irc):\/\/|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:\'".,<>?«]))/',
-			function($matches) { return "[<a href='" . slenc($matches[0]) . "' class='castsource'>source</a>]"; },
+			function($matches) { return "[<a href='" . slenc($matches[0]) . "' class='text-info'>source</a>]"; },
 			$note );
 		$note = preg_replace_callback(
 			'/(?<=^|\s)@([a-z0-9_]+)/i',
@@ -270,7 +293,7 @@ CASTENTRY;
 			$note );
 		$note = preg_replace_callback(
 			'/  (.*)/',
-			function($matches) { return '<p class="castabout">' . $matches[1] . "</p>";	},
+			function($matches) { return '<p>' . $matches[1] . "</p>";	},
 			$note );
 		$note = preg_replace_callback(
 			'/\[(\w\d+\w\d+)\]/',
@@ -282,8 +305,13 @@ CASTENTRY;
 } else {
 /* Show cast list */
 ?>
-			<h1>Previous Casts</h1>
-			<table id='servers' class='tablesorter'>
+
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title">Previous Casts</h3>
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped table-hover tablesorter">
 				<thead>
 					<tr>
 						<th>No.
@@ -339,18 +367,16 @@ CASTENTRY;
 			<tr>
 				<td><a href="/cast/s{$meta['SEASON']}e{$meta['EPISODE']}">S{$meta['SEASON']}E{$meta['EPISODE']}</a></td>
 				<td>{$meta['RECORDED']}</td>
-				<td><a href="/cast/s{$meta['SEASON']}e{$meta['EPISODE']}"><img src="/images/sound_grey.png" alt="Listen">{$meta[ 'TITLE' ]}</a></td>
+				<td><a href="/cast/s{$meta['SEASON']}e{$meta['EPISODE']}"><i class="fa fa-volume-up"></i>{$meta[ 'TITLE' ]}</a></td>
 				<td>$listHosts</td>
 				<td>$listGuests</td>
 			</tr>
-
 CASTENTRY;
 	}
 	echo "\t\t\t</table>\n";
 }
 ?>
-		</div>
-    </article>
-</section>
+	</div>
+</div>
 <?php
 include_once("includes/footer.php");

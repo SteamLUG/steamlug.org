@@ -7,7 +7,7 @@ $syncexternalJS = array('https://steamlug.org/scripts/jquery.min.js','https://st
 	include_once("includes/GameQ.php");
 	// 10 second cache
 	header("Cache-Control: public, max-age=10");
-	$Servers = file( "/var/www/dev.steamlug.org/serverlist.txt" );
+	$Servers = file( "serverlist.txt" );
 
 	foreach ( $Servers as $Server )
 	{
@@ -50,7 +50,7 @@ $syncexternalJS = array('https://steamlug.org/scripts/jquery.min.js','https://st
 			$serverString .= "\t\t\t<td><em>" . $serverHost . "</em>\n";
 			$serverString .= "\t\t\t<td><em>N/A</em>\n";
 			$serverString .= "\t\t\t<td><em>N/A</em>\n";
-			$serverString .= "\t\t\t<td><span class='offline' title='Offline'>Offline</span>\n";
+			$serverString .= "\t\t\t<td><span class=\"text-danger\"><i class=\"fa fa-circle-o\"></i></span>\n";
 			$serverString .= "\t\t</tr>\n";
 		}
 		else
@@ -58,38 +58,39 @@ $syncexternalJS = array('https://steamlug.org/scripts/jquery.min.js','https://st
 			$serverLoc  = geoip_country_code_by_name($data['gq_address']);
 			$serverString .= "\t\t<tr>\n";
 			$serverString .= "\t\t\t<td><span style='display:none'>" . $serverLoc . "</span><img src='/images/flags/" . $serverLoc . ".png' alt='Hosted in " . $serverLoc . "'>\n";
-			$serverString .= "\t\t\t<td>" . (isset($data['secure']) ? "<img src='/images/vac.png' title='VAC Enabled' alt='VAC Enabled'>" : "") . "\n";
-			$serverString .= "\t\t\t<td>" . ($data['gq_password'] == "1" ? "<img src='/images/padlock.png' title='Password Protected' alt='Password Protected'>" : "") . "\n";
+			$serverString .= "\t\t\t<td>" . (isset($data['secure']) ? "<i class=\"fa fa-shield\"></i>" : "") . "\n";
+			$serverString .= "\t\t\t<td>" . ($data['gq_password'] == "1" ? "<i class=\"fa fa-lock\"></i>" : "") . "\n";
 			$serverString .= "\t\t\t<td>" . (isset($data['game_descr']) ? ($data['game_descr'] == "Team Fortress" ? "Team Fortress 2" : $data['game_descr']) : ($data['gq_type'] == "killingfloor" ? "Killing Floor" : $data['gq_type'])) . "\n";
 			$serverString .= "\t\t\t<td><a href='steam://connect/" . $serverHost . "'>" . $data['gq_hostname'] . "</a>\n";
 			$serverString .= "\t\t\t<td>" . ($data['gq_numplayers'] ? $data['gq_numplayers'] : "0") . " / " . $data['gq_maxplayers'] . "\n";
 			$serverString .= "\t\t\t<td>" . $data['gq_mapname'] . "\n";
-			$serverString .= "\t\t\t<td><span class='online' title='Online'>Online</span>\n";
+			$serverString .= "\t\t\t<td><span class=\"text-success\"><i class=\"fa fa-circle\"></i></span>\n";
 			$serverString .= "\t\t</tr>\n";
 		}
 	echo $serverString;
 	}
 ?>
-		<header>
-				<h1>SteamLUG Game Servers</h1>
-		</header>
-		<section>
-		
-		<article id='about'>
-			<div class="shadow">
-				<h1>About</h1>
+		<h1 class="text-center">SteamLUG Game Servers</h1>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">About</h3>
+			</div>
+			<div class="panel-body">
 				<p>Below you can find a list of our currently active game servers. Where possible, live information for the current map, number of players, etc. will be shown.</p>
 				<p>If you would like to host a SteamLUG server, or help manage our existing ones,<br>please contact <a href = 'http://steamcommunity.com/id/swordfischer'>swordfischer</a>.</p>
 			</div>
-		</article>
-		<article>
-			<div class='shadow'>
-				<table id='servers' class='tablesorter'>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Servers</h3>
+			</div>
+			<div class="panel-body">
+				<table class="table table-striped table-hover tablesorter">
 					<thead>
 						<tr>
 							<th>
-							<th><img src='/images/vac.png' alt='VAC Enabled'>
-							<th><img src='/images/padlock.png' alt='Password Protected'>
+							<th><i class="fa fa-shield"></i>
+							<th><i class="fa fa-lock"></i>
 							<th>Game
 							<th>Servers
 							<th>Players
@@ -110,8 +111,7 @@ $syncexternalJS = array('https://steamlug.org/scripts/jquery.min.js','https://st
 					</tfoot>
 				</table>
 			</div>
-		</article>
-	</section>
+		</div>
 	<script>
 		$(document).ready
 		(

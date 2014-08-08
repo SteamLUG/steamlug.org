@@ -35,11 +35,11 @@
 			{
 					if (isset($value['users']))
 					{
-						$statusString .= "<li class = 'mumbleChannel'>" . $value['name'];
+						$statusString .= "<li class=\"mumbleChannel\"><i class=\"fa fa-group text-warning\"></i> " . $value['name'];
 					}
 					else
 					{
-						$statusString .= "<li class = 'mumbleUser' >" . $value['name'];
+						$statusString .= "<li class=\"mumbleUser\"><i class=\"fa fa-user text-info\"></i> " . $value['name'];
 					}
 
 					if ( isset($value['users']) && is_array($value['users']) && count($value['users']) > 0 && isset($value['name']))
@@ -56,22 +56,21 @@
 		}
 	}
 ?>
-		<header>
-				<h1>SteamLUG Mumble Server</h1>
-		</header>
-		<section>
-			<article>
-			<div class = 'shadow' >
-				<h1>About</h1>
-				<p>In place of in-game voice chat, we host a <a href = 'http://mumble.sourceforge.net/' >Mumble</a> voice chat server, allowing our community members to talk across servers and between games. We have configurable "channels" for events, team talk and general chat including the <a href = '/cast' >SteamLUG Cast</a>. If you have the Mumble client installed, you can join by clicking <a href= "mumble://mumble.dk.steamlug.org" >here</a>.</p>
+	<h1 class="text-center">SteamLUG Mumble Server</h1>
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title">About</h3>
+		</div>
+		<div class="panel-body">
+			<div class="col-md-7">
+				<p>In place of in-game voice chat, we host a <a href = 'http://mumble.sourceforge.net/'>Mumble</a> voice chat server, allowing our community members to talk across servers and between games. We have configurable "channels" for events, team talk and general chat including the <a href = 'cast'>SteamLUG Cast</a>. If you have the Mumble client installed, you can join by clicking <a href="mumble://mumble.dk.steamlug.org">here</a>.</p>
 				<p>You can join us on Mumble by connecting to:</p>
-				<dl>
+				<dl class="dl-horizontal">
 				<dt>Host</dt><dd>mumble.dk.steamlug.org</dd>
 				<dt>Port</dt><dd><?=$info['x_gtmurmur_connectport'];?> (<em>default port</em>)</dd>
 				</dl>
 			</div>
-			</article>
-
+			<div class="col-md-5">
 <?php
 	$users = $murmur->get_users();
 	$rootChannels = $info['root']['channels'];
@@ -88,25 +87,27 @@
 		$statusChannels = "N/A";
 		$statusUsers = "N/A";
 	}
-	$statusString .= "\t\t\t<article>\n";
-	$statusString .= "\t\t\t\t<div class = 'shadow'>\n";
-	$statusString .= "\t\t\t\t\t<h1>Status</h1>\n";
-	$statusString .= "\t\t\t\t\t<dl>\n";
-	$statusString .= "\t\t\t\t\t\t<dt>Server</dt><dd>Online</dd>\n";
-	$statusString .= "\t\t\t\t\t\t<dt>Version</dt><dd>" . $info['x_gtmurmur_server_version'] . "</dd>\n";
-	$statusString .= "\t\t\t\t\t\t<dt>Channels</dt><dd>" . $statusChannels ."</dd>\n";
-	$statusString .= "\t\t\t\t\t\t<dt>Users</dt><dd>" . $statusUsers . " / " . $info['x_gtmurmur_max_users'] . "</dd>\n";
-	$statusString .= "\t\t\t\t\t</dl>\n";
-	$statusString .= "\t\t\t\t</div>\n";
-	$statusString .= "\t\t\t</article>\n";
-	$statusString .= "\t\t\t<article>\n";
-	$statusString .= "\t\t\t\t<div class = 'shadow' >\n";
-	$statusString .= "\t\t\t\t\t<h1>Channels</h1>\n";
 	Users($rootChannels);	
-
+?>
+		<dl class="dl-horizontal">
+			<dt>Server</dt><dd>Online</dd>
+			<dt>Version</dt><dd><?=$info['x_gtmurmur_server_version'];?></dd>
+			<dt>Channels</dt><dd><?=$statusChannels;?></dd>
+			<dt>Users</dt><dd><?=$statusUsers;?> / <?=$info['x_gtmurmur_max_users'];?></dd>
+		</dl>
+			</div>
+			</div>
+		</div>
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title">Status</h3>
+		</div>
+		<div class="panel-body">
+			<div class="row">
+	</div>
+<?php
 	echo $statusString;
+
 ?>
 		</div>
-		</article>
-		</section>
 <?php	include_once('includes/footer.php'); ?>

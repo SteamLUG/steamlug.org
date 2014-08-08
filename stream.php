@@ -9,7 +9,7 @@
 
         $settings               =       array
         (
-                'host'          =>      '130.226.217.214',
+                'host'          =>      '130.226.217.215',
                 'port'          =>      27800,
                 'timeout'       =>      200,
                 'format'        =>      'json'
@@ -33,40 +33,22 @@
 	$year = gmstrftime("%Y");
 	$data = $parser->genData("steamlug", $month, $year);
 ?>
-        <header>
-                <h1>Live Stream</h1>
-        </header>
-<section>
-		<article>
-			<div class = 'shadow'>
-			<h1>Watch us as we play!</h1>
-			<p>You can live follow our event as they're streamed by a SteamLUG administrator.</p>
-			</div>
-		</article>
-        <article class="streambox">
-		<div class="shadow">
-<?php
-
-        $eventString = "\t\t\t\t<h2><a href='" . $data["events"][0]["url"] . "'>" .  $data["events"][0]["title"] . "</a></h2>";
-        $eventString .= "\t\t\t\t\t<img src='//steamcdn-a.akamaihd.net/steam/apps/" . $data["events"][0]["appid"] . "/header.jpg' alt='" . $data["events"][0]["title"] . "'/>\n";
-        $eventString .= "\t\t\t\t</a>\n";
-        $eventString .= "\t\t\t\t<h3 class = 'detailLink'><a href='" . $data["events"][0]["url"] . "'>Click for details</a></h3><p></p>\n";
-        echo $eventString;
-?>
-	</article>
-        <article>
-            <div class="shadow">
-		<h1 class='streambox'><a href="https://twitch.tv/steamlug">SteamLUG @ Twitch.TV</a></h1>
-		<object type="application/x-shockwave-flash" width="640px" height="360px" id="live_embed_player_flash" data="http://www.twitch.tv/widgets/live_embed_player.swf?channel=steamlug">
-		<param name="allowFullScreen" value="true" />
-		<param name="allowScriptAccess" value="always" />
-		<param name="allowNetworking" value="all" />
-		<param name="movie" value="http://www.twitch.tv/widgets/live_embed_player.swf" />
-		<param name="flashvars" value="hostname=www.twitch.tv&channel=steamlug&auto_play=true&start_volume=25" />
-		</object>
-	    <h3 class='streambox'><a href="http://www.twitch.tv/steamlug">Click for larger stream</a></h3><p></p>
-            </div>
-	</article>
+		<h1>Live Stream</h1>
+		        <div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">Watch us as we play</h3>
+					</div>
+					<div class="panel-body">
+						<p>You can live follow our event as they're streamed by a SteamLUG administrator.</p>
+					</div>
+				</div>
+		<div class="row">
+			<div class="col-md-6">
+		        <div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">Mumble Status</h3>
+					</div>
+					<div class="panel-body">
 <?php
         $users = $murmur->get_users();
         $channels = $murmur->get_channels();
@@ -83,20 +65,49 @@
                 $statusChannels = "N/A";
                 $statusUsers = "N/A";
         }
-        $statusString  = "\t\t\t<article>\n";
-        $statusString .= "\t\t\t\t<div class='shadow'>\n";
-        $statusString .= "\t\t\t\t\t<h1 class='streambox'><a href='/mumble'>Mumble Status</a></h1>\n";
-        $statusString .= "\t\t\t\t\t<dl>\n";
+        $statusString = "\t\t\t\t\t<dl class=\"dl-horizontal\">\n";
         $statusString .= "\t\t\t\t\t\t<dt>Server</dt><dd>Online</dd>\n";
         $statusString .= "\t\t\t\t\t\t<dt>Version</dt><dd>" . $info['x_gtmurmur_server_version'] . "</dd>\n";
         $statusString .= "\t\t\t\t\t\t<dt>Channels</dt><dd>" . $statusChannels ."</dd>\n";
         $statusString .= "\t\t\t\t\t\t<dt>Users</dt><dd>" . $statusUsers . " / " . $info['x_gtmurmur_max_users'] . "</dd>\n";
         $statusString .= "\t\t\t\t\t</dl>\n";
-	$statusString .= "\t\t\t\t\t<h3 class = 'detailLink streambox'><a href='/mumble'>Click for details</a></h3><p></p>\n";
-        $statusString .= "\t\t\t\t</div>\n";
-        $statusString .= "\t\t\t</article>\n";
 	echo $statusString;
 ?>
-        </article>
-        </section>
-<?php include_once("/var/www/steamlug.org/includes/footer.php"); ?> 
+					</div>
+					<div class="panel-footer">
+						<p><a href='/mumble'>Click for details</a></p>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+        <div class="panel panel-default">
+			<div class="panel-heading">
+        		<h3 class="panel-title"><a href="<?=$data["events"][0]["url"];?>"><?=$data["events"][0]["title"];?></a></h3>
+			</div>
+			<div class="panel-body">
+				<p>
+					<img src="//steamcdn-a.akamaihd.net/steam/apps/<?=$data["events"][1]["appid"];?>/header.jpg" alt="<?=$data["events"][0]["title"];?>" />
+					<h3><a href="<?=$data["events"][0]["url"];?>">Click for details</a></h3>
+				</p>
+			</div>
+			</div>
+		</div>
+		</div>
+        <div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title"><a href="https://twitch.tv/steamlug">SteamLUG @ Twitch.TV</a></h3>
+			</div>
+			<div class="panel-body">
+				<object type="application/x-shockwave-flash" width="100%" height="600px" id="live_embed_player_flash" data="http://www.twitch.tv/widgets/live_embed_player.swf?channel=steamlug">
+					<param name="allowFullScreen" value="true" />
+					<param name="allowScriptAccess" value="always" />
+					<param name="allowNetworking" value="all" />
+					<param name="movie" value="http://www.twitch.tv/widgets/live_embed_player.swf" />
+					<param name="flashvars" value="hostname=www.twitch.tv&channel=steamlug&auto_play=true&start_volume=25" />
+				</object>
+			</div>
+			<div class="panel-footer">
+				<p><a href="http://www.twitch.tv/steamlug">Click for larger stream</a></p>
+            </div>
+		</div>
+<?php include_once("includes/footer.php"); ?> 
