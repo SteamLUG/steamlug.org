@@ -2,32 +2,40 @@
 		<div class="navbar-default navbar-bottom">
 			<div class="container">
 				<div class="row">
-					<div class="list-group col-md-3">
+					<div class="col-md-3">
 						<h3>Feeds</h3>
-						<a class="list-group-item" href = 'http://steamcommunity.com/groups/steamlug/rss/'>SteamLUG News Feed</a>
-						<a class="list-group-item" href = '/feed/events'>SteamLUG Events Feed</a>
-						<a class="list-group-item" href = 'https://twitter.com/steamlug'>SteamLUG Twitter</a>
+							<ul class="list-unstyled">
+								<li><a href="http://steamcommunity.com/groups/steamlug/rss/">SteamLUG News Feed</a></li>
+								<li><a href="/feed/events">SteamLUG Events Feed</a></li>
+								<li><a href="https://twitter.com/steamlug">SteamLUG Twitter</a></li>
+							</ul>
 					</div>
-					<div class="list-group col-md-3">
+					<div class="col-md-3">
 						<h3>SteamLUG</h3>
-						<a class="list-group-item" href = 'http://steamcommunity.com/groups/steamlug/'>SteamLUG Steam Group</a>
-						<a class="list-group-item" href = '/irc'>SteamLUG IRC Chat</a>
-						<a class="list-group-item" href = '/mumble'>SteamLUG Mumble Server</a>
-						<a class="list-group-item" href = 'http://forums.steampowered.com/forums/showthread.php?t=1897204'>SPUF Thread</a>
+							<ul class="list-unstyled">
+								<li><a href="http://steamcommunity.com/groups/steamlug/">SteamLUG Steam Group</a></li>
+								<li><a href="/irc">SteamLUG IRC Chat</a></li>
+								<li><a href="/mumble">SteamLUG Mumble Server</a></li>
+								<li><a href="http://forums.steampowered.com/forums/showthread.php?t=1897204">SPUF Thread</a></li>
+							</ul>
 					</div>
-					<div class="list-group col-md-3">
+					<div class="col-md-3">
 						<h3>Valve</h3>
-						<a class="list-group-item" href = 'http://store.steampowered.com/linux'>Steam For Linux Store Page</a>
-						<a class="list-group-item" href = 'https://github.com/ValveSoftware/steam-for-linux/'>Steam For Linux on GitHub</a>
-						<a class="list-group-item" href = 'http://steamcommunity.com/app/221410'>Steam For Linux Hub</a>
-						<a class="list-group-item" href = 'http://blogs.valvesoftware.com/linux/'>Valve Linux Blog</a>
+							<ul class="list-unstyled">
+								<li><a href="http://store.steampowered.com/linux">Steam For Linux Store Page</a></li>
+								<li><a href="https://github.com/ValveSoftware/steam-for-linux/">Steam For Linux on GitHub</a></li>
+								<li><a href="http://steamcommunity.com/app/221410">Steam For Linux Hub</a></li>
+								<li><a href="http://blogs.valvesoftware.com/linux/">Valve Linux Blog</a></li>
+							</ul>
 					</div>
-					<div class="list-group col-md-3">
+					<div class="col-md-3">
 						<h3>Community</h3>
-						<a class="list-group-item" href = 'http://www.reddit.com/r/linux_gaming/'>Linux_Gaming Subreddit</a>
-						<a class="list-group-item" href = 'http://steamdb.info/'>SteamDB.info</a>
-						<a class="list-group-item" href = 'http://steamdb.info/linux/'>The Big List of Steam Games on Linux</a>
-						<a class="list-group-item" href = 'http://gamingonlinux.com/'>Gaming On Linux</a>
+							<ul class="list-unstyled">
+								<li><a href="http://www.reddit.com/r/linux_gaming/">Linux_Gaming Subreddit</a></li>
+								<li><a href="http://steamdb.info/">SteamDB.info</a></li>
+								<li><a href="http://steamdb.info/linux/">The Big List of Steam Games on Linux</a></li>
+								<li><a href="http://gamingonlinux.com/">Gaming On Linux</a></li>
+							</ul>
 					</div>
 				</div>
 				<p class="muted credit text-center">This site is not affiliated with or endorsed by Valve, Steam, or any of their partners.<br />

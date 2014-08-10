@@ -47,11 +47,11 @@ if(!login_check())
 		<title>SteamLUG <?php echo $pageTitle; ?></title>
 		<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 		<link rel="stylesheet" href="/css/style.css" type="text/css" />
-		<script src="/js/jquery-2.1.1.min.js"></script>
+		<script type="text/javascript" src="/js/jquery-2.1.1.min.js"></script>
 		<!-- START Bootstrap !-->
 		<link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css" />
 		<link rel="stylesheet" href="/css/bootstrap.slate.css" type="text/css" />
-		<script src="/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="/js/bootstrap.min.js"></script>
 		<!-- END Bootstrap !-->
 		
 		<script>
@@ -174,14 +174,16 @@ if(!login_check())
 			<div class="navbar-collapse collapse navbar-responsive-collapse">
 				<ul class="nav navbar-nav">
 					<li class="<?php echo $newsPage; ?>"><a href="/news">News</a></li>
-					<li class="dropown <?php echo $chatPage; ?>"><a href="/irc">Chat</a>
+					<li class="dropdown <?php echo $chatPage; ?>">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Chat <b class="caret"></b></a>
 						<ul class="dropdown-menu <?php echo $chatPage; ?>">
 							<li class="<?php echo $ircPage; ?>"><a href="/irc">IRC (text)</a></li>
 							<li class="<?php echo $mumblePage; ?>"><a href="/mumble">Mumble (voice)</a></li>
 						</ul>
 					</li>
 					<li class="<?php echo $castPage; ?>"><a href="/cast">SteamLUG Cast</a></li>
-					<li class="dropdown <?php echo $gamingPage; ?>"><a href="/events">Events</a>
+					<li class="dropdown <?php echo $gamingPage; ?>">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Events <b class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<li class="<?php echo $eventsPage; ?>"><a href="/events">Events</a></li>
 							<li class="<?php echo $streamPage; ?>"><a href="/stream">Live Stream</a></li>
