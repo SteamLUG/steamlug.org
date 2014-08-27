@@ -16,6 +16,18 @@ if (!isset($pageTitle))
 	$pageTitle = "Super Secret Unnamed Page!";
 }
 
+include_once('session.php');
+include_once("functions_poll.php");
+if(!login_check())
+{
+	$steam_login_verify = SteamSignIn::validate();
+	if (!empty($steam_login_verify))
+	{
+		login($steam_login_verify);
+		header("Location: " . $_SERVER['PHP_SELF']);
+	}
+}
+
 ?>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 	<head>
@@ -91,6 +103,8 @@ if (!isset($pageTitle))
 	$aboutPage = "";
 	$streamPage = "";
 	$castPage = "";
+	$pollPage = "";
+	$pollArchivePage = "";
 
 	if (strpos($_SERVER["SCRIPT_NAME"], "news.php"))
 	{
@@ -129,6 +143,16 @@ if (!isset($pageTitle))
 		$projectsPage = "current";
 		$overviewPage = "current";
 	}
+	else if (strpos($_SERVER["SCRIPT_NAME"], "polls.php"))
+	{
+		$projectsPage = "current";
+		$pollPage = "current";
+	}
+	else if (strpos($_SERVER["SCRIPT_NAME"], "poll-archive.php"))
+	{
+		$projectsPage = "current";
+		$pollArchivePage = "current";
+	}
 	else if (strpos($_SERVER["SCRIPT_NAME"], "cast.php"))
 	{
 		$castPage = "current";
@@ -159,6 +183,8 @@ if (!isset($pageTitle))
 				<li class = '<?php echo $projectsPage; ?>'><a href = '/projects'>Projects</a>
 					<ul>
 						<li class = '<?php echo $overviewPage; ?>'><a href = '/projects'>Overview</a></li>
+						<li class = '<?php echo $pollPage; ?>'><a href = '/polls'>Polls</a></li>
+						<!--<li class = '<?php echo $pollArchivePage; ?>'><a href = '/poll-archive'>Poll Archive</a></li>-->
 					</ul>
 				</li>
 				<li class = '<?php echo $aboutPage; ?>'><a href = '/about'>About</a></li>
