@@ -131,6 +131,13 @@ h3
 	font-weight: normal;
 }
 
+hr
+{
+	border: 0;
+	border-top: 1px solid #35465E;
+	width: 80%;
+}
+
 article
 {
 	text-align: justify;
@@ -706,4 +713,170 @@ li.highlighted,
 {
 	width: 520px;
 	margin: auto;
+}
+
+/* Poll and form styles */
+
+.pollBar
+{
+	background-color: #529CDE;
+	height: 5px;
+	border-radius: 2px;
+	min-width: 0.5%;
+	margin-top: 3px;
+}
+
+.pollExpiry
+{
+	float: right;
+	font-size: 0.75em;
+	line-height: 1.5em;
+	font-family: Arial,Helvetica,sans-serif;
+	color: #959595;
+}
+
+.pollVoteCount
+{
+	float: right;
+	margin-top: 0em;
+}
+
+input[type='submit'], button
+{
+	border: 0;
+	background-color: #529CDE;
+	color: #ffffff;
+	border-radius: 0.25em;
+	padding: 0 0.5em;
+}
+
+.steamLogin
+{
+	/*position: absolute;
+	top: 5px;
+	right: 5px;*/
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 154px;
+}
+
+.pollOption
+{
+	margin: 1em 30px;
+}
+
+.pollOptionLabel
+{
+	margin: 0.5em 0;
+}
+
+.pollOption input[type='checkbox'],
+.pollOption input[type='radio']
+{
+	display: none;
+}
+
+.pollOption input[type='checkbox'] + label,
+.pollOption input[type='radio'] + label
+{
+	cursor: pointer;
+}
+.pollOption input[type='checkbox'] + label span,
+.pollOption input[type='radio'] + label span
+{
+	vertical-align: middle;
+	display:inline-block;
+	width: 12px;
+	height: 12px;
+	background-color: #202020;
+	box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.75) inset;
+	margin-right: 3px;
+	margin-bottom: 2px;
+	border: 1px solid #35465E;
+	border-radius: 3px;
+}
+
+
+.pollOption input[type='checkbox'] + label:hover span,
+.pollOption input[type='radio'] + label:hover span
+{
+	border: 1px solid #529CDE;
+}
+
+.pollOption input[type='checkbox']:checked + label span,
+.pollOption input[type='radio']:checked + label span
+{
+	background-color: #529CDE;
+	box-shadow: 0 0 2px 1px #303030 inset;
+	border: 1px solid transparent;
+	
+}
+.pollOption input[type='radio'] + label span
+{
+	width: 12px !important;
+	height: 12px !important;
+	border-radius: 12px;
+}
+
+.pollOptions
+{
+	margin: 1.5em 2em;
+	border: 1px solid #35465E;
+	border-radius: 0.5em;
+	padding: 1em 0;
+}
+.pollBox
+{
+	margin-top: 3em;
+	margin-bottom: 3em;
+}
+
+.pollBox input[type='submit']
+{
+	margin-left: 30px;
+}
+
+.formPair
+{
+	margin-top: 1em;
+	margin-bottom: 1em;
+}
+
+.formPair label
+{
+	width: 9em;
+	text-align: right;
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.formPair input, .formPair select, .formPair textarea
+{
+	vertical-align: baseline;
+	width: 300px;
+	background-color: #1b1b1b;
+	border: 1px solid #35465E;
+	border-radius: 0.5em;
+	color: white;
+	line-height: 1.5em;
+	padding: 3px;
+}
+
+.formPair input:hover,
+.formPair select:hover,
+.formPair textarea:hover,
+.formPair input:focus,
+.formPair select:focus,
+.formPair textarea:focus
+{
+	border-color: #529CDE;
+	background-color: #252525;
+}
+
+.formPair input:focus,
+.formPair select:focus,
+.formPair textarea:focus
+{
+	box-shadow: 0 0 4px 0px #529CDE;
 }
