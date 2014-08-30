@@ -11,7 +11,7 @@
 				<div class = 'shadow'>
 					<h1>About</h1>
 					<p>We're launching a new polling feature for SteamLUG.org, which will allow us to get better community input on things like events, SteamLUG Cast topics, future projects and more!</p>
-					<p>To vote, you need to be signed in via Steam using the button below, and you mustm be a member of our Steam group.</p>
+					<p>To vote, you need to be signed in via Steam using the button below, and you must be a member of our <a href = 'http://steamcommunity.com/groups/steamlug/'>Steam group</a>.</p>
 					<?php
 						if(!login_check())
 						{
