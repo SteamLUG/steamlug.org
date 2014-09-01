@@ -54,6 +54,8 @@ $hostAvatars = array(
 		"DerRidda" =>		"//pbs.twimg.com/profile_images/2150739768/pigava.jpeg",
 		"mnarikka" =>		"//pbs.twimg.com/profile_images/430414134018977792/gnI7LKDc.png",
 		"Nemoder" =>		"//steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/0d/0d4a058f786ea71153f85262c65bb94490205b59_full.jpg",
+		"beansmyname" =>	"//pbs.twimg.com/profile_images/2821579010/3f591e15adcbd026095f85b88ac8a541.png",
+		"Corben78" =>		"//pbs.twimg.com/profile_images/313122973/Avatar.jpg",
 );
 
 /* we take a ‘johndrinkwater’ / ‘@johndrinkwater’ / ‘John Drinkwater (@twitter)’ and spit out HTML */
