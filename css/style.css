@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 hr
 {
 	border: 0;
@@ -75,6 +76,12 @@ table.tablesorter thead th.headerSortDown
 {
 	background-image: url('/images/desc.gif');
 }
+
+table.tablesorter thead th i, table.tablesorter tbody td i {
+	float: right;
+	line-height: 20px;
+}
+
 .casttimestamp
 {
 	margin-right: 10px;

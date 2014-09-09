@@ -33,7 +33,7 @@ foreach ($data["events"] as $event) {
 
 $dateString = "var target = Math.round( Date.UTC (" . $d[0] . ", " . $d[1] . " -1, " . $d[2] . ", " . $t[0] . ", " . $t[1] . ", 0, 0) / 1000);";
 $extraJS = $dateString;
-$externalJS = array('/scripts/events.js');
+$syncexternalJS = array('/scripts/jquery.js','/scripts/jquery.tablesorter.js','/scripts/events.js','/scripts/jquery.tablesorter.widgets.js');
 $tailJS = array('/scripts/castseek.js');
 $pageTitle = "Cast";
 
@@ -103,7 +103,7 @@ if ( $season == "00" || $episode == "00" )
 if (isset($d) && strtotime($d[0] . "-" . $d[1] . "-" .$d[2])-strtotime(date("Y-m-d")) <= 21 * 86400) {
 
 	echo <<<NEXTCAST
-<div class="col-md-6">
+<div class="col-md-7">
 	<div class="panel panel-default">
 		<div class="panel-heading">
 			<h3 class="panel-title">Upcoming Episode</h3>
@@ -136,7 +136,7 @@ if (isset($d) && strtotime($d[0] . "-" . $d[1] . "-" .$d[2])-strtotime(date("Y-m
 NEXTCAST;
 }
 	echo <<<ABOUTCAST
-<div class="col-md-6">
+<div class="col-md-5">
 	<div class="panel panel-default">
 		<div class="panel-heading">
 			<h3 class="panel-title">About</h3>
@@ -311,7 +311,7 @@ CASTENTRY;
 			<h3 class="panel-title">Previous Casts</h3>
 		</div>
 		<div class="panel-body">
-			<table class="table table-striped table-hover tablesorter">
+			<table id="casts" class="table table-striped table-hover tablesorter">
 				<thead>
 					<tr>
 						<th>No.
@@ -376,7 +376,39 @@ CASTENTRY;
 	echo "\t\t\t</table>\n";
 }
 ?>
+<!-- FIXME
+<ul class="pagination pagination-sm">
+  <li class="disabled"><a href="#">«</a></li>
+  <li class="active"><a href="#">Season 1</a></li>
+  <li><a href="#">Season 2</a></li>
+  <li><a href="#">Season 3</a></li>
+  <li><a href="#">»</a></li>
+</ul>
+!-->
 	</div>
 </div>
+
+
+<script>
+		$(document).ready
+		(
+$(function() {
+
+  $.extend($.tablesorter.themes.bootstrap, {
+	table	   : '',
+    caption    : 'caption',
+    header     : 'bootstrap-header', // give the header a gradient background
+    sortNone   : 'fa fa-unsorted',
+    sortAsc    : 'fa fa-sort-up',     // includes classes for Bootstrap v2 & v3
+    sortDesc   : 'fa fa-sort-down', // includes classes for Bootstrap v2 & v3
+  });
+  $("table").tablesorter({
+    theme : "bootstrap",
+    headerTemplate : '{content} {icon}',
+    widgets : [ "uitheme" ],
+
+  })
+}));
+</script>
 <?php
 include_once("includes/footer.php");

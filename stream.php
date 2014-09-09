@@ -73,9 +73,7 @@
         $statusString .= "\t\t\t\t\t</dl>\n";
 	echo $statusString;
 ?>
-					</div>
-					<div class="panel-footer">
-						<p><a href='/mumble'>Click for details</a></p>
+					<p><a href="/mumble" class="btn btn-primary">Click for details</a></p>
 					</div>
 				</div>
 			</div>
@@ -85,9 +83,11 @@
         		<h3 class="panel-title"><a href="<?=$data["events"][0]["url"];?>"><?=$data["events"][0]["title"];?></a></h3>
 			</div>
 			<div class="panel-body">
-				<p>
+				<p class="text-center">
 					<img src="//steamcdn-a.akamaihd.net/steam/apps/<?=$data["events"][1]["appid"];?>/header.jpg" alt="<?=$data["events"][0]["title"];?>" />
-					<h3><a href="<?=$data["events"][0]["url"];?>">Click for details</a></h3>
+				</p>
+				<p>
+					<a href="<?=$data["events"][0]["url"];?>" class="btn btn-primary">Click for details</a>
 				</p>
 			</div>
 			</div>
@@ -105,9 +105,7 @@
 					<param name="movie" value="http://www.twitch.tv/widgets/live_embed_player.swf" />
 					<param name="flashvars" value="hostname=www.twitch.tv&channel=steamlug&auto_play=true&start_volume=25" />
 				</object>
+				<p><a href="http://www.twitch.tv/steamlug" class="btn btn-primary">Click for larger stream</a></p>
 			</div>
-			<div class="panel-footer">
-				<p><a href="http://www.twitch.tv/steamlug">Click for larger stream</a></p>
-            </div>
 		</div>
 <?php include_once("includes/footer.php"); ?> 

@@ -1,13 +1,13 @@
 <?php
 $pageTitle = "Servers";
-$syncexternalJS = array('https://steamlug.org/scripts/jquery.min.js','https://steamlug.org/scripts/jquery.tablesorter.js');
+$syncexternalJS = array('/scripts/jquery.js','/scripts/jquery.tablesorter.js','/scripts/jquery.tablesorter.widgets.js');
 ?>
 <?php
 	include_once("includes/header.php");
 	include_once("includes/GameQ.php");
 	// 10 second cache
 	header("Cache-Control: public, max-age=10");
-	$Servers = file( "serverlist.txt" );
+	$Servers = file( "/var/www/dev.steamlug.org/serverlist.txt" );
 
 	foreach ( $Servers as $Server )
 	{
@@ -85,7 +85,7 @@ $syncexternalJS = array('https://steamlug.org/scripts/jquery.min.js','https://st
 				<h3 class="panel-title">Servers</h3>
 			</div>
 			<div class="panel-body">
-				<table class="table table-striped table-hover tablesorter">
+				<table id="servers" class="table table-striped table-hover tablesorter">
 					<thead>
 						<tr>
 							<th>
@@ -112,22 +112,29 @@ $syncexternalJS = array('https://steamlug.org/scripts/jquery.min.js','https://st
 				</table>
 			</div>
 		</div>
-	<script>
+<script>
 		$(document).ready
 		(
-			function()
-			{
-				$("#servers").tablesorter
-				(
-					{
-						headers: {
-							1: { sorter: false },
-							2: { sorter: false },
-						},
-						sortList: [[7,1],[5,1],[0,0],[4,0]]
-					}
-				);
-			}
-		);
-	</script>
+$(function() {
+
+  $.extend($.tablesorter.themes.bootstrap, {
+	table	   : '',
+    caption    : 'caption',
+    header     : 'bootstrap-header', // give the header a gradient background
+    sortNone   : 'fa fa-unsorted',
+    sortAsc    : 'fa fa-sort-up',     // includes classes for Bootstrap v2 & v3
+    sortDesc   : 'fa fa-sort-down', // includes classes for Bootstrap v2 & v3
+  });
+  $("#servers").tablesorter({
+    theme : "bootstrap",
+    headerTemplate : '{content} {icon}',
+    widgets : [ "uitheme" ],
+	headers: {
+		1: { sorter: false },
+		2: { sorter: false },
+	},
+	sortList: [[7,1],[5,1],[0,0],[4,0]]
+  })
+}));
+</script>
 <?php include_once("includes/footer.php"); ?>

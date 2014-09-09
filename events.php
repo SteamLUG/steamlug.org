@@ -60,24 +60,22 @@ foreach ($data['events'] as $event)
 }
 ?>
 			<?php echo $eventTitle; ?>
-				<div id="countdown">
-					<div>Days<br />
-						<span id= 'd1' class = 'counterDigit'>0</span>
-						<span id= 'd2' class = 'counterDigit'>0</span>
-					</div>
-					<div>Hours<br />
-						<span id= 'h1' class = 'counterDigit'>0</span>
-						<span id= 'h2' class = 'counterDigit'>0</span>
-					</div>
-					<div>Minutes<br />
-						<span id= 'm1' class = 'counterDigit'>0</span>
-						<span id= 'm2' class = 'counterDigit'>0</span>
-					</div>
-					<div>Seconds<br />
-						<span id= 's1' class = 'counterDigit'>0</span>
-						<span id= 's2' class = 'counterDigit'>0</span>
-					</div>
+			<p>
+				<div class="btn-group">
+					<span class="btn btn-primary btn-sm">Days</span>
+					<span id="d1" class="btn btn-default btn-sm">0</span>
+					<span id="d2" class="btn btn-default btn-sm">0</span>
+					<span class="btn btn-primary btn-sm">Hours</span>
+					<span id="h1" class="btn btn-default btn-sm">0</span>
+					<span id="h2" class="btn btn-default btn-sm">0</span>
+					<span class="btn btn-primary btn-sm">Minutes</span>
+					<span id="m1" class="btn btn-default btn-sm">0</span>
+					<span id="m2" class="btn btn-default btn-sm">0</span>
+					<span class="btn btn-primary btn-sm">Seconds</span>
+					<span id="s1" class="btn btn-default btn-sm">0</span>
+					<span id="s2" class="btn btn-default btn-sm">0</span>
 				</div>
+			</p>
 			</div>
 			<div class="col-md-6">
 					<?php echo $eventImage; ?>
