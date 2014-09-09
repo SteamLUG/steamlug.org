@@ -33,7 +33,7 @@ foreach ($data["events"] as $event) {
 
 $dateString = "var target = Math.round( Date.UTC (" . $d[0] . ", " . $d[1] . " -1, " . $d[2] . ", " . $t[0] . ", " . $t[1] . ", 0, 0) / 1000);";
 $extraJS = $dateString;
-$syncexternalJS = array('/scripts/jquery.js','/scripts/jquery.tablesorter.js','/scripts/events.js','/scripts/jquery.tablesorter.widgets.js');
+$syncexternalJS = array('/scripts/jquery.js','/scripts/jquery.tablesorter.js','/scripts/events.js','/scripts/jquery.tablesorter.widgets.js','/scripts/jquery.twbsPagination.js');
 $tailJS = array('/scripts/castseek.js');
 $pageTitle = "Cast";
 
@@ -373,9 +373,9 @@ CASTENTRY;
 			</tr>
 CASTENTRY;
 	}
-	echo "\t\t\t</table>\n";
-}
 ?>
+</tbody>
+</table>
 <!-- FIXME
 <ul class="pagination pagination-sm">
   <li class="disabled"><a href="#">«</a></li>
@@ -385,9 +385,11 @@ CASTENTRY;
   <li><a href="#">»</a></li>
 </ul>
 !-->
+<?php
+}
+?>
 	</div>
 </div>
-
 
 <script>
 		$(document).ready
@@ -402,13 +404,19 @@ $(function() {
     sortAsc    : 'fa fa-sort-up',     // includes classes for Bootstrap v2 & v3
     sortDesc   : 'fa fa-sort-down', // includes classes for Bootstrap v2 & v3
   });
-  $("table").tablesorter({
+  $("#casts").tablesorter({
     theme : "bootstrap",
     headerTemplate : '{content} {icon}',
     widgets : [ "uitheme" ],
-
   })
 }));
+</script>
+<script>
+  $('#pagination').twbsPagination({
+	totalPages: 2,
+	visiblePages: 2,
+    href: '?season={{number}}'
+	})
 </script>
 <?php
 include_once("includes/footer.php");
