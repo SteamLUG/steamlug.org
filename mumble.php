@@ -8,7 +8,7 @@
 
 	$settings		=	array
 	(
-		'host'		=>	'130.226.217.215',
+		'host'		=>	'mumble.dk.steamlug.org',
 		'port'		=>	27800,
 		'timeout'	=>	200,
 		'format'	=>	'json'
@@ -21,18 +21,49 @@
 	$statusOnline = "Pending";
 	$statusChannels = 0;
 	$statusUsers = 0;
-
+	$statusString = "";
 	$status = $murmur->get_status();
 	$info = $status['original'];
+
+	function Users($array)
+	{
+	global $statusString;
+		foreach ($array as $value)
+		{
+		$statusString .= "\n<ul>\n";
+			if (is_array($value) && count($value) > 0 && isset($value['name']))
+			{
+					if (isset($value['users']))
+					{
+						$statusString .= "<li class = 'mumbleChannel'>" . $value['name'];
+					}
+					else
+					{
+						$statusString .= "<li class = 'mumbleUser' >" . $value['name'];
+					}
+
+					if ( isset($value['users']) && is_array($value['users']) && count($value['users']) > 0 && isset($value['name']))
+					{
+						Users($value['users']);
+					}
+					if (isset($value['channels']))
+					{
+						Users($value['channels']);
+					}
+						$statusString .= "</li>\n";
+			}
+		$statusString .= "</ul>\n";
+		}
+	}
 ?>
 		<header>
 				<h1>SteamLUG Mumble Server</h1>
 		</header>
 		<section>
 			<article>
-			<div class = 'shadow'>
+			<div class = 'shadow' >
 				<h1>About</h1>
-				<p>In place of in-game voice chat, we host a <a href = 'http://mumble.sourceforge.net/'>Mumble</a> voice chat server, allowing our community members to talk across servers and between games. We have configurable "channels" for events, team talk and general chat including the <a href = 'cast'>SteamLUG Cast</a>. If you have the Mumble client installed, you can join by clicking <a href="mumble://mumble.dk.steamlug.org">here</a>.</p>
+				<p>In place of in-game voice chat, we host a <a href = 'http://mumble.sourceforge.net/' >Mumble</a> voice chat server, allowing our community members to talk across servers and between games. We have configurable "channels" for events, team talk and general chat including the <a href = '/cast' >SteamLUG Cast</a>. If you have the Mumble client installed, you can join by clicking <a href= "mumble://mumble.dk.steamlug.org" >here</a>.</p>
 				<p>You can join us on Mumble by connecting to:</p>
 				<dl>
 				<dt>Host</dt><dd>mumble.dk.steamlug.org</dd>
@@ -43,12 +74,12 @@
 
 <?php
 	$users = $murmur->get_users();
-	$channels = $murmur->get_channels();
+	$rootChannels = $info['root']['channels'];
 
 	if($murmur->is_online())
 	{
 		$statusOnline = "Online";
-		$statusChannels = count($channels);
+		$statusChannels = count($murmur->get_channels());
 		$statusUsers = count($users);
 	}
 	else
@@ -57,8 +88,8 @@
 		$statusChannels = "N/A";
 		$statusUsers = "N/A";
 	}
-	$statusString  = "\t\t\t<article>\n";
-	$statusString .= "\t\t\t\t<div class='shadow'>\n";
+	$statusString .= "\t\t\t<article>\n";
+	$statusString .= "\t\t\t\t<div class = 'shadow'>\n";
 	$statusString .= "\t\t\t\t\t<h1>Status</h1>\n";
 	$statusString .= "\t\t\t\t\t<dl>\n";
 	$statusString .= "\t\t\t\t\t\t<dt>Server</dt><dd>Online</dd>\n";
@@ -69,51 +100,13 @@
 	$statusString .= "\t\t\t\t</div>\n";
 	$statusString .= "\t\t\t</article>\n";
 	$statusString .= "\t\t\t<article>\n";
-	$statusString .= "\t\t\t\t<div class='shadow'>\n";
+	$statusString .= "\t\t\t\t<div class = 'shadow' >\n";
 	$statusString .= "\t\t\t\t\t<h1>Channels</h1>\n";
-	if(count($channels) > 0)
-	{
-		$statusString .= "\t\t\t\t\t<ul>\n";
-		foreach($channels as $channel)
-		{
-			$statusString .= "\t\t\t\t\t\t<li>" . $channel['name'] . "</li>\n";
-		}
-		$statusString .= "\t\t\t\t\t</ul>\n";
-		}
-		else
-		{
-			$statusString .= "\t\t\t\t\t<p>There are currently no active channels.</p>\n";
-		}
-			$statusString .= "\t\t\t\t</div>\n";
-			$statusString .= "\t\t\t</article>\n";
+	Users($rootChannels);	
 
-			$statusString .= "\t\t\t<article>\n";
-			$statusString .= "\t\t\t\t<div class='shadow'>\n";
-			$statusString .= "\t\t\t\t\t<h1>Online Users</h1>\n";
-			if(count($users) > 0)
-			{
-				$statusString .= "\t\t\t\t\t<ul>\n";
-
-				foreach($users as $user)
-				{
-					$statusString .= "\t\t\t\t\t\t<li>" . $user['name'] . "</li>\n";
-				}
-			$statusString .= "\t\t\t\t\t</ul>\n";
-			}
-			else
-			{
-				$statusString .= "<p>No users are currently online.</p>\n";
-			}
-			$statusString .= "\t\t\t\t</div>\n";
-			$statusString .= "\t\t\t</article>\n";
-
-		// Display the original response data
-		//echo '<h1>Response</h1>';
-		// echo '<pre>';
-		// I AM PLAYING AROUND LOL: foreach( $info[ 'root' ][ 'channels' ] as $Channel ) { echo $Channel[ 'name' ]; }
-		// print_r($status['original']);
-		// echo '</pre>';
 	echo $statusString;
 ?>
+		</div>
+		</article>
 		</section>
 <?php	include_once('includes/footer.php'); ?>

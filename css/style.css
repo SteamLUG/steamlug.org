@@ -880,3 +880,20 @@ input[type='submit'], button
 {
 	box-shadow: 0 0 4px 0px #529CDE;
 }
+
+
+.mumbleUser {
+        color: #9BC861;
+        list-style-type: disc;
+        margin: 0 -22px;
+}
+ul > li.mumbleChannel > ul > li.mumbleChannel
+{
+        color: #868686;
+        margin: 0 -22px;
+}
+ul > li.mumbleChannel > ul > li.mumbleChannel > ul > li.mumbleChannel
+{
+        color: #595959;
+        margin: 0 -22px;
+}
