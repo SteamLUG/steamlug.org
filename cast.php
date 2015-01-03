@@ -47,15 +47,17 @@ function slenc($u)
 
 /* TODO: join this to our steamlug user system; TODO: make steamlug user system */
 $hostAvatars = array(
-		"swordfischer" =>	"//gravatar.com/avatar/12da0ce50a5376a78188583f963cb3ee",
-		"ValiantCheese" =>	"//gravatar.com/avatar/916ffbb1cd00d10f5de27ef4f9846390",
-		"johndrinkwater" =>	"//gravatar.com/avatar/751a360841982f0d0418d6d81b4beb6d",
-		"MimLofBees" =>		"//pbs.twimg.com/profile_images/2458841225/cnm856lvnaz4hhkgz6yg.jpeg",
-		"DerRidda" =>		"//pbs.twimg.com/profile_images/2150739768/pigava.jpeg",
-		"mnarikka" =>		"//pbs.twimg.com/profile_images/523529572243869696/lb04rKRq.png",
-		"Nemoder" =>		"//steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/0d/0d4a058f786ea71153f85262c65bb94490205b59_full.jpg",
-		"beansmyname" =>	"//pbs.twimg.com/profile_images/2821579010/3f591e15adcbd026095f85b88ac8a541.png",
-		"Corben78" =>	"//pbs.twimg.com/profile_images/313122973/Avatar.jpg",
+	"swordfischer" =>	"//steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/87/87542ec881993993fe2c5268224689538e264fac_full.jpg",
+	"ValiantCheese" =>	"//gravatar.com/avatar/916ffbb1cd00d10f5de27ef4f9846390",
+	"johndrinkwater" =>	"//gravatar.com/avatar/751a360841982f0d0418d6d81b4beb6d",
+	"MimLofBees" =>	"//pbs.twimg.com/profile_images/2458841225/cnm856lvnaz4hhkgz6yg.jpeg",
+	"DerRidda" =>	"//pbs.twimg.com/profile_images/2150739768/pigava.jpeg",
+	"mnarikka" =>	"//pbs.twimg.com/profile_images/523529572243869696/lb04rKRq.png",
+	"Nemoder" =>	"//steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/0d/0d4a058f786ea71153f85262c65bb94490205b59_full.jpg",
+	"beansmyname" =>	"//pbs.twimg.com/profile_images/2821579010/3f591e15adcbd026095f85b88ac8a541.png",
+	"Corben78" =>	"//pbs.twimg.com/profile_images/313122973/Avatar.jpg",
+	"Buckwangs" =>	"//steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/bb/bb21fbb52d66cd32526b27b51418e5aa0ca97a9f_full.jpg",
+	"Cockfight" =>	"//steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/bb/bb21fbb52d66cd32526b27b51418e5aa0ca97a9f_full.jpg",
 );
 
 /* we take a ‘johndrinkwater’ / ‘@johndrinkwater’ / ‘John Drinkwater (@twitter)’ and spit out HTML */
