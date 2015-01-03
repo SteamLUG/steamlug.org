@@ -98,7 +98,7 @@ CASTHEAD;
 		echo <<<CASTENTRY
 
 		<item>
-			<title>{$meta[ 'TITLE' ]}</title>
+			<title>{$epi} – {$meta[ 'TITLE' ]}</title>
 			<pubDate>{$meta['PUBLISHED']}</pubDate>
 			<itunes:duration>{$meta['DURATION']}</itunes:duration>
 			<link>https://steamlug.org/cast/{$epi}</link>
