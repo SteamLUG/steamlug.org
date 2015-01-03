@@ -57,6 +57,12 @@
 	function group_check($uid)
 	{
 		$groups = file_get_contents('http://api.steampowered.com/ISteamUser/GetUserGroupList/v0001/?key=' . getSteamAPIKey() . '&steamid=' . $uid);
+		if ($groups === false)
+		{
+			//Quick fix for Steam non-responsiveness and private user accounts
+			echo "Private account?";
+			return false;
+		}
 		echo $groups;
 		$groups = (array) json_decode($groups, true);
 		if (is_array($groups))
