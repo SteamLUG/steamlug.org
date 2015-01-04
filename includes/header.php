@@ -45,7 +45,15 @@ if(!login_check())
 	}
 ?>
 		<title>SteamLUG <?php echo $pageTitle; ?></title>
+		<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 		<link rel="stylesheet" href="/css/style.css" type="text/css" />
+		<script type="text/javascript" src="/js/jquery-2.1.1.min.js"></script>
+		<!-- START Bootstrap !-->
+		<link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css" />
+		<link rel="stylesheet" href="/css/bootstrap.slate.css" type="text/css" />
+		<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+		<!-- END Bootstrap !-->
+		
 		<script>
 			var serverTime = <?php echo microtime(true); ?>;
 		</script>
@@ -80,13 +88,9 @@ if(!login_check())
 	}
 ?>
 	</head>
-	<body>
+	<body style="padding: 70px 0 0 0;">
 <?php
 	$isBeta = true;
-	if ($isBeta)
-	{
-		echo "<img alt = 'beta ribbon' id = 'betaStamp' src = '/images/ribbon_beta2.png' />";
-	}
 	
 	
 	
@@ -108,40 +112,40 @@ if(!login_check())
 
 	if (strpos($_SERVER["SCRIPT_NAME"], "news.php"))
 	{
-		$newsPage = "current";
+		$newsPage = "active";
 	}
 	else if (strpos($_SERVER["SCRIPT_NAME"], "irc.php"))
 	{
-		$chatPage = "current"; //parent nav item
-		$ircPage = "current";
+		$chatPage = "active"; //parent nav item
+		$ircPage = "active";
 	}
 	else if (strpos($_SERVER["SCRIPT_NAME"], "mumble.php"))
 	{
-		$chatPage = "current"; //parent nav item
-		$mumblePage = "current";
+		$chatPage = "active"; //parent nav item
+		$mumblePage = "active";
 	}
 	else if (strpos($_SERVER["SCRIPT_NAME"], "gaming.php"))
 	{
-		$gamingPage = "current";
+		$gamingPage = "active";
 	}
 	else if (strpos($_SERVER["SCRIPT_NAME"], "events.php"))
 	{
-		$gamingPage = "current"; //parent nav item
-		$eventsPage = "current";
+		$gamingPage = "active"; //parent nav item
+		$eventsPage = "active";
 	}
 	else if (strpos($_SERVER["SCRIPT_NAME"], "servers.php"))
 	{
-		$serversPage = "current";
+		$serversPage = "active";
 	}
 	else if (strpos($_SERVER["SCRIPT_NAME"], "stream.php"))
 	{
-		$gamingPage = "current"; //parent nav item
-		$streamPage = "current";
+		$gamingPage = "active"; //parent nav item
+		$streamPage = "active";
 	}
 	else if (strpos($_SERVER["SCRIPT_NAME"], "projects.php"))
 	{
-		$projectsPage = "current";
-		$overviewPage = "current";
+		$projectsPage = "active";
+		$overviewPage = "active";
 	}
 	else if (strpos($_SERVER["SCRIPT_NAME"], "polls.php"))
 	{
@@ -155,40 +159,50 @@ if(!login_check())
 	}
 	else if (strpos($_SERVER["SCRIPT_NAME"], "cast.php"))
 	{
-		$castPage = "current";
+		$castPage = "active";
 	}
 	else if (strpos($_SERVER["SCRIPT_NAME"], "about.php"))
 	{
-		$aboutPage = "current";
+		$aboutPage = "active";
 	}
 ?>
-
-		<nav>
-			<ul>
-				<li class = '<?php echo $newsPage; ?>'><a href = '/news'>News</a></li>
-				<li class = '<?php echo $chatPage; ?>'><a href = '/irc'>Chat</a>
-					<ul class = '<?php echo $chatPage; ?>'>
-						<li class = '<?php echo $ircPage; ?>'><a href = '/irc'>IRC (text)</a></li>
-						<li class = '<?php echo $mumblePage; ?>'><a href = '/mumble'>Mumble (voice)</a></li>
+	<div class="navbar navbar-default navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="/">SteamLUG</a>
+			</div>
+			<div class="navbar-collapse collapse navbar-responsive-collapse">
+				<ul class="nav navbar-nav">
+					<li class="<?php echo $newsPage; ?>"><a href="/news">News</a></li>
+					<li class="dropdown <?php echo $chatPage; ?>">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Chat <b class="caret"></b></a>
+						<ul class="dropdown-menu <?php echo $chatPage; ?>">
+							<li class="<?php echo $ircPage; ?>"><a href="/irc">IRC (text)</a></li>
+							<li class="<?php echo $mumblePage; ?>"><a href="/mumble">Mumble (voice)</a></li>
+						</ul>
+					</li>
+					<li class="<?php echo $castPage; ?>"><a href="/cast">SteamLUG Cast</a></li>
+					<li class="dropdown <?php echo $gamingPage; ?>">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Events <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li class="<?php echo $eventsPage; ?>"><a href="/events">Events</a></li>
+							<li class="<?php echo $streamPage; ?>"><a href="/stream">Live Stream</a></li>
+						</ul>
+					</li>
+					<li class="<?php echo $serversPage; ?>"><a href="/servers">Servers</a></li>
+					<li class="dropdown <?php echo $projectsPage; ?>">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Projects <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li class="<?php echo $overviewPage; ?>"><a href="/projects">Overview</a></li>
+							<li class="<?php echo $pollPage; ?>"><a href="/polls">Polls</a><li>
+						</ul>
+					</li>
+					<li class="<?php echo $aboutPage; ?>"><a href="/about">About</a></li>
 					</ul>
-				</li>
-				<li class = '<?php echo $castPage; ?>'><a href = '/cast'>SteamLUG Cast</a></li>
-				<li class = '<?php echo $gamingPage; ?>'><a href = '/events'>Events</a>
-					<ul>
-						<li class = '<?php echo $eventsPage; ?>'><a href = '/events'>Events</a></li>
-						<li class = '<?php echo $streamPage; ?>'><a href = '/stream'>Live Stream</a></li>
+					<ul class="nav navbar-nav navbar-right">
+						<li class="navbar-brand"><span class="label label-success"><a href="http://steamcommunity.com/groups/steamlug/">Join our Steam Group</a></span></li>
 					</ul>
-				</li>
-				<li class = '<?php echo $serversPage; ?>'><a href = '/servers'>Servers</a></li>
-				<li class = '<?php echo $projectsPage; ?>'><a href = '/projects'>Projects</a>
-					<ul>
-						<li class = '<?php echo $overviewPage; ?>'><a href = '/projects'>Overview</a></li>
-						<li class = '<?php echo $pollPage; ?>'><a href = '/polls'>Polls</a></li>
-						<!--<li class = '<?php echo $pollArchivePage; ?>'><a href = '/poll-archive'>Poll Archive</a></li>-->
-					</ul>
-				</li>
-				<li class = '<?php echo $aboutPage; ?>'><a href = '/about'>About</a></li>
-			</ul>
-		</nav>
-		
-		<a id = 'groupLink' href = 'http://steamcommunity.com/groups/steamlug/'><p>Join our Steam group of over 5,000 members and take part in the community!<br /><br />Joining will also allow you to make use of upcoming website features!</p><img alt = 'Join our Steam Group!' src = '/images/group.png'></a>
+				</div>
+		</div>
+	</div>
+		<div class="container">
