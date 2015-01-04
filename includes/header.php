@@ -190,9 +190,11 @@ if(!login_check())
 						</ul>
 					</li>
 					<li class="<?php echo $serversPage; ?>"><a href="/servers">Servers</a></li>
-					<li class="dropdown <?php echo $projectsPage; ?>"><a href="/projects">Projects</a>
+					<li class="dropdown <?php echo $projectsPage; ?>">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Projects <b class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<li class="<?php echo $overviewPage; ?>"><a href="/projects">Overview</a></li>
+							<li class="<?php echo $pollPage; ?>"><a href="/polls">Polls</a><li>
 						</ul>
 					</li>
 					<li class="<?php echo $aboutPage; ?>"><a href="/about">About</a></li>

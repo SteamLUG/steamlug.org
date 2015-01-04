@@ -3,28 +3,27 @@
 	include_once("includes/header.php");
 	include_once("includes/lastRSS.php");
 ?>
-		<header>
-				<h1>SteamLUG Poll Admin</h1>
-		</header>
-		<section>
-			<article>
-				<div class = 'shadow'>
-					<h1>Poll Admin!</h1>
-					<p>You need to log in to view this page.</p>
+<h1 class="text-center">Poll Admin</h1>
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title">Polls</h3>
+			</div>
+			<div class="panel-body">
 					<?php
 						if(!login_check())
 						{
 							if (empty($steam_login_verify))
 							{
 								$steam_sign_in_url = SteamSignIn::genUrl();
+								echo "<p>You need to log in to view this page.</p>";
 								echo "<a class = 'steamLogin' href=\"$steam_sign_in_url\"><img src='http://cdn.steamcommunity.com/public/images/signinthroughsteam/sits_small.png' alt = 'Log into Steam' /></a>";
 							}
 						}
 						else
 						{
 							echo "<p>You are currently logged in. Click to <a href = 'logout.php'>log out</a></p>";
-							echo "<form action = '' method = 'get'>\n";
-							echo "<!-- " . $_SESSION['u'] . "-->";
+							echo "<form class=\"form-horizontal\" action = '' method = 'get'>\n";
+							echo "<!-- " . $_SESSION['u'] . " !-->\n";
 							//include_once("creds.php");
 							
 							
@@ -42,12 +41,18 @@
 							
 							
 							showPollSelector('poll', (isset($_GET['poll']) ? $_GET['poll'] : -1), True, 20);
-							echo "\t<div class = 'formPair'>\n";
-							echo "\t<label for = 'deletePoll'>Delete</label>\n";
-							echo "\t<input type = 'checkbox' id = 'deletePoll' name = 'deletePoll'>\n";
-							echo "\t</div>\n";
-							echo "<input type = 'submit' value = 'Go'/>";
-							echo "</form>\n";
+							echo "<div class=\"form-group\">
+						    	    <label for=\"deletePoll\" class=\"col-lg-2 control-label\">Delete</label>
+      								<div class=\"col-lg-10\">
+										<input type=\"checkbox\" id=\"deletePoll\" name=\"deletePoll\">\n
+    							 	</div>
+							    </div>
+								<div class=\"form-group\">
+							      <div class=\"col-lg-12\">
+							        <button type=\"submit\" class=\"btn btn-default\">Go</button>
+ 							     </div>
+							    </div>
+							</form>\n";
 
 							showPollAdmin();
 						}
