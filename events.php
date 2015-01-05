@@ -51,7 +51,7 @@ foreach ($data['events'] as $event)
 	}
 
 	$eventTitle = "\t\t<h2><a href='" . $event['url'] . "'>" .  $event['title'] . "</a></h2>";
-	($event['appid'] !== 0 ? 
+	($event['appid'] !== 0 ?
 			$eventImage = "\t\t\t<a href='" . $event['url'] . "'><img class=\"img-rounded eventimage\" src='" . $event['img_header'] . "' alt='" . $event['title'] . "'/></a>\n" :
 			$eventImage = "\t\t\t<h1>?</h1>\n"
 	);

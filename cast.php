@@ -109,27 +109,25 @@ if (isset($d) && strtotime($d[0] . "-" . $d[1] . "-" .$d[2])-strtotime(date("Y-m
 			<h3 class="panel-title">Upcoming Episode</h3>
 		</div>
 		<div class="panel-body">
-			<h4><a href = '{$u}'>{$s} {$c}</a></h4>
+			<h4><a href="{$u}">{$s} {$c}</a></h4>
 			<p>Listen in live as our hosts and guests discuss Linux gaming!</p>
 			<p>This episode will be recorded on {$dt}</p>
 			<p>Feel free to join our <a href="mumble">SteamLUG Mumble server</a> before, during and after the show!</p>
-			<p>
-				<div class="btn-group">
-					<span class="btn btn-primary btn-sm">Days</span>
-					<span id="d1" class="btn btn-default btn-sm">0</span>
-					<span id="d2" class="btn btn-default btn-sm">0</span>
-					<span class="btn btn-primary btn-sm">Hours</span>
-					<span id="h1" class="btn btn-default btn-sm">0</span>
-					<span id="h2" class="btn btn-default btn-sm">0</span>
-					<span class="btn btn-primary btn-sm">Minutes</span>
-					<span id="m1" class="btn btn-default btn-sm">0</span>
-					<span id="m2" class="btn btn-default btn-sm">0</span>
-					<span class="btn btn-primary btn-sm">Seconds</span>
-					<span id="s1" class="btn btn-default btn-sm">0</span>
-					<span id="s2" class="btn btn-default btn-sm">0</span>
-				</div>
-			</p>
-			<p><button class="btn btn-info"><a href ="{$u}">Click for details</a></button></p>
+			<div id="countdown">
+				<span class="label">Days</span>
+				<span id="d1">0</span>
+				<span id="d2">0</span>
+				<span class="label">Hours</span>
+				<span id="h1">0</span>
+				<span id="h2">0</span>
+				<span class="label">Minutes</span>
+				<span id="m1">0</span>
+				<span id="m2">0</span>
+				<span class="label">Seconds</span>
+				<span id="s1">0</span>
+				<span id="s2">0</span>
+			</div>
+			<p><button class="btn btn-info"><a href="{$u}">Click for details</a></button></p>
 		</div>
 	</div>
 </div>
@@ -397,12 +395,12 @@ CASTENTRY;
 $(function() {
 
   $.extend($.tablesorter.themes.bootstrap, {
-	table	   : '',
-    caption    : 'caption',
-    header     : 'bootstrap-header', // give the header a gradient background
-    sortNone   : 'fa fa-unsorted',
-    sortAsc    : 'fa fa-sort-up',     // includes classes for Bootstrap v2 & v3
-    sortDesc   : 'fa fa-sort-down', // includes classes for Bootstrap v2 & v3
+	table		: '',
+    caption		: 'caption',
+    header		: 'bootstrap-header',	// give the header a gradient background
+    sortNone	: 'fa fa-unsorted',
+    sortAsc		: 'fa fa-sort-up',		// includes classes for Bootstrap v2 & v3
+    sortDesc	: 'fa fa-sort-down',	// includes classes for Bootstrap v2 & v3
   });
   $("#casts").tablesorter({
     theme : "bootstrap",
