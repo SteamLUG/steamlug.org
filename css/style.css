@@ -190,3 +190,6 @@ li.highlighted,
 {
 		opacity: 1.0 !important
 }
+
+/* Bootstrap needs JS for this, apparently? Confirm this is decent for all */
+li.dropdown:hover > .dropdown-menu, .dropdown-menu:hover { display:block; }
