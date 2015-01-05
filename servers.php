@@ -23,7 +23,7 @@ $syncexternalJS = array('/scripts/jquery.js','/scripts/jquery.tablesorter.js','/
 	));
 	}
 
-	$gq->setOption('timeout', 1); 
+	$gq->setOption('timeout', 1);
 	$gq->setFilter('normalise');
 	$results = $gq->requestData();
 
@@ -33,11 +33,10 @@ $syncexternalJS = array('/scripts/jquery.js','/scripts/jquery.tablesorter.js','/
 		{
 			print_table($data);
 		}
-
 	}
-	
+
 	function print_table($data)
-	 {
+	{
 		$serverHost = $data['gq_address'] . ":" . $data['gq_port'];
 		$serverString = "";
 		if (!$data['gq_online'])
@@ -104,11 +103,6 @@ $syncexternalJS = array('/scripts/jquery.js','/scripts/jquery.tablesorter.js','/
 	print_results($results);
 ?>
 					</tbody>
-					<tfoot>
-						<tr>
-							<td colspan=7>
-						</tr>
-					</tfoot>
 				</table>
 			</div>
 		</div>
@@ -118,12 +112,12 @@ $syncexternalJS = array('/scripts/jquery.js','/scripts/jquery.tablesorter.js','/
 $(function() {
 
   $.extend($.tablesorter.themes.bootstrap, {
-	table	   : '',
-    caption    : 'caption',
-    header     : 'bootstrap-header', // give the header a gradient background
-    sortNone   : 'fa fa-unsorted',
-    sortAsc    : 'fa fa-sort-up',     // includes classes for Bootstrap v2 & v3
-    sortDesc   : 'fa fa-sort-down', // includes classes for Bootstrap v2 & v3
+	table		: '',
+    caption		: 'caption',
+    header		: 'bootstrap-header',	// give the header a gradient background
+    sortNone	: 'fa fa-unsorted',
+    sortAsc		: 'fa fa-sort-up',		// includes classes for Bootstrap v2 & v3
+    sortDesc	: 'fa fa-sort-down',	// includes classes for Bootstrap v2 & v3
   });
   $("#servers").tablesorter({
     theme : "bootstrap",
