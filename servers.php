@@ -38,35 +38,42 @@ $syncexternalJS = array('/scripts/jquery.js','/scripts/jquery.tablesorter.js','/
 	function print_table($data)
 	{
 		$serverHost = $data['gq_address'] . ":" . $data['gq_port'];
-		$serverString = "";
 		if (!$data['gq_online'])
 		{
-			$serverString .= "\t\t<tr>\n";
-			$serverString .= "\t\t\t<td>\n";
-			$serverString .= "\t\t\t<td>\n";
-			$serverString .= "\t\t\t<td>\n";
-			$serverString .= "\t\t\t<td><em>Server Unresponsive</em>\n";
-			$serverString .= "\t\t\t<td><em>" . $serverHost . "</em>\n";
-			$serverString .= "\t\t\t<td><em>N/A</em>\n";
-			$serverString .= "\t\t\t<td><em>N/A</em>\n";
-			$serverString .= "\t\t\t<td><span class=\"text-danger\"><i class=\"fa fa-circle-o\"></i></span>\n";
-			$serverString .= "\t\t</tr>\n";
+			echo <<<SERVERSTRING
+			<tr class="unresponsive">
+				<td></td>
+				<td></td>
+				<td></td>
+				<td><em>Server Unresponsive</em></td>
+				<td><em>{$serverHost}</em></td>
+				<td><em>N/A</em></td>
+				<td><em>N/A</em></td>
+				<td><span class="text-danger"><i class="fa fa-circle-o"></i></span></td>
+			</tr>
+SERVERSTRING;
 		}
 		else
 		{
-			$serverLoc  = geoip_country_code_by_name($data['gq_address']);
-			$serverString .= "\t\t<tr>\n";
-			$serverString .= "\t\t\t<td><span style='display:none'>" . $serverLoc . "</span><img src='/images/flags/" . $serverLoc . ".png' alt='Hosted in " . $serverLoc . "'>\n";
-			$serverString .= "\t\t\t<td>" . (isset($data['secure']) ? "<i class=\"fa fa-shield\"></i>" : "") . "\n";
-			$serverString .= "\t\t\t<td>" . ($data['gq_password'] == "1" ? "<i class=\"fa fa-lock\"></i>" : "") . "\n";
-			$serverString .= "\t\t\t<td>" . (isset($data['game_descr']) ? ($data['game_descr'] == "Team Fortress" ? "Team Fortress 2" : $data['game_descr']) : ($data['gq_type'] == "killingfloor" ? "Killing Floor" : $data['gq_type'])) . "\n";
-			$serverString .= "\t\t\t<td><a href='steam://connect/" . $serverHost . "'>" . $data['gq_hostname'] . "</a>\n";
-			$serverString .= "\t\t\t<td>" . ($data['gq_numplayers'] ? $data['gq_numplayers'] : "0") . " / " . $data['gq_maxplayers'] . "\n";
-			$serverString .= "\t\t\t<td>" . $data['gq_mapname'] . "\n";
-			$serverString .= "\t\t\t<td><span class=\"text-success\"><i class=\"fa fa-circle\"></i></span>\n";
-			$serverString .= "\t\t</tr>\n";
+			/* this block of code should be better… TODO it please */
+			$serverLoc	= geoip_country_code_by_name($data['gq_address']);
+			$serverSec	= isset($data['secure']) ? '<i class="fa fa-shield"></i>' : "";
+			$serverPass	= $data['gq_password'] == "1" ? '<i class="fa fa-shield"></i>' : "";
+			$serverDesc	= isset($data['game_descr']) ? ($data['game_descr'] == "Team Fortress" ? "Team Fortress 2" : $data['game_descr']) : ($data['gq_type'] == "killingfloor" ? "Killing Floor" : $data['gq_type']);
+			$serverNum	= ($data['gq_numplayers'] ? $data['gq_numplayers'] : "0") . " / " . $data['gq_maxplayers'];
+			echo <<<SERVERSTRING
+			<tr>
+				<td><span style="display:none">{$serverLoc}</span><img src="/images/flags/{$serverLoc}.png" alt="Hosted in {$serverLoc}"></td>
+				<td>{$serverSec}</td>
+				<td>{$serverPass}</td>
+				<td>{$serverDesc}</td>
+				<td><a href="steam://connect/{$serverHost}">{$data['gq_hostname']}</a>
+				<td>{$serverNum}</td>
+				<td>{$data['gq_mapname']}</td>
+				<td><span class="text-success"><i class="fa fa-circle"></i></span></td>
+			</tr>
+SERVERSTRING;
 		}
-	echo $serverString;
 	}
 ?>
 		<h1 class="text-center">SteamLUG Game Servers</h1>
@@ -99,8 +106,7 @@ $syncexternalJS = array('/scripts/jquery.js','/scripts/jquery.tablesorter.js','/
 					</thead>
 					<tbody>
 <?php
-
-	print_results($results);
+					print_results($results);
 ?>
 					</tbody>
 				</table>
