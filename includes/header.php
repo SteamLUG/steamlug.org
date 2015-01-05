@@ -88,12 +88,10 @@ if(!login_check())
 	}
 ?>
 	</head>
-	<body style="padding: 70px 0 0 0;">
+	<body>
 <?php
 	$isBeta = true;
-	
-	
-	
+
 	$newsPage = "";
 	$chatPage = "";
 	$ircPage = "";
@@ -166,7 +164,7 @@ if(!login_check())
 		$aboutPage = "active";
 	}
 ?>
-	<div class="navbar navbar-default navbar-fixed-top">
+	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container">
 			<div class="navbar-header">
 				<a class="navbar-brand" href="/">SteamLUG</a>
@@ -204,5 +202,5 @@ if(!login_check())
 					</ul>
 				</div>
 		</div>
-	</div>
+	</nav>
 		<div class="container">
