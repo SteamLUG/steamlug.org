@@ -172,16 +172,21 @@ li.highlighted,
 	width: 154px;
 }
 
-.mumbleUser, .mumbleChannel {
+#mumble-list ul {
         list-style-type: none;
 }
 
-ul > li.mumbleChannel > ul > li.mumbleChannel 
+#mumble-list li li.channel
 {
 		opacity: 0.6;
 }
 
-ul > li.mumbleChannel > ul > li.mumbleChannel > ul > li.mumbleChannel
+#mumble-list li li li.channel
 {
 		opacity: 0.4;
+}
+
+#mumble-list li.user
+{
+		opacity: 1.0 !important
 }

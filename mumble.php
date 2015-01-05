@@ -17,7 +17,7 @@
 	$murmur = new MurmurQuery();
 	$murmur->setup($settings);
 	$murmur->query();
-	
+
 	$statusOnline = "Pending";
 	$statusChannels = 0;
 	$statusUsers = 0;
@@ -35,11 +35,11 @@
 			{
 					if (isset($value['users']))
 					{
-						$statusString .= "<li class=\"mumbleChannel\"><i class=\"fa fa-group text-warning\"></i> " . $value['name'];
+						$statusString .= "<li class=\"channel\"><i class=\"fa fa-group text-warning\"></i> " . $value['name'];
 					}
 					else
 					{
-						$statusString .= "<li class=\"mumbleUser\"><i class=\"fa fa-user text-info\"></i> " . $value['name'];
+						$statusString .= "<li class=\"user\"><i class=\"fa fa-user text-info\"></i> " . $value['name'];
 					}
 
 					if ( isset($value['users']) && is_array($value['users']) && count($value['users']) > 0 && isset($value['name']))
@@ -87,7 +87,7 @@
 		$statusChannels = "N/A";
 		$statusUsers = "N/A";
 	}
-	Users($rootChannels);	
+	Users($rootChannels);
 ?>
 		<dl class="dl-horizontal">
 			<dt>Server</dt><dd>Online</dd>
@@ -102,14 +102,11 @@
 		<div class="panel-heading">
 			<h3 class="panel-title">Status</h3>
 		</div>
-		<div class="panel-body">
-			<div class="row">
-	</div>
+		<div class="panel-body" id="mumble-list">
 <?php
 	echo $statusString;
 
 ?>
 		</div>
 	</div>
-</div>
 <?php	include_once('includes/footer.php'); ?>
