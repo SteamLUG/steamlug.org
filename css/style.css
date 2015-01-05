@@ -193,3 +193,25 @@ li.highlighted,
 
 /* Bootstrap needs JS for this, apparently? Confirm this is decent for all */
 li.dropdown:hover > .dropdown-menu, .dropdown-menu:hover { display:block; }
+
+/* finesse this… */
+#countdown span:not(.label)
+{
+	font-family: 'OrbitronMedium', Arial, sans-serif;
+	background-color: #303030;
+	display: inline-block;
+	width: 1.5em;
+	text-align: center;
+	line-height: 1.25em;
+	padding-top: 4px;
+	text-shadow: none;
+	border-radius: 3px;
+	text-align: center;
+	box-shadow: 0 -10px 16px -10px #000000 inset, 0px 0px 2px 1px rgba(0,0,0,0.5);
+	margin-top: 3px;
+}
+
+#countdown
+{
+	margin-bottom: 1em;
+}

@@ -50,38 +50,36 @@ foreach ($data['events'] as $event)
 		continue;
 	}
 
-	$eventTitle = "\t\t\t\t<h2><a href='" . $event['url'] . "'>" .  $event['title'] . "</a></h2>";
+	$eventTitle = "\t\t<h2><a href='" . $event['url'] . "'>" .  $event['title'] . "</a></h2>";
 	($event['appid'] !== 0 ? 
-			$eventImage = "\t\t\t\t\t<a href='" . $event['url'] . "'><img class=\"img-rounded eventimage\" src='" . $event['img_header'] . "' alt='" . $event['title'] . "'/></a>\n" :
-			$eventImage = "\t\t\t\t\t<h1>?</h1>\n"
+			$eventImage = "\t\t\t<a href='" . $event['url'] . "'><img class=\"img-rounded eventimage\" src='" . $event['img_header'] . "' alt='" . $event['title'] . "'/></a>\n" :
+			$eventImage = "\t\t\t<h1>?</h1>\n"
 	);
-			$eventButton = "\t\t\t\t<p><a class=\"btn btn-primary btn-lg\" href=\"" . $event['url'] . "\">Click for details</a></p>\n";
+			$eventButton = "\t\t<p><a class=\"btn btn-primary btn-lg\" href=\"" . $event['url'] . "\">Click for details</a></p>\n";
 	break;
 }
 ?>
-			<?php echo $eventTitle; ?>
-			<p>
-				<div class="btn-group">
-					<span class="btn btn-primary btn-sm">Days</span>
-					<span id="d1" class="btn btn-default btn-sm">0</span>
-					<span id="d2" class="btn btn-default btn-sm">0</span>
-					<span class="btn btn-primary btn-sm">Hours</span>
-					<span id="h1" class="btn btn-default btn-sm">0</span>
-					<span id="h2" class="btn btn-default btn-sm">0</span>
-					<span class="btn btn-primary btn-sm">Minutes</span>
-					<span id="m1" class="btn btn-default btn-sm">0</span>
-					<span id="m2" class="btn btn-default btn-sm">0</span>
-					<span class="btn btn-primary btn-sm">Seconds</span>
-					<span id="s1" class="btn btn-default btn-sm">0</span>
-					<span id="s2" class="btn btn-default btn-sm">0</span>
+				<?php echo $eventTitle; ?>
+				<div id="countdown">
+					<span class="label">Days</span>
+					<span id="d1">0</span>
+					<span id="d2">0</span>
+					<span class="label">Hours</span>
+					<span id="h1">0</span>
+					<span id="h2">0</span>
+					<span class="label">Minutes</span>
+					<span id="m1">0</span>
+					<span id="m2">0</span>
+					<span class="label">Seconds</span>
+					<span id="s1">0</span>
+					<span id="s2">0</span>
 				</div>
-			</p>
+				<?php echo $eventButton; ?>
 			</div>
 			<div class="col-md-6">
 					<?php echo $eventImage; ?>
 			</div>
 			</div>
-			<?php echo $eventButton; ?>
 		</div>
 			<div class="panel panel-default">
 				<div class="panel-heading">
@@ -122,13 +120,15 @@ foreach ($data['events'] as $event)
 		if ($event["appid"] === 0) {
 			continue;
 		}
-		$eventString = "\t\t\t<tr>\n";
-		$eventString .= "\t\t\t\t\t<td><img class = 'eventLogo' src = '" . $event['img_small'] . "' alt = '" . $event['title'] . "' >\n";
-		$eventString .= "\t\t\t\t\t<td><a href = '" . $event['url'] . "' >" . $event['title'] . "</a>";
-		$eventString .= "\t\t\t\t\t<td>" . ($event['comments'] > "0" ? "<a href = '" . $event['url'] . "' >" . $event['comments'] . " " . ($event['comments'] == "1" ? "comment.." : "comments..") . "</a>\t" : "");
-		$eventString .= "\t\t\t\t\t<td>" . $event['date'] . " " . $event['time'] . " " . $event['tz'] . "\n";
-		$eventString .= "\t\t\t</tr>\n";
-		echo $eventString;
+		$comments = ($event['comments'] > "0" ? "<a href=\"{$event['url']}\">" . $event['comments'] . " " . ($event['comments'] == "1" ? "comment…" : "comments…") . "</a>	" : "");
+		echo <<<EVENTSTRING
+			<tr>
+				<td><img class="eventLogo" src="{$event['img_small']}" alt="{$event['title']}" ></td>
+				<td><a href="{$event['url']}">{$event['title']}</a></td>
+				<td>{$comments}</td>
+				<td>{$event['date']} {$event['time']} {$event['tz']}</td>
+			</tr>
+EVENTSTRING;
 	}
 ?>
 		</tbody>
