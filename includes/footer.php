@@ -1,5 +1,5 @@
 		</div>
-		<div class="navbar-default navbar-bottom">
+		<footer class="navbar-default navbar-bottom">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-3">
@@ -41,7 +41,7 @@
 				<p class="muted credit text-center">This site is not affiliated with or endorsed by Valve, Steam, or any of their partners.<br />
 All registered trademarks or copyrights are property of their respective owners.</p>
 			</div>
-		</div>
+		</footer>
 	</body>
 <?php
 if (isset($tailJS)) {
