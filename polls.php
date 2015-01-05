@@ -17,7 +17,7 @@
 							if (empty($steam_login_verify))
 							{
 								$steam_sign_in_url = SteamSignIn::genUrl();
-								echo "<a class = 'steamLogin' href=\"$steam_sign_in_url\"><img src='http://cdn.steamcommunity.com/public/images/signinthroughsteam/sits_small.png' alt = 'Log into Steam' /></a>";
+								echo "<a class = 'steamLogin' href=\"$steam_sign_in_url\"><img src='https://steamcommunity.com/public/images/signinthroughsteam/sits_large_noborder.png' alt = 'Log into Steam' /></a>";
 							}
 						}
 						else
@@ -29,5 +29,5 @@
 
 				</div>
 		</div>
-					<?php 	showCurrentPolls(); ?>
+					<?php	showCurrentPolls(); ?>
 <?php include_once("includes/footer.php"); ?>
