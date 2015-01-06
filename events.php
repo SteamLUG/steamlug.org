@@ -44,7 +44,6 @@ $eventImage = "";
 $eventTitle = "";
 foreach ($data['events'] as $event)
 {
-	$event['img_header'] = "//steamcdn-a.akamaihd.net/steam/apps/" . $event["appid"] . "/header.jpg";
 	if ($event['appid'] === 0)
 	{
 		continue;
@@ -123,7 +122,7 @@ foreach ($data['events'] as $event)
 		$comments = ($event['comments'] > "0" ? "<a href=\"{$event['url']}\">" . $event['comments'] . " " . ($event['comments'] == "1" ? "comment…" : "comments…") . "</a>	" : "");
 		echo <<<EVENTSTRING
 			<tr>
-				<td><img class="eventLogo" src="{$event['img_small']}" alt="{$event['title']}" ></td>
+				<td><img class="eventLogo" src="{$event['img_icon']}" alt="{$event['title']}" ></td>
 				<td><a href="{$event['url']}">{$event['title']}</a></td>
 				<td>{$comments}</td>
 				<td>{$event['date']} {$event['time']} {$event['tz']}</td>
@@ -159,7 +158,7 @@ EVENTSTRING;
 		}
 
 		$eventString = "\t\t\t<tr>\n";
-		$eventString .= "\t\t\t\t\t<td><img class = 'eventLogo' src = '" . $event['img_small'] . "' alt = '" . $event['title'] . "' >\n";
+		$eventString .= "\t\t\t\t\t<td><img class = 'eventLogo' src = '" . $event['img_icon'] . "' alt = '" . $event['title'] . "' >\n";
 		$eventString .= "\t\t\t\t\t<td><a href = '" . $event['url'] . "' >" . $event['title'] . "</a>";
 		$eventString .= "\t\t\t\t\t<td>" . ($event['comments'] > "0" ? "<a href = '" . $event['url'] . "' >" . $event['comments'] . " " . ($event['comments'] == "1" ? "comment.." : "comments..") . "</a>\t" : "");
 		$eventString .= "\t\t\t\t\t<td>" . $event['date'] . " " . $event['time'] . " " . $event['tz'] . "\n";
