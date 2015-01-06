@@ -127,7 +127,7 @@ if (isset($d) && strtotime($d[0] . "-" . $d[1] . "-" .$d[2])-strtotime(date("Y-m
 				<span id="s1">0</span>
 				<span id="s2">0</span>
 			</div>
-			<p><a href="{$u}" class="btn btn-info">Click for details</a></p>
+			<p><a href="{$u}" class="btn btn-primary btn-lg">Click for details</a></p>
 		</div>
 	</div>
 </div>
