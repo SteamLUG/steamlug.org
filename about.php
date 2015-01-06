@@ -3,7 +3,7 @@
 ?>
 <?php include_once("includes/header.php"); ?>
 <h1 class="text-center">About SteamLUG</h1>
-		<div class="panel panel-primary">
+		<article class="panel panel-primary">
 			<div class="panel-heading">
 				<h3 class="panel-title">Community</h3>
 			</div>
@@ -19,8 +19,8 @@
 				<footer>Cheese</footer>
 				</blockquote>
 			</div>
-		</div>
-		<div class="panel panel-primary">
+		</article>
+		<article class="panel panel-primary">
 			<div class="panel-heading">
 				<h3 class="panel-title">Activities</h3>
 			</div>
@@ -40,8 +40,8 @@
 					</div>
 				</div>
 			</div>
-		</div>
-		<div class="panel panel-primary">
+		</article>
+		<article class="panel panel-primary">
 			<div class="panel-heading">
 				<h3 class="panel-title">Contact</h3>
 			</div>
@@ -55,8 +55,8 @@
 					<dt>Projects</dt><dd><a href = 'http://steamcommunity.com/id/cheeseness'>Cheeseness</a> <em>(<a href = 'https://twitter.com/ValiantCheese'>@ValiantCheese</a> on twitter)</em></dd>
 				</dl>
 			</div>
-		</div>
-		<div class="panel panel-primary">
+		</article>
+		<article class="panel panel-primary">
 			<div class="panel-heading">
 				<h3 class="panel-title">History</h3>
 			</div>
@@ -75,8 +75,8 @@
 <p>SteamLUG.org also makes use of xPaw's <a href = 'https://github.com/xPaw/PHP-Source-Query-Class'>PHP-Source-Query-Class</a> library, Vojtech Semecky's <a href = 'http://lastrss.oslab.net/'>lastRSS</a>, and edmundask's <a href = 'https://github.com/edmundask/MurmurQuery'>MurmurQuery</a>.</p>
 
 			</div>
-		</div>
-		<div class="panel panel-primary">
+		</article>
+		<article class="panel panel-primary">
 			<div class="panel-heading">
 				<h3 class="panel-title">Steam for Linux</h3>
 			</div>
@@ -90,6 +90,6 @@
 <p>Steam for Linux was fully released in February 2013 with over 60 titles (<em>more than the Steam for Mac launch</em>), accompanied by a Linux title sale and a <a href = 'http://teamfortress.com/linux'>promotional item</a> for anybody who played Team Fortress 2 during the following two weeks.</p>
 <p>Valve continue to release additional titles, and the catalogue of non-Valve games continues to grow.</p>
 			</div>
-		</div>
+		</article>
 
 <?php include_once("includes/footer.php"); ?>

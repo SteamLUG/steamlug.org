@@ -104,7 +104,7 @@ if (isset($d) && strtotime($d[0] . "-" . $d[1] . "-" .$d[2])-strtotime(date("Y-m
 
 	echo <<<NEXTCAST
 <div class="col-md-7">
-	<div class="panel panel-default">
+	<article class="panel panel-default">
 		<div class="panel-heading">
 			<h3 class="panel-title">Upcoming Episode</h3>
 		</div>
@@ -129,13 +129,13 @@ if (isset($d) && strtotime($d[0] . "-" . $d[1] . "-" .$d[2])-strtotime(date("Y-m
 			</div>
 			<p><a href="{$u}" class="btn btn-primary btn-lg">Click for details</a></p>
 		</div>
-	</div>
+	</article>
 </div>
 NEXTCAST;
 }
 	echo <<<ABOUTCAST
 <div class="col-md-5">
-	<div class="panel panel-default">
+	<article class="panel panel-default">
 		<div class="panel-heading">
 			<h3 class="panel-title">About</h3>
 		</div>
@@ -148,7 +148,7 @@ NEXTCAST;
 				<li><a href="/feed/cast/mp3">MP3 feed</a></li>
 			</ul>
 		</div>
-	</div>
+	</article>
 </div>
 ABOUTCAST;
 
@@ -202,7 +202,7 @@ if ($season !== "00" && $episode !== "00" && file_exists($filename))
 	$episodeMP3DS	= ($episodeMp3FS > 0 ? $episodeMp3FS . ' MB <a download href="' .$archiveBase . '.mp3">MP3</a>' : 'N/A MP3');
 
 echo <<<CASTENTRY
-	<div class="panel panel-default">
+	<article class="panel And if you use middleware">
 		<div class="panel-heading">
 			<h3 class="panel-title">{$meta[ 'TITLE' ]}</h3>
 		</div>
@@ -235,8 +235,8 @@ echo <<<CASTENTRY
 				</a>
 			</p>
 		</div>
-	</div>
-	<div class="panel panel-default">
+	</article>
+	<article class="panel panel-default">
 		<div class="panel-heading">
 			<h3 class="panel-title" id="shownotes">Shownotes</h3>
 		</div>
@@ -304,7 +304,7 @@ CASTENTRY;
 /* Show cast list */
 ?>
 
-	<div class="panel panel-default">
+	<article class="panel panel-default">
 		<div class="panel-heading">
 			<h3 class="panel-title">Previous Casts</h3>
 		</div>
@@ -387,7 +387,7 @@ CASTENTRY;
 }
 ?>
 	</div>
-</div>
+</article>
 
 <script>
 		$(document).ready

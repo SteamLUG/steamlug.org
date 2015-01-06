@@ -57,7 +57,7 @@
 	}
 ?>
 	<h1 class="text-center">SteamLUG Mumble Server</h1>
-	<div class="panel panel-default">
+	<article class="panel panel-default">
 		<div class="panel-heading">
 			<h3 class="panel-title">About</h3>
 		</div>
@@ -89,16 +89,16 @@
 	}
 	Users($rootChannels);
 ?>
-		<dl class="dl-horizontal">
-			<dt>Server</dt><dd>Online</dd>
-			<dt>Version</dt><dd><?=$info['x_gtmurmur_server_version'];?></dd>
-			<dt>Channels</dt><dd><?=$statusChannels;?></dd>
-			<dt>Users</dt><dd><?=$statusUsers;?> / <?=$info['x_gtmurmur_max_users'];?></dd>
-		</dl>
-			</div>
+			<dl class="dl-horizontal">
+				<dt>Server</dt><dd>Online</dd>
+				<dt>Version</dt><dd><?=$info['x_gtmurmur_server_version'];?></dd>
+				<dt>Channels</dt><dd><?=$statusChannels;?></dd>
+				<dt>Users</dt><dd><?=$statusUsers;?> / <?=$info['x_gtmurmur_max_users'];?></dd>
+			</dl>
 			</div>
 		</div>
-	<div class="panel panel-default">
+	</article>
+	<article class="panel panel-default">
 		<div class="panel-heading">
 			<h3 class="panel-title">Status</h3>
 		</div>
@@ -108,5 +108,5 @@
 
 ?>
 		</div>
-	</div>
+	</article>
 <?php	include_once('includes/footer.php'); ?>
