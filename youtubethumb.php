@@ -143,6 +143,7 @@ if ($season !== "00" && $episode !== "00" && file_exists($filename))
 
 	$guestsBlockOffset = 0; $hostsBlockOffset = 0;
 	$guestsIncludeString = "";$hostsIncludeString = "";
+	$alignment = array(0, 610, 520, 430, 340, 250);
 
 	if (!empty($listHosts)) {
 		$hosts = count($listHosts);
@@ -155,7 +156,7 @@ if ($season !== "00" && $episode !== "00" && file_exists($filename))
 HOSTINCLUDE;
 			$startIndex += 180;
 		}
-		$hostsBlockOffset = [0, 610, 520, 430, 340, 250][$hosts];
+		$hostsBlockOffset = $alignment[$hosts];
 	}
 
 	if (!empty($listGuest)) {
@@ -169,7 +170,7 @@ HOSTINCLUDE;
 HOSTINCLUDE;
 			$startIndex += 180;
 		}
-		$guestsBlockOffset = [0, 610, 520, 430, 340, 250][$guests];
+		$guestsBlockOffset = $alignment[$guests];
 	}
 
 	$castEntry = <<<THUMB
