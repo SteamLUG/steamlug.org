@@ -41,10 +41,10 @@
 		$poll = array();
 		if ($stmt)
 		{
-			echo "<div class=\"form-group\" id = \"" . $elementID . "\">\n
+			echo "<div class=\"form-group\">\n
 					<label for=\"pollSelect\" class=\"col-lg-2 control-label\">Select Poll</label>\n
 					<div class=\"col-lg-10\">
-					\t<select id=\"select\" class=\"form-control\" name=\"pollSelect\">\n";
+					\t<select id=\"select\" class=\"form-control\" name=\"" . $elementID . "\" id=\"" . $elementID . "\">\n";
 			if ($new)
 			{
 				echo "\t\t<option value=\"-1\">-- New --</option>\n";
