@@ -53,15 +53,17 @@ class SteamEventParser {
 						$a = $subnode->firstChild;
 						$_url = $a->getAttribute("href");
 						$img = $a->firstChild;
-						$_img_small = $img->getAttribute("src");
-						$_appid = explode("/", $_img_small);
+						$_img_icon = $img->getAttribute("src");
+						// relocate onto a // aware domain, cdn.akamai.steamstatic.com → steamcdn-a.akamaihd.net
+						$_img_icon = str_replace( "http://cdn.akamai.steamstatic.com", "//steamcdn-a.akamaihd.net", $_img_icon);
+						$_appid = explode("/", $_img_icon);
 						$_appid = intval($_appid[count($_appid) - 2]);
 						if ($_appid === 0) {
 							$_img_header = "";
 							$_img_header_small = "";
 						} else {
-							$_img_header = "http://cdn.akamai.steamstatic.com/steam/apps/" . $_appid . "/header.jpg";
-							$_img_header_small = "http://cdn.akamai.steamstatic.com/steam/apps/" . $_appid . "/header_292x136.jpg";
+							$_img_header = "//steamcdn-a.akamaihd.net/steam/apps/" . $_appid . "/header.jpg";
+							$_img_header_small = "//steamcdn-a.akamaihd.net/steam/apps/" . $_appid . "/header_292x136.jpg";
 						}
 					} elseif ($class === "eventBlockTitle") {
 						$l = $subnode->childNodes;
@@ -96,7 +98,7 @@ class SteamEventParser {
 		$event["time"] = $tempDate->format("H:i");
 		$event["tz"] = $tempDate->format("e");
 		$event["appid"] = $_appid;
-		$event["img_small"] = $_img_small;
+		$event["img_icon"] = $_img_icon;
 		$event["img_header"] = $_img_header;
 		$event["img_header_small"] = $_img_header_small;
 		return $event;

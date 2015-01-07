@@ -84,7 +84,7 @@
 			</div>
 			<div class="panel-body">
 				<p class="text-center">
-					<img src="//steamcdn-a.akamaihd.net/steam/apps/<?=$data["events"][1]["appid"];?>/header.jpg" alt="<?=$data["events"][0]["title"];?>" />
+					<img src="<?=$data["events"][0]["img_header"];?>" alt="<?=$data["events"][0]["title"];?>" />
 				</p>
 				<p>
 					<a href="<?=$data["events"][0]["url"];?>" class="btn btn-primary">Click for details</a>
