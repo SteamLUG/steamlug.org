@@ -61,9 +61,11 @@ class SteamEventParser {
 						if ($_appid === 0) {
 							$_img_header = "";
 							$_img_header_small = "";
+							$_img_capsule = "";
 						} else {
 							$_img_header = "//steamcdn-a.akamaihd.net/steam/apps/" . $_appid . "/header.jpg";
 							$_img_header_small = "//steamcdn-a.akamaihd.net/steam/apps/" . $_appid . "/header_292x136.jpg";
+							$_img_capsule = "//steamcdn-a.akamaihd.net/steam/apps/" . $_appid . "/capsule_sm_120.jpg";
 						}
 					} elseif ($class === "eventBlockTitle") {
 						$l = $subnode->childNodes;
@@ -99,6 +101,7 @@ class SteamEventParser {
 		$event["tz"] = $tempDate->format("e");
 		$event["appid"] = $_appid;
 		$event["img_icon"] = $_img_icon;
+		$event["img_capsule"] = $_img_capsule;
 		$event["img_header"] = $_img_header;
 		$event["img_header_small"] = $_img_header_small;
 		return $event;

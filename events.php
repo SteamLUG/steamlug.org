@@ -101,13 +101,13 @@ foreach ($data['events'] as $event)
 					<h3 class="panel-title">Upcoming Events</h3>
 				</div>
 				<div class="panel-body">
-			<table class="table table-striped table-hover">
+			<table class="table table-striped table-hover events">
 			<thead>
 				<tr>
-					<th>
+					<th class="col-sm-1">
 					<th>Event Name
-					<th>Comments
-					<th>Timestamp
+					<th class="col-sm-2">Comments
+					<th class="col-sm-2">Timestamp
 				</tr>
 			</thead>
 			<tbody>
@@ -122,7 +122,7 @@ foreach ($data['events'] as $event)
 		$comments = ($event['comments'] > "0" ? "<a href=\"{$event['url']}\">" . $event['comments'] . " " . ($event['comments'] == "1" ? "comment…" : "comments…") . "</a>	" : "");
 		echo <<<EVENTSTRING
 			<tr>
-				<td><img class="eventLogo" src="{$event['img_icon']}" alt="{$event['title']}" ></td>
+				<td><img class="eventLogo" src="{$event['img_capsule']}" alt="{$event['title']}" ></td>
 				<td><a href="{$event['url']}">{$event['title']}</a></td>
 				<td>{$comments}</td>
 				<td>{$event['date']} {$event['time']} {$event['tz']}</td>
@@ -139,13 +139,13 @@ EVENTSTRING;
 				<h3 class="panel-title">Past Events</h3>
 			</div>
 			<div class="panel-body">
-			<table class="table table-striped table-hover">
+			<table class="table table-striped table-hover events">
 			<thead>
 				<tr>
-					<th>
+					<th class="col-sm-1">
 					<th>Event Name
-					<th>Comments
-					<th>Timestamp
+					<th class="col-sm-2">Comments
+					<th class="col-sm-2">Timestamp
 				</tr>
 			</thead>
 			<tbody>
@@ -156,14 +156,18 @@ EVENTSTRING;
 		if ($event["appid"] === 0) {
 			continue;
 		}
+		$comments = ($event['comments'] > "0" ? "<a href=\"{$event['url']}\">" . $event['comments'] . " " . ($event['comments'] == "1" ? "comment…" : "comments…") . "</a>	" : "");
+		echo <<<EVENTSTRING
+			<tr>
+				<td><img class="eventLogo" src="{$event['img_capsule']}" alt="{$event['title']}" ></td>
+				<td><a href="{$event['url']}">{$event['title']}</a></td>
+				<td>{$comments}</td>
+				<td>{$event['date']} {$event['time']} {$event['tz']}</td>
+			</tr>
 
-		$eventString = "\t\t\t<tr>\n";
-		$eventString .= "\t\t\t\t\t<td><img class = 'eventLogo' src = '" . $event['img_icon'] . "' alt = '" . $event['title'] . "' >\n";
-		$eventString .= "\t\t\t\t\t<td><a href = '" . $event['url'] . "' >" . $event['title'] . "</a>";
-		$eventString .= "\t\t\t\t\t<td>" . ($event['comments'] > "0" ? "<a href = '" . $event['url'] . "' >" . $event['comments'] . " " . ($event['comments'] == "1" ? "comment.." : "comments..") . "</a>\t" : "");
-		$eventString .= "\t\t\t\t\t<td>" . $event['date'] . " " . $event['time'] . " " . $event['tz'] . "\n";
-		$eventString .= "\t\t\t</tr>\n";
-		echo $eventString;
+EVENTSTRING;
+
+
 	}
 ?>
 		</tbody>
