@@ -9,11 +9,6 @@ $episode = str_pad($episode, 2, '0', STR_PAD_LEFT);
 $path = "/var/www/archive.steamlug.org/steamlugcast";
 $url  = "//archive.steamlug.org/steamlugcast";
 
-function slenc($u)
-{
-	return htmlentities($u,ENT_QUOTES, "UTF-8");
-}
-
 /* TODO: join this to our steamlug user system; TODO: make steamlug user system */
 $hostAvatars = array(
 	"swordfischer" =>	"//steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/87/87542ec881993993fe2c5268224689538e264fac_full.jpg",
@@ -119,15 +114,11 @@ if ($season !== "00" && $episode !== "00" && file_exists($filename))
 				'DESCRIPTION','HOSTS','GUESTS','ADDITIONAL' ), '');
 	foreach ( $head as $entry ) {
 		list($k, $v) = explode( ':', $entry, 2 );
-		$meta[$k] = trim($v); /* TODO remember to slenc() stuff! */
+		$meta[$k] = trim($v);
 	}
 
-	$epi = 's' . slenc($meta['SEASON']) . 'e' . slenc($meta['EPISODE']);
-	$archiveBase = $url . '/' . $epi . '/' . $meta['FILENAME'];
-	$episodeBase = $path .'/' . $epi . '/' . $meta['FILENAME'];
-
 	$meta['PUBLIC'] = $meta['PUBLISHED'];
-	$meta['TITLE'] = slenc($meta['TITLE']);
+	$meta['TITLE'] = $meta['TITLE'];
 
 	$castHosts			= array_map('trim', explode(',', $meta['HOSTS']));
 	$castGuests			= array_map('trim', explode(',', $meta['GUESTS']));
