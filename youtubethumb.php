@@ -155,7 +155,7 @@ if ($season !== "00" && $episode !== "00" && file_exists($filename))
 HOSTINCLUDE;
 			$startIndex += 180;
 		}
-		$hostsBlockOffset = array(0, 610, 520, 430, 340, 250)[$hosts];
+		$hostsBlockOffset = [0, 610, 520, 430, 340, 250][$hosts];
 	}
 
 	if (!empty($listGuest)) {
@@ -169,7 +169,7 @@ HOSTINCLUDE;
 HOSTINCLUDE;
 			$startIndex += 180;
 		}
-		$guestsBlockOffset = array(0, 610, 520, 430, 340, 250)[$guests];
+		$guestsBlockOffset = [0, 610, 520, 430, 340, 250][$guests];
 	}
 
 	$castEntry = <<<THUMB
