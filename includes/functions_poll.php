@@ -184,7 +184,7 @@
 		{
 			echo "<form method=\"post\" action=\"poll_vote.php\">\n";
 		}
-		echo "<div class=\"panel panel-primary\">
+		echo "<article class=\"panel panel-primary\">
 				<div class=\"panel-heading\">";
 		echo "\t<h3 class=\"panel-title\" data-poll-id=\"" . $poll['id'] . "\">" . htmlspecialchars($poll['title'], ENT_QUOTES) . "</h3>";
 		echo "</div>
@@ -214,7 +214,7 @@
 			}
 			echo "\t\t\t<div class=\"progress\">
 						<div class=\"progress-bar progress-bar-info\" title = '" . ($o['description'] != "" ? htmlspecialchars($o['description'], ENT_QUOTES) : htmlspecialchars($o['name'], ENT_QUOTES)) . "' style = 'width: " . (is_numeric($o['percentage']) ? $o['percentage'] : 0 ) . "%;'></div>\n";
-			echo "\t\t</div>\n";
+			echo "\t\t\t</div>\n";
 		}
 
 		if ($poll['uid'])
@@ -241,7 +241,7 @@
 		}
 		else
 		{
-			echo "</div></div>\n";
+			echo "\t</div></article>\n";
 		}
 	}
 

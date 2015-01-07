@@ -77,7 +77,7 @@ SERVERSTRING;
 	}
 ?>
 		<h1 class="text-center">SteamLUG Game Servers</h1>
-		<div class="panel panel-default">
+		<article class="panel panel-default">
 			<div class="panel-heading">
 				<h3 class="panel-title">About</h3>
 			</div>
@@ -85,8 +85,8 @@ SERVERSTRING;
 				<p>Below you can find a list of our currently active game servers. Where possible, live information for the current map, number of players, etc. will be shown.</p>
 				<p>If you would like to host a SteamLUG server, or help manage our existing ones,<br>please contact <a href = 'http://steamcommunity.com/id/swordfischer'>swordfischer</a>.</p>
 			</div>
-		</div>
-		<div class="panel panel-default">
+		</article>
+		<article class="panel panel-default">
 			<div class="panel-heading">
 				<h3 class="panel-title">Servers</h3>
 			</div>
@@ -111,7 +111,7 @@ SERVERSTRING;
 					</tbody>
 				</table>
 			</div>
-		</div>
+		</article>
 <script>
 		$(document).ready
 		(

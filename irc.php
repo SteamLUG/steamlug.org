@@ -5,7 +5,7 @@ $pageTitle = "Chat";
 		<h1 class="text-center">SteamLUG Chat</h1>
 <div class="row">
 	<div class="col-md-5">
-		<div class="panel panel-default">
+		<article class="panel panel-default">
 			<div class="panel-heading">
 				<h3 class="panel-title">Chat with the SteamLUG Community</h3>
 			</div>
@@ -18,10 +18,10 @@ $pageTitle = "Chat";
 				<dt>Clickable Link</dt><dd><a href="irc://irc.freenode.net/steamlug">irc://irc.freenode.net/steamlug</a></dd>
 				</dl>
 			</div>
-		</div>
+		</article>
 	</div>
 	<div class="col-md-7">
-		<div class="panel panel-danger" id="coc">
+		<article class="panel panel-danger" id="coc">
 			<div class="panel-heading">
 				<h3 class="panel-title">Community Code of Conduct</h3>
 			</div>
@@ -45,10 +45,10 @@ $pageTitle = "Chat";
 				</ul>
 				<p>Channel operators found to be abusing their status will have their op rights suspended.</p>
 			</div>
-		</div>
+		</article>
 	</div>
 </div>
-		<div class="panel panel-default">
+		<article class="panel panel-default">
 			<div class="panel-heading">
 				<h3 class="panel-title">Webclient</h3>
 			</div>
@@ -57,5 +57,5 @@ $pageTitle = "Chat";
 					<p>Your browser does not support iframes.</p>
 				</iframe>
 			</div>
-		</div>
+		</article>
 <?php include_once("includes/footer.php"); ?>

@@ -4,7 +4,7 @@
 	include_once("includes/lastRSS.php");
 ?>
 <h1 class="text-center">Community Polls</h1>
-		<div class="panel panel-primary">
+		<article class="panel panel-primary">
 			<div class="panel-heading">
 				<h3 class="panel-title">About</h3>
 			</div>
@@ -28,6 +28,6 @@
 					?>
 
 				</div>
-		</div>
+		</article>
 					<?php	showCurrentPolls(); ?>
 <?php include_once("includes/footer.php"); ?>

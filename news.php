@@ -5,7 +5,7 @@
 ?>
 		<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 		<h1 class="text-center">SteamLUG News</h1>
-		<div class="panel panel-default">
+		<article class="panel panel-default">
 			<div class="panel-heading">
 				<h3 class="panel-title">Recent Tweets</h3>
 			</div>
@@ -13,7 +13,7 @@
 					<span class="follow"><a href="https://twitter.com/SteamLUG" class="twitter-follow-button" data-show-count="false" data-lang="en">Follow @SteamLUG</a></span>	
 					<a class="twitter-timeline" href="https://twitter.com/SteamLUG" data-widget-id="423854063487160320" data-link-color="#ebebeb" data-chrome="nofooter noheader transparent noborders" data-tweet-limit="3" lang="EN">Tweets by @SteamLUG</a>
 			</div>
-		</div>
+		</article>
 <?php
 	$rss = new lastRSS;
 	$rss->cache_dir = './temp';
@@ -50,7 +50,7 @@
 					$item['author'] = "Author";
 				}
 				?>
-			<div class="panel panel-primary">
+			<article class="panel panel-primary">
 				<div class="panel-heading">
 					<h3 class="panel-title"><a href="<?=$item['link'];?>"><?=htmlspecialchars($item['title']);?></a></h3>
 				</div>
@@ -62,7 +62,7 @@
 					<p class="pull-right"><a href ="<?=$item['link'];?>">View and comment on our Steam group</a></p>
 					<div class="clearfix"></div>
 				</div>
-			</div>
+			</article>
 				<?php
 			}
 		}
@@ -70,7 +70,7 @@
 	else
 	{
 		?>
-		<div class="panel panel-primary">
+		<article class="panel panel-primary">
 			<div class="panel-heading">
 				<h3 class="panel-title"><a href = 'http://steamcommunity.com/groups/steamlug/announcements/'>Error</a></h3>
 			</div>
@@ -78,7 +78,7 @@
 				<p>RSS news source not found...</p>
 				<p>You can try viewing news on the Steam Group <a href = 'http://steamcommunity.com/groups/steamlug/announcements/'>Announcements page</a>.</p>
 			</div>
-		</div>
+		</article>
 	<?php
 	} 
 	echo $rssString;
