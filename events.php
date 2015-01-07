@@ -156,7 +156,7 @@ EVENTSTRING;
 		if ($event["appid"] === 0) {
 			continue;
 		}
-		$comments = ($event['comments'] > "0" ? "<a href=\"{$event['url']}\">" . $event['comments'] . " " . ($event['comments'] == "1" ? "comment…" : "comments…") . "</a>	" : "");
+		$comments = ($event['comments'] > "0" ? "<a href=\"{$event['url']}\">" . $event['comments'] . " " . ($event['comments'] == "1" ? "comment…" : "comments…") . "</a>" : "");
 		echo <<<EVENTSTRING
 			<tr>
 				<td><img class="eventLogo" src="{$event['img_capsule']}" alt="{$event['title']}" ></td>

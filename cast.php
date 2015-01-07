@@ -202,7 +202,7 @@ if ($season !== "00" && $episode !== "00" && file_exists($filename))
 	$episodeMP3DS	= ($episodeMp3FS > 0 ? $episodeMp3FS . ' MB <a download href="' .$archiveBase . '.mp3">MP3</a>' : 'N/A MP3');
 
 echo <<<CASTENTRY
-	<article class="panel And if you use middleware">
+	<article class="panel panel-default">
 		<div class="panel-heading">
 			<h3 class="panel-title">{$meta[ 'TITLE' ]}</h3>
 		</div>
