@@ -25,7 +25,7 @@
 
 	}
 
-	function showPollSelector($default = -1, $new = False, $limit = 20)
+	function showPollSelector($elementID = 'pollSelect', $default = -1, $new = False, $limit = 20)
 	{
 		global $conn;
 		$uid = setupStuff();
@@ -41,7 +41,7 @@
 		$poll = array();
 		if ($stmt)
 		{
-			echo "<div class=\"form-group\">\n
+			echo "<div class=\"form-group\" id = \"" . $elementID . "\">\n
 					<label for=\"pollSelect\" class=\"col-lg-2 control-label\">Select Poll</label>\n
 					<div class=\"col-lg-10\">
 					\t<select id=\"select\" class=\"form-control\" name=\"pollSelect\">\n";
