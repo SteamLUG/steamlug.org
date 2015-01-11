@@ -60,35 +60,79 @@ $hostAvatars = array(
 	"Cockfight" =>	"//steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/bb/bb21fbb52d66cd32526b27b51418e5aa0ca97a9f_full.jpg",
 );
 
-/* we take a ‘johndrinkwater’ / ‘@johndrinkwater’ / ‘John Drinkwater (@twitter)’ and spit out HTML */
-/* TODO: optional the avatars */
+/* we take: ‘johndrinkwater’ / ‘@johndrinkwater’ / ‘John Drinkwater (@twitter)’ / ‘John Drinkwater {URL}’ and spit out HTML */
 function nameplate( $string, $size ) {
 
 	global $hostAvatars;
+	$name = ""; $nickname = ""; $twitterHandle = "";
+	foreach ( explode( " ", $string ) as $data ) {
 
-	/* first case, johndrinkwater */
-	if ( array_key_exists( $string, $hostAvatars ) ) {
-		return '<img src="' . $hostAvatars["$string"] . "\" title=\"$string\" alt=\"$string\" class=\"img-rounded\"/>\n";
+		// (@johndrinkwater) or @johndrinkwater
+		if ( preg_match( '/\(?@([a-z0-9_]+)\)?/i', $data, $twitterResult ) ) {
+			$twitterHandle = $twitterResult[1];
+
+		// (johndrinkwater)
+		} else if ( preg_match( '/\(([a-z0-9_]+)\)/i', $data, $nicknameResult) ) {
+			$nickname = $nicknameResult[1];
+
+		// {//i.imgur.com/8YkJva1.jpg}
+		} else if ( preg_match( '/{(.*)}/i', $data, $avatarURLResult) ) {
+			$avatarURL = $avatarURLResult[1];
+
+		// John Drinkwater
+		} else {
+			$name .= $data . " ";
+		}
 	}
 
-	/* third case, John Drinkwater (@twitter) */
-	if ( preg_match( '/([[:alnum:] ]+)\s+\(@([a-z0-9_]+)\)/i', $string, $matches) ) {
-		$avatar = $matches[2];
-		if ( array_key_exists( $avatar, $hostAvatars ) )
-			$avatar = '<img src="' . $hostAvatars["$avatar"] . "\"  title=\"$string\" alt=\"$avatar\" class=\"img-rounded\"/>";
-		return "<a href=\"https://twitter.com/" . $matches[2] . "\">" . $avatar . "</a>\n";
+	$name = trim( $name );
+	if ( strlen( $nickname ) > 0 ) {
+		$name .= " (" . $nickname . ")";
 	}
 
-	/* second case, @johndrinkwater */
-	if (preg_match( '/@([a-z0-9_]+)/i', $string, $matches)) {
-		$avatar = $matches[1];
-		if ( array_key_exists( $avatar, $hostAvatars ) )
-			$avatar = '<img src="' . $hostAvatars["$avatar"] . "\" title=\"$string\" alt=\"$avatar\" class=\"img-rounded\"/>";
-		return "<a href=\"https://twitter.com/" . $matches[1] . "\">" . $avatar . "</a>\n";
+	if ( strlen( $name ) == 0 && strlen( $twitterHandle ) > 0 ) {
+		$name = $twitterHandle;
 	}
-	/* unmatched, why? blank or Nemoder :^) */
-	return $string;
+
+	if ( strlen( $name ) == 0 ) {
+		return $string;
+	}
+
+	if ( !isset( $avatarURL ) ) {
+		if ( array_key_exists( $twitterHandle, $hostAvatars ) ) {
+			$avatarURL = $hostAvatars["$twitterHandle"];
+		} elseif ( array_key_exists( $name, $hostAvatars ) ) {
+			$avatarURL = $hostAvatars["$name"];
+		} else {
+			// no avatar?
+			$avatarURL = "404.jpg";
+		}
+	}
+	$avatar = <<<AVATAR
+<img src="{$avatarURL}" title="{$name}" width="{$size}" height="{$size}" alt="{$name}" class="img-rounded"/>
+AVATAR;
+
+	if ( strlen( $twitterHandle ) > 0 ) {
+		return <<<TWITLINK
+<a href="https://twitter.com/{$twitterHandle}">{$avatar}</a>
+
+TWITLINK;
+	} else {
+		return $avatar;
+	}
 }
+
+// TEST CASE
+/*
+print nameplate("John", 32);
+print nameplate("John Drinkwater", 32);
+print nameplate("Nemoder", 32);
+print nameplate("John Drinkwater (Beta)", 32);
+print nameplate("John Drinkwater (@johndrinkwater)", 32);
+print nameplate("John Drinkwater {//example.com/file.ogg}", 32);
+print nameplate("John Drinkwater {//example.com/file.ogg} (@johndrinkwater)", 32);
+print nameplate("John {//example.com/test} @johndrinkwater", 32);
+*/
 
 $rssLinks = '<link rel="alternate" type="application/rss+xml" title="SteamLUG Cast (mp3) Feed" href="https://steamlug.org/feed/cast/mp3" /><link rel="alternate" type="application/rss+xml" title="SteamLUG Cast (Ogg) Feed" href="https://steamlug.org/feed/cast/ogg" />';
 
@@ -349,7 +393,7 @@ CASTENTRY;
 		$castHosts = array_map('trim', explode(',', $meta['HOSTS']));
 		$listHosts = ""; $listGuests = "";
 		foreach ($castHosts as $Host) {
-			$listHosts .= nameplate( $Host, 16 );
+			$listHosts .= nameplate( $Host, 22 );
 		}
 		/* TODO: pretty the datetime= & public value up */
 		$meta['RECORDED']  = '<time datetime="' . $meta['RECORDED'] . '">' . $meta['RECORDED'] . '</time>';
@@ -359,7 +403,7 @@ CASTENTRY;
 		/* TODO: add these in HTML, we want to show off guests! */
 		$castGuests			= array_map('trim', explode(',', $meta['GUESTS']));
 		foreach ($castGuests as $Guest) {
-			$listGuests .= nameplate( $Guest, 16 );
+			$listGuests .= nameplate( $Guest, 22 );
 		}
 		echo <<<CASTENTRY
 			<tr>

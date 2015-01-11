@@ -24,82 +24,121 @@ $hostAvatars = array(
 	"Cockfight" =>		"//steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/bb/bb21fbb52d66cd32526b27b51418e5aa0ca97a9f_full.jpg",
 );
 
-/* we take a ‘johndrinkwater’ / ‘@johndrinkwater’ / ‘John Drinkwater (@twitter)’ and spit out SVG */
-function nameplate( $string ) {
+/* we take: ‘johndrinkwater’ / ‘@johndrinkwater’ / ‘John Drinkwater (@twitter)’ / ‘John Drinkwater {URL}’ and spit out HTML */
+function nameplate( $string, $guest = 0 ) {
 
 	global $hostAvatars;
-	/* first case, johndrinkwater */
-	if ( array_key_exists( $string, $hostAvatars ) ) {
-		$avatar = $hostAvatars["$string"];
-		return <<<SVGPLATE
-	<g id="{$string}">
-		<image xlink:href="{$avatar}" width="70" height="70" preserveAspectRatio="xMidYMid slice" clip-path="url(#avatar-clip)" />
-		<text y="107" x="35">{$string}</text>
+	$name = ""; $nickname = ""; $twitterHandle = "";
+	foreach ( explode( " ", $string ) as $data ) {
+
+		// (@johndrinkwater) or @johndrinkwater
+		if ( preg_match( '/\(?@([a-z0-9_]+)\)?/i', $data, $twitterResult ) ) {
+			$twitterHandle = $twitterResult[1];
+
+		// (johndrinkwater)
+		} else if ( preg_match( '/\(([a-z0-9_]+)\)/i', $data, $nicknameResult) ) {
+			$nickname = $nicknameResult[1];
+
+		// {//i.imgur.com/8YkJva1.jpg}
+		} else if ( preg_match( '/{(.*)}/i', $data, $avatarURLResult) ) {
+			$avatarURL = $avatarURLResult[1];
+
+		// John Drinkwater
+		} else {
+			$name .= $data . " ";
+		}
+	}
+
+	$name = trim( $name );
+	if ( strlen( $name ) == 0 && isset( $nickname ) ) {
+		$name = $nickname;
+	}
+	if ( strlen( $name ) == 0 && isset( $twitterHandle ) ) {
+		$name = $twitterHandle;
+	}
+
+	if ( strlen( $name ) == 0 ) {
+		return;
+	}
+
+	if ( array_key_exists( $name, $hostAvatars ) ) {
+		$lookup = $name;
+	} else if ( array_key_exists( $twitterHandle, $hostAvatars ) ) {
+		$lookup = $twitterHandle;
+	} else if ( isset( $avatarURL ) ) {
+		$lookup = $twitterHandle;
+	} else
+		$lookup = "broken-host";
+
+	if ( !isset( $avatarURL ) ) {
+		if ( array_key_exists( $twitterHandle, $hostAvatars ) ) {
+			$avatarURL = $hostAvatars["$twitterHandle"];
+		} elseif ( array_key_exists( $name, $hostAvatars ) ) {
+			$avatarURL = $hostAvatars["$name"];
+		} else {
+			// no avatar?
+			$avatarURL = "404.jpg";
+		}
+	}
+
+	$flip = ( $guest == 1 ? -23 : 107 );
+	return <<<SVGPLATE
+	<g id="{$lookup}">
+		<image xlink:href="{$avatarURL}" width="70" height="70" preserveAspectRatio="xMidYMid slice" clip-path="url(#avatar-clip)" />
+		<text y="{$flip}" x="35">{$name}</text>
 	</g>
 
 SVGPLATE;
-	}
 
-	/* third case, John Drinkwater (@twitter) */
-	if ( preg_match( '/([[:alnum:] ]+)\s+\(@([a-z0-9_]+)\)/i', $string, $matches) ) {
-		$host = $matches[2];
-		if ( array_key_exists( $host, $hostAvatars ) )
-			$avatar = $hostAvatars["$host"];
-		return <<<SVGPLATE
-	<g id="{$host}">
-		<image xlink:href="{$avatar}" width="70" height="70" preserveAspectRatio="xMidYMid slice" clip-path="url(#avatar-clip)" />
-		<text y="107" x="35">{$host}</text>
-	</g>
-
-SVGPLATE;
-	}
-
-	/* second case, @johndrinkwater */
-	if (preg_match( '/@([a-z0-9_]+)/i', $string, $matches)) {
-		$host = $matches[1];
-		if ( array_key_exists( $host, $hostAvatars ) )
-			$avatar = $hostAvatars["$host"];
-		return <<<SVGPLATE
-	<g id="{$host}">
-		<image xlink:href="{$avatar}" width="70" height="70" preserveAspectRatio="xMidYMid slice" clip-path="url(#avatar-clip)" />
-		<text y="107" x="35">{$host}</text>
-	</g>
-
-SVGPLATE;
-	}
-	/* unmatched, why? blank or Nemoder :^) */
-	return "";
 }
-
 
 /* we take a ‘johndrinkwater’ / ‘@johndrinkwater’ / ‘John Drinkwater (@twitter)’ and spit out text */
 function name( $string ) {
 
 	global $hostAvatars;
-	/* first case, johndrinkwater */
-	if ( array_key_exists( $string, $hostAvatars ) ) {
-		return $string;
+	$name = ""; $nickname = ""; $twitterHandle = "";
+	foreach ( explode( " ", $string ) as $data ) {
+
+		// (@johndrinkwater) or @johndrinkwater
+		if ( preg_match( '/\(?@([a-z0-9_]+)\)?/i', $data, $twitterResult ) ) {
+			$twitterHandle = $twitterResult[1];
+
+		// (johndrinkwater)
+		} else if ( preg_match( '/\(([a-z0-9_]+)\)/i', $data, $nicknameResult) ) {
+			$nickname = $nicknameResult[1];
+
+		// {//i.imgur.com/8YkJva1.jpg}
+		} else if ( preg_match( '/{(.*)}/i', $data, $avatarURLResult) ) {
+			$avatarURL = $avatarURLResult[1];
+
+		// John Drinkwater
+		} else {
+			$name .= $data . " ";
+		}
 	}
 
-	/* third case, John Drinkwater (@twitter) */
-	if ( preg_match( '/([[:alnum:] ]+)\s+\(@([a-z0-9_]+)\)/i', $string, $matches) ) {
-		$host = $matches[2];
-		if ( array_key_exists( $host, $hostAvatars ) )
-			return $host;
-		else
-			return "broken-host";
+	$name = trim( $name );
+	if ( strlen( $name ) == 0 && isset( $nickname ) ) {
+		$name = $nickname;
+	}
+	if ( strlen( $name ) == 0 && isset( $twitterHandle ) ) {
+		$name = $twitterHandle;
 	}
 
-	/* second case, @johndrinkwater */
-	if (preg_match( '/@([a-z0-9_]+)/i', $string, $matches)) {
-		$host = $matches[1];
-		if ( array_key_exists( $host, $hostAvatars ) )
-			return $host;
-		else
-			return "broken-host";
+	if ( strlen( $name ) == 0 ) {
+		return;
 	}
-	/* unmatched, why? blank or Nemoder :^) */
-	return "";
+
+	if ( array_key_exists( $name, $hostAvatars ) ) {
+		$lookup = $name;
+	} else if ( array_key_exists( $twitterHandle, $hostAvatars ) ) {
+		$lookup = $twitterHandle;
+	} else if ( isset( $avatarURL ) ) {
+		$lookup = $twitterHandle;
+	} else
+		$lookup = "broken-host";
+
+	return $lookup;
 }
 
 $filename = $path . "/s" . $season . "e" . $episode . "/episode.txt";
@@ -127,7 +166,7 @@ if ($season !== "00" && $episode !== "00" && file_exists($filename))
 		array_push( $listHosts, nameplate( $Host ) );
 	}
 	foreach ($castGuests as $Guest) {
-		array_push( $listGuests, nameplate( $Guest ) );
+		array_push( $listGuests, nameplate( $Guest, 1 ) );
 	}
 	$hostsString = join("", $listHosts);
 	$guestsString = join("", $listGuests);
@@ -150,8 +189,8 @@ HOSTINCLUDE;
 		$hostsBlockOffset = $alignment[$hosts];
 	}
 
-	if (!empty($listGuest)) {
-		$guest = count($listGuests);
+	if (!empty($listGuests)) {
+		$guests = count($listGuests);
 		$startIndex = 0;
 		foreach ($castGuests as $Guest) {
 			$you = name($Guest);
