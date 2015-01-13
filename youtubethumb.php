@@ -25,7 +25,7 @@ $hostAvatars = array(
 );
 
 /* we take: ‘johndrinkwater’ / ‘@johndrinkwater’ / ‘John Drinkwater (@twitter)’ / ‘John Drinkwater {URL}’ and spit out HTML */
-function nameplate( $string ) {
+function nameplate( $string, $guest = 0 ) {
 
 	global $hostAvatars;
 	$name = ""; $nickname = ""; $twitterHandle = "";
@@ -65,8 +65,6 @@ function nameplate( $string ) {
 		$lookup = $name;
 	} else if ( array_key_exists( $twitterHandle, $hostAvatars ) ) {
 		$lookup = $twitterHandle;
-//	} else if ( isset( $avatarURL ) ) {
-//		$lookup = $twitterHandle;
 	} else
 		$lookup = "unknown-host-" . md5( $string );
 
@@ -81,14 +79,13 @@ function nameplate( $string ) {
 		}
 	}
 
-	// these can be retired, as CSS transforms now fixes our text placement issue for hosts/guests
-	//$flip = ( $guest == 1 ? -23 : 107 );
-	//$lookupns = ( $guest == 1 ? "-g" : "-h" );
+	$flip = ( $guest == 1 ? -23 : 107 );
+	$lookupns = ( $guest == 1 ? "-g" : "-h" );
 
 	return <<<SVGPLATE
-	<g id="{$lookup}">
+	<g id="{$lookup}{$lookupns}">
 		<image xlink:href="{$avatarURL}" width="70" height="70" preserveAspectRatio="xMidYMid slice" clip-path="url(#avatar-clip)" />
-		<text y="0" x="35">{$name}</text>
+		<text y="{$flip}" x="35">{$name}</text>
 	</g>
 
 SVGPLATE;
@@ -128,16 +125,10 @@ function name( $string ) {
 		$name = $twitterHandle;
 	}
 
-/*	if ( strlen( $name ) == 0 ) {
-		return;
-	}*/
-
 	if ( array_key_exists( $name, $hostAvatars ) ) {
 		$lookup = $name;
 	} else if ( array_key_exists( $twitterHandle, $hostAvatars ) ) {
 		$lookup = $twitterHandle;
-//	} else if ( isset( $avatarURL ) ) {
-//		$lookup = $twitterHandle;
 	} else
 		$lookup = "unknown-host-" . md5( $string );
 
@@ -163,10 +154,10 @@ function gameplate( $string, $offset ) {
 		$url = "//steamcdn-a.akamaihd.net/steam/apps/{$appid}/capsule_184x69.jpg";
 
 	return <<<GAMEPLATE
-			<g transform="translate({$offset},0)">
-				<rect width="190" height="75" x="-3" y="-3" rx="6" ry="6" style="opacity:0.25;fill:#000000;filter:url(#blur)" />
-				<image xlink:href="{$url}" width="184" height="69" preserveAspectRatio="xMidYMid meet" clip-path="url(#game-clip)" />
-			</g>
+				<g transform="translate({$offset},0)">
+					<rect width="190" height="75" x="-3" y="-3" rx="6" ry="6" style="opacity:0.25;fill:#000000;filter:url(#blur)" />
+					<image xlink:href="{$url}" width="184" height="69" preserveAspectRatio="xMidYMid meet" clip-path="url(#game-clip)" />
+				</g>
 
 GAMEPLATE;
 }
@@ -204,7 +195,7 @@ if ($season !== "00" && $episode !== "00" && file_exists($filename))
 		array_push( $listHosts, nameplate( $Host ) );
 		$you = name($Host);
 		$hostsIncludeString .= <<<HOSTINCLUDE
-		<g transform="translate({$startIndex},0)"><use xlink:href="#person-holder" /><use xlink:href="#{$you}" /></g>
+			<g transform="translate({$startIndex},0)"><use xlink:href="#person-holder" /><use xlink:href="#{$you}-h" /></g>
 
 HOSTINCLUDE;
 		$startIndex += 180;
@@ -216,10 +207,10 @@ HOSTINCLUDE;
 	foreach ($castGuests as $Guest) {
 
 		if ($Guest == "") break;
-		array_push( $listGuests, nameplate( $Guest ) );
+		array_push( $listGuests, nameplate( $Guest, 1 ) );
 		$you = name($Guest);
 		$guestsIncludeString .= <<<HOSTINCLUDE
-		<g transform="translate({$startIndex},0)"><use xlink:href="#person-holder" /><use xlink:href="#{$you}" /></g>
+			<g transform="translate({$startIndex},0)"><use xlink:href="#person-holder" /><use xlink:href="#{$you}-g" /></g>
 
 HOSTINCLUDE;
 		$startIndex += 180;
@@ -239,12 +230,12 @@ HOSTINCLUDE;
 
 		$plural = count($castGuests) > 1 ? "s" : "";
 		$gamesString = <<<GAMESINTRO
-		<text id="game-name" style="font-size:23px;">With Special Guest{$plural} and Developer{$plural} of</text>
-		<g transform="translate({$gamesBlockOffset},26)">
+			<text id="game-name" style="font-size:23px;">With Special Guest{$plural} and Developer{$plural} of</text>
+			<g transform="translate({$gamesBlockOffset},26)">
 
 GAMESINTRO;
 
-		$gamesString .= join("", $listGames) . "</g>";
+		$gamesString .= join("", $listGames) . "\t\t\t</g>";
 		// TODO this needs to test if any games are being discussed
 		$titleOffset = 250;
 	}
@@ -277,24 +268,6 @@ GAMESINTRO;
 		<stop style="stop-color:#8ecafc;stop-opacity:1" offset="0" />
 		<stop style="stop-color:#73a0c7;stop-opacity:1" offset="1" />
 	</linearGradient>
-	<linearGradient x1="1940" y1="-262" x2="1940" y2="-76" id="border-stroke-online" gradientUnits="userSpaceOnUse" gradientTransform="matrix(0.32851643,0,0,0.32851646,-413.47663,427.76239)">
-		<stop style="stop-color:#b2fa4f;stop-opacity:1" offset="0" />
-		<stop style="stop-color:#89c73e;stop-opacity:1" offset="1" />
-	</linearGradient>
-
-	<!-- our background noise -->
-	<filter x="0" y="0" width="1" height="1" color-interpolation-filters="sRGB" id="gravel">
-		<feTurbulence type="fractalNoise" baseFrequency=".7" />
-		<feComponentTransfer>
-			<feFuncR type="linear" slope="2" intercept="-.8"/>
-			<feFuncG type="linear" slope="2" intercept="-.8"/>
-			<feFuncB type="linear" slope="2" intercept="-.8"/>
-		</feComponentTransfer>
-		<feColorMatrix type="saturate" values="0"/>
-		<feComponentTransfer>
-			<feFuncA type="table" tableValues="0 .2"/>
-		</feComponentTransfer>
-	</filter>
 
 	<!-- Cheese’s Steam emulation avatar border -->
 	<g id="person-holder">
@@ -305,14 +278,10 @@ GAMESINTRO;
 
 	<!-- HOSTS -->
 {$hostsString}
-
 	<!-- GUESTS -->
 {$guestsString}
-
 	</defs>
 	<g id="background">
-		<!-- <rect width="1280" height="720" id="b" style="fill:#1a1a1a;stroke:none" />
-		<rect width="1280" height="720" id="bg" style="filter:url(#gravel)" /> -->
 		<image xlink:href="https://archive.steamlug.org/1280x720_bg.png" width="1280" height="720" />
 	</g>
 	<g id="gutters">
@@ -333,10 +302,6 @@ GAMESINTRO;
 	</g>
 
 	<g id="peeps" style="color:#000000;fill:#8dc9fa;stroke:none;font-family:Orbitron;font-size:20px;font-weight:400;overflow:visible;line-height:125%;text-anchor:middle;">
-		<style>
-			#hosts text { transform: translateY(107px); }
-			#guests text { transform: translateY(-23px); }
-		</style>
 		<g id="hosts" transform="translate({$hostsBlockOffset},10)">
 {$hostsIncludeString}		</g>
 		<g id="guests" transform="translate({$guestsBlockOffset},640)">
