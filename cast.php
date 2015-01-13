@@ -61,7 +61,7 @@ $hostAvatars = array(
 );
 
 /* we take: ‘johndrinkwater’ / ‘@johndrinkwater’ / ‘John Drinkwater (@twitter)’ / ‘John Drinkwater {URL}’ and spit out HTML */
-function nameplate( $string, $size ) {
+function nameplate( $string, $size = 32 ) {
 
 	global $hostAvatars;
 	$name = ""; $nickname = ""; $twitterHandle = "";
@@ -104,13 +104,17 @@ function nameplate( $string, $size ) {
 		} elseif ( array_key_exists( $name, $hostAvatars ) ) {
 			$avatarURL = $hostAvatars["$name"];
 		} else {
-			// no avatar?
-			$avatarURL = "404.jpg";
+			$avatarURL = "";
 		}
 	}
-	$avatar = <<<AVATAR
+
+	if ( strlen( $avatarURL ) > 0 ) {
+		$avatar = <<<AVATAR
 <img src="{$avatarURL}" title="{$name}" width="{$size}" height="{$size}" alt="{$name}" class="img-rounded"/>
 AVATAR;
+	} else {
+		$avatar = $name;
+	}
 
 	if ( strlen( $twitterHandle ) > 0 ) {
 		return <<<TWITLINK
@@ -121,18 +125,6 @@ TWITLINK;
 		return $avatar;
 	}
 }
-
-// TEST CASE
-/*
-print nameplate("John", 32);
-print nameplate("John Drinkwater", 32);
-print nameplate("Nemoder", 32);
-print nameplate("John Drinkwater (Beta)", 32);
-print nameplate("John Drinkwater (@johndrinkwater)", 32);
-print nameplate("John Drinkwater {//example.com/file.ogg}", 32);
-print nameplate("John Drinkwater {//example.com/file.ogg} (@johndrinkwater)", 32);
-print nameplate("John {//example.com/test} @johndrinkwater", 32);
-*/
 
 $rssLinks = '<link rel="alternate" type="application/rss+xml" title="SteamLUG Cast (mp3) Feed" href="https://steamlug.org/feed/cast/mp3" /><link rel="alternate" type="application/rss+xml" title="SteamLUG Cast (Ogg) Feed" href="https://steamlug.org/feed/cast/ogg" />';
 
@@ -207,10 +199,10 @@ if ($season !== "00" && $episode !== "00" && file_exists($filename))
 {
 	$shownotes		= file($filename);
 
-	$head = array_slice( $shownotes, 0, 10 );
+	$head = array_slice( $shownotes, 0, 12 );
 	$meta = array_fill_keys( array('RECORDED', 'PUBLISHED', 'TITLE',
 						'SEASON', 'EPISODE', 'DURATION', 'FILENAME',
-				'DESCRIPTION','HOSTS','GUESTS','ADDITIONAL' ), '');
+				'DESCRIPTION','HOSTS','GUESTS','ADDITIONAL', 'YOUTUBE' ), '');
 	foreach ( $head as $entry ) {
 		list($k, $v) = explode( ':', $entry, 2 );
 		$meta[$k] = trim($v); /* TODO remember to slenc() stuff! */
@@ -295,7 +287,7 @@ CASTENTRY;
 		echo "<p>The shownotes are currently in the works, however they're not finished as of yet.</p>\n<p>You're still able to enjoy listening to the cast until we finalize the notes.</p>\n";
 	} else {
 
-		foreach ( array_slice( $shownotes, 12 ) as $note)
+		foreach ( array_slice( $shownotes, 13 ) as $note)
 		{
 		$note = preg_replace_callback(
 			'/\d+:\d+:\d+\s+\*(.*)\*/',
@@ -377,10 +369,10 @@ CASTENTRY;
 		/* let’s grab less here, 2K ought to be enough */
 		$header			= explode( "\n", file_get_contents($filename, false, NULL, 0, 1024) );
 
-		$head = array_slice( $header, 0, 10 );
+		$head = array_slice( $header, 0, 12 );
 		$meta = array_fill_keys( array('RECORDED', 'PUBLISHED', 'TITLE',
 							'SEASON', 'EPISODE', 'DURATION', 'FILENAME',
-					'DESCRIPTION','HOSTS','GUESTS','ADDITIONAL' ), '');
+					'DESCRIPTION','HOSTS','GUESTS','ADDITIONAL', 'YOUTUBE' ), '');
 		foreach ( $head as $entry ) {
 			list($k, $v) = explode( ':', $entry, 2 );
 			$meta[$k] = trim($v); /* TODO remember to slenc() stuff! */

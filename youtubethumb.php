@@ -25,7 +25,7 @@ $hostAvatars = array(
 );
 
 /* we take: ‘johndrinkwater’ / ‘@johndrinkwater’ / ‘John Drinkwater (@twitter)’ / ‘John Drinkwater {URL}’ and spit out HTML */
-function nameplate( $string, $guest = 0 ) {
+function nameplate( $string ) {
 
 	global $hostAvatars;
 	$name = ""; $nickname = ""; $twitterHandle = "";
@@ -65,10 +65,10 @@ function nameplate( $string, $guest = 0 ) {
 		$lookup = $name;
 	} else if ( array_key_exists( $twitterHandle, $hostAvatars ) ) {
 		$lookup = $twitterHandle;
-	} else if ( isset( $avatarURL ) ) {
-		$lookup = $twitterHandle;
+//	} else if ( isset( $avatarURL ) ) {
+//		$lookup = $twitterHandle;
 	} else
-		$lookup = "broken-host";
+		$lookup = "unknown-host-" . md5( $string );
 
 	if ( !isset( $avatarURL ) ) {
 		if ( array_key_exists( $twitterHandle, $hostAvatars ) ) {
@@ -81,11 +81,14 @@ function nameplate( $string, $guest = 0 ) {
 		}
 	}
 
-	$flip = ( $guest == 1 ? -23 : 107 );
+	// these can be retired, as CSS transforms now fixes our text placement issue for hosts/guests
+	//$flip = ( $guest == 1 ? -23 : 107 );
+	//$lookupns = ( $guest == 1 ? "-g" : "-h" );
+
 	return <<<SVGPLATE
 	<g id="{$lookup}">
 		<image xlink:href="{$avatarURL}" width="70" height="70" preserveAspectRatio="xMidYMid slice" clip-path="url(#avatar-clip)" />
-		<text y="{$flip}" x="35">{$name}</text>
+		<text y="0" x="35">{$name}</text>
 	</g>
 
 SVGPLATE;
@@ -125,20 +128,47 @@ function name( $string ) {
 		$name = $twitterHandle;
 	}
 
-	if ( strlen( $name ) == 0 ) {
+/*	if ( strlen( $name ) == 0 ) {
 		return;
-	}
+	}*/
 
 	if ( array_key_exists( $name, $hostAvatars ) ) {
 		$lookup = $name;
 	} else if ( array_key_exists( $twitterHandle, $hostAvatars ) ) {
 		$lookup = $twitterHandle;
-	} else if ( isset( $avatarURL ) ) {
-		$lookup = $twitterHandle;
+//	} else if ( isset( $avatarURL ) ) {
+//		$lookup = $twitterHandle;
 	} else
-		$lookup = "broken-host";
+		$lookup = "unknown-host-" . md5( $string );
 
 	return $lookup;
+}
+
+/* we take a ‘######’ / //example.com/imageofgame.png and split out SVG */
+function gameplate( $string, $offset ) {
+
+	$url = "";
+	foreach ( explode( " ", $string ) as $data ) {
+
+		// appid numbers
+		if ( preg_match( '/^([0-9]*)$/i', $data, $appidResult ) ) {
+			$appid = $appidResult[1];
+
+		} else {
+			$url = $data;
+		}
+	}
+
+	if ( isset($appid) )
+		$url = "//steamcdn-a.akamaihd.net/steam/apps/{$appid}/capsule_184x69.jpg";
+
+	return <<<GAMEPLATE
+			<g transform="translate({$offset},0)">
+				<rect width="190" height="75" x="-3" y="-3" rx="6" ry="6" style="opacity:0.25;fill:#000000;filter:url(#blur)" />
+				<image xlink:href="{$url}" width="184" height="69" preserveAspectRatio="xMidYMid meet" clip-path="url(#game-clip)" />
+			</g>
+
+GAMEPLATE;
 }
 
 $filename = $path . "/s" . $season . "e" . $episode . "/episode.txt";
@@ -147,60 +177,76 @@ if ($season !== "00" && $episode !== "00" && file_exists($filename))
 {
 	$shownotes		= file($filename);
 
-	$head = array_slice( $shownotes, 0, 10 );
+	$head = array_slice( $shownotes, 0, 12 );
 	$meta = array_fill_keys( array('RECORDED', 'PUBLISHED', 'TITLE',
 						'SEASON', 'EPISODE', 'DURATION', 'FILENAME',
-				'DESCRIPTION','HOSTS','GUESTS','ADDITIONAL' ), '');
+				'DESCRIPTION','HOSTS','GUESTS','ADDITIONAL', 'YOUTUBE' ), '');
 	foreach ( $head as $entry ) {
 		list($k, $v) = explode( ':', $entry, 2 );
 		$meta[$k] = trim($v);
 	}
 
-	$meta['PUBLIC'] = $meta['PUBLISHED'];
-	$meta['TITLE'] = $meta['TITLE'];
-
 	$castHosts			= array_map('trim', explode(',', $meta['HOSTS']));
 	$castGuests			= array_map('trim', explode(',', $meta['GUESTS']));
-	$listHosts = []; $listGuests = [];
-	foreach ($castHosts as $Host) {
-		array_push( $listHosts, nameplate( $Host ) );
-	}
-	foreach ($castGuests as $Guest) {
-		array_push( $listGuests, nameplate( $Guest, 1 ) );
-	}
-	$hostsString = join("", $listHosts);
-	$guestsString = join("", $listGuests);
+	$devGames			= array_map('trim', explode(',', $meta['ADDITIONAL']));
+
+	$listHosts = []; $listGuests = []; $listGames = [];
 
 	$guestsBlockOffset = 0; $hostsBlockOffset = 0;
-	$guestsIncludeString = "";$hostsIncludeString = "";
-	$alignment = array(0, 610, 520, 430, 340, 250);
+	$titleOffset = 360; // where to offset title with no guests
+	$guestsIncludeString = ""; $hostsIncludeString = "";
+	$alignment = array(0, 610, 520, 430, 340, 250, 160, 50);
 
-	if (!empty($listHosts)) {
-		$hosts = count($listHosts);
-		$startIndex = 0;
-		foreach ($castHosts as $Host) {
-			$you = name($Host);
-			$hostsIncludeString .= <<<HOSTINCLUDE
-			<g transform="translate({$startIndex},0)"><use xlink:href="#person-holder" /><use xlink:href="#{$you}" /></g>
+	$hostsBlockOffset = $alignment[count($castHosts)]; $startIndex = 0;
+	foreach ($castHosts as $Host) {
+
+		if ($Host == "") break;
+		array_push( $listHosts, nameplate( $Host ) );
+		$you = name($Host);
+		$hostsIncludeString .= <<<HOSTINCLUDE
+		<g transform="translate({$startIndex},0)"><use xlink:href="#person-holder" /><use xlink:href="#{$you}" /></g>
 
 HOSTINCLUDE;
-			$startIndex += 180;
-		}
-		$hostsBlockOffset = $alignment[$hosts];
+		$startIndex += 180;
 	}
+	$hostsString = join("", $listHosts);
 
-	if (!empty($listGuests)) {
-		$guests = count($listGuests);
-		$startIndex = 0;
-		foreach ($castGuests as $Guest) {
-			$you = name($Guest);
-			$guestsIncludeString .= <<<HOSTINCLUDE
-			<g transform="translate({$startIndex},0)"><use xlink:href="#person-holder" /><use xlink:href="#{$you}" /></g>
+
+	$guestsBlockOffset = $alignment[count($castGuests)]; $startIndex = 0;
+	foreach ($castGuests as $Guest) {
+
+		if ($Guest == "") break;
+		array_push( $listGuests, nameplate( $Guest ) );
+		$you = name($Guest);
+		$guestsIncludeString .= <<<HOSTINCLUDE
+		<g transform="translate({$startIndex},0)"><use xlink:href="#person-holder" /><use xlink:href="#{$you}" /></g>
 
 HOSTINCLUDE;
-			$startIndex += 180;
+		$startIndex += 180;
+	}
+	$guestsString = join("", $listGuests);
+
+	if ( strlen( $meta['ADDITIONAL'] ) > 0 ) {
+
+		$startIndex = 0;
+		foreach ($devGames as $Game) {
+			array_push( $listGames, gameplate( $Game, $startIndex ) );
+			$startIndex += 200;
 		}
-		$guestsBlockOffset = $alignment[$guests];
+		$games = count($listGames);
+		$alignment = array(0, -91, -191, -291, -391, -491);
+		$gamesBlockOffset = $alignment[$games];
+
+		$plural = count($castGuests) > 1 ? "s" : "";
+		$gamesString = <<<GAMESINTRO
+		<text id="game-name" style="font-size:23px;">With Special Guest{$plural} and Developer{$plural} of</text>
+		<g transform="translate({$gamesBlockOffset},26)">
+
+GAMESINTRO;
+
+		$gamesString .= join("", $listGames) . "</g>";
+		// TODO this needs to test if any games are being discussed
+		$titleOffset = 250;
 	}
 
 	$castEntry = <<<THUMB
@@ -277,28 +323,20 @@ HOSTINCLUDE;
 	</g>
 
 	<g id="episode" style="font-style:normal;font-size: 50px; line-height:125%;text-anchor:middle;fill:#8dc9fa;stroke:none;font-family:Orbitron">
-		<!-- With no guests, this should move back to centre: 640, 360 -->
-		<!-- with guests: 640, 250 -->
-		<g transform="translate(640,360)" >
+		<g transform="translate(640,{$titleOffset})" >
 			<text y="-30" id="title">SteamLUG Cast s{$meta['SEASON']} e{$meta['EPISODE']}</text>
 			<text y="30" id="subtitle" style="font-size:36px;"><tspan>‘ </tspan>{$meta['TITLE']}<tspan> ’</tspan></text>
 		</g>
-<!--
 		<g transform="translate(640,460)">
-			<text id="game-name" style="font-size:23px;">With Special Guest and Developer of</text>
-			<g transform="translate(-92,26)">
-				<rect width="190" height="75" x="-3" y="-3" rx="6" ry="6" style="opacity:0.25;fill:#000000;filter:url(#blur)" />
-				<image xlink:href="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/250110/fb87c80ce91f88fb6bea88abff26b4c4ec97e512.jpg" width="184" height="69" preserveAspectRatio="xMidYMid meet" clip-path="url(#game-clip)" />
-			</g>
-			<g transform="translate(18,26)">
-				<rect width="190" height="75" x="-3" y="-3" rx="6" ry="6" style="opacity:0.25;fill:#000000;filter:url(#blur)" />
-				<image xlink:href="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/35720/7d7c3b93bd85ad1db2a07f6cca01a767069c6407.jpg" width="184" height="69" preserveAspectRatio="xMidYMid meet" clip-path="url(#game-clip)" />
-			</g>
+ {$gamesString}
 		</g>
--->
 	</g>
 
 	<g id="peeps" style="color:#000000;fill:#8dc9fa;stroke:none;font-family:Orbitron;font-size:20px;font-weight:400;overflow:visible;line-height:125%;text-anchor:middle;">
+		<style>
+			#hosts text { transform: translateY(107px); }
+			#guests text { transform: translateY(-23px); }
+		</style>
 		<g id="hosts" transform="translate({$hostsBlockOffset},10)">
 {$hostsIncludeString}		</g>
 		<g id="guests" transform="translate({$guestsBlockOffset},640)">
