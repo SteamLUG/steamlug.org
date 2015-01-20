@@ -25,7 +25,7 @@ $hostAvatars = array(
 );
 
 /* we take: ‘johndrinkwater’ / ‘@johndrinkwater’ / ‘John Drinkwater (@twitter)’ / ‘John Drinkwater {URL}’ and spit out HTML */
-function nameplate( $string, $guest = 0 ) {
+function nameplate( $string, $offset = 0, $guest = 0 ) {
 
 	global $hostAvatars;
 	$name = ""; $nickname = ""; $twitterHandle = "";
@@ -80,59 +80,15 @@ function nameplate( $string, $guest = 0 ) {
 	}
 
 	$flip = ( $guest == 1 ? -23 : 107 );
-	$lookupns = ( $guest == 1 ? "-g" : "-h" );
-
 	return <<<SVGPLATE
-	<g id="{$lookup}{$lookupns}">
-		<image xlink:href="{$avatarURL}" width="70" height="70" preserveAspectRatio="xMidYMid slice" clip-path="url(#avatar-clip)" />
-		<text y="{$flip}" x="35">{$name}</text>
-	</g>
+			<g transform="translate({$offset},0)">
+				<use xlink:href="#person-holder" />
+				<image xlink:href="{$avatarURL}" width="70" height="70" preserveAspectRatio="xMidYMid slice" clip-path="url(#avatar-clip)" />
+				<text y="{$flip}" x="35">{$name}</text>
+			</g>
 
 SVGPLATE;
 
-}
-
-/* we take a ‘johndrinkwater’ / ‘@johndrinkwater’ / ‘John Drinkwater (@twitter)’ and spit out text */
-function name( $string ) {
-
-	global $hostAvatars;
-	$name = ""; $nickname = ""; $twitterHandle = "";
-	foreach ( explode( " ", $string ) as $data ) {
-
-		// (@johndrinkwater) or @johndrinkwater
-		if ( preg_match( '/\(?@([a-z0-9_]+)\)?/i', $data, $twitterResult ) ) {
-			$twitterHandle = $twitterResult[1];
-
-		// (johndrinkwater)
-		} else if ( preg_match( '/\(([a-z0-9_]+)\)/i', $data, $nicknameResult) ) {
-			$nickname = $nicknameResult[1];
-
-		// {//i.imgur.com/8YkJva1.jpg}
-		} else if ( preg_match( '/{(.*)}/i', $data, $avatarURLResult) ) {
-			$avatarURL = $avatarURLResult[1];
-
-		// John Drinkwater
-		} else {
-			$name .= $data . " ";
-		}
-	}
-
-	$name = trim( $name );
-	if ( strlen( $name ) == 0 && isset( $nickname ) ) {
-		$name = $nickname;
-	}
-	if ( strlen( $name ) == 0 && isset( $twitterHandle ) ) {
-		$name = $twitterHandle;
-	}
-
-	if ( array_key_exists( $name, $hostAvatars ) ) {
-		$lookup = $name;
-	} else if ( array_key_exists( $twitterHandle, $hostAvatars ) ) {
-		$lookup = $twitterHandle;
-	} else
-		$lookup = "unknown-host-" . md5( $string );
-
-	return $lookup;
 }
 
 /* we take a ‘######’ / //example.com/imageofgame.png and split out SVG */
@@ -181,7 +137,7 @@ if ($season !== "00" && $episode !== "00" && file_exists($filename))
 	$castGuests			= array_map('trim', explode(',', $meta['GUESTS']));
 	$devGames			= array_map('trim', explode(',', $meta['ADDITIONAL']));
 
-	$listHosts = []; $listGuests = []; $listGames = [];
+	$listGames = [];
 
 	$guestsBlockOffset = 0; $hostsBlockOffset = 0;
 	$titleOffset = 360; // where to offset title with no guests
@@ -192,30 +148,17 @@ if ($season !== "00" && $episode !== "00" && file_exists($filename))
 	foreach ($castHosts as $Host) {
 
 		if ($Host == "") break;
-		array_push( $listHosts, nameplate( $Host ) );
-		$you = name($Host);
-		$hostsIncludeString .= <<<HOSTINCLUDE
-			<g transform="translate({$startIndex},0)"><use xlink:href="#person-holder" /><use xlink:href="#{$you}-h" /></g>
-
-HOSTINCLUDE;
+		$hostsIncludeString .= nameplate( $Host, $startIndex ) ;
 		$startIndex += 180;
 	}
-	$hostsString = join("", $listHosts);
-
 
 	$guestsBlockOffset = $alignment[count($castGuests)]; $startIndex = 0;
 	foreach ($castGuests as $Guest) {
 
 		if ($Guest == "") break;
-		array_push( $listGuests, nameplate( $Guest, 1 ) );
-		$you = name($Guest);
-		$guestsIncludeString .= <<<HOSTINCLUDE
-			<g transform="translate({$startIndex},0)"><use xlink:href="#person-holder" /><use xlink:href="#{$you}-g" /></g>
-
-HOSTINCLUDE;
+		$guestsIncludeString .= nameplate( $Guest, $startIndex, 1 );
 		$startIndex += 180;
 	}
-	$guestsString = join("", $listGuests);
 
 	if ( strlen( $meta['ADDITIONAL'] ) > 0 ) {
 
@@ -275,11 +218,6 @@ GAMESINTRO;
 		<rect width="70" height="70" rx="5.5" ry="5.5" id="image-bg" style="fill:#000000;" />
 		<rect width="70" height="70" rx="5.5" ry="5.5" id="border" style="fill:none;stroke:url(#border-stroke);stroke-width:4;" />
 	</g>
-
-	<!-- HOSTS -->
-{$hostsString}
-	<!-- GUESTS -->
-{$guestsString}
 	</defs>
 	<g id="background">
 		<image xlink:href="https://archive.steamlug.org/1280x720_bg.png" width="1280" height="720" />
