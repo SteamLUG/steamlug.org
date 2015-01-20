@@ -199,7 +199,7 @@ if ($season !== "00" && $episode !== "00" && file_exists($filename))
 {
 	$shownotes		= file($filename);
 
-	$head = array_slice( $shownotes, 0, 12 );
+	$head = array_slice( $shownotes, 0, 14 );
 	$meta = array_fill_keys( array('RECORDED', 'PUBLISHED', 'TITLE',
 						'SEASON', 'EPISODE', 'DURATION', 'FILENAME',
 				'DESCRIPTION','HOSTS','GUESTS','ADDITIONAL', 'YOUTUBE' ), '');
@@ -287,7 +287,7 @@ CASTENTRY;
 		echo "<p>The shownotes are currently in the works, however they're not finished as of yet.</p>\n<p>You're still able to enjoy listening to the cast until we finalize the notes.</p>\n";
 	} else {
 
-		foreach ( array_slice( $shownotes, 13 ) as $note)
+		foreach ( array_slice( $shownotes, 15 ) as $note)
 		{
 		$note = preg_replace_callback(
 			'/\d+:\d+:\d+\s+\*(.*)\*/',
@@ -369,7 +369,7 @@ CASTENTRY;
 		/* let’s grab less here, 2K ought to be enough */
 		$header			= explode( "\n", file_get_contents($filename, false, NULL, 0, 1024) );
 
-		$head = array_slice( $header, 0, 12 );
+		$head = array_slice( $header, 0, 14 );
 		$meta = array_fill_keys( array('RECORDED', 'PUBLISHED', 'TITLE',
 							'SEASON', 'EPISODE', 'DURATION', 'FILENAME',
 					'DESCRIPTION','HOSTS','GUESTS','ADDITIONAL', 'YOUTUBE' ), '');

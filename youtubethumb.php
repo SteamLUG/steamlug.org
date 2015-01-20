@@ -124,7 +124,7 @@ if ($season !== "00" && $episode !== "00" && file_exists($filename))
 {
 	$shownotes		= file($filename);
 
-	$head = array_slice( $shownotes, 0, 12 );
+	$head = array_slice( $shownotes, 0, 14 );
 	$meta = array_fill_keys( array('RECORDED', 'PUBLISHED', 'TITLE',
 						'SEASON', 'EPISODE', 'DURATION', 'FILENAME',
 				'DESCRIPTION','HOSTS','GUESTS','ADDITIONAL', 'YOUTUBE' ), '');
