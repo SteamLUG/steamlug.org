@@ -50,8 +50,8 @@
 				<dl class="dl-horizontal">
 					<dt>General</dt><dd>steamlug ( at ) gmail ( dot ) com</dd>
 					<dt>SteamLUG Cast</dt><dd>cast ( at ) steamlug ( dot ) org</dd>
-					<dt>Events</dt><dd><a href = 'http://steamcommunity.com/id/swordfischer'>@swordfischer</a> <em>(same handle on twitter)</em></dd>
-					<dt>Servers</dt><dd><a href = 'http://steamcommunity.com/id/swordfischer'>@swordfischer</a> <em>(same handle on twitter)</em></dd>
+					<dt>Events</dt><dd><a href = 'http://twitter.com/steamlug'>@steamlug</a></dd>
+					<dt>Servers</dt><dd><a href = 'http://twitter.com/steamlug'>@steamlug</a></dd>
 					<dt>Projects</dt><dd><a href = 'http://steamcommunity.com/id/cheeseness'>Cheeseness</a> <em>(<a href = 'https://twitter.com/ValiantCheese'>@ValiantCheese</a> on twitter)</em></dd>
 				</dl>
 			</div>
