@@ -230,9 +230,8 @@ li.dropdown:hover > .dropdown-menu, .dropdown-menu:hover { display:block; }
 body
 {
 padding: 60px 0 0 0;
-color: #959595;
-font-size: 12px;
-font-family: Arial,Helvetica,sans-serif;
+color: #959595; background: url('/images/noise4.png');
+font-size: 13px !important; font-family: Arial,Helvetica,sans-serif;
 text-shadow: 1px 1px 1px #000;
 }
 
