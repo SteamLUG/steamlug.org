@@ -314,10 +314,10 @@
 						$stmt = $conn->prepare("update poll set title = :title, description = :description, url = :url, type = :type, multipleChoice = :multipleChoice, publishDate = :publishDate, expireDate = :expireDate where id = :pollID");
 						$stmt->execute(array(
 							'title' => $_POST['poll_title'],
-							'description' => $_POST['poll_description'], 
-							'url' => $_POST['poll_url'], 
-							'type' => $_POST['poll_type'], 
-							'multipleChoice' => ( isset($_POST['poll_multipleChoice']) ? True : False ), 
+							'description' => $_POST['poll_description'],
+							'url' => $_POST['poll_url'],
+							'type' => $_POST['poll_type'],
+							'multipleChoice' => ( isset($_POST['poll_multipleChoice']) ? True : False ),
 							'publishDate' => $_POST['poll_publishDate'],
 							'expireDate' => $_POST['poll_expireDate'],
 							'pollID' => $pollID
@@ -335,10 +335,10 @@
 					$stmt = $conn->prepare("insert into poll (title, description, url, type, multipleChoice, publishDate, expireDate) values (:title, :description, :url, :type, :multipleChoice, :publishDate, :expireDate)");
 					$stmt->execute(array(
 							'title' => $_POST['poll_title'],
-							'description' => $_POST['poll_description'], 
-							'url' => $_POST['poll_url'], 
-							'type' => $_POST['poll_type'], 
-							'multipleChoice' => ( isset($_POST['poll_multipleChoice']) ? True : False ), 
+							'description' => $_POST['poll_description'],
+							'url' => $_POST['poll_url'],
+							'type' => $_POST['poll_type'],
+							'multipleChoice' => ( isset($_POST['poll_multipleChoice']) ? True : False ),
 							'publishDate' => $_POST['poll_publishDate'],
 							'expireDate' => $_POST['poll_expireDate']
 							));
