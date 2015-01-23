@@ -180,15 +180,15 @@
 
 		//print_r($poll);
 		//print_r($options);
-		if ($canVote)
-		{
-			echo "<form method=\"post\" action=\"poll_vote.php\">\n";
-		}
 		echo "<article class=\"panel panel-primary\">
 				<div class=\"panel-heading\">";
 		echo "\t<h3 class=\"panel-title\" data-poll-id=\"" . $poll['id'] . "\">" . htmlspecialchars($poll['title'], ENT_QUOTES) . "</h3>";
 		echo "</div>
 		<div class=\"panel-body\">";
+		if ($canVote)
+		{
+			echo "<form method=\"post\" action=\"poll_vote.php\">\n";
+		}
 		echo "<p class=\"text-right\">" . $poll['publishDate'] . " to " . $poll['expireDate'] . "</p>\n";
 		echo "\t<p>" . htmlspecialchars($poll['description'], ENT_QUOTES) . "</p>\n";
 		if ($poll['url'] != "")
