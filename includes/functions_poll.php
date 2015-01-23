@@ -563,7 +563,7 @@
 			<div class="form-group">
 				<label class="col-lg-2 control-label" for="option_description_<?php echo $i; ?>">Option Description</label>
 				<div class="col-lg-10">
-					<textarea class="form-control" rows="3"id="option_description_<?php echo $i; ?>" name="option_description[<?php echo $i; ?>]" placeholder="A brief description for this option."><?php echo (isset($o['description']) ? $o['description'] : "") ?></textarea>
+					<textarea class="form-control" rows="3" id="option_description_<?php echo $i; ?>" name="option_description[<?php echo $i; ?>]" placeholder="A brief description for this option."><?php echo (isset($o['description']) ? $o['description'] : "") ?></textarea>
 				</div>
 			</div>
 			<div class="form-group">
@@ -583,7 +583,7 @@
 					<input type="checkbox" id="option_delete<?php echo $i; ?>" name="option_delete[<?php echo $i; ?>]" />
 				</div>
 				</div>
-				<?php echo "<input type=\"hidden\" name=\"option_id[" . $i . "]\" id=\"option_id[" . $i . "]\" id=\"pollID\" value=\"" . (isset($o['id']) ? $o['id'] : -1) . "\" />"; ?>
+				<?php echo "<input type=\"hidden\" name=\"option_id[" . $i . "]\" id=\"option_id[" . $i . "]\" value=\"" . (isset($o['id']) ? $o['id'] : -1) . "\" />"; ?>
 			<?php
 			}
 			?>
