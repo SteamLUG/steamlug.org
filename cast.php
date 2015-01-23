@@ -136,6 +136,7 @@ include_once('includes/header.php');
 /* User hitting main /cast/ page */
 if ( $season == "00" || $episode == "00" )
 {
+/* TODO make this show as being live for the duration of the event */
 if (isset($d) && strtotime($d[0] . "-" . $d[1] . "-" .$d[2])-strtotime(date("Y-m-d")) <= 21 * 86400) {
 
 	echo <<<NEXTCAST
@@ -226,6 +227,7 @@ if ($season !== "00" && $episode !== "00" && file_exists($filename))
 	$meta['TITLE'] = slenc($meta['TITLE']);
 
 	$noteEditor			= nameplate( $meta['NOTESCREATOR'], 22 );
+	$castEditor			= nameplate( $meta['EDITOR'], 22 );
 	$castHosts			= array_map('trim', explode(',', $meta['HOSTS']));
 	$castGuests			= array_map('trim', explode(',', $meta['GUESTS']));
 	$listHosts = ""; $listGuests = "";
@@ -247,7 +249,7 @@ if ($season !== "00" && $episode !== "00" && file_exists($filename))
 echo <<<CASTENTRY
 	<article class="panel panel-default">
 		<div class="panel-heading">
-			<h3 class="panel-title">{$meta[ 'TITLE' ]}</h3>
+			<h3 class="panel-title">{$meta[ 'TITLE' ]} <span class="author">edited by {$castEditor}</span></h3>
 		</div>
 		<div class="panel-body">
 			<div class="row">
@@ -280,7 +282,7 @@ echo <<<CASTENTRY
 	</article>
 	<article class="panel panel-default">
 		<div class="panel-heading">
-			<h3 class="panel-title" id="shownotes">Shownotes <span class="author">written by {$noteEditor}</span></h3>
+			<h3 class="panel-title">Shownotes <span class="author">written by {$noteEditor}</span></h3>
 		</div>
 		<div class="panel-body shownotes">
 

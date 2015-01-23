@@ -263,11 +263,12 @@ article ul { list-style-type: square; }
 
 #casts a { text-decoration: none; }
 
-#shownotes .author { font-size: small; float: right; }
-#shownotes .author a { padding-left: 6px; }
+.panel-title .author { font-size: small; vertical-align: middle; float: right; }
+.panel-title .author a { padding-left: 6px; }
+.panel-title .author img { position: relative; top: -2px; }
 
 .progress, .progress-bar { height: 5px !important; }
-.progress { margin-bottom: 8px !important; background-color: inherit !important; } 
+.progress { margin-bottom: 8px !important; background-color: inherit !important; }
 .progress-bar { background-color: #529CDE; border-radius: 2px; min-width: 0.5%; }
 
 .panel > .panel-heading,
