@@ -569,16 +569,17 @@
 			<div class="form-group">
 				<label class="col-lg-2 control-label" for="option_pollID_<?php echo $i; ?>">Poll ID</label>
 				<div class="col-lg-10">
-					<input class="form-control" type="text" placeholder="Leave blank if this is for the current poll." id="option_pollID_<?php echo $i; ?>" name="option_pollID[<?php echo $i; ?>]" value="<?php echo (isset($poll['id']) ? $poll['id']: "") ?>"/></div>
+					<input class="form-control" type="text" placeholder="Leave blank if this is for the current poll." id="option_pollID_<?php echo $i; ?>" name="option_pollID[<?php echo $i; ?>]" value="<?php echo (isset($poll['id']) ? $poll['id']: "") ?>"/>
 				</div>
+			</div>
 			<div class="form-group">
 				<label class="col-lg-2 control-label" for="option_delete_<?php echo $i; ?>">Delete Option</label>
 				<div class="col-lg-10">
 					<input type="checkbox" id="option_delete<?php echo $i; ?>" name="option_delete[<?php echo $i; ?>]" />
 				</div>
-				</div>
-				<?php echo "<input type=\"hidden\" name=\"option_id[" . $i . "]\" id=\"option_id[" . $i . "]\" value=\"" . (isset($o['id']) ? $o['id'] : -1) . "\" />"; ?>
+			</div>
 			<?php
+				echo "<input type=\"hidden\" name=\"option_id[" . $i . "]\" id=\"option_id[" . $i . "]\" value=\"" . (isset($o['id']) ? $o['id'] : -1) . "\" />";
 			}
 			?>
 			<!-- this is needed so that we can be confident that the array exists even if nothing is being deleted -->
