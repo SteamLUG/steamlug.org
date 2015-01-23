@@ -487,25 +487,19 @@
 			<div class="form-group">
 				<label class="col-lg-2 control-label" for="poll_title">Title</label>
 				<div class="col-lg-10">
-					<input class="form-control" id="poll_title" name="poll_title" type="text" placeholder="The title of the poll" value='
-						<?php echo (isset($poll['title']) ? $poll['title'] : "") ?>
-					'/>
+					<input class="form-control" id="poll_title" name="poll_title" type="text" placeholder="The title of the poll" value='<?php echo (isset($poll['title']) ? $poll['title'] : "") ?>'/>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-lg-2 control-label" for="poll_description">Description</label>
 				<div class="col-lg-10">
-					<textarea class="form-control" rows="3" id="poll_description" name="poll_description" placeholder="Poll description">
-						<?php echo (isset($poll['description']) ? $poll['description'] : "") ?>
-					</textarea>
+					<textarea class="form-control" rows="3" id="poll_description" name="poll_description" placeholder="Poll description"><?php echo (isset($poll['description']) ? $poll['description'] : "") ?></textarea>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-lg-2 control-label" for="poll_url">URL</label>
 				<div class="col-lg-10">
-					<input class="form-control" type="text" id="poll_url" name="poll_url" placeholder="Optional supporting URL for the poll." value = "
-						<?php echo (isset($poll['url']) ? $poll['url'] : "") ?>
-					" />
+					<input class="form-control" type="text" id="poll_url" name="poll_url" placeholder="Optional supporting URL for the poll." value = "<?php echo (isset($poll['url']) ? $poll['url'] : "") ?>" />
 				</div>
 			</div>
 			<div class="form-group">
