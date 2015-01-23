@@ -477,8 +477,8 @@
 			}
 		?>
 			</div>
-			</div>
-		<div class="panel panel-primary">
+		</article>
+		<article class="panel panel-primary">
 			<div class="panel-heading">
 				<h3 class="panel-title"><?php echo (count($poll) > 0 ? "Poll Details" : "New Poll")?></h3>
 			</div>
