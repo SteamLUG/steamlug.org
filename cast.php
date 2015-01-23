@@ -356,10 +356,10 @@ CASTENTRY;
 			<table id="casts" class="table table-striped table-hover tablesorter">
 				<thead>
 					<tr>
-						<th>No.
+						<th class="col-sm-1">No.
 						<th>Recorded
-						<th>Title
-						<th>Hosts
+						<th class="col-sm-4">Title
+						<th class="col-sm-2">Hosts
 						<th>Guests
 					</tr>
 				</thead>
