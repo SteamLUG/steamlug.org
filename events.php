@@ -37,7 +37,7 @@ include_once( "includes/header.php" );
 		<article class="jumbotron">
 			<h2>Next Event</h2>
 			<div class="row">
-			<div class="col-md-6">
+			<div class="col-md-5">
 <?php
 $eventButton = "";
 $eventImage = "";
@@ -63,19 +63,19 @@ foreach ($data['events'] as $event)
 					<span class="label">Days</span>
 					<span id="d1">0</span>
 					<span id="d2">0</span>
-					<span class="label">Hours</span>
+					<span class="label">&nbsp;</span>
 					<span id="h1">0</span>
 					<span id="h2">0</span>
-					<span class="label">Minutes</span>
+					<span class="label">:</span>
 					<span id="m1">0</span>
 					<span id="m2">0</span>
-					<span class="label">Seconds</span>
+					<span class="label">:</span>
 					<span id="s1">0</span>
 					<span id="s2">0</span>
 				</div>
 				<?php echo $eventButton; ?>
 			</div>
-			<div class="col-md-6">
+			<div class="col-md-5">
 					<?php echo $eventImage; ?>
 			</div>
 			</div>

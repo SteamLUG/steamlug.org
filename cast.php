@@ -139,30 +139,28 @@ if ( $season == "00" || $episode == "00" )
 if (isset($d) && strtotime($d[0] . "-" . $d[1] . "-" .$d[2])-strtotime(date("Y-m-d")) <= 21 * 86400) {
 
 	echo <<<NEXTCAST
-<div class="col-md-7">
+<div class="col-md-6">
 	<article class="panel panel-default">
 		<div class="panel-heading">
-			<h3 class="panel-title">Upcoming Episode</h3>
+			<h3 class="panel-title"><a href="{$u}">Upcoming Recording, {$s} {$c}</a></h3>
 		</div>
 		<div class="panel-body">
-			<h4><a href="{$u}">{$s} {$c}</a></h4>
-			<p>Listen in live as our hosts and guests discuss Linux gaming!</p>
-			<p>This episode will be recorded on {$dt}</p>
-			<p>Feel free to join our <a href="mumble">SteamLUG Mumble server</a> before, during and after the show!</p>
 			<div id="countdown">
 				<span class="label">Days</span>
 				<span id="d1">0</span>
 				<span id="d2">0</span>
-				<span class="label">Hours</span>
+				<span class="label">&nbsp;</span>
 				<span id="h1">0</span>
 				<span id="h2">0</span>
-				<span class="label">Minutes</span>
+				<span class="label">:</span>
 				<span id="m1">0</span>
 				<span id="m2">0</span>
-				<span class="label">Seconds</span>
+				<span class="label">:</span>
 				<span id="s1">0</span>
 				<span id="s2">0</span>
 			</div>
+			<p>This episode will be recorded on {$dt}</p>
+			<p>Listen in live as our hosts and guests discuss Linux gaming on our <a href="mumble">SteamLUG Mumble server</a>.</p>
 			<p><a href="{$u}" class="btn btn-primary btn-lg">Click for details</a></p>
 		</div>
 	</article>
@@ -170,7 +168,7 @@ if (isset($d) && strtotime($d[0] . "-" . $d[1] . "-" .$d[2])-strtotime(date("Y-m
 NEXTCAST;
 }
 	echo <<<ABOUTCAST
-<div class="col-md-5">
+<div class="col-md-6">
 	<article class="panel panel-default">
 		<div class="panel-heading">
 			<h3 class="panel-title">About</h3>
@@ -178,7 +176,17 @@ NEXTCAST;
 		<div class="panel-body">
 			<p>SteamLUG Cast is a casual, fortnightly live audiocast held on the <a href="/mumble">SteamLUG Mumble server</a> which aims to provide interesting news and discussion for the SteamLUG and broader Linux gaming communities. SteamLUG Cast is licenced <a href = 'http://creativecommons.org/licenses/by-sa/3.0/'>CC BY-SA</a></p>
 			<p>From time to time, we also have guests joining to share their insights on Linux, the gaming industry and the SteamLUG community. Check back for recording archives, shownotes and further announcements!</p>
-			<h4>Make sure to subscribe to our lovely RSS feeds</h4>
+		</div>
+	</article>
+</div>
+
+<div class="col-md-12">
+	<article class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title">Subscribe</h3>
+		</div>
+		<div class="panel-body">
+			<p>Make sure to subscribe to our lovely RSS feeds</p>
 			<ul>
 				<li><a href="/feed/cast/ogg">OGG feed</a></li>
 				<li><a href="/feed/cast/mp3">MP3 feed</a></li>
