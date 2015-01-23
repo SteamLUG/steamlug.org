@@ -48,11 +48,9 @@ if(!login_check())
 		<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 		<link rel="stylesheet" href="/css/style.css" type="text/css" />
 		<script type="text/javascript" src="/js/jquery-2.1.1.min.js"></script>
-		<!-- START Bootstrap !-->
-		<link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css" />
+
 		<link rel="stylesheet" href="/css/bootstrap.slate.css" type="text/css" />
 		<script type="text/javascript" src="/js/bootstrap.min.js"></script>
-		<!-- END Bootstrap !-->
 		
 		<script>
 			var serverTime = <?php echo microtime(true); ?>;
