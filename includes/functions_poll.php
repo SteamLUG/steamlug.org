@@ -239,10 +239,7 @@
 			echo "\t<input class=\"btn btn-info\" type=\"submit\" value=\"Vote\" />\n";
 			echo "</form>\n";
 		}
-		else
-		{
-			echo "\t</div></article>\n";
-		}
+		echo "\t</div></article>\n";
 	}
 
 
