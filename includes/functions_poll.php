@@ -42,7 +42,7 @@
 		if ($stmt)
 		{
 			echo "<div class=\"form-group\">\n
-					<label for=\"pollSelect\" class=\"col-lg-2 control-label\">Select Poll</label>\n
+					<label for=\"" . $elementID . "\" class=\"col-lg-2 control-label\">Select Poll</label>\n
 					<div class=\"col-lg-10\">
 					\t<select class=\"form-control\" name=\"" . $elementID . "\" id=\"" . $elementID . "\">\n";
 			if ($new)
