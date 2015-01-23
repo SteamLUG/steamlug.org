@@ -263,3 +263,6 @@ table th { background-color: #3D4655; color: #959595; }
 article ul { list-style-type: square; }
 
 #casts a { text-decoration: none; }
+
+#shownotes .author { font-size: small; float: right; }
+#shownotes .author a { padding-left: 6px; }

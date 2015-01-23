@@ -225,6 +225,7 @@ if ($season !== "00" && $episode !== "00" && file_exists($filename))
 	$meta['PUBLISHED'] = ($meta['PUBLISHED'] === "" ? '<span class="warning">In Progress</span>' : '<time datetime="' . $meta['PUBLISHED'] . '">' . $meta['PUBLISHED'] . '</time>');
 	$meta['TITLE'] = slenc($meta['TITLE']);
 
+	$noteEditor			= nameplate( $meta['NOTESCREATOR'], 22 );
 	$castHosts			= array_map('trim', explode(',', $meta['HOSTS']));
 	$castGuests			= array_map('trim', explode(',', $meta['GUESTS']));
 	$listHosts = ""; $listGuests = "";
@@ -261,7 +262,7 @@ echo <<<CASTENTRY
 			<dt>Special Guests</dt><dd>$listGuests</dd>
 			</dl>
 			</div>
-			<div class="col-md-4">
+			<div class="col-md-5">
 			<h4>Description</h4>
 			<p>{$meta['DESCRIPTION']}</p>
 			</div>
@@ -282,7 +283,7 @@ echo <<<CASTENTRY
 	</article>
 	<article class="panel panel-default">
 		<div class="panel-heading">
-			<h3 class="panel-title" id="shownotes">Shownotes</h3>
+			<h3 class="panel-title" id="shownotes">Shownotes <span class="author">written by {$noteEditor}</span></h3>
 		</div>
 		<div class="panel-body shownotes">
 
