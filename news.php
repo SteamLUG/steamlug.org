@@ -5,13 +5,13 @@
 ?>
 		<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 		<h1 class="text-center">SteamLUG News</h1>
-		<article class="panel panel-default">
+		<article class="panel panel-primary">
 			<div class="panel-heading">
 				<h3 class="panel-title">Recent Tweets</h3>
 			</div>
-			<div class="panel-body">
+			<div class="panel-body" id="twitter-here">
 					<span class="follow"><a href="https://twitter.com/SteamLUG" class="twitter-follow-button" data-show-count="false" data-lang="en">Follow @SteamLUG</a></span>	
-					<a class="twitter-timeline" href="https://twitter.com/SteamLUG" data-widget-id="423854063487160320" data-link-color="#ebebeb" data-chrome="nofooter noheader transparent noborders" data-tweet-limit="3" lang="EN">Tweets by @SteamLUG</a>
+					<a class="twitter-timeline" href="https://twitter.com/SteamLUG" data-widget-id="558698447109636097" data-link-color="#ebebeb" data-chrome="nofooter noheader transparent noborders" data-tweet-limit="3" lang="EN">Tweets by @SteamLUG</a>
 			</div>
 		</article>
 <?php

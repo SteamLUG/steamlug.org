@@ -271,3 +271,18 @@ article ul { list-style-type: square; }
 .progress { margin-bottom: 8px !important; background-color: inherit !important; } 
 .progress-bar { background-color: #529CDE; border-radius: 2px; min-width: 0.5%; }
 
+.panel > .panel-heading,
+.panel-primary > .panel-heading,
+.panel-default > .panel-heading {
+background-color: #7A8288;
+}
+
+#twitter-widget-1 {
+ /* !important because Twitter wants 180 ←→ 520 width? no */
+ max-width: 1100px !important;
+ min-width: 300px !important;
+ width: 100% !important;
+}
+
+/* hacks all the way down; reconsider in future */
+#twitter-here .follow { top: -44px; position: relative; height: 0; }
