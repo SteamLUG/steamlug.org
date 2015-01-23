@@ -205,7 +205,7 @@
 		{
 			if ($canVote)
 			{
-				echo "\t\t\t<input type = '" . $inputType . "\" name=\"poll_selection[]\" value=\"" . $o['id'] . "' id=\"option_" . $o['id'] . "\" />\n";
+				echo "\t\t\t<input type=\"" . $inputType . "\" name=\"poll_selection[]\" value=\"" . $o['id'] . "' id=\"option_" . $o['id'] . "\" />\n";
 				echo "\t\t\t<label class = 'pollOptionLabel' title = '" . ($o['description'] != "" ? htmlspecialchars($o['description'], ENT_QUOTES) : htmlspecialchars($o['name'], ENT_QUOTES)) . "' for = 'option_" . $o['id'] . "'><span></span>" . htmlspecialchars($o['name'], ENT_QUOTES) . ($o['url'] != "" ? " <a href = '" . $o['url'] . "'>[link]</a>" : "" ) .  " (" . round($o['percentage'], 2) . "%)</label>\n";
 			}
 			else
