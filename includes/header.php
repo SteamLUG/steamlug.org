@@ -167,9 +167,15 @@ if(!login_check())
 	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container">
 			<div class="navbar-header">
+			  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			  </button>
 				<a class="navbar-brand" href="/">SteamLUG</a>
 			</div>
-			<div class="navbar-collapse collapse navbar-responsive-collapse">
+			<div class="navbar-collapse collapse navbar-responsive-collapse" id="navbar">
 				<ul class="nav navbar-nav">
 					<li class="<?php echo $newsPage; ?>"><a href="/news">News</a></li>
 					<li class="dropdown <?php echo $chatPage; ?>">
@@ -187,7 +193,6 @@ if(!login_check())
 							<li class="<?php echo $streamPage; ?>"><a href="/stream">Live Stream</a></li>
 						</ul>
 					</li>
-					<li class="<?php echo $serversPage; ?>"><a href="/servers">Servers</a></li>
 					<li class="dropdown <?php echo $projectsPage; ?>">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Projects <b class="caret"></b></a>
 						<ul class="dropdown-menu">
@@ -195,9 +200,10 @@ if(!login_check())
 							<li class="<?php echo $pollPage; ?>"><a href="/polls">Polls</a><li>
 						</ul>
 					</li>
+					<li class="<?php echo $serversPage; ?>"><a href="/servers">Servers</a></li>
 					<li class="<?php echo $aboutPage; ?>"><a href="/about">About</a></li>
 					</ul>
-					<ul class="nav navbar-nav navbar-right">
+					<ul class="nav navbar-nav navbar-right hidden-sm hidden-xs">
 						<li class="navbar-brand"><span class="label label-success"><a href="http://steamcommunity.com/groups/steamlug/">Join our Steam Group</a></span></li>
 					</ul>
 				</div>
