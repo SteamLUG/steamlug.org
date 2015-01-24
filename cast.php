@@ -318,7 +318,7 @@ CASTENTRY;
 			function($matches) { return "<li>" . $matches[0] . "</li>"; },
 			$note );
 		$note = preg_replace_callback(
-			'/(?<=^|\s)@([a-z0-9_]+)/i',
+			'/@([A-Za-z0-9_]+)/i',
 			function($matches) { return '<a href="https://twitter.com/' . slenc($matches[1]) . '">' . slenc($matches[0]) . '</a>'; },
 			$note );
 		$note = preg_replace_callback(
