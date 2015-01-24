@@ -306,12 +306,16 @@ CASTENTRY;
 			function($matches) { return '<time class="casttimestamp" id="ts-' . slenc($matches[1]) . '" datetime="' . slenc($matches[1]) . '">' . slenc($matches[1]) . '</time>'; },
 			$note );
 		$note = preg_replace_callback(
-			'/^<time.*$/',
-			function($matches) { return "<li>" . $matches[0] . "</li>"; },
-			$note );
-		$note = preg_replace_callback(
 			'/(?i)\b((?:(https?|irc):\/\/|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:\'".,<>?«]))/',
 			function($matches) { return "[<a href='" . slenc($matches[0]) . "' class='text-info'>source</a>]"; },
+			$note );
+		$note = preg_replace_callback(
+			'/(?i)\b((?:(steam):\/\/[^ \n]*))$/',
+			function($matches) { return "<a href='" . slenc($matches[0]) . "' class='text-info'>" . slenc($matches[0]) . "</a>"; },
+			$note );
+		$note = preg_replace_callback(
+			'/^<time.*$/',
+			function($matches) { return "<li>" . $matches[0] . "</li>"; },
 			$note );
 		$note = preg_replace_callback(
 			'/(?<=^|\s)@([a-z0-9_]+)/i',
