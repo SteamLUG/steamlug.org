@@ -89,13 +89,13 @@ table.tablesorter thead th i, table.tablesorter tbody td i {
 	line-height: 20px;
 }
 
-.casttimestamp
+.shownotes time
 {
 	margin-right: 10px;
 	color: #626262;
 }
 
-.casttimestamp:target
+.shownotes time:target
 {
 	color: #FF7F00;
 }
