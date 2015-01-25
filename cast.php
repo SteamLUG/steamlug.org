@@ -242,9 +242,9 @@ if ($season !== "00" && $episode !== "00" && file_exists($filename))
 
 	$episodeOggFS	= (file_exists($episodeBase . ".ogg")  ? round(filesize($episodeBase . ".ogg") /1024/1024,2) : 0);
 	$siteListen		= ($episodeOggFS > 0 ? '<audio id="castplayer" preload="none" src="' . $archiveBase . '.ogg" type="audio/ogg" controls>Your browser does not support the &lt;audio&gt; tag.</audio>' : '');
-	$episodeOddDS	= ($episodeOggFS > 0 ? $episodeOggFS . ' MB <a download href="' . $archiveBase . '.ogg">OGG</a>' : 'N/A OGG');
+	$episodeOddDS	= "<span class='ogg'>" . ($episodeOggFS > 0 ? $episodeOggFS . ' MB <a download href="' . $archiveBase . '.ogg">OGG</a>' : 'N/A OGG') . "</span>";
 	$episodeMp3FS	= (file_exists($episodeBase . ".mp3")  ? round(filesize($episodeBase . ".mp3") /1024/1024,2) : 0);
-	$episodeMP3DS	= ($episodeMp3FS > 0 ? $episodeMp3FS . ' MB <a download href="' .$archiveBase . '.mp3">MP3</a>' : 'N/A MP3');
+	$episodeMP3DS	= "<span class='mp3'>" . ($episodeMp3FS > 0 ? $episodeMp3FS . ' MB <a download href="' .$archiveBase . '.mp3">MP3</a>' : 'N/A MP3') . "</span>";
 
 echo <<<CASTENTRY
 	<article class="panel panel-default">
@@ -254,7 +254,7 @@ echo <<<CASTENTRY
 		<div class="panel-body">
 			<div class="row">
 			<div class="col-md-7">
-			<h4>Season: {$meta[ 'SEASON' ]}, Episode: {$meta[ 'EPISODE' ]}</h4>
+			<h4>Season {$meta[ 'SEASON' ]}, Episode {$meta[ 'EPISODE' ]}</h4>
 			<dl class="dl-horizontal">
 			<dt>Recorded</dt><dd>{$meta['RECORDED']}</dd>
 			<dt>Published</dt><dd>{$meta['PUBLISHED']}</dd>
@@ -269,13 +269,13 @@ echo <<<CASTENTRY
 			</div>
 			{$siteListen}
 			<div class="clearfix"></div>
-			<p class="pull-left">
+			<p class="pull-left download-links">
 				$episodeOddDS
 				$episodeMP3DS
 			</p>
 			<p class="pull-right">
 				<a href='http://creativecommons.org/licenses/by-sa/3.0/'>
-					<img class='license' src='/images/by-sa.png' alt='Licensed under CC-BY-SA'>
+					<img class='license' src='/images/by-sa.png' alt='Creative Commons By-Share‐Alike license logo' title='Licensed under CC-BY-SA'>
 				</a>
 			</p>
 		</div>

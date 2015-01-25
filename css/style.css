@@ -45,6 +45,11 @@ blockquote
 	margin-left: 90px;
 }
 
+.download-links span { padding-right: 1em; }
+/* consider images here for the diff mime types
+.download-links span::before { content: " "; display: inline-block; width: 22px; }
+*/
+
 #history li,
 #main li
 {
