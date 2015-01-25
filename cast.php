@@ -246,6 +246,15 @@ if ($season !== "00" && $episode !== "00" && file_exists($filename))
 	$episodeMp3FS	= (file_exists($episodeBase . ".mp3")  ? round(filesize($episodeBase . ".mp3") /1024/1024,2) : 0);
 	$episodeMP3DS	= "<span class='mp3'>" . ($episodeMp3FS > 0 ? $episodeMp3FS . ' MB <a download href="' .$archiveBase . '.mp3">MP3</a>' : 'N/A MP3') . "</span>";
 
+	$footer = <<<FOOTERBLOCK
+  SteamLUG Cast is a casual, fortnightly audiocast which aims to provide interesting news and discussion for the SteamLUG and broader Linux gaming communities.
+  Visit our site http://steamlug.org/ and the cast homepage http://steamlug.org/cast
+  Email us feedback, questions, tips and suggestions to cast@steamlug.org
+  We can be followed on Twitter as @SteamLUG
+
+FOOTERBLOCK;
+	$shownotes = array_merge( $shownotes, explode( "\n", $footer ) );
+
 echo <<<CASTENTRY
 	<article class="panel panel-default">
 		<div class="panel-heading">
