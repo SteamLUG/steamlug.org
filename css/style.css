@@ -40,11 +40,6 @@ blockquote
 	margin-bottom: 20px;
 }
 
-.castsection
-{
-	margin-left: 90px;
-}
-
 .download-links span { padding-right: 1em; }
 /* consider images here for the diff mime types
 .download-links span::before { content: " "; display: inline-block; width: 22px; }
@@ -94,64 +89,21 @@ table.tablesorter thead th i, table.tablesorter tbody td i {
 	line-height: 20px;
 }
 
-.shownotes time
-{
-	margin-right: 10px;
-	color: #626262;
-}
+.shownotes { text-align: left; }
+.shownotes h4 { margin-top: 5px; font-weight: bold; font-size: 14px; line-height: 18px; }
 
-.shownotes time:target
-{
-	color: #FF7F00;
-}
-
-.casttopic
-{
-	font-weight: bold;
-	font-size: 14px;
-	line-height: 40px;
-}
-
-.shownotes
-{
-	text-align: left;
-}
-
-.shownotes li
-{
-	list-style-type: none !important;
-	line-height: 20px;
-	text-indent: -70px;
-}
-
-.nostamp
-{
-	text-indent: 0 !important;
-}
-
-.nostamp p
-{
-	margin: 0;
-}
+.shownotes dl { line-height: 20px; text-indent: -70px; margin-bottom: 5px; }
+.shownotes dl dt { width: 7em; }
+.shownotes dl dd { margin-left: 7.1em; }
+.shownotes time { margin-right: 10px; color: #626262; }
+.shownotes time:target { color: #FF7F00; }
 
 /* highlighter */
+.shownotes time { cursor: pointer; }
+.shownotes time:hover { color: #EEE; }
+.shownotes .highlighted time:hover { color: yellow; }
 
-.casttimestamp
-{
-	cursor: pointer;
-}
-
-.casttimestamp:hover
-{
-	color: #EEE;
-}
-
-li.highlighted,
-.highlighted time
-{
-	background-color: #06A;
-	color: #EEE;
-}
+dt.highlighted, dt.highlighted time, dt.highlighted + dd { background-color: #06A; color: #EEE; }
 
 /*Steamcommunity bbcode ugliness*/
 .bb_link_host

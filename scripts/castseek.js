@@ -16,7 +16,7 @@
             var nodes, i, time, seconds, audio;
 
             // collect time tags
-            nodes = document.querySelectorAll('.casttimestamp');
+            nodes = document.querySelectorAll('.shownotes dt time');
 
             for (i = 0; i < nodes.length; i += 1) {
                 time = nodes[i];
