@@ -145,13 +145,13 @@ if(!login_check())
 	}
 	else if (strpos($_SERVER["SCRIPT_NAME"], "polls.php"))
 	{
-		$projectsPage = "current";
-		$pollPage = "current";
+		$projectsPage = "active";
+		$pollPage = "active";
 	}
 	else if (strpos($_SERVER["SCRIPT_NAME"], "poll-archive.php"))
 	{
-		$projectsPage = "current";
-		$pollArchivePage = "current";
+		$projectsPage = "active";
+		$pollArchivePage = "active";
 	}
 	else if (strpos($_SERVER["SCRIPT_NAME"], "cast.php"))
 	{
