@@ -167,9 +167,15 @@ if (isset($d) && strtotime($d[0] . "-" . $d[1] . "-" .$d[2])-strtotime(date("Y-m
 	</article>
 </div>
 NEXTCAST;
+	$aboutWidth = "col-md-6";
+
+} else {
+
+	// for the times when we have not organised the next cast.
+	$aboutWidth = "col-md-12";
 }
 	echo <<<ABOUTCAST
-<div class="col-md-6">
+<div class="{$aboutWidth}">
 	<article class="panel panel-default">
 		<div class="panel-heading">
 			<h3 class="panel-title">About</h3>
@@ -182,7 +188,7 @@ NEXTCAST;
 </div>
 
 <div class="col-md-12">
-	<article class="panel panel-default">
+	<article class="panel panel-default subscribe-here">
 		<div class="panel-heading">
 			<h3 class="panel-title">Subscribe</h3>
 		</div>

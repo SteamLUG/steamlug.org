@@ -226,6 +226,12 @@ article ul { list-style-type: square; }
 .panel-title .author a { padding-left: 6px; }
 .panel-title .author img { position: relative; top: -2px; }
 
+.subscribe-here p { display: inline-block; margin-right: 1em; }
+.subscribe-here ul { padding: 0; float: right; }
+.subscribe-here ul li { display: inline-block; }
+.subscribe-here li+li { padding-left: 1em; }
+.subscribe-here ul li::before { content: ""; display: inline-block; position: relative; top: 2px; height: 14px; width: 14px; margin-right: 7px; background-image: url('/images/feed-icon-14x14.png'); }
+
 .progress, .progress-bar { height: 5px !important; }
 .progress { margin-bottom: 8px !important; background-color: inherit !important; }
 .progress-bar { background-color: #529CDE; border-radius: 2px; min-width: 0.5%; }
