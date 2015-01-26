@@ -34,9 +34,13 @@ foreach ($data["events"] as $event) {
 if (isset($d)) {
 	$extraJS = "\t\t\tvar target = Math.round( Date.UTC (" . $d[0] . ", " . $d[1] . " -1, " . $d[2] . ", " . $t[0] . ", " . $t[1] . ", 0, 0) / 1000);";
 }
-$syncexternalJS = array('/scripts/jquery.js','/scripts/jquery.tablesorter.js','/scripts/events.js','/scripts/jquery.tablesorter.widgets.js','/scripts/jquery.twbsPagination.js');
-$tailJS = array('/scripts/castseek.js');
+$externalJS = array( '/scripts/events.js', '/scripts/castseek.js' );
+$syncexternalJS = array('/scripts/jquery.js','/scripts/jquery.tablesorter.js','/scripts/jquery.tablesorter.widgets.js','/scripts/jquery.twbsPagination.js');
 $pageTitle = "Cast";
+
+$rssLinks = '<link rel="alternate" type="application/rss+xml" title="SteamLUG Cast (mp3) Feed" href="https://steamlug.org/feed/cast/mp3" /><link rel="alternate" type="application/rss+xml" title="SteamLUG Cast (Ogg) Feed" href="https://steamlug.org/feed/cast/ogg" />';
+
+include_once('includes/header.php');
 
 $path = "/var/www/archive.steamlug.org/steamlugcast";
 $url  = "//archive.steamlug.org/steamlugcast";
@@ -126,10 +130,6 @@ TWITLINK;
 		return $avatar;
 	}
 }
-
-$rssLinks = '<link rel="alternate" type="application/rss+xml" title="SteamLUG Cast (mp3) Feed" href="https://steamlug.org/feed/cast/mp3" /><link rel="alternate" type="application/rss+xml" title="SteamLUG Cast (Ogg) Feed" href="https://steamlug.org/feed/cast/ogg" />';
-
-include_once('includes/header.php');
 ?>
 		<h1 class="text-center">SteamLUG Cast</h1>
 		<div class="row">
