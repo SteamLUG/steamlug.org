@@ -1,6 +1,6 @@
 <?php
 $pageTitle = "Servers";
-$syncexternalJS = array('/scripts/jquery.js','/scripts/jquery.tablesorter.js','/scripts/jquery.tablesorter.widgets.js');
+$syncexternalJS = array( '/scripts/jquery.tablesorter.min.js', '/scripts/jquery.tablesorter.widgets.min.js' );
 ?>
 <?php
 	include_once("includes/header.php");

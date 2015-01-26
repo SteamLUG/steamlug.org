@@ -36,7 +36,7 @@ if (isset($d)) {
 }
 $externalJS = array( '/scripts/events.js' );
 $deferJS = array( '/scripts/castseek.js' );
-$syncexternalJS = array('/scripts/jquery.js','/scripts/jquery.tablesorter.js','/scripts/jquery.tablesorter.widgets.js','/scripts/jquery.twbsPagination.js');
+$syncexternalJS = array( '/scripts/jquery.tablesorter.min.js', '/scripts/jquery.tablesorter.widgets.min.js', '/scripts/jquery.twbsPagination.min.js' );
 $pageTitle = "Cast";
 
 $rssLinks = '<link rel="alternate" type="application/rss+xml" title="SteamLUG Cast (mp3) Feed" href="https://steamlug.org/feed/cast/mp3" /><link rel="alternate" type="application/rss+xml" title="SteamLUG Cast (Ogg) Feed" href="https://steamlug.org/feed/cast/ogg" />';
