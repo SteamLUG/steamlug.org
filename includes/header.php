@@ -54,6 +54,14 @@ if(!login_check())
 			var serverTime = <?php echo microtime(true); ?>;
 		</script>
 <?php
+	if (isset($deferJS))
+	{
+		foreach ($deferJS as $js)
+		{
+			echo "\t\t<script type=\"text/javascript\" src=\"" . $js . "\" defer=\"defer\"></script>\n";
+		}
+	}
+
 	if (isset($externalJS))
 	{
 		foreach ($externalJS as $js)

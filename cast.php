@@ -34,7 +34,8 @@ foreach ($data["events"] as $event) {
 if (isset($d)) {
 	$extraJS = "\t\t\tvar target = Math.round( Date.UTC (" . $d[0] . ", " . $d[1] . " -1, " . $d[2] . ", " . $t[0] . ", " . $t[1] . ", 0, 0) / 1000);";
 }
-$externalJS = array( '/scripts/events.js', '/scripts/castseek.js' );
+$externalJS = array( '/scripts/events.js' );
+$deferJS = array( '/scripts/castseek.js' );
 $syncexternalJS = array('/scripts/jquery.js','/scripts/jquery.tablesorter.js','/scripts/jquery.tablesorter.widgets.js','/scripts/jquery.twbsPagination.js');
 $pageTitle = "Cast";
 
