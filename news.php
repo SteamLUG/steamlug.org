@@ -27,7 +27,7 @@
 		{
 			if (!preg_match("/steamlug\/events\//", $item['link']))
 			{
-			
+
 				$item['description'] = str_replace(array("\r", "\r\n"), "\n", $item['description']);
 				$item['description'] = str_replace(" onclick=\"return AlertNonSteamSite( this );\"", "", $item['description']);
 				$item['description'] = str_replace(" class=\"bb_link\"", "", $item['description']);
@@ -44,7 +44,8 @@
 				$item['description'] = str_replace("<blockquote>", "</p>\n<blockquote>", $item['description']);
 				$item['description'] = str_replace("</blockquote>", "</blockquote>\n<p>", $item['description']);
 				$item['description'] = str_replace("<br>", "<br />", $item['description']);
-				
+				$item['description'] = str_replace("https://steamcommunity.com/linkfilter/?url=", "", $item['description']);
+
 				if (!isset($item['author']))
 				{
 					$item['author'] = "Author";
