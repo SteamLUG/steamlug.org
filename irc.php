@@ -11,7 +11,7 @@ $pageTitle = "Chat";
 			</div>
 			<div class="panel-body">
 				<p>This page contains a webchat widget that you can use to connect to the SteamLUG IRC channel. Simply enter a nickname, fill out the captcha and click connect. If you plan to join us regularly, we recommend using a dedicated IRC client such as <a href="http://www.irssi.org/">irssi</a>, <a href="http://www.weechat.org/">weechat</a> or <a href="http://xchat.org/">X-Chat</a>.</p>
-				<p>If you are new to our community, please take the time to read our short <a href = '#coc'>Code of Conduct</a> below :)</p>
+				<p>If you are new to our community, please take the time to read our short <a href="#coc">Code of Conduct</a> below :)</p>
 				<dl class="dl-horizontal">
 				<dt>IRC Server</dt><dd>irc.freenode.net</dd>
 				<dt>Channel Name</dt><dd>#steamlug</dd>

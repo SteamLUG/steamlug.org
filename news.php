@@ -10,7 +10,7 @@
 				<h3 class="panel-title">Recent Tweets</h3>
 			</div>
 			<div class="panel-body" id="twitter-here">
-					<span class="follow"><a href="https://twitter.com/SteamLUG" class="twitter-follow-button" data-show-count="false" data-lang="en">Follow @SteamLUG</a></span>	
+					<span class="follow"><a href="https://twitter.com/SteamLUG" class="twitter-follow-button" data-show-count="false" data-lang="en">Follow @SteamLUG</a></span>
 					<a class="twitter-timeline" href="https://twitter.com/SteamLUG" data-widget-id="558698447109636097" data-link-color="#ebebeb" data-chrome="nofooter noheader transparent noborders" data-tweet-limit="3" lang="EN">Tweets by @SteamLUG</a>
 			</div>
 		</article>
