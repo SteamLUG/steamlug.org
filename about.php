@@ -81,7 +81,7 @@
 				<h3 class="panel-title">Steam for Linux</h3>
 			</div>
 			<div class="panel-body">
-<p>After long standing rumour and speculation, official news of Steam for Linux finally made an appearance in a <a href = 'http://www.sevendaycooldown.com/site/episode001/'>7 Day Cooldown interview</a> with Valve CEO Gabe Newall, who mentioned he had been personally working with Valve's Linux team.</p>
+<p>After long standing rumour and speculation, official news of Steam for Linux finally made an appearance in a <a href = 'http://www.sevendaycooldown.com/site/episode001/'>7 Day Cooldown interview</a> with Valve CEO Gabe Newell, who mentioned he had been personally working with Valve's Linux team.</p>
 <p>Valve later launched a <a href = 'http://blogs.valvesoftware.com/linux/steamd-penguins/'>Linux oriented blog</a> to cover their progress in developing Steam for Linux and porting their games.</p>
 <p>An <a href = 'http://steamcommunity.com/games/221410'>official Steam group</a> for the Steam for Linux beta was created in October 2012, accompanied by a <a href = 'http://steamcommunity.com/app/221410'>hub for the Linux client app</a>. Both rapidly gained popularity, with the group quickly reaching membership in the tens of thousands.</p>
 <p>A survey was also <a href = 'http://steamcommunity.com/games/221410/announcements/detail/1783684043532816475'>launched</a> in October to gather details of people interested in participating in the Steam for Linux beta (<em>with a recommendation that inexperienced Linux users be patient and wait for a later release</em>). According to a Valve <a href = 'http://store.steampowered.com/news/9289/'>press release</a>, over 60,000 people responded within the first week.</p>
