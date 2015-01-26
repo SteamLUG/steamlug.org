@@ -42,12 +42,12 @@
 
             // listen to audio events
             audio = document.getElementById('castplayer');
-            audio.addEventListener("timeupdate", this.timeupdate_handler);
-            audio.addEventListener("progress", this.progress_handler);
-
-            this.audio = audio;
-
-            console.log("highlighter initialized!");
+            if (audio) {
+                audio.addEventListener("timeupdate", this.timeupdate_handler);
+                audio.addEventListener("progress", this.progress_handler);
+                this.audio = audio;
+                console.log("highlighter initialized!");
+            }
         },
 
         /*
