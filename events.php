@@ -27,8 +27,9 @@ foreach ($data['events'] as $event)
 	break;
 }
 
-$dateString = "var target = Math.round( Date.UTC (" . $d[0] . ", " . $d[1] . " -1, " . $d[2] . ", " . $t[0] . ", " . $t[1] . ", 0, 0) / 1000);";
-$extraJS = $dateString;
+if (isset($d)) {
+	$extraJS = "\t\t\tvar target = Math.round( Date.UTC (" . $d[0] . ", " . $d[1] . " -1, " . $d[2] . ", " . $t[0] . ", " . $t[1] . ", 0, 0) / 1000);";
+}
 $externalJS = array('/scripts/events.js');
 
 include_once( "includes/header.php" );
