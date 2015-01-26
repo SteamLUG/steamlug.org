@@ -74,7 +74,7 @@ if(!login_check())
 	{
 		echo "\t\t<script type=\"text/javascript\">\n";
 		echo $extraJS;
-		echo "\t\t</script>\n";
+		echo "\n\t\t</script>\n";
 	}
 	if (isset($extraCSS))
 	{
