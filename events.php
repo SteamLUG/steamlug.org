@@ -82,9 +82,9 @@ foreach ($data['events'] as $event)
 			</div>
 		</article>
 		<article class="panel panel-default">
-			<div class="panel-heading">
+			<header class="panel-heading">
 				<h3 class="panel-title">About</h3>
-			</div>
+			</header>
 			<div class="panel-body">
 			<p>Here you can find a list of upcoming group gaming events hosted by the SteamLUG community. A countdown timer is shown above for the next upcoming event. We also have a <a href = '/feed/events'>RSS feed</a> of event reminders available.</p>
 			<p>All times are listed in UTC, and are subject to change.</p>
@@ -97,9 +97,9 @@ foreach ($data['events'] as $event)
 			</div>
 		</article>
 		<article class="panel panel-default">
-			<div class="panel-heading">
+			<header class="panel-heading">
 				<h3 class="panel-title">Upcoming Events</h3>
-			</div>
+			</header>
 				<div class="panel-body">
 			<table class="table table-striped table-hover events">
 			<thead>
@@ -135,9 +135,9 @@ EVENTSTRING;
 			</div>
 		</article>
 		<article class="panel panel-default">
-			<div class="panel-heading">
+			<header class="panel-heading">
 				<h3 class="panel-title">Past Events</h3>
-			</div>
+			</header>
 			<div class="panel-body">
 			<table class="table table-striped table-hover events">
 			<thead>

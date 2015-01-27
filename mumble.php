@@ -58,9 +58,9 @@
 ?>
 	<h1 class="text-center">SteamLUG Mumble Server</h1>
 	<article class="panel panel-default">
-		<div class="panel-heading">
+		<header class="panel-heading">
 			<h3 class="panel-title">About</h3>
-		</div>
+		</header>
 		<div class="panel-body">
 			<div class="col-md-7">
 				<p>In place of in-game voice chat, we host a <a href = 'http://mumble.sourceforge.net/'>Mumble</a> voice chat server, allowing our community members to talk across servers and between games. We have configurable "channels" for events, team talk and general chat including the <a href = 'cast'>SteamLUG Cast</a>. If you have the Mumble client installed, you can join by clicking <a href="mumble://mumble.dk.steamlug.org">here</a>.</p>
@@ -99,9 +99,9 @@
 		</div>
 	</article>
 	<article class="panel panel-default">
-		<div class="panel-heading">
+		<header class="panel-heading">
 			<h3 class="panel-title">Status</h3>
-		</div>
+		</header>
 		<div class="panel-body" id="mumble-list">
 <?php
 	echo $statusString;

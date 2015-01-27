@@ -4,9 +4,9 @@
 <?php include_once("includes/header.php"); ?>
 <h1 class="text-center">About SteamLUG</h1>
 		<article class="panel panel-primary">
-			<div class="panel-heading">
+			<header class="panel-heading">
 				<h3 class="panel-title">Community</h3>
-			</div>
+			</header>
 			<div class="panel-body">
 				<blockquote class="pull-left">
 				<p>Hi!</p>
@@ -21,9 +21,9 @@
 			</div>
 		</article>
 		<article class="panel panel-primary">
-			<div class="panel-heading">
+			<header class="panel-heading">
 				<h3 class="panel-title">Activities</h3>
-			</div>
+			</header>
 			<div class="panel-body">
 				<div class="row">
 					<div class="col-md-4">
@@ -42,9 +42,9 @@
 			</div>
 		</article>
 		<article class="panel panel-primary">
-			<div class="panel-heading">
+			<header class="panel-heading">
 				<h3 class="panel-title">Contact</h3>
-			</div>
+			</header>
 			<div class="panel-body">
 				<p>There are several ways to contact the SteamLUG administrators:</p>
 				<dl class="dl-horizontal">
@@ -57,9 +57,9 @@
 			</div>
 		</article>
 		<article class="panel panel-primary">
-			<div class="panel-heading">
+			<header class="panel-heading">
 				<h3 class="panel-title">History</h3>
-			</div>
+			</header>
 			<div class="panel-body">
 				<p>The SteamLUG community is an amalgamation of several communities which previously existed independently.</p>
 				<h4>Steam Group</h4>
@@ -77,9 +77,9 @@
 			</div>
 		</article>
 		<article class="panel panel-primary">
-			<div class="panel-heading">
+			<header class="panel-heading">
 				<h3 class="panel-title">Steam for Linux</h3>
-			</div>
+			</header>
 			<div class="panel-body">
 <p>After long standing rumour and speculation, official news of Steam for Linux finally made an appearance in a <a href = 'http://www.sevendaycooldown.com/site/episode001/'>7 Day Cooldown interview</a> with Valve CEO Gabe Newell, who mentioned he had been personally working with Valve's Linux team.</p>
 <p>Valve later launched a <a href = 'http://blogs.valvesoftware.com/linux/steamd-penguins/'>Linux oriented blog</a> to cover their progress in developing Steam for Linux and porting their games.</p>

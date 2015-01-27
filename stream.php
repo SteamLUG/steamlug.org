@@ -34,20 +34,20 @@
 	$data = $parser->genData("steamlug", $month, $year);
 ?>
 		<h1>Live Stream</h1>
-		        <div class="panel panel-default">
-					<div class="panel-heading">
+				<div class="panel panel-default">
+					<header class="panel-heading">
 						<h3 class="panel-title">Watch us as we play</h3>
-					</div>
+					</header>
 					<div class="panel-body">
 						<p>You can live follow our event as they're streamed by a SteamLUG administrator.</p>
 					</div>
 				</div>
 		<div class="row">
 			<div class="col-md-6">
-		        <div class="panel panel-default">
-					<div class="panel-heading">
+				<div class="panel panel-default">
+					<header class="panel-heading">
 						<h3 class="panel-title">Mumble Status</h3>
-					</div>
+					</header>
 					<div class="panel-body">
 <?php
         $users = $murmur->get_users();
@@ -79,9 +79,9 @@
 			</div>
 			<div class="col-md-6">
         <div class="panel panel-default">
-			<div class="panel-heading">
-        		<h3 class="panel-title"><a href="<?=$data["events"][0]["url"];?>"><?=$data["events"][0]["title"];?></a></h3>
-			</div>
+			<header class="panel-heading">
+				<h3 class="panel-title"><a href="<?=$data["events"][0]["url"];?>"><?=$data["events"][0]["title"];?></a></h3>
+			</header>
 			<div class="panel-body">
 				<p class="text-center">
 					<img src="<?=$data["events"][0]["img_header"];?>" alt="<?=$data["events"][0]["title"];?>" />
@@ -94,9 +94,9 @@
 		</div>
 		</div>
         <div class="panel panel-default">
-			<div class="panel-heading">
+			<header class="panel-heading">
 				<h3 class="panel-title"><a href="https://twitch.tv/steamlug">SteamLUG @ Twitch.TV</a></h3>
-			</div>
+			</header>
 			<div class="panel-body">
 				<object type="application/x-shockwave-flash" width="100%" height="600px" id="live_embed_player_flash" data="http://www.twitch.tv/widgets/live_embed_player.swf?channel=steamlug">
 					<param name="allowFullScreen" value="true" />
@@ -108,4 +108,4 @@
 				<p><a href="http://www.twitch.tv/steamlug" class="btn btn-primary">Click for larger stream</a></p>
 			</div>
 		</div>
-<?php include_once("includes/footer.php"); ?> 
+<?php include_once("includes/footer.php"); ?>

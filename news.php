@@ -6,9 +6,9 @@
 		<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 		<h1 class="text-center">SteamLUG News</h1>
 		<article class="panel panel-primary">
-			<div class="panel-heading">
+			<header class="panel-heading">
 				<h3 class="panel-title">Recent Tweets</h3>
-			</div>
+			</header>
 			<div class="panel-body" id="twitter-here">
 					<span class="follow"><a href="https://twitter.com/SteamLUG" class="twitter-follow-button" data-show-count="false" data-lang="en">Follow @SteamLUG</a></span>
 					<a class="twitter-timeline" href="https://twitter.com/SteamLUG" data-widget-id="558698447109636097" data-link-color="#ebebeb" data-chrome="nofooter noheader transparent noborders" data-tweet-limit="3" lang="EN">Tweets by @SteamLUG</a>
@@ -52,9 +52,9 @@
 				}
 				?>
 			<article class="panel panel-primary">
-				<div class="panel-heading">
+				<header class="panel-heading">
 					<h3 class="panel-title"><a href="<?=$item['link'];?>"><?=htmlspecialchars($item['title']);?></a></h3>
-				</div>
+				</header>
 				<div class="panel-body">
 					<p><?=htmlspecialchars_decode($item['description']);?></p>
 				</div>
@@ -72,9 +72,9 @@
 	{
 		?>
 		<article class="panel panel-primary">
-			<div class="panel-heading">
+			<header class="panel-heading">
 				<h3 class="panel-title"><a href = 'http://steamcommunity.com/groups/steamlug/announcements/'>Error</a></h3>
-			</div>
+			</header>
 			<div class="panel-body">
 				<p>RSS news source not found...</p>
 				<p>You can try viewing news on the Steam Group <a href = 'http://steamcommunity.com/groups/steamlug/announcements/'>Announcements page</a>.</p>

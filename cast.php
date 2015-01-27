@@ -144,9 +144,9 @@ if (isset($d) && strtotime($d[0] . "-" . $d[1] . "-" .$d[2])-strtotime(date("Y-m
 	echo <<<NEXTCAST
 <div class="col-md-6">
 	<article class="panel panel-default">
-		<div class="panel-heading">
+		<header class="panel-heading">
 			<h3 class="panel-title"><a href="{$u}">Upcoming Recording, {$s} {$c}</a></h3>
-		</div>
+		</header>
 		<div class="panel-body">
 			<div id="countdown">
 				<span class="label">Days</span>
@@ -172,16 +172,15 @@ NEXTCAST;
 	$aboutWidth = "col-md-6";
 
 } else {
-
 	// for the times when we have not organised the next cast.
 	$aboutWidth = "col-md-12";
 }
 	echo <<<ABOUTCAST
 <div class="{$aboutWidth}">
 	<article class="panel panel-default">
-		<div class="panel-heading">
+		<header class="panel-heading">
 			<h3 class="panel-title">About</h3>
-		</div>
+		</header>
 		<div class="panel-body">
 			<p>SteamLUG Cast is a casual, fortnightly live audiocast held on the <a href="/mumble">SteamLUG Mumble server</a> which aims to provide interesting news and discussion for the SteamLUG and broader Linux gaming communities. SteamLUG Cast is licenced <a href = 'http://creativecommons.org/licenses/by-sa/3.0/'>CC BY-SA</a></p>
 			<p>From time to time, we also have guests joining to share their insights on Linux, the gaming industry and the SteamLUG community. Check back for recording archives, shownotes and further announcements!</p>
@@ -191,9 +190,9 @@ NEXTCAST;
 
 <div class="col-md-12">
 	<article class="panel panel-default subscribe-here">
-		<div class="panel-heading">
+		<header class="panel-heading">
 			<h3 class="panel-title">Subscribe</h3>
-		</div>
+		</header>
 		<div class="panel-body">
 			<p>Make sure to subscribe to our lovely RSS feeds</p>
 			<ul>
@@ -265,9 +264,9 @@ FOOTERBLOCK;
 
 echo <<<CASTENTRY
 	<article class="panel panel-default">
-		<div class="panel-heading">
+		<header class="panel-heading">
 			<h3 class="panel-title">{$meta[ 'TITLE' ]} <span class="author">edited by {$castEditor}</span></h3>
-		</div>
+		</header>
 		<div class="panel-body">
 			<div class="row">
 			<div class="col-md-7">
@@ -298,9 +297,9 @@ echo <<<CASTENTRY
 		</div>
 	</article>
 	<article class="panel panel-default">
-		<div class="panel-heading">
+		<header class="panel-heading">
 			<h3 class="panel-title">Shownotes <span class="author">written by {$noteEditor}</span></h3>
-		</div>
+		</header>
 		<div class="panel-body shownotes">
 
 CASTENTRY;
@@ -370,9 +369,9 @@ CASTENTRY;
 ?>
 
 	<article class="panel panel-default">
-		<div class="panel-heading">
+		<header class="panel-heading">
 			<h3 class="panel-title">Previous Casts</h3>
-		</div>
+		</header>
 		<div class="panel-body">
 			<table id="casts" class="table table-striped table-hover tablesorter">
 				<thead>

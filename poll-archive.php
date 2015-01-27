@@ -5,9 +5,9 @@
 ?>
 <h1 class="text-center">Community Polls</h1>
 	<article class="panel panel-primary">
-		<div class="panel-heading">
+		<header class="panel-heading">
 			<h3 class="panel-title">About</h3>
-		</div>
+		</header>
 		<div class="panel-body">
 					<p>Results for past SteamLUG community polls can be found here!</p>
 		</div>

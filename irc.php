@@ -6,9 +6,9 @@ $pageTitle = "Chat";
 <div class="row">
 	<div class="col-md-5">
 		<article class="panel panel-default">
-			<div class="panel-heading">
+			<header class="panel-heading">
 				<h3 class="panel-title">Chat with the SteamLUG Community</h3>
-			</div>
+			</header>
 			<div class="panel-body">
 				<p>This page contains a webchat widget that you can use to connect to the SteamLUG IRC channel. Simply enter a nickname, fill out the captcha and click connect. If you plan to join us regularly, we recommend using a dedicated IRC client such as <a href="http://www.irssi.org/">irssi</a>, <a href="http://www.weechat.org/">weechat</a> or <a href="http://xchat.org/">X-Chat</a>.</p>
 				<p>If you are new to our community, please take the time to read our short <a href="#coc">Code of Conduct</a> below :)</p>
@@ -22,9 +22,9 @@ $pageTitle = "Chat";
 	</div>
 	<div class="col-md-7">
 		<article class="panel panel-danger" id="coc">
-			<div class="panel-heading">
+			<header class="panel-heading">
 				<h3 class="panel-title">Community Code of Conduct</h3>
-			</div>
+			</header>
 			<div class="panel-body">
 				<p>The only rules are:</p>
 				<ul>
@@ -48,9 +48,9 @@ $pageTitle = "Chat";
 	</div>
 </div>
 		<article class="panel panel-default">
-			<div class="panel-heading">
+			<header class="panel-heading">
 				<h3 class="panel-title">Webclient</h3>
-			</div>
+			</header>
 			<div class="panel-body">
 				<iframe src="https://webchat.freenode.net?channels=steamlug" width="100%" height="600px">
 					<p>Your browser does not support iframes.</p>

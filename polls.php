@@ -5,9 +5,9 @@
 ?>
 <h1 class="text-center">Community Polls</h1>
 		<article class="panel panel-primary">
-			<div class="panel-heading">
+			<header class="panel-heading">
 				<h3 class="panel-title">About</h3>
-			</div>
+			</header>
 			<div class="panel-body">
 					<p>We're launching a new polling feature for SteamLUG.org, which will allow us to get better community input on things like events, SteamLUG Cast topics, future projects and more!</p>
 					<p>To vote, you need to be signed in via Steam using the button below, and you must be a member of our <a href = 'http://steamcommunity.com/groups/steamlug/'>Steam group</a>.</p>

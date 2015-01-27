@@ -5,9 +5,9 @@
 ?>
 <h1 class="text-center">Poll Admin</h1>
 		<article class="panel panel-primary">
-			<div class="panel-heading">
+			<header class="panel-heading">
 				<h3 class="panel-title">Polls</h3>
-			</div>
+			</header>
 			<div class="panel-body">
 					<?php
 						if(!login_check())
