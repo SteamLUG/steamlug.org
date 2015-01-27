@@ -338,8 +338,8 @@ CASTENTRY;
 			function($matches) { return "<a href='mailto:". slenc($matches[0]) . "' class=\"mail-link\">" . slenc($matches[0]) . '</a>'; },
 			$note );
 		$note = preg_replace_callback(
-			'/(?<=^|\s)@([A-Za-z0-9_]+)/i',
-			function($matches) { return '<a href="https://twitter.com/' . slenc($matches[1]) . '" class="twitter-link">' . slenc($matches[0]) . '</a>'; },
+			'/((?<=^|\s|\(|>))@([A-Za-z0-9_]+)/i',
+			function($matches) { return $matches[1] . '<a href="https://twitter.com/' . slenc($matches[2]) . '" class="twitter-link">' . slenc($matches[2]) . '</a>'; },
 			$note );
 		$note = preg_replace_callback(
 			'/^\n$/',
@@ -350,7 +350,7 @@ CASTENTRY;
 			function($matches) { return "\t<dd>&lt;<span class=\"nickname\">" . $matches[1] . "</span>&gt; " . $matches[2] . "</dd>";	},
 			$note );
 		$note = preg_replace_callback(
-			'/\t([^<].*)$/',
+			'/\t((?!<dd).*)$/',
 			function($matches) { return "\t<dd>" . $matches[1] . "</dd>"; },
 			$note );
 		$note = preg_replace_callback(

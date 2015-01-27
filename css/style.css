@@ -251,6 +251,7 @@ background-color: #7A8288;
 
 /* hacks all the way down; reconsider in future */
 #twitter-here .follow { top: -44px; position: relative; height: 0; }
+.twitter-link::before { content: "@"; padding-right: .05em; }
 
 ::-moz-selection { background-color: brown; color: white; text-shadow: 1px 1px 1px #purple; }
 ::selection { background-color: brown; color: white; text-shadow: 1px 1px 1px #purple; }
