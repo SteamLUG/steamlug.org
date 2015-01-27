@@ -322,7 +322,7 @@ CASTENTRY;
 			function($matches) { return '<dt>' . slenc($matches[1]) . "</dt>\n\t<dd>" . slenc($matches[2]) . "</dd>"; },
 			$note );
 		$note = preg_replace_callback(
-			'/(\d+:\d+:\d+)/',
+			'/(\d+:\d+:\d{2})(?!])/',
 			function($matches) { return '<time id="ts-' . slenc($matches[1]) . '" datetime="' . slenc($matches[1]) . '">' . slenc($matches[1]) . '</time>'; },
 			$note );
 		$note = preg_replace_callback(
@@ -356,6 +356,10 @@ CASTENTRY;
 		$note = preg_replace_callback(
 			'/  (.*)/',
 			function($matches) { return '<p>' . $matches[1] . "</p>\n";	},
+			$note );
+		$note = preg_replace_callback(
+			'/\[(\w\d+\w\d+)#([0-9:]*)\]/',
+			function($matches) { return '<a href="/cast/' . $matches[1] . '#ts-' . $matches[2] . '">' . $matches[1] . " @ " . $matches[2] . "</a>"; },
 			$note );
 		$note = preg_replace_callback(
 			'/\[(\w\d+\w\d+)\]/',
