@@ -124,10 +124,8 @@ CASTENTRY;
 				'/^<time.*$/',
 				function($matches){ return "<li>" . $matches[0] . "</li>"; },
 				$note);
-			/* TODO: recent episode included www.nordicgames.at which parses OK for us, but feed validators
-				say no to relative URLs */
 			$note = preg_replace_callback(
-				'/(?i)\b((?:(https?|irc):\/\/|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:\'".,<>?«]))/',
+				'/(?i)\b((?:(https?|irc):\/\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:\'".,<>?«]))/',
 				function($matches){ return "[<a href='" . slenc($matches[0]) . "'>" . slenc($matches[0]) . "</a>]"; },
 				$note);
 			$note = preg_replace_callback(
