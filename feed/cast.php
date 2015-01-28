@@ -66,7 +66,7 @@ CASTHEAD;
 
 		$shownotes		= file($filename);
 
-		$head = array_slice( $shownotes, 0, 10 );
+		$head = array_slice( $shownotes, 0, 14 );
 		$meta = array_fill_keys( array('RECORDED', 'PUBLISHED', 'TITLE',
 							'SEASON', 'EPISODE', 'DURATION', 'FILENAME',
 					'DESCRIPTION','HOSTS','GUESTS','ADDITIONAL' ), '');
@@ -110,7 +110,7 @@ CASTHEAD;
 			<description><![CDATA[<p>{$meta['DESCRIPTION']}</p>
 
 CASTENTRY;
-		foreach ( array_slice( $shownotes, 12 ) as $note)
+		foreach ( array_slice( $shownotes, 15 ) as $note)
 		{
 			$note = preg_replace_callback(
 				'/\d+:\d+:\d+\s+\*(.*)\*/',
