@@ -117,8 +117,8 @@ CASTENTRY;
 				function($matches){ return "<p>" . slenc($matches[1]) . "</p>\n<ul>"; },
 				$note);
 			$note = preg_replace_callback(
-				'/(\d+:\d+:\d+)/',
-				function($matches){ return "<time datetime='" . slenc($matches[1]) . "'>" . slenc($matches[1]) . "</time>"; },
+				'/(\d+:\d+:\d{2})(?!])/',
+				function($matches){ return "<time datetime=\"" . slenc($matches[1]) . '">' . slenc($matches[1]) . "</time>"; },
 				$note);
 			$note = preg_replace_callback(
 				'/^<time.*$/',
@@ -126,15 +126,19 @@ CASTENTRY;
 				$note);
 			$note = preg_replace_callback(
 				'/(?i)\b((?:(https?|irc):\/\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:\'".,<>?«]))/',
-				function($matches){ return "[<a href='" . slenc($matches[0]) . "'>" . slenc($matches[0]) . "</a>]"; },
+				function($matches){ return "[<a href=\"" . slenc($matches[0]) . '">' . slenc($matches[0]) . "</a>]"; },
 				$note);
 			$note = preg_replace_callback(
-				'/(?<=^|\s)@([a-z0-9_]+)/i',
-				function($matches){ return "<a href='http://twitter.com/" . slenc($matches[1]) . "'>" . slenc($matches[0]) . "</a>"; },
-				$note);
+				'/(?i)\b((?:(steam):\/\/[^ \n<]*))/',
+				function($matches) { return '<a href="' . slenc($matches[0]) . '">' . slenc($matches[0]) . "</a>"; },
+				$note );
 			$note = preg_replace_callback(
 				'/\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}\b/',
-				function($matches){ return "<a href='mailto:". slenc($matches[0]) . "'>" . slenc($matches[0]) . "</a>"; },
+				function($matches){ return "<a href=\"mailto:". slenc($matches[0]) . '">' . slenc($matches[0]) . "</a>"; },
+				$note);
+			$note = preg_replace_callback(
+				'/((?<=^|\s|\(|>))@([A-Za-z0-9_]+)/i',
+				function($matches) { return $matches[1] . '<a href="https://twitter.com/' . slenc($matches[2]) . '">@' . slenc($matches[2]) . '</a>'; },
 				$note);
 			$note = preg_replace_callback(
 				'/^\n$/',
@@ -153,8 +157,12 @@ CASTENTRY;
 				function($matches){ return "\t\t\t<p>" . $matches[1] . "</p>"; },
 				$note);
 			$note = preg_replace_callback(
+				'/\[(\w\d+\w\d+)#([0-9:]*)\]/',
+				function($matches) { return "\t\t\t<a href=\"https://steamlug.org/cast/" . $matches[1] . '#ts-' . $matches[2] . '">' . $matches[1] . " @ " . $matches[2] . "</a>"; },
+				$note );
+			$note = preg_replace_callback(
 				'/\[(\w\d+\w\d+)\]/',
-				function($matches){ return "\t\t\t<a href='https://steamlug.org/cast/" . $matches[1] . "'>" . $matches[1] . "</a>\n"; },
+				function($matches){ return "\t\t\t<a href=\"https://steamlug.org/cast/" . $matches[1] . '">' . $matches[1] . "</a>"; },
 				$note);
 			echo $note;
 		}
