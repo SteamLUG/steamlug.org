@@ -21,7 +21,14 @@
 	/* naïve as fook, but we know this. */
 	$latestCast = date("D, d M Y H:i:s O", filemtime( $path . '/' . $casts[0] ));
 
-	// <atom:link href=\"https://steamlug.org/cast/rss\" rel=\"alternate\" title=\"SteamLUG Cast (". $type . ") Feed\" type=\"application/rss+xml\" />";
+	// it is important that the atom:link self reference is truly referencial, do our best to provide that
+	// note: this can leaky and/or broken on some server configs;
+	$server = 'http://';
+	if ( !empty($_SERVER['HTTPS']) && ($_SERVER["HTTPS"] == "on") ) {
+        $server = 'https://';
+    }
+	$server .= $_SERVER['SERVER_NAME'];
+	$server .= (!empty($_SERVER['SERVER_PORT']) ? ":" . $_SERVER['SERVER_PORT'] : '');
 
 	/* for sake of reading/modification, use HEREDOC syntax */
 	echo <<<CASTHEAD
@@ -29,7 +36,7 @@
 <rss xmlns:media="http://search.yahoo.com/mrss/" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:cc="http://web.resource.org/cc/">
 	<channel>
 		<title>SteamLUG Cast</title>
-		<atom:link href="https://steamlug.org/feed/cast/$type" rel="self" type="application/rss+xml" />
+		<atom:link href="{$server}/feed/cast/$type" rel="self" type="application/rss+xml" />
 		<link>https://steamlug.org/cast</link>
 		<description>SteamLUG Cast is a casual, fortnightly audiocast which aims to provide interesting news and discussion for the SteamLUG and broader Linux gaming communities.</description>
 		<itunes:author>SteamLUG</itunes:author>
