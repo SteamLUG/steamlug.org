@@ -17,40 +17,38 @@
  */
 
 /**
- * Battlefield 2 Protocol Class
+ * Starbound Protocol Class
+ *
+ * Unable to test if player information is returned.  Also appears the challenge procedure
+ * is ignored.
  *
  * @author Austin Bischoff <austin@codebeard.com>
  */
-class GameQ_Protocols_Bf2 extends GameQ_Protocols_Gamespy3
+class GameQ_Protocols_Starbound extends GameQ_Protocols_Source
 {
-	protected $name = "bf2";
-	protected $name_long = "Battlefield 2";
+	protected $name = "starbound";
+	protected $name_long = "Starbound";
 
-	protected $port = 29900;
-
-	/**
-	* Set the packet mode to multi, Gamespy v3 is by default a linear set of calls
-	*
-	* @var string
-	*/
-	protected $packet_mode = self::PACKET_MODE_MULTI;
-
-	/**
-	 * Array of packets we want to look up.
+	protected $port = 21025;
+        
+        /**
+	 * Array of packets we want to look up. (Modified from A2S default.)
 	 * Each key should correspond to a defined method in this or a parent class
 	 *
 	 * @var array
 	 */
 	protected $packets = array(
-		self::PACKET_ALL => "\xFE\xFD\x00\x10\x20\x30\x40\xFF\xFF\xFF\x01",
+		self::PACKET_CHALLENGE => "\xFF\xFF\xFF\xFF\x57",
+		self::PACKET_DETAILS => "\xFF\xFF\xFF\xFFTSource Engine Query\x00",
+		self::PACKET_PLAYERS => "\xFF\xFF\xFF\xFF\x55%s",
+		self::PACKET_RULES => "\xFF\xFF\xFF\xFF\x56%s",
 	);
+        
+        /**
+	* Set the packet mode to linear, Starbound does not support multi packet mode.
+	*
+	* @var string
+	*/
+	protected $packet_mode = self::PACKET_MODE_LINEAR;
 
-	/**
-	 * Methods to be run when processing the response(s)
-	 *
-	 * @var array
-	 */
-	protected $process_methods = array(
-		"process_all",
-	);
 }

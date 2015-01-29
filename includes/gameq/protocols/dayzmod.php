@@ -17,14 +17,13 @@
  */
 
 /**
- * Medal of Honor: Allied Assault Protocol Class
+ * DayZ Mod Protocol Class
  *
  * @author Marcel Bößendörfer <m.boessendoerfer@marbis.net>
+ * @author Austin Bischoff <austin@codebeard.com>
  */
-class GameQ_Protocols_Mohaa extends GameQ_Protocols_Gamespy
+class GameQ_Protocols_Dayzmod extends GameQ_Protocols_Armedassault2
 {
-	protected $name = "mohaa";
-	protected $name_long = "Medal of Honor: Allied Assault";
-
-	protected $port = 12300;
+	protected $name = "dayzmod";
+	protected $name_long = "DayZ Mod";
 }

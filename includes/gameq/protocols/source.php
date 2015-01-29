@@ -3,16 +3,16 @@
  * This file is part of GameQ.
  *
  * GameQ is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
+ * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * GameQ is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
@@ -90,6 +90,8 @@ class GameQ_Protocols_Source extends GameQ_Protocols
 	 * @var int
 	 */
 	protected $source_engine = self::SOURCE_ENGINE;
+
+	protected $join_link = "steam://connect/%s:%d/";
 
 	/**
 	 * Parse the challenge response and apply it to all the packet types
@@ -200,15 +202,15 @@ class GameQ_Protocols_Source extends GameQ_Protocols
         $result->add('dedicated', $buf->read());
         $result->add('os', $buf->read());
         $result->add('password', $buf->readInt8());
-        
+
         // Check engine type
         if ($this->source_engine == self::GOLDSOURCE_ENGINE)
         {
         	$result->add('ismod', $buf->readInt8());
         }
-        
+
         $result->add('secure', $buf->readInt8());
-        
+
         // Check engine type
         if ($this->source_engine == self::GOLDSOURCE_ENGINE)
         {
@@ -415,7 +417,7 @@ class GameQ_Protocols_Source extends GameQ_Protocols
     			// Now verify the length
     			if(strlen($result) != $packet_length)
     			{
-    				throw new GameQ_ProtocolsException("Checksum for compressed packet failed! Length expected {$packet_length}, length returned".strlen($result));
+    				throw new GameQ_ProtocolsException("Checksum for compressed packet failed! Length expected: {$packet_length}, length returned: ".strlen($result));
     			}
 
     			// Set the new packs

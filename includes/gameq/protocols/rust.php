@@ -17,14 +17,30 @@
  */
 
 /**
- * Medal of Honor: Allied Assault Protocol Class
+ * Rust Protocol Class
  *
- * @author Marcel Bößendörfer <m.boessendoerfer@marbis.net>
+ * Seems to respond to A2S but no rules, unsure if players is complete
+ *
+ * @author Austin Bischoff <austin@codebeard.com>
  */
-class GameQ_Protocols_Mohaa extends GameQ_Protocols_Gamespy
+class GameQ_Protocols_Rust extends GameQ_Protocols_Source
 {
-	protected $name = "mohaa";
-	protected $name_long = "Medal of Honor: Allied Assault";
+	protected $name = "rust";
+	protected $name_long = "Rust";
 
-	protected $port = 12300;
+	/**
+	 * Overload for client port
+	 *
+	 * @param string $ip
+	 * @param integer $port
+	 * @param array $options
+	 */
+	public function __construct($ip = FALSE, $port = FALSE, $options = array())
+	{
+	    // Got to do this first
+	    parent::__construct($ip, $port, $options);
+
+	    // Correct the client port since query_port = client_port + 1
+	    $this->port_client(($this->port_client() - 1));
+	}
 }
