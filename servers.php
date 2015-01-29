@@ -47,7 +47,7 @@ $syncexternalJS = array( '/scripts/jquery.tablesorter.min.js', '/scripts/jquery.
 				<td></td>
 				<td><em>Server Unresponsive</em></td>
 				<td><em>{$serverHost}</em></td>
-				<td><em>N/A</em></td>
+				<td><em>0 ⁄ 0</em></td>
 				<td><em>N/A</em></td>
 				<td><span class="text-danger"><i class="fa fa-circle-o"></i></span></td>
 			</tr>
@@ -60,7 +60,7 @@ SERVERSTRING;
 			$serverSec	= !empty($data['secure']) ? '<i class="fa fa-shield"></i>' : "";
 			$serverPass	= $data['gq_password'] == "1" ? '<i class="fa fa-shield"></i>' : "";
 			$serverDesc	= isset($data['game_descr']) ? ($data['game_descr'] == "Team Fortress" ? "Team Fortress 2" : $data['game_descr']) : ($data['gq_type'] == "killingfloor" ? "Killing Floor" : $data['gq_type']);
-			$serverNum	= ($data['gq_numplayers'] ? $data['gq_numplayers'] : "0") . " / " . $data['gq_maxplayers'];
+			$serverNum	= ($data['gq_numplayers'] ? $data['gq_numplayers'] : "0") . " ⁄ " . $data['gq_maxplayers'];
 			echo <<<SERVERSTRING
 			<tr>
 				<td><span style="display:none">{$serverLoc}</span><img src="/images/flags/{$serverLoc}.png" alt="Hosted in {$serverLoc}"></td>
