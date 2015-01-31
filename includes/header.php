@@ -207,7 +207,7 @@ if(!login_check())
 					<li<?php echo $aboutPage; ?>><a href="/about">About</a></li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right hidden-sm hidden-xs">
-						<li class="navbar-brand"><span class="label label-success"><a href="http://steamcommunity.com/groups/steamlug/">Join our Steam Group</a></span></li>
+						<li class="navbar-brand group-join"><span class="label label-success"><a href="http://steamcommunity.com/groups/steamlug/">Join our Steam Group</a></span></li>
 					</ul>
 				</div>
 		</div>
