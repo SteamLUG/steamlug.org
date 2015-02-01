@@ -8,8 +8,7 @@
 	{
 		$type = "mp3";
 	}
-	$path = "/var/www/archive.steamlug.org/steamlugcast";
-	$url  = "https://archive.steamlug.org/steamlugcast";
+	include_once('../includes/cast.php');
 
 	function slenc($u)
 	{
@@ -17,9 +16,9 @@
 	}
 
 	/* gives us a list, like s02e03, s02e02, etc of all of our casts */
-	$casts = scandir($path, 1);
+	$casts = scandir($filePath, 1);
 	/* naïve as fook, but we know this. */
-	$latestCast = date("D, d M Y H:i:s O", filemtime( $path . '/' . $casts[0] ));
+	$latestCast = date("D, d M Y H:i:s O", filemtime( $filePath . '/' . $casts[0] ));
 
 	// it is important that the atom:link self reference is truly referencial, do our best to provide that
 	// note: this can leaky and/or broken on some server configs;
@@ -67,7 +66,7 @@ CASTHEAD;
 		if ($castdir === '.' or $castdir === '..')
 			continue;
 
-		$filename		= $path .'/'. $castdir . "/episode.txt";
+		$filename		= $notesPath .'/'. $castdir . "/episode.txt";
 		if (!file_exists($filename))
 			continue;
 
@@ -87,8 +86,8 @@ CASTHEAD;
 			continue;
 
 		$epi = "s" . slenc($meta['SEASON']) . "e" . slenc($meta['EPISODE']);
-		$archiveBase = $url . '/' . $epi . '/' . $meta['FILENAME'];
-		$episodeBase = $path .'/' . $castdir . '/' . $meta['FILENAME'];
+		$archiveBase = $publicURL . '/' . $epi . '/' . $meta['FILENAME'];
+		$episodeBase = $filePath .'/' . $castdir . '/' . $meta['FILENAME'];
 
 		/* if file missing, skip this entry */
 		if (!file_exists( $episodeBase . "." . $type))

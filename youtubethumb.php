@@ -6,8 +6,7 @@ $season  = str_pad($season, 2, '0', STR_PAD_LEFT);
 $episode = isset($_GET["e"]) ? intval($_GET["e"]) : "0";
 $episode = str_pad($episode, 2, '0', STR_PAD_LEFT);
 
-$path = "/var/www/archive.steamlug.org/steamlugcast";
-$url  = "//archive.steamlug.org/steamlugcast";
+include_once('includes/cast.php');
 
 /* TODO: join this to our steamlug user system; TODO: make steamlug user system */
 $hostAvatars = array(
@@ -118,7 +117,7 @@ function gameplate( $string, $offset ) {
 GAMEPLATE;
 }
 
-$filename = $path . "/s" . $season . "e" . $episode . "/episode.txt";
+$filename = $notesPath . "/s" . $season . "e" . $episode . "/episode.txt";
 /* User wanting to see a specific cast, and shownotes file exists */
 if ($season !== "00" && $episode !== "00" && file_exists($filename))
 {
@@ -159,6 +158,7 @@ if ($season !== "00" && $episode !== "00" && file_exists($filename))
 		$guestsIncludeString .= nameplate( $Guest, $startIndex, 1 );
 		$startIndex += 180;
 	}
+	$gamesString = "";
 
 	if ( strlen( $meta['ADDITIONAL'] ) > 0 ) {
 

@@ -42,9 +42,7 @@ $pageTitle = "Cast";
 $rssLinks = '<link rel="alternate" type="application/rss+xml" title="SteamLUG Cast (mp3) Feed" href="https://steamlug.org/feed/cast/mp3" /><link rel="alternate" type="application/rss+xml" title="SteamLUG Cast (Ogg) Feed" href="https://steamlug.org/feed/cast/ogg" />';
 
 include_once('includes/header.php');
-
-$path = "/var/www/archive.steamlug.org/steamlugcast";
-$url  = "//archive.steamlug.org/steamlugcast";
+include_once('includes/cast.php');
 
 function slenc($u)
 {
@@ -209,7 +207,7 @@ ABOUTCAST;
 	</div>
 
 <?php
-$filename = $path . "/s" . $season . "e" . $episode . "/episode.txt";
+$filename = $notesPath . "/s" . $season . "e" . $episode . "/episode.txt";
 /* User wanting to see a specific cast, and shownotes file exists */
 if ($season !== "00" && $episode !== "00" && file_exists($filename))
 {
@@ -225,8 +223,8 @@ if ($season !== "00" && $episode !== "00" && file_exists($filename))
 	}
 
 	$epi = 's' . slenc($meta['SEASON']) . 'e' . slenc($meta['EPISODE']);
-	$archiveBase = $url . '/' . $epi . '/' . $meta['FILENAME'];
-	$episodeBase = $path .'/' . $epi . '/' . $meta['FILENAME'];
+	$archiveBase = $publicURL . '/' . $epi . '/' . $meta['FILENAME'];
+	$episodeBase = $filePath .'/' . $epi . '/' . $meta['FILENAME'];
 
 	$meta['RECORDED']  = ( $meta['RECORDED'] === "" ? "N/A" : '<time datetime="' . $meta['RECORDED'] . '">' . $meta['RECORDED'] . '</time>' );
 	$meta['PUBLIC'] = $meta['PUBLISHED'];
@@ -389,13 +387,13 @@ CASTENTRY;
 				</thead>
 				<tbody>
 <?php
-	$casts = scandir($path, 1);
+	$casts = scandir($filePath, 1);
 	foreach( $casts as $castdir )
 	{
 		if ($castdir === '.' or $castdir === '..')
 			continue;
 
-		$filename		= $path .'/'. $castdir . "/episode.txt";
+		$filename		= $notesPath .'/'. $castdir . "/episode.txt";
 		if (!file_exists($filename))
 			continue;
 		/* let’s grab less here, 2K ought to be enough */

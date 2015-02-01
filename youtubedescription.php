@@ -5,15 +5,14 @@ $season  = str_pad($season, 2, '0', STR_PAD_LEFT);
 $episode = isset($_GET["e"]) ? intval($_GET["e"]) : "0";
 $episode = str_pad($episode, 2, '0', STR_PAD_LEFT);
 
-$path = "/var/www/archive.steamlug.org/steamlugcast";
-$url  = "//archive.steamlug.org/steamlugcast";
+include_once('includes/cast.php');
 
 function slenc($u)
 {
 	return htmlentities($u,ENT_QUOTES, "UTF-8");
 }
 
-$filename = $path . "/s" . $season . "e" . $episode . "/episode.txt";
+$filename = $notesPath . "/s" . $season . "e" . $episode . "/episode.txt";
 if ($season !== "00" && $episode !== "00" && file_exists($filename))
 {
 	$shownotes		= file($filename);
