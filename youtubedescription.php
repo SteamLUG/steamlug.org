@@ -41,4 +41,8 @@ if ($season !== "00" && $episode !== "00" && file_exists($filename))
 			function($matches) { print slenc($matches[1]) . " " . slenc($matches[2]) . "<br>"; },
 			$note );
 	}
+	echo "<br>\nSteamLUG Cast is a casual, fortnightly audiocast which aims to provide interesting news and discussion for the SteamLUG and broader Linux gaming communities.<br>\n";
+	echo "Visit our site http://steamlug.org/ and the cast homepage http://steamlug.org/cast<br>\n";
+	echo "Email us feedback, questions, tips and suggestions to cast@steamlug.org<br>\n";
+	echo "We can be followed on Twitter http://twitter.com/steamlug\n";
 }
