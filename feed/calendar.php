@@ -1,6 +1,5 @@
 <?php
-
-include('/var/www/steamlug.org/steameventparser.php');
+require_once("../steameventparser.php");
 
 $parser = new SteamEventParser();
 $eventarr = $parser->genData("steamlug");
