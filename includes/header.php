@@ -78,6 +78,10 @@ if(!login_check())
 		}
 	}
 
+	if (isset($extraCrap))
+	{
+		echo $extraCrap;
+	}
 	if (isset($extraJS))
 	{
 		echo "\t\t<script type=\"text/javascript\">\n";

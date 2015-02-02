@@ -41,7 +41,6 @@ $pageTitle = "Cast";
 
 $rssLinks = '<link rel="alternate" type="application/rss+xml" title="SteamLUG Cast (mp3) Feed" href="https://steamlug.org/feed/cast/mp3" /><link rel="alternate" type="application/rss+xml" title="SteamLUG Cast (Ogg) Feed" href="https://steamlug.org/feed/cast/ogg" />';
 
-include_once('includes/header.php');
 include_once('includes/cast.php');
 
 function slenc($u)
@@ -129,17 +128,22 @@ TWITLINK;
 		return $avatar;
 	}
 }
-?>
+
+$start = <<<STARTPAGE
 		<h1 class="text-center">SteamLUG Cast</h1>
 		<div class="row">
-<?php
-/* User hitting main /cast/ page */
-if ( $season == "00" || $episode == "00" )
-{
-/* TODO make this show as being live for the duration of the event */
-if (isset($d) && strtotime($d[0] . "-" . $d[1] . "-" .$d[2])-strtotime(date("Y-m-d")) <= 21 * 86400) {
+STARTPAGE;
 
-	echo <<<NEXTCAST
+/* User hitting main /cast/ page */
+if ( $season == "00" || $episode == "00" ) {
+
+	include('includes/header.php');
+	echo $start;
+
+	/* TODO make this show as being live for the duration of the event */
+	if (isset($d) && strtotime($d[0] . "-" . $d[1] . "-" .$d[2])-strtotime(date("Y-m-d")) <= 21 * 86400) {
+
+		echo <<<NEXTCAST
 <div class="col-md-6">
 	<article class="panel panel-default">
 		<header class="panel-heading">
@@ -167,12 +171,12 @@ if (isset($d) && strtotime($d[0] . "-" . $d[1] . "-" .$d[2])-strtotime(date("Y-m
 	</article>
 </div>
 NEXTCAST;
-	$aboutWidth = "col-md-6";
+		$aboutWidth = "col-md-6";
 
-} else {
-	// for the times when we have not organised the next cast.
-	$aboutWidth = "col-md-12";
-}
+	} else {
+		// for the times when we have not organised the next cast.
+		$aboutWidth = "col-md-12";
+	}
 	echo <<<ABOUTCAST
 <div class="{$aboutWidth}">
 	<article class="panel panel-default">
@@ -201,16 +205,13 @@ NEXTCAST;
 	</article>
 </div>
 ABOUTCAST;
-
+	echo "</div>";
 }
-?>
-	</div>
 
-<?php
 $filename = $notesPath . "/s" . $season . "e" . $episode . "/episode.txt";
 /* User wanting to see a specific cast, and shownotes file exists */
-if ($season !== "00" && $episode !== "00" && file_exists($filename))
-{
+if ($season !== "00" && $episode !== "00" && file_exists($filename)) {
+
 	$shownotes		= file($filename);
 
 	$head = array_slice( $shownotes, 0, 14 );
@@ -230,6 +231,8 @@ if ($season !== "00" && $episode !== "00" && file_exists($filename))
 	$meta['PUBLIC'] = $meta['PUBLISHED'];
 	$meta['PUBLISHED'] = ($meta['PUBLISHED'] === "" ? '<span class="warning">In Progress</span>' : '<time datetime="' . $meta['PUBLISHED'] . '">' . $meta['PUBLISHED'] . '</time>');
 	$meta['TITLE'] = slenc($meta['TITLE']);
+	$meta['SHORTDESCRIPTION'] = slenc(substr($meta['DESCRIPTION'],0,132));
+
 
 	$noteEditor			= nameplate( $meta['NOTESCREATOR'], 22 );
 	$castEditor			= nameplate( $meta['EDITOR'], 22 );
@@ -251,6 +254,25 @@ if ($season !== "00" && $episode !== "00" && file_exists($filename))
 	$episodeMp3FS	= (file_exists($episodeBase . ".mp3")  ? round(filesize($episodeBase . ".mp3") /1024/1024,2) : 0);
 	$episodeMP3DS	= "<span class='mp3'>" . ($episodeMp3FS > 0 ? $episodeMp3FS . ' MB <a download href="' .$archiveBase . '.mp3">MP3</a>' : 'N/A MP3') . "</span>";
 
+	$extraCrap = <<<TWITCARD
+		<meta name="twitter:card" content="player">
+		<meta name="twitter:site" content="@SteamLUG">
+		<meta name="twitter:title" content="{$epi} – {$meta[ 'TITLE' ]}">
+		<meta name="twitter:description" content="{$meta['SHORTDESCRIPTION']}…">
+		<meta name="twitter:image:src" content="https://steamlug.org/images/steamlugcast.png">
+		<meta name="twitter:image:width" content="300">
+		<meta name="twitter:image:height" content="300">
+		<meta name="twitter:player" content="https://www.youtube.com/embed/{$meta[ 'YOUTUBE' ]}">
+		<meta name="twitter:player:width" content="480">
+		<meta name="twitter:player:height" content="360">
+
+TWITCARD;
+#		<meta name="twitter:player:stream" content="https://www.youtube.com/embed/MY_URL">
+#		<meta name="twitter:player:stream:content_type" content="video/mp4; codecs=&quot;avc1.42E01E1, mp4a.40.2&quot;">
+
+	/* We start late to give us the ability to compose header info for twitter cards */
+	include('includes/header.php');
+	echo $start;
 	$footer = <<<FOOTERBLOCK
   SteamLUG Cast is a casual, fortnightly audiocast which aims to provide interesting news and discussion for the SteamLUG and broader Linux gaming communities.
   Visit our site http://steamlug.org/ and the cast homepage http://steamlug.org/cast
@@ -367,9 +389,10 @@ CASTENTRY;
 		}
 	}
 } else {
-/* Show cast list */
-?>
-
+	/* Show cast list */
+	include('includes/header.php');
+	echo $start;
+	echo <<<CASTTABLE
 	<article class="panel panel-default">
 		<header class="panel-heading">
 			<h3 class="panel-title">Previous Casts</h3>
@@ -386,7 +409,8 @@ CASTENTRY;
 					</tr>
 				</thead>
 				<tbody>
-<?php
+CASTTABLE;
+
 	$casts = scandir($filePath, 1);
 	foreach( $casts as $castdir )
 	{
