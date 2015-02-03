@@ -32,6 +32,50 @@
 	$month = gmstrftime("%m")-0; // Yuck, apparently the 0 breaks something?
 	$year = gmstrftime("%Y");
 	$data = $parser->genData("steamlug", $month, $year);
+
+if ( extension_loaded('curl') ) {
+	// well damn, if we don’t have curl, ignore this block
+
+	/* http://api.hitbox.tv/user/cheeseness
+	 * {"user_name":"Cheeseness","user_cover":"\/static\/img\/channel\/cover_538dbcda57552.png","user_status":"1","user_logo":"\/static\/img\/channel\/Cheeseness_531fed2c2557e_large.jpg","user_logo_small":"\/static\/img\/channel\/Cheeseness_531fed2c2557e_small.jpg","user_is_broadcaster":true,"followers":"14","user_partner":null,"user_id":"417381","is_live":"1","live_since":"2015-02-03 13:36:44","twitter_account":null,"twitter_enabled":null} */
+
+	/* https://api.twitch.tv/kraken/streams?channel=steamlug
+	 * {"streams":[],"_total":0,"_links":{"self":"https://api.twitch.tv/kraken/streams?channel=steamlug&limit=25&offset=0","next":"https://api.twitch.tv/kraken/streams?channel=steamlug&limit=25&offset=25","featured":"https://api.twitch.tv/kraken/streams/featured","summary":"https://api.twitch.tv/kraken/streams/summary","followed":"https://api.twitch.tv/kraken/streams/followed"}} */
+
+	/* This should return a JSON string, or an error! */
+	function curl_url( $url, $get ) {
+
+		/* Twitch for now, hitbox later - so this will come from function call */
+		$header = array( 'Accept: application/vnd.twitchtv.v3.json' );
+
+		$curl = curl_init( );
+		curl_setopt_array( $curl, array(
+				CURLOPT_URL => $url . '?' . http_build_query( $get ),
+				CURLOPT_HTTPHEADER => $header,
+				CURLOPT_HEADER => 0,
+				CURLOPT_CONNECTTIMEOUT => 2,
+				CURLOPT_TIMEOUT => 2 )
+				);
+		$result = curl_exec( $curl );
+		$status = curl_getinfo( $curl, CURLINFO_HTTP_CODE );
+
+		if ( ( $status == 404 ) || ( $status == 0 ) || ( $status == 503 ) ) {
+			return curl_error( $curl ) . ", " .curl_errno( $curl );
+		}
+		curl_close( $curl );
+
+		return $result;
+	}
+
+	$maybeOnline = curl_url( 'https://api.twitch.tv/kraken/streams?channel=steamlug', array() );
+	$data = @json_decode( $maybeOnline );
+
+	if (!empty($data)) {
+
+		/* pull out stream data here */
+	}
+
+}
 ?>
 		<h1>Live Stream</h1>
 				<div class="panel panel-default">
