@@ -134,81 +134,8 @@ $start = <<<STARTPAGE
 		<div class="row">
 STARTPAGE;
 
-/* User hitting main /cast/ page */
-if ( $season == "00" || $episode == "00" ) {
-
-	include('includes/header.php');
-	echo $start;
-
-	/* TODO make this show as being live for the duration of the event */
-	if (isset($d) && strtotime($d[0] . "-" . $d[1] . "-" .$d[2])-strtotime(date("Y-m-d")) <= 21 * 86400) {
-
-		echo <<<NEXTCAST
-<div class="col-md-6">
-	<article class="panel panel-default">
-		<header class="panel-heading">
-			<h3 class="panel-title"><a href="{$u}">Upcoming Recording, {$s} {$c}</a></h3>
-		</header>
-		<div class="panel-body">
-			<div id="countdown">
-				<span class="label">Days</span>
-				<span id="d1">0</span>
-				<span id="d2">0</span>
-				<span class="label">&nbsp;</span>
-				<span id="h1">0</span>
-				<span id="h2">0</span>
-				<span class="label">:</span>
-				<span id="m1">0</span>
-				<span id="m2">0</span>
-				<span class="label">:</span>
-				<span id="s1">0</span>
-				<span id="s2">0</span>
-			</div>
-			<p>This episode will be recorded on {$dt}</p>
-			<p>Listen in live as our hosts and guests discuss Linux gaming on our <a href="mumble">SteamLUG Mumble server</a>.</p>
-			<p><a href="{$u}" class="btn btn-primary btn-lg">Click for details</a></p>
-		</div>
-	</article>
-</div>
-NEXTCAST;
-		$aboutWidth = "col-md-6";
-
-	} else {
-		// for the times when we have not organised the next cast.
-		$aboutWidth = "col-md-12";
-	}
-	echo <<<ABOUTCAST
-<div class="{$aboutWidth}">
-	<article class="panel panel-default">
-		<header class="panel-heading">
-			<h3 class="panel-title">About</h3>
-		</header>
-		<div class="panel-body">
-			<p>SteamLUG Cast is a casual, fortnightly live audiocast held on the <a href="/mumble">SteamLUG Mumble server</a> which aims to provide interesting news and discussion for the SteamLUG and broader Linux gaming communities. SteamLUG Cast is licenced <a href = 'http://creativecommons.org/licenses/by-sa/3.0/'>CC BY-SA</a></p>
-			<p>From time to time, we also have guests joining to share their insights on Linux, the gaming industry and the SteamLUG community. Check back for recording archives, shownotes and further announcements!</p>
-		</div>
-	</article>
-</div>
-
-<div class="col-md-12">
-	<article class="panel panel-default subscribe-here">
-		<header class="panel-heading">
-			<h3 class="panel-title">Subscribe</h3>
-		</header>
-		<div class="panel-body">
-			<p>Make sure to subscribe to our lovely RSS feeds</p>
-			<ul>
-				<li><a href="/feed/cast/ogg">OGG feed</a></li>
-				<li><a href="/feed/cast/mp3">MP3 feed</a></li>
-			</ul>
-		</div>
-	</article>
-</div>
-ABOUTCAST;
-	echo "</div>";
-}
-
 $filename = $notesPath . "/s" . $season . "e" . $episode . "/episode.txt";
+
 /* User wanting to see a specific cast, and shownotes file exists */
 if ($season !== "00" && $episode !== "00" && file_exists($filename)) {
 
@@ -281,7 +208,7 @@ TWITCARD;
 
 FOOTERBLOCK;
 	$shownotes = array_merge( $shownotes, explode( "\n", $footer ) );
-
+echo "</div>";
 echo <<<CASTENTRY
 	<article class="panel panel-default">
 		<header class="panel-heading">
@@ -388,10 +315,79 @@ CASTENTRY;
 		echo $note;
 		}
 	}
+
 } else {
-	/* Show cast list */
+
 	include('includes/header.php');
 	echo $start;
+
+	/* TODO make this show as being live for the duration of the event */
+	if (isset($d) && strtotime($d[0] . "-" . $d[1] . "-" .$d[2])-strtotime(date("Y-m-d")) <= 21 * 86400) {
+
+		echo <<<NEXTCAST
+<div class="col-md-6">
+	<article class="panel panel-default">
+		<header class="panel-heading">
+			<h3 class="panel-title"><a href="{$u}">Upcoming Recording, {$s} {$c}</a></h3>
+		</header>
+		<div class="panel-body">
+			<div id="countdown">
+				<span class="label">Days</span>
+				<span id="d1">0</span>
+				<span id="d2">0</span>
+				<span class="label">&nbsp;</span>
+				<span id="h1">0</span>
+				<span id="h2">0</span>
+				<span class="label">:</span>
+				<span id="m1">0</span>
+				<span id="m2">0</span>
+				<span class="label">:</span>
+				<span id="s1">0</span>
+				<span id="s2">0</span>
+			</div>
+			<p>This episode will be recorded on {$dt}</p>
+			<p>Listen in live as our hosts and guests discuss Linux gaming on our <a href="mumble">SteamLUG Mumble server</a>.</p>
+			<p><a href="{$u}" class="btn btn-primary btn-lg">Click for details</a></p>
+		</div>
+	</article>
+</div>
+NEXTCAST;
+		$aboutWidth = "col-md-6";
+
+	} else {
+		// for the times when we have not organised the next cast.
+		$aboutWidth = "col-md-12";
+	}
+	echo <<<ABOUTCAST
+<div class="{$aboutWidth}">
+	<article class="panel panel-default">
+		<header class="panel-heading">
+			<h3 class="panel-title">About</h3>
+		</header>
+		<div class="panel-body">
+			<p>SteamLUG Cast is a casual, fortnightly live audiocast held on the <a href="/mumble">SteamLUG Mumble server</a> which aims to provide interesting news and discussion for the SteamLUG and broader Linux gaming communities. SteamLUG Cast is licenced <a href = 'http://creativecommons.org/licenses/by-sa/3.0/'>CC BY-SA</a></p>
+			<p>From time to time, we also have guests joining to share their insights on Linux, the gaming industry and the SteamLUG community. Check back for recording archives, shownotes and further announcements!</p>
+		</div>
+	</article>
+</div>
+
+<div class="col-md-12">
+	<article class="panel panel-default subscribe-here">
+		<header class="panel-heading">
+			<h3 class="panel-title">Subscribe</h3>
+		</header>
+		<div class="panel-body">
+			<p>Make sure to subscribe to our lovely RSS feeds</p>
+			<ul>
+				<li><a href="/feed/cast/ogg">OGG feed</a></li>
+				<li><a href="/feed/cast/mp3">MP3 feed</a></li>
+			</ul>
+		</div>
+	</article>
+</div>
+ABOUTCAST;
+	echo "</div>";
+
 	echo <<<CASTTABLE
 	<article class="panel panel-default">
 		<header class="panel-heading">
