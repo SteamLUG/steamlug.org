@@ -5,7 +5,7 @@ $season  = str_pad($season, 2, '0', STR_PAD_LEFT);
 $episode = isset($_GET["e"]) ? intval($_GET["e"]) : "0";
 $episode = str_pad($episode, 2, '0', STR_PAD_LEFT);
 
-include_once('includes/cast.php');
+include_once('includes/paths.php');
 
 function slenc($u)
 {

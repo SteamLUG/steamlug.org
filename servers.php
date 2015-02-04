@@ -7,7 +7,8 @@
 	$syncexternalJS = array( '/scripts/jquery.tablesorter.min.js', '/scripts/jquery.tablesorter.widgets.min.js' );
 	include_once("includes/header.php");
 	include_once("includes/GameQ.php");
-	$Servers = file( "/var/www/dev.steamlug.org/serverlist.txt" );
+	include_once("includes/paths.php");
+	$Servers = file( $serversList );
 
 ?>
 		<h1 class="text-center">SteamLUG Game Servers</h1>
