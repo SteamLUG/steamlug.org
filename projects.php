@@ -3,7 +3,7 @@
 $pageTitle = "About";
 ?>
 <?php include_once("includes/header.php"); ?>
-<h1 class="text-center">SteamLUG Projects - Coming Soon...</h1>
+<h1 class="text-center">SteamLUG Projects - Coming Soon…</h1>
 <article class="panel panel-default">
 	<header class="panel-heading">
 		<h3 class="panel-title">Watch this space!</h3>

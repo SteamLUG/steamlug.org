@@ -76,7 +76,7 @@
 				<h3 class="panel-title"><a href = 'http://steamcommunity.com/groups/steamlug/announcements/'>Error</a></h3>
 			</header>
 			<div class="panel-body">
-				<p>RSS news source not found...</p>
+				<p>RSS news source not found…</p>
 				<p>You can try viewing news on the Steam Group <a href = 'http://steamcommunity.com/groups/steamlug/announcements/'>Announcements page</a>.</p>
 			</div>
 		</article>
