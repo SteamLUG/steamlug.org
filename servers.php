@@ -84,8 +84,9 @@ SERVERSTRING;
 			$serverLoc	= geoip_country_code_by_name($data['gq_address']);
 			$serverSec	= !empty($data['secure']) ? '<i class="fa fa-shield"></i>' : '';
 			$serverPass	= !empty($data['gq_password']) ? '<i class="fa fa-lock"></i>' : '';
+			$fixUp = array( 'killingfloor' => 'Killing Floor', 'warband' => 'Mount &amp; Blade: Warband', 'steelstorm' => 'Steel Storm' );
 			$serverDesc	= !empty($data['game_descr']) ? ($data['game_descr'] == 'Team Fortress' ? 'Team Fortress 2' : $data['game_descr']) :
-						($data['gq_type'] == "killingfloor" ? "Killing Floor" : $data['gq_type']);
+						( array_key_exists( $data['gq_type'], $fixUp ) ? $fixUp[ $data['gq_type'] ] : $data['gq_type'] );
 			$serverNum	= (!empty($data['gq_numplayers']) ? $data['gq_numplayers'] : '0') . ' ⁄ ' . $data['gq_maxplayers'];
 			$serverMap	= substr( $data['gq_mapname'], 0, 18 );
 			echo <<<SERVERSTRING
