@@ -45,7 +45,9 @@
 
 	foreach ( $Servers as $Server )
 	{
-		list ( $ServerHost[], $Ports[], $GameType[] ) = preg_split ( "/(:|,)/", $Server );
+		if ( strlen( $Server ) > 11 and strrpos($Server, '#', -strlen($Server)) === False ) {
+			list ( $ServerHost[], $Ports[], $GameType[] ) = preg_split ( "/(:|,)/", $Server );
+		}
 	}
 	$gq = new GameQ();
 	foreach ( $ServerHost as $Index => $Host)
