@@ -7,7 +7,6 @@ BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:https://steamlug.org
 
-
 HEADER;
 
 require_once("steameventparser.php");
@@ -38,7 +37,6 @@ ACTION:DISPLAY
 DESCRIPTION:Reminder to play {$event['title']}
 END:VALARM
 END:VEVENT
-
 
 EVENTHERE;
 }
