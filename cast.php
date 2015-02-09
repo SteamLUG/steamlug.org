@@ -24,6 +24,8 @@ foreach ($data["events"] as $event) {
 	}
 	$d = explode("-", $event['date']);
 	$t = explode(":", $event['time']);
+	$eTime = strtotime($d[0] . "-" . $d[1] . "-" . $d[2] . 'T' . $t[0] . ':' . $t[1] . 'Z');
+	unset($d); unset($t);
 	$dt = $event['date'] . " " . $event['time'] . " " . $event['tz'];
 	$u = $event['url'];
 	$c = preg_replace("#(.*)(S[0-9][0-9])(E[0-9][0-9])(.*)#", "\$3", $event["title"]);
@@ -31,8 +33,8 @@ foreach ($data["events"] as $event) {
 	break;
 }
 
-if (isset($d)) {
-	$extraJS = "\t\t\tvar target = Math.round( Date.UTC (" . $d[0] . ", " . $d[1] . " -1, " . $d[2] . ", " . $t[0] . ", " . $t[1] . ", 0, 0) / 1000);";
+if (isset($eTime)) {
+	$extraJS = "\t\t\tvar target = new Date(" . $eTime . ");";
 }
 $externalJS = array( '/scripts/events.js' );
 $deferJS = array( '/scripts/castseek.js' );
@@ -322,7 +324,11 @@ CASTENTRY;
 	echo $start;
 
 	/* TODO make this show as being live for the duration of the event */
-	if (isset($d) && strtotime($d[0] . "-" . $d[1] . "-" .$d[2])-strtotime(date("Y-m-d")) <= 21 * 86400) {
+	if (isset($eTime) && (( $eTime - time() ) <= 14 * 86400)) {
+
+		$eventDate = new DateTime(); $eventDate->setTimestamp($eTime);
+		$diff = date_diff($eventDate, new DateTime("now"));
+		list($ed, $eh, $em, $es) = explode( ' ', $diff->format("%D %H %I %S") );
 
 		echo <<<NEXTCAST
 <div class="col-md-6">
@@ -333,17 +339,17 @@ CASTENTRY;
 		<div class="panel-body">
 			<div id="countdown">
 				<span class="label">Days</span>
-				<span id="d1">0</span>
-				<span id="d2">0</span>
+				<span id="d1">{$ed[0]}</span>
+				<span id="d2">{$ed[1]}</span>
 				<span class="label">&nbsp;</span>
-				<span id="h1">0</span>
-				<span id="h2">0</span>
+				<span id="h1">{$eh[0]}</span>
+				<span id="h2">{$eh[1]}</span>
 				<span class="label">:</span>
-				<span id="m1">0</span>
-				<span id="m2">0</span>
+				<span id="m1">{$em[0]}</span>
+				<span id="m2">{$em[1]}</span>
 				<span class="label">:</span>
-				<span id="s1">0</span>
-				<span id="s2">0</span>
+				<span id="s1">{$es[0]}</span>
+				<span id="s2">{$es[1]}</span>
 			</div>
 			<p>This episode will be recorded on {$dt}</p>
 			<p>Listen in live as our hosts and guests discuss Linux gaming on our <a href="mumble">SteamLUG Mumble server</a>.</p>

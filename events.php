@@ -15,20 +15,19 @@ $data3 = $parser->genData("steamlug", ( $month <= 1 ? 12 : ( $month -1 ) ), ( $m
 $data['events'] = array_merge($data['events'], $data2['events']);
 $data['pastevents'] = array_merge($data['pastevents'], $data3['pastevents']);
 
-foreach ($data['events'] as $event)
-	{
-		if ($event['appid'] === 0)
-		{
-			continue;
-		}
+foreach ($data['events'] as $event) {
+	if ($event['appid'] === 0) {
+		continue;
+	}
 	$d = explode("-", $event['date']);
 	$t = explode(":", $event['time']);
+	$eTime = strtotime($d[0] . "-" . $d[1] . "-" . $d[2] . 'T' . $t[0] . ':' . $t[1] . 'Z');
+	unset($d); unset($t);
 
 	break;
 }
-
-if (isset($d)) {
-	$extraJS = "\t\t\tvar target = Math.round( Date.UTC (" . $d[0] . ", " . $d[1] . " -1, " . $d[2] . ", " . $t[0] . ", " . $t[1] . ", 0, 0) / 1000);";
+if (isset($eTime)) {
+	$extraJS = "\t\t\tvar target = new Date(" . $eTime . ");";
 }
 $externalJS = array('/scripts/events.js');
 
@@ -43,41 +42,47 @@ include_once( "includes/header.php" );
 $eventButton = "";
 $eventImage = "";
 $eventTitle = "";
-foreach ($data['events'] as $event)
-{
+foreach ($data['events'] as $event) {
 	if ($event['appid'] === 0)
 	{
 		continue;
 	}
 
-	$eventTitle = "\t\t<h2><a href='" . $event['url'] . "'>" .  $event['title'] . "</a></h2>";
+	$eventTitle = '<h2><a href="' . $event['url'] . '">' .  $event['title'] . '</a></h2>';
 	($event['appid'] !== 0 ?
-			$eventImage = "\t\t\t<a href='" . $event['url'] . "'><img class=\"img-rounded eventimage\" src='" . $event['img_header'] . "' alt='" . $event['title'] . "'/></a>\n" :
-			$eventImage = "\t\t\t<h1>?</h1>\n"
+			$eventImage = "<a href='" . $event['url'] . "'><img class=\"img-rounded eventimage\" src='" . $event['img_header'] . "' alt='" . $event['title'] . "'/></a>" :
+			$eventImage = "<h1>?</h1>"
 	);
-			$eventButton = "\t\t<p><a class=\"btn btn-primary btn-lg\" href=\"" . $event['url'] . "\">Click for details</a></p>\n";
+			$eventButton = "<p><a class=\"btn btn-primary btn-lg\" href=\"" . $event['url'] . "\">Click for details</a></p>";
 	break;
 }
-?>
-				<?php echo $eventTitle; ?>
+
+if (isset($eTime)) {
+	$eventDate = new DateTime(); $eventDate->setTimestamp($eTime);
+	$diff = date_diff($eventDate, new DateTime("now"));
+	list($ed, $eh, $em, $es) = explode( ' ', $diff->format("%D %H %I %S") );
+}
+
+echo <<<EVENTSHEAD
+				{$eventTitle}
 				<div id="countdown">
 					<span class="label">Days</span>
-					<span id="d1">0</span>
-					<span id="d2">0</span>
+					<span id="d1">{$ed[0]}</span>
+					<span id="d2">{$ed[1]}</span>
 					<span class="label">&nbsp;</span>
-					<span id="h1">0</span>
-					<span id="h2">0</span>
+					<span id="h1">{$eh[0]}</span>
+					<span id="h2">{$eh[1]}</span>
 					<span class="label">:</span>
-					<span id="m1">0</span>
-					<span id="m2">0</span>
+					<span id="m1">{$em[0]}</span>
+					<span id="m2">{$em[1]}</span>
 					<span class="label">:</span>
-					<span id="s1">0</span>
-					<span id="s2">0</span>
+					<span id="s1">{$es[0]}</span>
+					<span id="s2">{$es[1]}</span>
 				</div>
-				<?php echo $eventButton; ?>
+				{$eventButton}
 			</div>
 			<div class="col-md-5">
-					<?php echo $eventImage; ?>
+					{$eventImage}
 			</div>
 			</div>
 		</article>
@@ -111,8 +116,8 @@ foreach ($data['events'] as $event)
 				</tr>
 			</thead>
 			<tbody>
+EVENTSHEAD;
 
-<?php
 	foreach ($data['events'] as $event)
 	{
 		// skip if it's a special (non-game/non-app) event
