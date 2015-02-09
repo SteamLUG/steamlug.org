@@ -260,8 +260,8 @@ nav .group-join { line-height: 17px; }
 
 /* Try something */
 .progress-bar {
-    animation: showpolls 3s ease forwards;
-	-webkit-animation: showpolls 3s ease forwards;
+    animation: 4s ease 1s normal forwards 1 running showpolls;
+	-webkit-animation: showpolls 3s ease forwards; /* hilarious spec has changed soo many times, this breaks modern animation rule */
 }
 /* technically invalid by spec, but some browsers eat it */
 @-webkit-keyframes showpolls { from { width: 0%; } }
