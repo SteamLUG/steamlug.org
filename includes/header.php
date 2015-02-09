@@ -196,7 +196,7 @@ if(!login_check())
 							<li<?php echo $mumblePage; ?>><a href="/mumble">Mumble (voice)</a></li>
 						</ul>
 					</li>
-					<li<?php echo $castPage; ?>><a href="/cast">SteamLUG Cast</a></li>
+					<li<?php echo $castPage; ?>><a href="/cast">Cast</a></li>
 					<li class="dropdown<?php echo $gamingMenu; ?>">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Events <b class="caret"></b></a>
 						<ul class="dropdown-menu">
