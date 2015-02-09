@@ -166,6 +166,10 @@ if(!login_check())
 	{
 		$castPage = $active;
 	}
+	else if (strpos($_SERVER["SCRIPT_NAME"], "cast-guests.php"))
+	{
+		$castPage = $active;
+	}
 	else if (strpos($_SERVER["SCRIPT_NAME"], "about.php"))
 	{
 		$aboutPage = $active;
