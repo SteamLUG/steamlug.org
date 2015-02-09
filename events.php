@@ -105,7 +105,7 @@ echo <<<EVENTSHEAD
 			<header class="panel-heading">
 				<h3 class="panel-title">Upcoming Events</h3>
 			</header>
-				<div class="panel-body">
+			<div class="panel-body panel-body-table">
 			<table class="table table-striped table-hover events">
 			<thead>
 				<tr>
@@ -143,7 +143,7 @@ EVENTSTRING;
 			<header class="panel-heading">
 				<h3 class="panel-title">Past Events</h3>
 			</header>
-			<div class="panel-body">
+			<div class="panel-body panel-body-table">
 			<table class="table table-striped table-hover events">
 			<thead>
 				<tr>

@@ -201,7 +201,12 @@ cursor: pointer;
 
 .panel-body
 {
-	padding-bottom: 5px !important;
+	padding: 10px !important;
+}
+
+.panel-body-table
+{
+	padding: 0px !important;
 }
 
 .panel-footer
@@ -211,7 +216,7 @@ cursor: pointer;
 
 .table
 {
-	margin-bottom: 10px !important;
+	margin-bottom: 0px !important;
 }
 
 table th { background-color: #3D4655; color: #959595; }

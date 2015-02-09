@@ -400,7 +400,7 @@ ABOUTCAST;
 		<header class="panel-heading">
 			<h3 class="panel-title">Previous Casts</h3>
 		</header>
-		<div class="panel-body">
+		<div class="panel-body panel-body-table">
 			<table id="casts" class="table table-striped table-hover tablesorter">
 				<thead>
 					<tr>

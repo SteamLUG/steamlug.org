@@ -25,7 +25,7 @@
 			<header class="panel-heading">
 				<h3 class="panel-title">Servers</h3>
 			</header>
-			<div class="panel-body">
+			<div class="panel-body panel-body-table">
 				<table id="servers" class="table table-striped table-hover tablesorter">
 					<thead>
 						<tr>
