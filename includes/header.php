@@ -174,6 +174,25 @@ if(!login_check())
 	{
 		$aboutPage = $active;
 	}
+
+	$joinGroup = <<<JOINBUTTON
+					<ul class="nav navbar-nav navbar-right hidden-sm hidden-xs">
+						<li class="navbar-brand group-join"><span class="label label-success"><a href="http://steamcommunity.com/groups/steamlug/">Join our Steam Group</a></span></li>
+					</ul>
+JOINBUTTON;
+	if ( isset( $_SESSION['g'] ) and ( $_SESSION['g'] !== 1 ) )
+	{
+		$joinGroup = "";
+		if ( isset( $_SESSION['a'] ) and ( $_SESSION['a'] != "" ) )
+		{
+			$joinGroup = <<<SHOWAVATAR
+					<ul class="nav navbar-nav navbar-right hidden-xs">
+						<li class="navbar-avatar"><a href="logout.php"><img id="steamAvatar" src="{$_SESSION['a']}" /></a></li>
+					</ul>
+SHOWAVATAR;
+		}
+	}
+
 ?>
 	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container">
@@ -214,9 +233,7 @@ if(!login_check())
 					<li<?php echo $serversPage; ?>><a href="/servers">Servers</a></li>
 					<li<?php echo $aboutPage; ?>><a href="/about">About</a></li>
 					</ul>
-					<ul class="nav navbar-nav navbar-right hidden-sm hidden-xs">
-						<li class="navbar-brand group-join"><span class="label label-success"><a href="http://steamcommunity.com/groups/steamlug/">Join our Steam Group</a></span></li>
-					</ul>
+					<?php echo $joinGroup; ?>
 				</div>
 		</div>
 	</nav>

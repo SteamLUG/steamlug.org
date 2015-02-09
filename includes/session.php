@@ -20,6 +20,7 @@
 	{
 		$_SESSION['u'] = $uid;
 		$_SESSION['g'] = group_check($uid);
+		$_SESSION['a'] = get_avatar($uid);
 		$_SESSION['i'] = getenv("REMOTE_ADDR");
 		$_SESSION['t'] = time() + 1800;
 	}
@@ -81,6 +82,25 @@
 		return false;
 	}
 
+	function get_avatar($uid)
+	{
+		$details = file_get_contents('http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=' . getSteamAPIKey() . '&steamids=' . $uid);
+		if ($details === false)
+		{
+			//Quick fix for Steam non-responsiveness and private user accounts
+			// Cannot get user avatar
+			return "";
+		}
+		$details = (array) json_decode($details, true);
+		if (is_array($details))
+		{
+			if ( isset( $details['response']['players'] ) )
+			{
+				return $details['response']['players'][0]['avatar'];
+			}
+		}
+		return "";
+	}
 
 	sec_session_start();
 ?>
