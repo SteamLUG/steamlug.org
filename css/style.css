@@ -196,7 +196,7 @@ cursor: pointer;
 /* fixup padding on article */
 div ul, div ol { margin-bottom: 0px; }
 div p { margin: 0px; }
-p + p { margin-top: .7em; }
+p + p { margin-top: .9em; }
 .panel-footer p + p { margin-top: 0; }
 
 .panel-body-table
@@ -287,3 +287,5 @@ div#navbar { position: relative; }
 .ourclearfix { clear:both; }
 article.fixupbootstrap { background: transparent; border: 0; padding-left: 0; padding-right: 0; }
 article.fixupbootstrap div.panel-body {background: #2e3338; border: 1px solid rgba(0, 0, 0, 0.6); border-top: 0; border-bottom:0; }
+
+article.steam-parsed br { content: " "; display: block; line-height: .5em; height: .5em; margin-top: .5em; }

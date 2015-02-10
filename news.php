@@ -57,7 +57,7 @@
 					$firstItem = false;
 				}
 				?>
-			<article class="panel panel-primary <?=$addclass?>">
+			<article class="panel panel-primary steam-parsed <?=$addclass?>">
 				<header class="panel-heading">
 					<h3 class="panel-title"><a href="<?=$item['link'];?>"><?=htmlspecialchars($item['title']);?></a></h3>
 				</header>
