@@ -12,7 +12,7 @@
 	$joinGroup = <<<JOINLINK
 <p>We noticed you’re not a part of SteamLUG, would you kindly <a class="label label-success group-join" href="http://steamcommunity.com/groups/steamlug/">join our Steam Group</a></p>
 JOINLINK;
-	if ( isset( $_SESSION['g'] ) and ( $_SESSION['g'] !== 1 ) ) {
+	if ( isset( $_SESSION['g'] ) and ( $_SESSION['g'] == true ) ) {
 		$joinGroup = "";
 	}
 
@@ -39,5 +39,5 @@ JOINLINK;
 		</article>
 DOCUMENT;
 
-	include_once("includes/footer.php"); 
+	include_once("includes/footer.php");
 
