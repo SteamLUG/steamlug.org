@@ -1,7 +1,14 @@
 <?php
 $pageTitle = "Chat";
+include_once("includes/session.php");
+
+$preferredNick = "";
+if (login_check()) {
+	$preferredNick = $_SESSION['n'];
+}
+
+include_once("includes/header.php");
 ?>
-<?php include_once("includes/header.php"); ?>
 		<h1 class="text-center">SteamLUG Chat</h1>
 <div class="row">
 	<div class="col-md-5">
@@ -52,7 +59,7 @@ $pageTitle = "Chat";
 				<h3 class="panel-title">Webclient</h3>
 			</header>
 			<div class="panel-body">
-				<iframe src="https://webchat.freenode.net?channels=steamlug" width="100%" height="600px">
+				<iframe src="https://webchat.freenode.net?channels=steamlug&amp;nick=<?=rawurlencode(htmlspecialchars($preferredNick))?>" width="100%" height="600px">
 					<p>Your browser does not support iframes.</p>
 				</iframe>
 			</div>
