@@ -458,7 +458,7 @@ CASTTABLE;
 			<tr>
 				<td><a href="/cast/s{$meta['SEASON']}e{$meta['EPISODE']}">S{$meta['SEASON']}E{$meta['EPISODE']}</a></td>
 				<td>{$meta['RECORDED']}</td>
-				<td><a href="/cast/s{$meta['SEASON']}e{$meta['EPISODE']}"><i class="fa fa-volume-up"></i>{$meta[ 'TITLE' ]}</a></td>
+				<td><a href="/cast/s{$meta['SEASON']}e{$meta['EPISODE']}">{$meta[ 'TITLE' ]}</a></td>
 				<td>$listHosts</td>
 				<td>$listGuests</td>
 			</tr>
