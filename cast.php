@@ -353,7 +353,7 @@ CASTENTRY;
 			</div>
 			<p>This episode will be recorded on {$dt}</p>
 			<p>Listen in live as our hosts and guests discuss Linux gaming on our <a href="mumble">SteamLUG Mumble server</a>.</p>
-			<p><a href="{$u}" class="btn btn-primary btn-lg">Click for details</a></p>
+			<p><a href="{$u}" class="btn btn-primary btn-lg pull-right">Click for details</a></p>
 		</div>
 	</article>
 </div>

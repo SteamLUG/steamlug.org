@@ -34,10 +34,12 @@ $externalJS = array('/scripts/events.js');
 include_once( "includes/header.php" );
 ?>
 		<h1 class="text-center">SteamLUG Events</h1>
-		<article class="jumbotron">
-			<h2>Next Event</h2>
-			<div class="row">
-			<div class="col-md-5">
+		<article class="panel panel-default">
+			<header class="panel-heading">
+				<h3 class="panel-title">Next Event</h3>
+			</header>
+			<div class="panel-body">
+			<div class="col-md-5 clearfix">
 <?php
 $eventButton = "";
 $eventImage = "";
@@ -48,12 +50,13 @@ foreach ($data['events'] as $event) {
 		continue;
 	}
 
-	$eventTitle = '<h2><a href="' . $event['url'] . '">' .  $event['title'] . '</a></h2>';
+	$eventTitle = '<h3 class="centred"><a href="' . $event['url'] . '">' .  str_replace( 'SteamLUG ','',$event['title'] ) . '</a></h3>';
 	($event['appid'] !== 0 ?
-			$eventImage = "<a href='" . $event['url'] . "'><img class=\"img-rounded eventimage\" src='" . $event['img_header'] . "' alt='" . $event['title'] . "'/></a>" :
-			$eventImage = "<h1>?</h1>"
+	$eventImage = "<a href='" . $event['url'] . "'><img class=\"img-rounded eventimage\" src='" . $event['img_header'] . "' alt='" . $event['title'] . "'/></a>" :
+	$eventImage = "<h1>?</h1>"
 	);
-			$eventButton = "<p><a class=\"btn btn-primary btn-lg\" href=\"" . $event['url'] . "\">Click for details</a></p>";
+	$eventButton = "<p><a class=\"btn btn-primary btn-lg pull-right\" href=\"" . $event['url'] . "\">Click for details</a></p>";
+	$dt = $event['date'] . " " . $event['time'] . " " . $event['tz'];
 	break;
 }
 
@@ -79,9 +82,10 @@ echo <<<EVENTSHEAD
 					<span id="s1">{$es[0]}</span>
 					<span id="s2">{$es[1]}</span>
 				</div>
+				<p>This event is held on {$dt}</p>
 				{$eventButton}
 			</div>
-			<div class="col-md-5">
+			<div class="col-md-7">
 					{$eventImage}
 			</div>
 			</div>

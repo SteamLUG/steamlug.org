@@ -277,3 +277,6 @@ nav .group-join { line-height: 17px; }
 .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus { background: inherit; }
 .nav > .navbar-avatar { padding-right: 1em; }
 #steamAvatar { border: 3px solid green; border-radius: 4px; }
+
+.eventimage { display:block; margin: 1em auto; }
+.centred { text-align: center; }
