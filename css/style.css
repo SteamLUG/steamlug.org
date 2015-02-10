@@ -193,10 +193,11 @@ h1, h2, h3, h4, h5, h6 { text-shadow: 1px 1px 1px #111 !important; }
 cursor: pointer;
 }
 
-.panel-body
-{
-	padding: 10px !important;
-}
+/* fixup padding on article */
+div ul, div ol { margin-bottom: 0px; }
+div p { margin: 0px; }
+p + p { margin-top: .7em; }
+.panel-footer p + p { margin-top: 0; }
 
 .panel-body-table
 {
