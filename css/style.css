@@ -248,8 +248,14 @@ background-color: #7A8288;
  width: 100% !important;
 }
 
+/* Twitter box */
+article.tweets { background: inherit; border: none; }
+article.tweets .panel-heading { display: none; background: inherit; border: none; }
+article.tweets .tweets { background: white; }
+div#twitter-here { padding: 0; }
 /* hacks all the way down; reconsider in future */
-#twitter-here .follow { top: -44px; position: relative; height: 0; }
+#twitter-here .follow { display: none; top: -44px; position: relative; height: 0; }
+
 .twitter-link::before { content: "@"; padding-right: .05em; }
 
 ::-moz-selection { background-color: brown; color: white; text-shadow: 1px 1px 1px #purple; }
