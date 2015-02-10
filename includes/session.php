@@ -20,7 +20,7 @@
 	{
 		$_SESSION['u'] = $uid;
 		$_SESSION['g'] = group_check($uid);
-		$_SESSION['a'] = get_avatar($uid);
+		store_user_details($uid);
 		$_SESSION['i'] = getenv("REMOTE_ADDR");
 		$_SESSION['t'] = time() + 1800;
 	}
@@ -82,24 +82,27 @@
 		return false;
 	}
 
-	function get_avatar($uid)
+	/* TODO consider using this to also grab users game library so we can highlight events */
+	/* These calls can take time… async them somehow? */
+	function store_user_details($uid)
 	{
 		$details = file_get_contents('http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=' . getSteamAPIKey() . '&steamids=' . $uid);
 		if ($details === false)
 		{
 			//Quick fix for Steam non-responsiveness and private user accounts
 			// Cannot get user avatar
-			return "";
+			return;
 		}
 		$details = (array) json_decode($details, true);
 		if (is_array($details))
 		{
 			if ( isset( $details['response']['players'] ) )
 			{
-				return $details['response']['players'][0]['avatar'];
+				$_SESSION['n'] = $details['response']['players'][0]['personaname'];
+				$_SESSION['a'] = $details['response']['players'][0]['avatar'];
 			}
 		}
-		return "";
+		return;
 	}
 
 	sec_session_start();

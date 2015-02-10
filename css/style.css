@@ -124,18 +124,12 @@ dt.highlighted, dt.highlighted time, dt.highlighted + dd { background-color: #06
 	margin: auto;
 }
 
-/* Poll and form styles */
-
-.steamLogin
-{
-	/*position: absolute;
-	top: 5px;
-	right: 5px;*/
-	display: block;
-	margin-left: auto;
-	margin-right: auto;
-	width: 154px;
+/* navbar menu widths */
+nav .nav > li > a {
+padding-right: 13px; padding-left: 13px;
 }
+
+/* Poll and form styles */
 
 #mumble-list ul {
         list-style-type: none;
@@ -261,21 +255,25 @@ background-color: #7A8288;
 ::-moz-selection { background-color: brown; color: white; text-shadow: 1px 1px 1px #purple; }
 ::selection { background-color: brown; color: white; text-shadow: 1px 1px 1px #purple; }
 
-nav .group-join { line-height: 17px; }
+/* logged in group sign-up button */
+p a.group-join { font-size:100%; }
 
-/* Try something */
+/* Animate polls loading */
 .progress-bar {
     animation: 4s ease 1s normal forwards 1 running showpolls;
-	-webkit-animation: showpolls 3s ease forwards; /* hilarious spec has changed soo many times, this breaks modern animation rule */
+	-webkit-animation: showpolls 3s ease forwards;
 }
-/* technically invalid by spec, but some browsers eat it */
 @-webkit-keyframes showpolls { from { width: 0%; } }
 @keyframes showpolls { from { width: 0%; } }
 
-.nav > .navbar-avatar > a { padding: 6px; border: none; }
-.nav > .navbar-avatar > a:hover { background: inherit !important; }
-.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus { background: inherit; }
-.nav > .navbar-avatar { padding-right: 1em; }
+/* Steam login appearance */
+.navbar-nav > li.steamLogin > a { display: block; border: 0; padding: 3px 5px 4px 3px; }
+.navbar-nav > li.navbar-avatar > a { padding: 6px; }
+/* hung to the right */
+div#navbar { position: relative; }
+.navbar-nav > li.steamLogin { position: absolute; right: 0; }
+
+/* Steam avatar border. improve */
 #steamAvatar { border: 3px solid green; border-radius: 4px; }
 
 .eventimage { display:block; margin: 1em auto; }

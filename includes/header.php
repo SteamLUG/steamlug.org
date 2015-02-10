@@ -24,7 +24,7 @@ if(!login_check())
 	if (!empty($steam_login_verify))
 	{
 		login($steam_login_verify);
-		header("Location: " . $_SERVER['PHP_SELF']);
+		header("Location: /loggedin.php?returnto=" . $_SERVER['PHP_SELF']);
 	}
 }
 
@@ -175,20 +175,22 @@ if(!login_check())
 		$aboutPage = $active;
 	}
 
-	$joinGroup = <<<JOINBUTTON
-					<ul class="nav navbar-nav navbar-right hidden-sm hidden-xs">
-						<li class="navbar-brand group-join"><span class="label label-success"><a href="http://steamcommunity.com/groups/steamlug/">Join our Steam Group</a></span></li>
-					</ul>
-JOINBUTTON;
-	if ( isset( $_SESSION['g'] ) and ( $_SESSION['g'] !== 1 ) )
+	if(!login_check())
 	{
-		$joinGroup = "";
+		if (empty($steam_login_verify))
+		{
+			$steam_sign_in_url = SteamSignIn::genUrl();
+			$logIn = <<<AUTHBUTTON
+				<li class="steamLogin"><a href="{$steam_sign_in_url}"><img src="//steamcommunity.com/public/images/signinthroughsteam/sits_large_noborder.png" alt="Log into Steam" /></a></li>
+AUTHBUTTON;
+		}
+	}
+	else
+	{
 		if ( isset( $_SESSION['a'] ) and ( $_SESSION['a'] != "" ) )
 		{
-			$joinGroup = <<<SHOWAVATAR
-					<ul class="nav navbar-nav navbar-right hidden-xs">
-						<li class="navbar-avatar"><a href="logout.php"><img id="steamAvatar" src="{$_SESSION['a']}" /></a></li>
-					</ul>
+			$logIn = <<<SHOWAVATAR
+				<li class="steamLogin navbar-avatar"><a href="logout.php"><img id="steamAvatar" src="{$_SESSION['a']}" /></a></li>
 SHOWAVATAR;
 		}
 	}
@@ -232,8 +234,8 @@ SHOWAVATAR;
 					</li>
 					<li<?php echo $serversPage; ?>><a href="/servers">Servers</a></li>
 					<li<?php echo $aboutPage; ?>><a href="/about">About</a></li>
+					<?php echo $logIn; ?>
 					</ul>
-					<?php echo $joinGroup; ?>
 				</div>
 		</div>
 	</nav>
