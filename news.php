@@ -5,9 +5,9 @@
 ?>
 		<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 		<h1 class="text-center">SteamLUG News</h1>
-		<article class="panel panel-primary tweets">
+		<article class="panel panel-primary tweets col-sm-4 col-sm-push-8">
 			<header class="panel-heading">
-				<h3 class="panel-title">Recent Tweets</h3>
+				<h3 class="panel-title">Tweets</h3>
 			</header>
 			<div class="panel-body" id="twitter-here">
 					<span class="follow"><a href="https://twitter.com/SteamLUG" class="twitter-follow-button" data-show-count="false" data-lang="en">Follow @SteamLUG</a></span>
@@ -21,6 +21,7 @@
 	$rss->CDATA = 'content';
 	$rss->items_limit = 6;
 	$rssString = "";
+	$firstItem = true;
 	if ($rs = $rss->get('http://cenobite.swordfischer.com/steamlug/rss.xml'))
 	{
 		foreach($rs['items'] as $item)
@@ -50,8 +51,13 @@
 				{
 					$item['author'] = "Author";
 				}
+				$addclass = "ourclearfix";
+				if ($firstItem == true) {
+					$addclass="col-sm-8 col-sm-pull-4 fixupbootstrap";
+					$firstItem = false;
+				}
 				?>
-			<article class="panel panel-primary">
+			<article class="panel panel-primary <?=$addclass?>">
 				<header class="panel-heading">
 					<h3 class="panel-title"><a href="<?=$item['link'];?>"><?=htmlspecialchars($item['title']);?></a></h3>
 				</header>
