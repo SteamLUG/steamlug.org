@@ -5,6 +5,7 @@ include_once("includes/session.php");
 $preferredNick = "";
 if (login_check()) {
 	$preferredNick = $_SESSION['n'];
+	$preferredNick = preg_replace('/[^\w{}\[\]\\`_\^\|]+/', '', $preferredNick );
 }
 
 include_once("includes/header.php");
