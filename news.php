@@ -64,11 +64,11 @@
 				<div class="panel-body">
 					<p><?=htmlspecialchars_decode($item['description']);?></p>
 				</div>
-				<div class="panel-footer">
+				<footer class="panel-footer">
 					<p class="pull-left">By <?=$item['author'];?> on <?=str_replace("+0000", "UTC", $item['pubDate']);?></p>
 					<p class="pull-right"><a href ="<?=$item['link'];?>">View and comment on our Steam group</a></p>
 					<div class="clearfix"></div>
-				</div>
+				</footer>
 			</article>
 				<?php
 			}
