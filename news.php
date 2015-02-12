@@ -66,7 +66,7 @@
 				</div>
 				<footer class="panel-footer">
 					<p class="pull-left">By <?=$item['author'];?> on <?=str_replace("+0000", "UTC", $item['pubDate']);?></p>
-					<p class="pull-right"><a href ="<?=$item['link'];?>">View and comment on our Steam group</a></p>
+					<p class="pull-right"><a href ="<?=$item['link'];?>"><span class="hidden-xs">View and </span>comment<span class="hidden-sm hidden-xs"> on our Steam group</span></a></p>
 					<div class="clearfix"></div>
 				</footer>
 			</article>
