@@ -93,7 +93,7 @@ table.tablesorter thead th i, table.tablesorter tbody td i {
 .shownotes h4 { margin-top: 5px; font-weight: bold; font-size: 14px; line-height: 18px; }
 
 .shownotes .dl-horizontal dt { float: left; text-align: right; }
-.shownotes dl { line-height: 20px; text-indent: -70px; margin-bottom: 5px; }
+.shownotes dl { line-height: 20px; margin-bottom: 5px; }
 .shownotes dl dt { width: 7em; }
 .shownotes dl dd { margin-left: 7.1em; }
 .shownotes time { margin-right: 10px; color: #626262; }
@@ -292,7 +292,7 @@ article.fixupbootstrap div.panel-body {background: #2e3338; border: 1px solid rg
 article.steam-parsed br { content: " "; display: block; line-height: .5em; height: .5em; margin-top: .5em; }
 
 #castplayer { margin-top: 7px;}
-#cast-description { position: sticky; top: -150px; }
+#cast-description { position: sticky; top: -150px; z-index: 2; opacity: .95; }
 #cast-description { position: -webkit-sticky; }
 #play-box { padding: 15px; margin: -15px; position: relative; }
 #cast-description p.licence { margin-top: 0; right: 15px; position: absolute }
