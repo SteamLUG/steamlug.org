@@ -92,6 +92,7 @@ table.tablesorter thead th i, table.tablesorter tbody td i {
 .shownotes { text-align: left; }
 .shownotes h4 { margin-top: 5px; font-weight: bold; font-size: 14px; line-height: 18px; }
 
+.shownotes .dl-horizontal dt { float: left; text-align: right; }
 .shownotes dl { line-height: 20px; text-indent: -70px; margin-bottom: 5px; }
 .shownotes dl dt { width: 7em; }
 .shownotes dl dd { margin-left: 7.1em; }
@@ -289,3 +290,10 @@ article.fixupbootstrap { background: transparent; border: 0; padding-left: 0; pa
 article.fixupbootstrap div.panel-body {background: #2e3338; border: 1px solid rgba(0, 0, 0, 0.6); border-top: 0; border-bottom:0; }
 
 article.steam-parsed br { content: " "; display: block; line-height: .5em; height: .5em; margin-top: .5em; }
+
+#castplayer { margin-top: 7px;}
+#cast-description { position: sticky; top: -150px; }
+#cast-description { position: -webkit-sticky; }
+#play-box { padding: 15px; margin: -15px; position: relative; }
+#cast-description p.licence { margin-top: 0; right: 15px; position: absolute }
+#cast-description p { display: inline-block; }

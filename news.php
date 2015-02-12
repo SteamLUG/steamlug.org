@@ -87,7 +87,7 @@
 			</div>
 		</article>
 	<?php
-	} 
+	}
 	echo $rssString;
 ?>
 <?php include_once("includes/footer.php"); ?>

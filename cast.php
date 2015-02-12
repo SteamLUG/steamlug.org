@@ -133,7 +133,6 @@ TWITLINK;
 
 $start = <<<STARTPAGE
 		<h1 class="text-center">SteamLUG Cast</h1>
-		<div class="row">
 STARTPAGE;
 
 $filename = $notesPath . "/s" . $season . "e" . $episode . "/episode.txt";
@@ -210,9 +209,8 @@ TWITCARD;
 
 FOOTERBLOCK;
 	$shownotes = array_merge( $shownotes, explode( "\n", $footer ) );
-echo "</div>";
 echo <<<CASTENTRY
-	<article class="panel panel-default">
+	<article class="panel panel-default" id="cast-description">
 		<header class="panel-heading">
 			<h3 class="panel-title">{$meta[ 'TITLE' ]} <span class="author">edited by {$castEditor}</span></h3>
 		</header>
@@ -232,17 +230,18 @@ echo <<<CASTENTRY
 			<p>{$meta['DESCRIPTION']}</p>
 			</div>
 			</div>
-			{$siteListen}
-			<div class="clearfix"></div>
-			<p class="pull-left download-links">
-				$episodeOddDS
-				$episodeMP3DS
-			</p>
-			<p class="pull-right">
-				<a href='http://creativecommons.org/licenses/by-sa/3.0/'>
-					<img class='license' src='/images/by-sa.png' alt='Creative Commons By-Share‐Alike license logo' title='Licensed under CC-BY-SA'>
-				</a>
-			</p>
+			<div id="play-box">
+				{$siteListen}
+				<p class="download-links">
+					$episodeOddDS
+					$episodeMP3DS
+				</p>
+				<p class="licence">
+					<a href='http://creativecommons.org/licenses/by-sa/3.0/'>
+						<img class='license' src='/images/by-sa.png' alt='Creative Commons By-Share‐Alike license logo' title='Licensed under CC-BY-SA'>
+					</a>
+				</p>
+			</div>
 		</div>
 	</article>
 	<article class="panel panel-default">
