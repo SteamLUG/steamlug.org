@@ -8,4 +8,7 @@ $publicURL		= "//archive.steamlug.org/steamlugcast";			// replaces $url
 $serversList	= "/var/www/dev.steamlug.org/serverlist.txt";		// replaces $Servers
 // Polls, Session
 $creds			= "/var/www/dev.steamlug.org/creds.php";			// replaces hardcoded string
+// Avatars
+$avatarFilePath	= "/var/www/www.steamlug.org/avatars";				// public-facing dir to write to
+$avatarKeyPath  = "/var/www/dev.steamlug.org/avatar-files";			// private-facing dir to write to
 
