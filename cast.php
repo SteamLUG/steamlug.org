@@ -271,7 +271,7 @@ CASTENTRY;
 
 	include('includes/header.php');
 	echo $start;
-
+	echo "		<div class=\"row\">";
 	/* TODO make this show as being live for the duration of the event */
 	if (isset($eTime) && (( $eTime - time() ) <= 14 * 86400)) {
 
