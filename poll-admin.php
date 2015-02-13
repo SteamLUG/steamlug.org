@@ -43,16 +43,16 @@
 							showPollSelector('poll', (isset($_GET['poll']) ? $_GET['poll'] : -1), True, 20);
 							echo <<<FORMGROUP
 								<div class="form-group">
-						    	    <label for="deletePoll" class="col-lg-2 control-label">Delete</label>
-      								<div class="col-lg-10">
+									<label for="deletePoll" class="col-lg-2 control-label">Delete</label>
+									<div class="col-lg-10">
 										<input type="checkbox" id="deletePoll" name="deletePoll">
-    							 	</div>
-							    </div>
+									</div>
+								</div>
 								<div class="form-group">
-							      <div class="col-lg-12">
-							        <button type="submit" class="btn btn-default">Go</button>
- 							     </div>
-							    </div>
+									<div class="col-lg-12">
+										<button type="submit" class="btn btn-default">Go</button>
+									</div>
+								</div>
 							</form>
 FORMGROUP;
 
