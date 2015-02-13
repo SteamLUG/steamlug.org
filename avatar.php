@@ -125,12 +125,15 @@ if ( isset( $_GET['grant'] ) and isset( $_GET['name'] ) ) {
 		$permissionSlip = $grantedKey . ':' . $me . ':' . time();
 		writeAvatarLog( 0, $me, $grantedName, 'granting' );
 		file_put_contents( $requestPermission, $permissionSlip );
+		// TODO: take current URI, clean, add query
 		$theirURL = "/avatar/?name=" . $grantedName . "&amp;key=" . $grantedKey;
-		$body = "<p>Permission has been granted, and you may give them <a href=\"{$theirURL}\">this link</a>.</p>";
+		$body = "<p>Permission has been granted for {$grantedName}, you may give them <a href=\"{$theirURL}\">this link</a>.</p>";
 	} else {
 		/* we ought to probably read the file and reshare link here */
 		$style = "panel-danger";
-		$body = "<p>This user already has permission, maybe they have forgotten their link?</p>";
+		// TODO: take current URI, clean, add query
+		$revokeURL = "/avatar/?name=" . $grantedName . "&amp;revoke=please";
+		$body = "<p>This user already has permission, do you want to <a href=\"{$revokeURL}\">revoke it</a> and try again?</p>";
 	}
 
 }
