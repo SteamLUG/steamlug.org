@@ -11,7 +11,7 @@
 		// assigned name should report the string given to the script (to log dodgy attempts)
 		$eventName = sanitiseName($assignedname);
 		// event should be a verb like: add/delete/gravtar etc
-		$actionVerbs = array( 'add', 'delete', 'granting', 'gravatar', 'revoke' );
+		$actionVerbs = array( 'add', 'delete', 'granting', 'gravatar', 'revoke', 'upload', 'error' );
 		$event = in_array($event, $actionVerbs ) ? $event : "error";
 
 		$logMsg = $steamID . ':' . $adminAuth  . ':' . $eventName . ':' . $event . ':' . time() . "\n";

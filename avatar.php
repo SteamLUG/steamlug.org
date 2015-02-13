@@ -56,6 +56,60 @@ if ( in_array( $me, getAdmins() ) ) {
 	exit();
 }
 
+
+// are we supplying data via POST? → write to log, save image data to name
+if ( isset( $_POST['name'] ) and isset( $_FILES['userfile'] ) ) {
+
+	$action = "Upload File";
+	$requestedName = sanitiseName( $_POST['name'] );
+	$requestedPath = $avatarFilePath . '/' . $requestedName . '.png';
+	$hostedURL		= '/avatars/' . $requestedName . '.png';
+
+	// do we want to be able to overwrite?
+	if ( !file_exists( $requestedPath ) and !is_dir( $requestedPath ) ) {
+
+		if ( is_uploaded_file( $_FILES['userfile']['tmp_name'] ) and ( $_FILES['userfile']['size'] < 300000 ) ) {
+			// above and below both do same checks, but we want to give admin more info
+			if ( move_uploaded_file($_FILES['userfile']['tmp_name'], $requestedPath ) ) {
+
+				// success
+				writeAvatarLog( 0, $me, $requestedName, 'upload' );
+				$body = "<p>File uploaded. [<img height=\"14\" width=\"14\" src=\"{$hostedURL}\" />]</p>";
+			} else {
+
+				$style = "panel-danger";
+				$body = "<p>File failed to move to location.</p>";
+			}
+		} else {
+
+			$style = "panel-danger";
+			switch($_FILES['userfile']['error']){
+				case 0:
+					$body = "<p>There was a problem with your upload.</p>";
+					break;
+				case 1:
+				case 2:
+					$body = "<p>The file is too big.</p>";
+					break;
+				case 3:
+					$body = "<p>File upload was halted, resubmit.</p>";
+					break;
+				case 4:
+					$body = "<p>No file selected? Wake up Cheese :)</p>";
+					break;
+				default:
+					$body = "<p>File failed to upload.</p>";
+			}
+		}
+	} else {
+
+		// Either trying to overwrite a file or /
+		$style = "panel-danger";
+		$body = "<p>The choosen handle already exists, or is invalid.</p>";
+	}
+}
+
+
 // are we supplying query for grant + name? → write to log, write out secret file
 // also supply a URL you can give to someone in private that contains name+key
 if ( isset( $_GET['grant'] ) and isset( $_GET['name'] ) ) {
@@ -182,6 +236,22 @@ ACTIONMSG;
 						<div class="form-group"><label class="control-label col-xs-2" for="name">Handle</label><input class="control-input col-xs-6" name="name" placeholder="Nickname"></div>
 						<div class="form-group"><input type="submit" class="col-xs-offset-2 btn btn-primary" value="Revoke"></div>
 						<p>This will strip the user of permission to add their Steam avatar. This happens automatically, so only do if needed.</p>
+						</fieldset>
+					</form>
+				</div>
+			</article>
+			<article class="panel panel-primary">
+				<header class="panel-heading">
+					<h3 class="panel-title">Upload avatar</h3>
+				</header>
+				<div class="panel-body">
+					<form method="POST" class="form-horizontal" action="avatar.php" enctype="multipart/form-data">
+						<fieldset>
+						<input type="hidden" name="MAX_FILE_SIZE" value="300000">
+						<div class="form-group"><label class="control-label col-xs-2" for="name">Handle</label><input class="control-input col-xs-6" name="name" placeholder="Nickname"></div>
+						<div class="form-group"><label class="control-label col-xs-2" for="userfile">File</label><input class="control-input col-xs-6" type="file" name="userfile" placeholder="/home/you/files-are-here"></div>
+						<div class="form-group"><input type="submit" class="col-xs-offset-2 btn btn-primary" value="Upload"></div>
+						<p>This will allow you to upload an avatar for the named user. This will not replace the existing avatar.</p>
 						</fieldset>
 					</form>
 				</div>
