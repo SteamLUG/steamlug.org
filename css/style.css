@@ -280,7 +280,7 @@ div#navbar { position: relative; }
 .navbar-nav > li.steamLogin { position: absolute; right: 0; }
 
 /* Steam avatar border. improve */
-#steamAvatar { border: 3px solid green; border-radius: 4px; }
+#steamAvatar { border: 3px solid green; height: 38px; width: 38px; border-radius: 4px; }
 
 .eventimage { display:block; margin: 1em auto; }
 .centred { text-align: center; }

@@ -99,7 +99,7 @@
 			if ( isset( $details['response']['players'] ) )
 			{
 				$_SESSION['n'] = $details['response']['players'][0]['personaname'];
-				$_SESSION['a'] = $details['response']['players'][0]['avatar'];
+				$_SESSION['a'] = $details['response']['players'][0]['avatarfull'];
 			}
 		}
 		return;

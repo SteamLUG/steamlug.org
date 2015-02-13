@@ -190,7 +190,7 @@ AUTHBUTTON;
 		if ( isset( $_SESSION['a'] ) and ( $_SESSION['a'] != "" ) )
 		{
 			$logIn = <<<SHOWAVATAR
-				<li class="steamLogin navbar-avatar"><a href="logout.php"><img id="steamAvatar" src="{$_SESSION['a']}" /></a></li>
+				<li class="steamLogin navbar-avatar"><a href="logout.php"><img width="32" height="32" id="steamAvatar" src="{$_SESSION['a']}" /></a></li>
 SHOWAVATAR;
 		}
 	}
