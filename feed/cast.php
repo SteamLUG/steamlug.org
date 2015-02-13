@@ -8,7 +8,7 @@
 	{
 		$type = "mp3";
 	}
-	include_once('../includes/cast.php');
+	include_once('../includes/paths.php');
 
 	function slenc($u)
 	{
