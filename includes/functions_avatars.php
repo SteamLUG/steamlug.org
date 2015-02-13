@@ -1,5 +1,68 @@
 <?php
-	include_once("includes/paths.php");
+	include_once('includes/paths.php');
+
+	$hostAvatars = array(
+		"swordfischer" =>	"//steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/87/87542ec881993993fe2c5268224689538e264fac_full.jpg",
+		"ValiantCheese" =>	"//gravatar.com/avatar/916ffbb1cd00d10f5de27ef4f9846390",
+		"MimLofBees" =>		"//pbs.twimg.com/profile_images/2458841225/cnm856lvnaz4hhkgz6yg.jpeg",
+		"DerRidda" =>		"//pbs.twimg.com/profile_images/2150739768/pigava.jpeg",
+		"mnarikka" =>		"//pbs.twimg.com/profile_images/523529572243869696/lb04rKRq.png",
+		"Nemoder" =>		"//steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/0d/0d4a058f786ea71153f85262c65bb94490205b59_full.jpg",
+		"beansmyname" =>	"//pbs.twimg.com/profile_images/2821579010/3f591e15adcbd026095f85b88ac8a541.png",
+		"Corben78" =>		"//pbs.twimg.com/profile_images/313122973/Avatar.jpg",
+		"Buckwangs" =>		"//steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/bb/bb21fbb52d66cd32526b27b51418e5aa0ca97a9f_full.jpg",
+		"Cockfight" =>		"//steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/bb/bb21fbb52d66cd32526b27b51418e5aa0ca97a9f_full.jpg",
+	);
+	/* temporary work-around function while we migrate to new system */
+	function gimmeAvatar( $nickname ) {
+		global $hostAvatars;
+
+		if ( array_key_exists( $nickname, $hostAvatars ) ) {
+			return $hostAvatars[ $nickname ];
+		} else
+			return '/avatars/' . $nickname . '.png';
+	}
+
+	/* we take: ‘johndrinkwater’ / ‘@johndrinkwater’ / ‘John Drinkwater (@twitter)’ / ‘John Drinkwater {URL}’ and spit out Person{} */
+	function parsePersonString( $string ) {
+
+		$person = array(); $name = ""; $nickname = ""; $twitter = ""; $avatar = "";
+		foreach ( explode( " ", $string ) as $data ) {
+
+			// (@johndrinkwater) or @johndrinkwater
+			if ( preg_match( '/\(?@([a-z0-9_]+)\)?/i', $data, $twitterResult ) ) {
+				$twitter = $twitterResult[1];
+
+			// (johndrinkwater)
+			} else if ( preg_match( '/\(([a-z0-9_]+)\)/i', $data, $nicknameResult) ) {
+				$nickname = $nicknameResult[1];
+
+			// {//i.imgur.com/8YkJva1.jpg}
+			} else if ( preg_match( '/{(.*)}/i', $data, $avatarURLResult) ) {
+				$avatar = $avatarURLResult[1];
+
+			// John Drinkwater
+			} else {
+				$name .= $data . " ";
+			}
+		}
+		$person['name'] = trim( $name );
+		$person['nickname'] = $nickname;
+		$person['twitter']	= $twitter;
+
+		if ( strlen( $avatar ) > 0 ) {
+			$person['avatar'] = $avatar;
+		} else {
+			$lookup = trim( $name );
+			if ( strlen( $nickname ) > 0 )
+				$lookup = $nickname;
+
+			if ( strlen( $twitter ) > 0 )
+				$lookup = $twitter;
+			$person['avatar'] = gimmeAvatar( $lookup );
+		}
+		return $person;
+	}
 
 	/* user that did it, admin that allowed it, name given, type of event */
 	function writeAvatarLog( $userid, $adminid, $assignedname, $event ) {

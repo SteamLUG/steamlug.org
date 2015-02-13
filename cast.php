@@ -44,86 +44,36 @@ $pageTitle = "Cast";
 $rssLinks = '<link rel="alternate" type="application/rss+xml" title="SteamLUG Cast (mp3) Feed" href="https://steamlug.org/feed/cast/mp3" /><link rel="alternate" type="application/rss+xml" title="SteamLUG Cast (Ogg) Feed" href="https://steamlug.org/feed/cast/ogg" />';
 
 include_once('includes/paths.php');
+include_once('includes/functions_avatars.php');
 
 function slenc($u)
 {
 	return htmlentities($u,ENT_QUOTES, "UTF-8");
 }
 
-/* TODO: join this to our steamlug user system; TODO: make steamlug user system */
-$hostAvatars = array(
-	"swordfischer" =>	"//steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/87/87542ec881993993fe2c5268224689538e264fac_full.jpg",
-	"ValiantCheese" =>	"//gravatar.com/avatar/916ffbb1cd00d10f5de27ef4f9846390",
-	"johndrinkwater" =>	"//gravatar.com/avatar/751a360841982f0d0418d6d81b4beb6d",
-	"MimLofBees" =>	"//pbs.twimg.com/profile_images/2458841225/cnm856lvnaz4hhkgz6yg.jpeg",
-	"DerRidda" =>	"//pbs.twimg.com/profile_images/2150739768/pigava.jpeg",
-	"mnarikka" =>	"//pbs.twimg.com/profile_images/523529572243869696/lb04rKRq.png",
-	"Nemoder" =>	"//steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/0d/0d4a058f786ea71153f85262c65bb94490205b59_full.jpg",
-	"beansmyname" =>	"//pbs.twimg.com/profile_images/2821579010/3f591e15adcbd026095f85b88ac8a541.png",
-	"Corben78" =>	"//pbs.twimg.com/profile_images/313122973/Avatar.jpg",
-	"Buckwangs" =>	"//steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/bb/bb21fbb52d66cd32526b27b51418e5aa0ca97a9f_full.jpg",
-	"Cockfight" =>	"//steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/bb/bb21fbb52d66cd32526b27b51418e5aa0ca97a9f_full.jpg",
-);
-
-/* we take: ‘johndrinkwater’ / ‘@johndrinkwater’ / ‘John Drinkwater (@twitter)’ / ‘John Drinkwater {URL}’ and spit out HTML */
 function nameplate( $string, $size = 32 ) {
 
-	global $hostAvatars;
-	$name = ""; $nickname = ""; $twitterHandle = "";
-	foreach ( explode( " ", $string ) as $data ) {
-
-		// (@johndrinkwater) or @johndrinkwater
-		if ( preg_match( '/\(?@([a-z0-9_]+)\)?/i', $data, $twitterResult ) ) {
-			$twitterHandle = $twitterResult[1];
-
-		// (johndrinkwater)
-		} else if ( preg_match( '/\(([a-z0-9_]+)\)/i', $data, $nicknameResult) ) {
-			$nickname = $nicknameResult[1];
-
-		// {//i.imgur.com/8YkJva1.jpg}
-		} else if ( preg_match( '/{(.*)}/i', $data, $avatarURLResult) ) {
-			$avatarURL = $avatarURLResult[1];
-
-		// John Drinkwater
-		} else {
-			$name .= $data . " ";
-		}
+	$person = parsePersonString( $string );
+	$name = $person['name'];
+	if ( strlen( $person['nickname'] ) > 0 ) {
+		$name .= " (" . $person['nickname'] . ")";
 	}
-
-	$name = trim( $name );
-	if ( strlen( $nickname ) > 0 ) {
-		$name .= " (" . $nickname . ")";
+	if ( strlen( $name ) == 0 && strlen( $person['twitter'] ) > 0 ) {
+		$name = $person['twitter'];
 	}
-
-	if ( strlen( $name ) == 0 && strlen( $twitterHandle ) > 0 ) {
-		$name = $twitterHandle;
-	}
-
-	if ( strlen( $name ) == 0 ) {
+	if ( strlen( $name ) == 0 )
 		return $string;
-	}
 
-	if ( !isset( $avatarURL ) ) {
-		if ( array_key_exists( $twitterHandle, $hostAvatars ) ) {
-			$avatarURL = $hostAvatars["$twitterHandle"];
-		} elseif ( array_key_exists( $name, $hostAvatars ) ) {
-			$avatarURL = $hostAvatars["$name"];
-		} else {
-			$avatarURL = "";
-		}
-	}
-
-	if ( strlen( $avatarURL ) > 0 ) {
+	if ( strlen( $person['avatar'] ) > 0 ) {
 		$avatar = <<<AVATAR
-<img src="{$avatarURL}" title="{$name}" width="{$size}" height="{$size}" alt="{$name}" class="img-rounded"/>
+<img src="{$person['avatar']}" title="{$name}" width="{$size}" height="{$size}" alt="{$name}" class="img-rounded"/>
 AVATAR;
-	} else {
+	} else
 		$avatar = $name;
-	}
 
-	if ( strlen( $twitterHandle ) > 0 ) {
+	if ( strlen( $person['twitter'] ) > 0 ) {
 		return <<<TWITLINK
-<a href="https://twitter.com/{$twitterHandle}">{$avatar}</a>
+<a href="https://twitter.com/{$person['twitter']}">{$avatar}</a>
 
 TWITLINK;
 	} else {

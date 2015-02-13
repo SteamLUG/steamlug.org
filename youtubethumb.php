@@ -7,87 +7,34 @@ $episode = isset($_GET["e"]) ? intval($_GET["e"]) : "0";
 $episode = str_pad($episode, 2, '0', STR_PAD_LEFT);
 
 include_once('includes/paths.php');
+include_once('includes/functions_avatars.php');
 
-/* TODO: join this to our steamlug user system; TODO: make steamlug user system */
-$hostAvatars = array(
-	"swordfischer" =>	"//steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/87/87542ec881993993fe2c5268224689538e264fac_full.jpg",
-	"ValiantCheese" =>	"//gravatar.com/avatar/916ffbb1cd00d10f5de27ef4f9846390",
-	"johndrinkwater" =>	"//gravatar.com/avatar/751a360841982f0d0418d6d81b4beb6d",
-	"MimLofBees" =>		"//pbs.twimg.com/profile_images/2458841225/cnm856lvnaz4hhkgz6yg.jpeg",
-	"DerRidda" =>		"//pbs.twimg.com/profile_images/2150739768/pigava.jpeg",
-	"mnarikka" =>		"//pbs.twimg.com/profile_images/523529572243869696/lb04rKRq.png",
-	"Nemoder" =>		"//steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/0d/0d4a058f786ea71153f85262c65bb94490205b59_full.jpg",
-	"beansmyname" =>	"//pbs.twimg.com/profile_images/2821579010/3f591e15adcbd026095f85b88ac8a541.png",
-	"Corben78" =>		"//pbs.twimg.com/profile_images/313122973/Avatar.jpg",
-	"Buckwangs" =>		"//steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/bb/bb21fbb52d66cd32526b27b51418e5aa0ca97a9f_full.jpg",
-	"Cockfight" =>		"//steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/bb/bb21fbb52d66cd32526b27b51418e5aa0ca97a9f_full.jpg",
-);
-
-/* we take: ‘johndrinkwater’ / ‘@johndrinkwater’ / ‘John Drinkwater (@twitter)’ / ‘John Drinkwater {URL}’ and spit out HTML */
 function nameplate( $string, $offset = 0, $guest = 0 ) {
 
-	global $hostAvatars;
-	$name = ""; $nickname = ""; $twitterHandle = "";
-	foreach ( explode( " ", $string ) as $data ) {
-
-		// (@johndrinkwater) or @johndrinkwater
-		if ( preg_match( '/\(?@([a-z0-9_]+)\)?/i', $data, $twitterResult ) ) {
-			$twitterHandle = $twitterResult[1];
-
-		// (johndrinkwater)
-		} else if ( preg_match( '/\(([a-z0-9_]+)\)/i', $data, $nicknameResult) ) {
-			$nickname = $nicknameResult[1];
-
-		// {//i.imgur.com/8YkJva1.jpg}
-		} else if ( preg_match( '/{(.*)}/i', $data, $avatarURLResult) ) {
-			$avatarURL = $avatarURLResult[1];
-
-		// John Drinkwater
-		} else {
-			$name .= $data . " ";
-		}
+	$person = parsePersonString( $string );
+	$name = $person['name'];
+	if ( strlen( $name ) == 0 && strlen( $person['nickname'] ) > 0 ) {
+		$name = $person['nickname'];
 	}
-
-	$name = trim( $name );
-	if ( strlen( $name ) == 0 && isset( $nickname ) ) {
-		$name = $nickname;
+	if ( strlen( $name ) == 0 && strlen( $person['twitter'] ) > 0 ) {
+		$name = $person['twitter'];
 	}
-	if ( strlen( $name ) == 0 && isset( $twitterHandle ) ) {
-		$name = $twitterHandle;
-	}
-
-	if ( strlen( $name ) == 0 ) {
+	if ( strlen( $name ) == 0 )
 		return;
-	}
 
-	if ( array_key_exists( $name, $hostAvatars ) ) {
-		$lookup = $name;
-	} else if ( array_key_exists( $twitterHandle, $hostAvatars ) ) {
-		$lookup = $twitterHandle;
-	} else
-		$lookup = "unknown-host-" . md5( $string );
-
-	if ( !isset( $avatarURL ) ) {
-		if ( array_key_exists( $twitterHandle, $hostAvatars ) ) {
-			$avatarURL = $hostAvatars["$twitterHandle"];
-		} elseif ( array_key_exists( $name, $hostAvatars ) ) {
-			$avatarURL = $hostAvatars["$name"];
-		} else {
-			// no avatar?
-			$avatarURL = "404.jpg";
-		}
-	}
+	$avatar = $person['avatar'];
+	if ( strlen( $avatar ) == 0 )
+		$avatar = "unknown-host-" . md5( $string );
 
 	$flip = ( $guest == 1 ? -23 : 107 );
 	return <<<SVGPLATE
 			<g transform="translate({$offset},0)">
 				<use xlink:href="#person-holder" />
-				<image xlink:href="{$avatarURL}" width="70" height="70" preserveAspectRatio="xMidYMid slice" clip-path="url(#avatar-clip)" />
+				<image xlink:href="{$avatar}" width="70" height="70" preserveAspectRatio="xMidYMid slice" clip-path="url(#avatar-clip)" />
 				<text y="{$flip}" x="35">{$name}</text>
 			</g>
 
 SVGPLATE;
-
 }
 
 /* we take a ‘######’ / //example.com/imageofgame.png and split out SVG */
