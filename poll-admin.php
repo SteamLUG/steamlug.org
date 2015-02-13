@@ -1,7 +1,7 @@
 <?php
 	$pageTitle = "Polls";
-	include_once("includes/header.php");
-	include_once("includes/lastRSS.php");
+	include_once('includes/header.php');
+	include_once('includes/lastRSS.php');
 ?>
 <h1 class="text-center">Poll Admin</h1>
 		<article class="panel panel-primary">
@@ -24,7 +24,7 @@
 							echo "<p>You are currently logged in. Click to <a href = 'logout.php'>log out</a></p>";
 							echo "<form class=\"form-horizontal\" action = '' method = 'get'>\n";
 							echo "<!-- " . $_SESSION['u'] . " !-->\n";
-							//include_once("creds.php");
+							//include_once('creds.php');
 							
 							
 							if (isset($_POST['poll_title']))
@@ -62,4 +62,4 @@ FORMGROUP;
 
 				</div>
 			</article>
-<?php include_once("includes/footer.php"); ?>
+<?php include_once('includes/footer.php'); ?>

@@ -1,4 +1,4 @@
-<?php include_once("includes/header.php"); ?>
+<?php include_once('includes/header.php'); ?>
         <header>
                 <h1>Giveaway</h1>
         </header>
@@ -32,4 +32,4 @@
             </div>
         </article>
         </section>!-->
-<?php include_once("includes/footer.php"); ?>
+<?php include_once('includes/footer.php'); ?>

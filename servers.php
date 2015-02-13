@@ -5,9 +5,9 @@
 	@ini_set('zlib.output_compression', 0);
 	@ini_set('implicit_flush', 1);
 	$syncexternalJS = array( '/scripts/jquery.tablesorter.min.js', '/scripts/jquery.tablesorter.widgets.min.js' );
-	include_once("includes/header.php");
-	include_once("includes/GameQ.php");
-	include_once("includes/paths.php");
+	include_once('includes/header.php');
+	include_once('includes/GameQ.php');
+	include_once('includes/paths.php');
 	$Servers = file( $serversList );
 
 ?>
@@ -133,4 +133,4 @@ $(function() {
   })
 }));
 </script>
-<?php include_once("includes/footer.php"); ?>
+<?php include_once('includes/footer.php'); ?>

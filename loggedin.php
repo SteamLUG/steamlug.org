@@ -6,8 +6,8 @@
 		header("Location: /" );
 		exit();
 	}
-	include_once("includes/header.php");
-	include_once("includes/paths.php");
+	include_once('includes/header.php');
+	include_once('includes/paths.php');
 
 	$joinGroup = <<<JOINLINK
 <p>We noticed you’re not a part of SteamLUG, would you kindly <a class="label label-success group-join" href="http://steamcommunity.com/groups/steamlug/">join our Steam Group</a></p>
@@ -39,5 +39,5 @@ JOINLINK;
 		</article>
 DOCUMENT;
 
-	include_once("includes/footer.php");
+	include_once('includes/footer.php');
 

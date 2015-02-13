@@ -17,7 +17,7 @@ if (!isset($pageTitle))
 }
 
 include_once('session.php');
-include_once("functions_poll.php");
+include_once('functions_poll.php');
 if(!login_check())
 {
 	$steam_login_verify = SteamSignIn::validate();

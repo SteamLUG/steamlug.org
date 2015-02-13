@@ -4,8 +4,8 @@
 	{
 		global $conn;
 
-		include_once("creds.php");
-		include_once("functions_db.php");
+		include_once('creds.php');
+		include_once('functions_db.php');
 
 		if (!isset($conn))
 		{
@@ -246,11 +246,11 @@
 	function deletePoll($id)
 	{
 	
-		include_once("creds.php");
+		include_once('creds.php');
 		if (in_array($_SESSION['u'], getAdmins()))
 		{
 			global $conn;
-			include_once("functions_db.php");
+			include_once('functions_db.php');
 			if (!isset($conn))
 			{
 				$conn = null;
@@ -288,11 +288,11 @@
 	function savePoll()
 	{
 	
-		include_once("creds.php");
+		include_once('creds.php');
 		if (in_array($_SESSION['u'], getAdmins()))
 		{
 			global $conn;
-			include_once("functions_db.php");
+			include_once('functions_db.php');
 			if (!isset($conn))
 			{
 				$conn = null;
@@ -429,13 +429,13 @@
 	
 	function showPollAdmin()
 	{
-		include_once("creds.php");
+		include_once('creds.php');
 		echo "Logged in as " . $_SESSION['u'];
 		if (in_array($_SESSION['u'], getAdmins()))
 		{
 			global $conn;
 
-			include_once("functions_db.php");
+			include_once('functions_db.php');
 			if (!isset($conn))
 			{
 				$conn = null;

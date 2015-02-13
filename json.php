@@ -8,7 +8,7 @@
 
 
 /* We mustn't forget to include the parser */
-require_once("steameventparser.php");
+require_once('steameventparser.php');
 /* Setting the MIME type */
 header("Content-Type: application/json");
 /* Allowing CORS */

@@ -1,8 +1,8 @@
 <?php
 $pageTitle = "Events";
 
-require_once( "rbt_prs.php" );
-require_once( "steameventparser.php" );
+require_once( 'rbt_prs.php' );
+require_once( 'steameventparser.php' );
 
 $parser = new SteamEventParser();
 
@@ -31,7 +31,7 @@ if (isset($eTime)) {
 }
 $externalJS = array('/scripts/events.js');
 
-include_once( "includes/header.php" );
+include_once( 'includes/header.php' );
 ?>
 		<h1 class="text-center">SteamLUG Events</h1>
 		<article class="panel panel-default">
@@ -183,5 +183,5 @@ EVENTSTRING;
 			</table>
 			</div>
 		</article>
-<?php include_once("includes/footer.php"); ?>
+<?php include_once('includes/footer.php'); ?>
 

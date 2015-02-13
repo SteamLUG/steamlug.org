@@ -1,7 +1,7 @@
 <?php
 	$pageTitle = "About";
 ?>
-<?php include_once("includes/header.php"); ?>
+<?php include_once('includes/header.php'); ?>
 <h1 class="text-center">About SteamLUG</h1>
 		<article class="panel panel-primary">
 			<header class="panel-heading">
@@ -92,4 +92,4 @@
 			</div>
 		</article>
 
-<?php include_once("includes/footer.php"); ?>
+<?php include_once('includes/footer.php'); ?>

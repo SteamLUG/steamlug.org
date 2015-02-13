@@ -1,7 +1,7 @@
 <?php
 	$pageTitle = "Cast Guest Guidelines";
-	include_once("includes/header.php");
-	include_once("includes/paths.php");
+	include_once('includes/header.php');
+	include_once('includes/paths.php');
 
 	echo <<<DOCUMENT
 		<h1 class="text-center">SteamLUG Cast Guest Guidelines <!-- And
@@ -54,5 +54,5 @@
 		</article>
 DOCUMENT;
 
-	include_once("includes/footer.php");
+	include_once('includes/footer.php');
 

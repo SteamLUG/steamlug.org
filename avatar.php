@@ -1,7 +1,7 @@
 <?php
 $pageTitle = "Avatars";
 include_once('includes/session.php');
-include_once("includes/paths.php");
+include_once('includes/paths.php');
 include_once('includes/functions_avatars.php');
 
 // are we logged in? no → leave
@@ -196,7 +196,7 @@ if ( isset( $_GET['delete'] ) and isset( $_GET['name'] ) ) {
 	}
 }
 
-include_once("includes/header.php");
+include_once('includes/header.php');
 
 print "<h1 class=\"text-center\">Admin‐only Avatar Management</h1>";
 
@@ -298,7 +298,7 @@ ACTIONMSG;
 					<textarea class="form-control" rows="10"><?=readAvatarLog(); ?></textarea>
 				</div>
 			</article>
-<?php include_once("includes/footer.php");
+<?php include_once('includes/footer.php');
 
 // TODO improvements: convert log into a scrollable table?
 // List active permission slips.

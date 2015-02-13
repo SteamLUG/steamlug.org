@@ -149,4 +149,4 @@ https://api.twitch.tv/kraken/streams?channel=steamlug
 				<p><a href="http://www.twitch.tv/steamlug" class="btn btn-primary">Click for larger stream</a></p>
 			</div>
 		</div>
-<?php include_once("includes/footer.php"); ?>
+<?php include_once('includes/footer.php'); ?>

@@ -1,6 +1,6 @@
 <?php
-require_once("../rbt_prs.php");
-require_once("../steameventparser.php");
+require_once('../rbt_prs.php');
+require_once('../steameventparser.php');
 $parser = new SteamEventParser();
 $data = $parser->genData("steamlug");
 $month = gmstrftime("%m")-0; // Yuck, apparently the 0 breaks something?

@@ -9,7 +9,7 @@ PRODID:https://steamlug.org
 
 HEADER;
 
-require_once("steameventparser.php");
+require_once('steameventparser.php');
 $parser = new SteamEventParser();
 $eventarr = $parser->genData("steamlug");
 foreach ($eventarr['events'] as $event) {

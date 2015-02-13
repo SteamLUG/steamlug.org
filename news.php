@@ -1,7 +1,7 @@
 <?php
 	$pageTitle = "News";
-	include_once("includes/header.php");
-	include_once("includes/lastRSS.php");
+	include_once('includes/header.php');
+	include_once('includes/lastRSS.php');
 ?>
 		<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 		<h1 class="text-center">SteamLUG News</h1>
@@ -90,4 +90,4 @@
 	}
 	echo $rssString;
 ?>
-<?php include_once("includes/footer.php"); ?>
+<?php include_once('includes/footer.php'); ?>

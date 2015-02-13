@@ -1,6 +1,6 @@
 <?php
 $pageTitle = "Chat";
-include_once("includes/session.php");
+include_once('includes/session.php');
 
 $preferredNick = "";
 if (login_check()) {
@@ -8,7 +8,7 @@ if (login_check()) {
 	$preferredNick = preg_replace('/[^\w{}\[\]\\`_\^\|]+/', '', $preferredNick );
 }
 
-include_once("includes/header.php");
+include_once('includes/header.php');
 ?>
 		<h1 class="text-center">SteamLUG Chat</h1>
 <div class="row">
@@ -65,4 +65,4 @@ include_once("includes/header.php");
 				</iframe>
 			</div>
 		</article>
-<?php include_once("includes/footer.php"); ?>
+<?php include_once('includes/footer.php'); ?>

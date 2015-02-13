@@ -1,6 +1,6 @@
 <?php
-require_once("rbt_prs.php");
-require_once("steameventparser.php");
+require_once('rbt_prs.php');
+require_once('steameventparser.php');
 $season  = isset($_GET["s"]) ? intval($_GET["s"]) : "0";
 $season  = str_pad($season, 2, '0', STR_PAD_LEFT);
 $episode = isset($_GET["e"]) ? intval($_GET["e"]) : "0";
@@ -459,4 +459,4 @@ $(function() {
 	})
 </script>
 <?php
-include_once("includes/footer.php");
+include_once('includes/footer.php');
