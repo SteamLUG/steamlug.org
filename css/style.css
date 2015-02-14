@@ -29,6 +29,11 @@ blockquote
 		font-size: 14px !important;
 }
 
+html 
+{
+    overflow-y: scroll;
+}
+
 .license
 {
 	height: 16px;
@@ -288,6 +293,13 @@ div#navbar { position: relative; }
 .ourclearfix { clear:both; }
 article.fixupbootstrap { background: transparent; border: 0; padding-left: 0; padding-right: 0; }
 article.fixupbootstrap div.panel-body {background: #2e3338; border: 1px solid rgba(0, 0, 0, 0.6); border-top: 0; border-bottom:0; }
+
+article.fixupbootstrap header, 
+article.fixupbootstrap footer 
+{
+	margin-left: 1px; 
+	margin-right: 1px;
+}
 
 article.steam-parsed br { content: " "; display: block; line-height: .5em; height: .5em; margin-top: .5em; }
 
