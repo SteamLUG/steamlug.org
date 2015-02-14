@@ -188,6 +188,7 @@ body
 {
 padding: 60px 0 0 0;
 color: #959595; background: url('/images/noise4.png');
+background-position: center top;
 font-size: 13px !important; font-family: Arial,Helvetica,sans-serif;
 text-shadow: 1px 1px 1px #000;
 }
