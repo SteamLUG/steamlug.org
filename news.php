@@ -59,7 +59,7 @@
 				?>
 			<article class="panel panel-primary steam-parsed <?=$addclass?>">
 				<header class="panel-heading">
-					<h3 class="panel-title"><a href="<?=$item['link'];?>"><?=htmlspecialchars($item['title']);?></a></h3>
+					<h3 class="panel-title"><a href="<?=$item['link'];?>"><?=htmlspecialchars_decode($item['title'])?></a></h3>
 				</header>
 				<div class="panel-body">
 					<p><?=htmlspecialchars_decode($item['description']);?></p>
