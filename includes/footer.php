@@ -7,6 +7,7 @@
 							<ul class="list-unstyled">
 								<li><a href="http://steamcommunity.com/groups/steamlug/rss/">News Feed</a></li>
 								<li><a href="/feed/events">Events Feed</a></li>
+								<li><a href="/feed/calendar">Events iCal</a></li>
 								<li><a href="https://twitter.com/steamlug">Twitter</a></li>
 							</ul>
 					</div>
