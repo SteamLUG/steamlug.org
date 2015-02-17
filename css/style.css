@@ -304,8 +304,11 @@ article.fixupbootstrap footer
 
 article.steam-parsed br { content: " "; display: block; line-height: .5em; height: .5em; margin-top: .5em; }
 
+/* afford more space in the cast description */
+#cast-description h4 { margin-top: 0}
+
 #castplayer { margin-top: 7px;}
-#cast-description { position: sticky; top: -150px; z-index: 2; opacity: .95; }
+#cast-description { position: sticky; top: -145px; z-index: 2; opacity: .95; }
 #cast-description { position: -webkit-sticky; }
 #play-box { padding: 15px; margin: -15px; position: relative; }
 #cast-description p.licence { margin-top: 0; right: 15px; position: absolute }

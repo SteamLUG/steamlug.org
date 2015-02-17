@@ -132,6 +132,8 @@ if ($season !== "00" && $episode !== "00" && file_exists($filename)) {
 	$episodeMp3FS	= (file_exists($episodeBase . ".mp3")  ? round(filesize($episodeBase . ".mp3") /1024/1024,2) : 0);
 	$episodeMP3DS	= "<span class='mp3'>" . ($episodeMp3FS > 0 ? $episodeMp3FS . ' MB <a download href="' .$archiveBase . '.mp3">MP3</a>' : 'N/A MP3') . "</span>";
 
+	$episodeYoutube = ( empty($meta['YOUTUBE']) ? 'empty' : '<span class="youtube"><a href="//youtu.be/' . $meta['YOUTUBE'] . '">YOUTUBE</a></span>' );
+
 	$extraCrap = <<<TWITCARD
 		<meta name="twitter:card" content="player">
 		<meta name="twitter:site" content="@SteamLUG">
@@ -185,6 +187,7 @@ echo <<<CASTENTRY
 				<p class="download-links">
 					$episodeOddDS
 					$episodeMP3DS
+					$episodeYoutube
 				</p>
 				<p class="licence">
 					<a href='http://creativecommons.org/licenses/by-sa/3.0/'>
