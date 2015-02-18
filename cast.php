@@ -48,7 +48,7 @@ include_once('includes/functions_avatars.php');
 
 function slenc($u)
 {
-	return htmlentities($u,ENT_QUOTES, "UTF-8");
+	return htmlentities($u,ENT_NOQUOTES, "UTF-8");
 }
 
 function nameplate( $string, $size = 32 ) {
