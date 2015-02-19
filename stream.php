@@ -106,13 +106,14 @@ https://api.twitch.tv/kraken/streams?channel=steamlug
                 $statusChannels = "N/A";
                 $statusUsers = "N/A";
         }
-        $statusString = "\t\t\t\t\t<dl class=\"dl-horizontal\">\n";
-        $statusString .= "\t\t\t\t\t\t<dt>Server</dt><dd>Online</dd>\n";
-        $statusString .= "\t\t\t\t\t\t<dt>Version</dt><dd>" . $info['x_gtmurmur_server_version'] . "</dd>\n";
-        $statusString .= "\t\t\t\t\t\t<dt>Channels</dt><dd>" . $statusChannels ."</dd>\n";
-        $statusString .= "\t\t\t\t\t\t<dt>Users</dt><dd>" . $statusUsers . " / " . $info['x_gtmurmur_max_users'] . "</dd>\n";
-        $statusString .= "\t\t\t\t\t</dl>\n";
-	echo $statusString;
+	echo <<<STATUS
+					<dl class="dl-horizontal">
+						<dt>Server</dt><dd>Online</dd>
+						<dt>Version</dt><dd>{$info['x_gtmurmur_server_version']}</dd>
+						<dt>Channels</dt><dd>{$statusChannels}</dd>
+						<dt>Users</dt><dd>{$statusUsers} ⁄ {$info['x_gtmurmur_max_users']}</dd>
+					</dl>
+STATUS;
 ?>
 					<p><a href="/mumble" class="btn btn-primary">Click for details</a></p>
 					</div>
