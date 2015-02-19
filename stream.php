@@ -72,7 +72,6 @@ if ( extension_loaded('curl') ) {
 	$maybeOnline = curl_url( 'https://api.twitch.tv/kraken/streams/steamlug', array(), array( 'Accept: application/vnd.twitchtv.v3.json' ) );
 	$twitchStream = json_decode( $maybeOnline, true );
 	if ( $twitchStream['stream'] != null ) {
-		print "online";
 		$someoneStreaming = true;
 		$twitchOnline = true;
 	}
@@ -163,13 +162,13 @@ echo <<<TWITCH
 					<h3 class="panel-title"><a href="https://twitch.tv/steamlug">SteamLUG on Twitch</a></h3>
 				</header>
 				<div class="panel-body">
-					<object type="application/x-shockwave-flash" width="100%" height="600px" id="live_embed_player_flash" data="https://www-cdn.jtvnw.net/swflibs/TwitchPlayer.swf?channel=steamlug">
+					<div id="twitch-viewer"><object type="application/x-shockwave-flash" width="100%" height="550px" id="live_embed_player_flash" data="https://www-cdn.jtvnw.net/swflibs/TwitchPlayer.swf?channel=steamlug">
 						<param name="allowFullScreen" value="true" />
 						<param name="allowScriptAccess" value="always" />
 						<param name="allowNetworking" value="all" />
 						<param name="movie" value="https://www-cdn.jtvnw.net/swflibs/TwitchPlayer.swf" />
 						<param name="flashvars" value="hostname=www.twitch.tv&channel=steamlug&auto_play=true&start_volume=25" />
-					</object>
+					</object></div>
 					<p><a href="http://www.twitch.tv/steamlug" class="btn btn-primary">Click for larger stream</a></p>
 				</div>
 			</article>
