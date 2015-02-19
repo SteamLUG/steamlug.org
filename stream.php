@@ -149,7 +149,7 @@ echo <<<HITBOX
 					<h3 class="panel-title"><a href="https://hitbox.tv/steamlug">SteamLUG on HitBox</a></h3>
 				</header>
 				<div class="panel-body">
-					<div id="hitbox-viewer"><iframe width="640" height="360" src="http://hitbox.tv/#!/embed/steamlug?autoplay=true" frameborder="0" allowfullscreen></iframe></div>
+					<div id="hitbox-viewer"><iframe width="640" height="360" src="//hitbox.tv/#!/embed/steamlug?autoplay=true" frameborder="0" allowfullscreen></iframe></div>
 					<p><a href="http://www.hitbox.tv/steamlug" class="btn btn-primary">Click for larger stream</a></p>
 				</div>
 			</article>
