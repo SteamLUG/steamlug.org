@@ -90,7 +90,7 @@ if ( extension_loaded('curl') ) {
 			$hitboxPeeps .= '</li>';
 			if ( $streamer['user_name'] == 'steamlug' and $streamer['is_live'] == 1) {
 				$someoneStreaming = true;
-				$hitboxOnline = true;
+				$hitboxOnline = true; // we cannot embed the hitbox viewer because it is http only true;
 			}
 		}
 	$streamers .= <<<HITBOXBOX
@@ -149,8 +149,9 @@ echo <<<HITBOX
 					<h3 class="panel-title"><a href="https://hitbox.tv/steamlug">SteamLUG on HitBox</a></h3>
 				</header>
 				<div class="panel-body">
-					<div id="hitbox-viewer"><iframe width="640" height="360" src="//hitbox.tv/#!/embed/steamlug?autoplay=true" frameborder="0" allowfullscreen></iframe></div>
-					<p><a href="http://www.hitbox.tv/steamlug" class="btn btn-primary">Click for larger stream</a></p>
+					<!-- <div id="hitbox-viewer"><iframe width="640" height="360" src="//hitbox.tv/#!/embed/steamlug?autoplay=true" frameborder="0" allowfullscreen></iframe></div> -->
+					<p>We can’t embed Hitbox here for you to watch, because their embed dislikes https, please click the link below.</p>
+					<p><a href="http://www.hitbox.tv/steamlug" class="btn btn-primary">Click for hitbox stream</a></p>
 				</div>
 			</article>
 HITBOX;
