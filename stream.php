@@ -163,11 +163,11 @@ echo <<<TWITCH
 					<h3 class="panel-title"><a href="https://twitch.tv/steamlug">SteamLUG on Twitch</a></h3>
 				</header>
 				<div class="panel-body">
-					<object type="application/x-shockwave-flash" width="100%" height="600px" id="live_embed_player_flash" data="http://www.twitch.tv/widgets/live_embed_player.swf?channel=steamlug">
+					<object type="application/x-shockwave-flash" width="100%" height="600px" id="live_embed_player_flash" data="https://www-cdn.jtvnw.net/swflibs/TwitchPlayer.swf?channel=steamlug">
 						<param name="allowFullScreen" value="true" />
 						<param name="allowScriptAccess" value="always" />
 						<param name="allowNetworking" value="all" />
-						<param name="movie" value="http://www.twitch.tv/widgets/live_embed_player.swf" />
+						<param name="movie" value="https://www-cdn.jtvnw.net/swflibs/TwitchPlayer.swf" />
 						<param name="flashvars" value="hostname=www.twitch.tv&channel=steamlug&auto_play=true&start_volume=25" />
 					</object>
 					<p><a href="http://www.twitch.tv/steamlug" class="btn btn-primary">Click for larger stream</a></p>
