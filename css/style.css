@@ -323,5 +323,7 @@ article.steam-parsed br { content: " "; display: block; line-height: .5em; heigh
 #hitbox-list li:last-child {border: none}
 #hitbox-list img{ border-radius:50%; height:45px; width:45px; margin: 8px 15px 8px 0}
 
-#hitbox-viewer { position: relative; width: 100%; height:0; padding-bottom:53% } 
-#hitbox-viewer iframe { position: absolute; width:100%; height: 100%; left:0; top:0} 
+#hitbox-viewer { position: relative; width: 100%; height:0; padding-bottom:51% }
+#hitbox-viewer iframe { position: absolute; width:100%; height: 100%; left:0; top:0}
+#twitch-viewer { position: relative; width: 100%; height:0; padding-bottom:59% }
+#twitch-viewer object { position: absolute; width:100%; height: 100%; left:0; top:0}
