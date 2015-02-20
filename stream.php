@@ -79,14 +79,13 @@ if ( extension_loaded('curl') ) {
 		// if Twitch is offline, maybe we can pull the channel following
 		$twitchUsers = curl_url( 'https://api.twitch.tv/kraken/users/steamlug/follows/channels', array(), array( 'Accept: application/vnd.twitchtv.v3.json' ) );
 		$twitchStreamers = @json_decode( $twitchUsers, true );
-		// print_r( $twitchStreamers );
 		$twitchPeeps = "";
 		if ( $twitchStreamers != null ) {
 			foreach ( $twitchStreamers['follows'] as $streamer ) {
 				$person = $streamer['channel'];
 				$twitchPeeps .= '<li>';
 				$twitchPeeps .= '<a href="' . $person['url'] . '">';
-				$twitchPeeps .= '<img src="' . $person['logo'] . '" />';
+				$twitchPeeps .= '<img src="' . ( $person['logo'] != '' ? $person['logo'] : 'http://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_150x150.png' ) . '" />';
 				$twitchPeeps .= $person['display_name'] . '</a>';
 				$twitchPeeps .= '</li>';
 			}
@@ -213,7 +212,7 @@ if ($someoneStreaming == false or $gotCurl == false ) {
 					<h3 class="panel-title">Stream Offline</h3>
 				</header>
 				<div class="panel-body">
-					<p>It looks like no one from the community is streaming right now, how about checking out users below?.</p>
+					<p>It looks like no one from the community is streaming right now, how about checking out users below?</p>
 					<!-- put some links here to main channels? -->
 				</div>
 			</div>
