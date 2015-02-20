@@ -85,7 +85,7 @@ if ( extension_loaded('curl') ) {
 				$person = $streamer['channel'];
 				$twitchPeeps .= '<li>';
 				$twitchPeeps .= '<a href="' . $person['url'] . '">';
-				$twitchPeeps .= '<img src="' . ( $person['logo'] != '' ? $person['logo'] : 'http://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_150x150.png' ) . '" />';
+				$twitchPeeps .= '<img src="' . ( $person['logo'] != '' ? $person['logo'] : '//static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_150x150.png' ) . '" />';
 				$twitchPeeps .= $person['display_name'] . '</a>';
 				$twitchPeeps .= '</li>';
 			}
