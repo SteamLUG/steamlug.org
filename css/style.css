@@ -317,11 +317,13 @@ article.steam-parsed br { content: " "; display: block; line-height: .5em; heigh
 #cast-description p { display: inline-block; }
 
 .no-content article { border-bottom: none; }
-#hitbox-list { list-style: none; width: 353px: margin-left:0; padding:0}
-#hitbox-list li { height: 61px; border-bottom: 1px solid #444}
-#hitbox-list a:hover{ text-decoration:none; color: #ace600}
-#hitbox-list li:last-child {border: none}
-#hitbox-list img{ border-radius:50%; height:45px; width:45px; margin: 8px 15px 8px 0}
+.streamers-list { list-style: none; width: 353px: margin-left:0; padding:0 }
+.streamers-list li { height: 61px; border-bottom: 1px solid #444 }
+.streamers-list a:hover { text-decoration:none }
+.streamers-list li:last-child { border: none }
+.streamers-list img{ height:45px; width:45px; margin: 8px 15px 8px 0}
+#hitbox.streamers-list a:hover { color: #ace600 }
+#hitbox.streamers-list img{ border-radius:50%; }
 
 #hitbox-viewer { position: relative; width: 100%; height:0; padding-bottom:51% }
 #hitbox-viewer iframe { position: absolute; width:100%; height: 100%; left:0; top:0}

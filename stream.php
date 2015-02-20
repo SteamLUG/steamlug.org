@@ -42,6 +42,7 @@ if ( extension_loaded('curl') ) {
 	http://api.hitbox.tv/team/steamlug
 	http://api.hitbox.tv/user/johndrinkwater
 	https://api.twitch.tv/kraken/streams?channel=steamlug
+	https://api.twitch.tv/kraken/channels/steamlug/follows
 	{"streams":[],"_to tal":0,"_links":{"self":"https://api.twitch.tv/kraken/streams?channel=steamlug&limit=25&offset=0","next":"https://api.twitch.tv/kraken/streams?channel=steamlug&limit=25&offset=25","featured":"https://api.twitch.tv/kraken/streams/featured","summary":"https://api.twitch.tv/kraken/streams/summary","followed":"https://api.twitch.tv/kraken/streams/followed"}}
 	*/
 
@@ -74,6 +75,37 @@ if ( extension_loaded('curl') ) {
 	if ( $twitchStream['stream'] != null ) {
 		$someoneStreaming = true;
 		$twitchOnline = true;
+	} else {
+		// if Twitch is offline, maybe we can pull the channel following
+		$twitchUsers = curl_url( 'https://api.twitch.tv/kraken/users/steamlug/follows/channels', array(), array( 'Accept: application/vnd.twitchtv.v3.json' ) );
+		$twitchStreamers = @json_decode( $twitchUsers, true );
+		// print_r( $twitchStreamers );
+		$twitchPeeps = "";
+		if ( $twitchStreamers != null ) {
+			foreach ( $twitchStreamers['follows'] as $streamer ) {
+				$person = $streamer['channel'];
+				$twitchPeeps .= '<li>';
+				$twitchPeeps .= '<a href="' . $person['url'] . '">';
+				$twitchPeeps .= '<img src="' . $person['logo'] . '" />';
+				$twitchPeeps .= $person['display_name'] . '</a>';
+				$twitchPeeps .= '</li>';
+			}
+		$streamers .= <<<TWITCHBOX
+							<div class="col-sm-6">
+								<article class="panel panel-default">
+									<header class="panel-heading">
+										<h3 class="panel-title">SteamLUG Twitch streamers</h3>
+									</header>
+									<div class="panel-body">
+										<p>A collection of Linux gamers from the Steam group http://steamcommunity.com/groups/steamlug</p>
+										<ul class="streamers-list" id="twitch">
+											{$twitchPeeps}
+										</ul>
+									</div>
+								</article>
+							</div>
+TWITCHBOX;
+		}
 	}
 
 /* HitBox */
@@ -93,14 +125,14 @@ if ( extension_loaded('curl') ) {
 			}
 		}
 	$streamers .= <<<HITBOXBOX
-						<div class="col-sm-12">
+						<div class="col-sm-6">
 							<article class="panel panel-default">
 								<header class="panel-heading">
-									<h3 class="panel-title">{$hitboxStreamers['info']['group_display_name']} hitbox team</h3>
+									<h3 class="panel-title">{$hitboxStreamers['info']['group_display_name']} Hitbox streamers</h3>
 								</header>
 								<div class="panel-body">
 									<p>{$hitboxStreamers['info']['group_text']}</p>
-									<ul id="hitbox-list">
+									<ul class="streamers-list" id="hitbox">
 										{$hitboxPeeps}
 									</ul>
 								</div>
@@ -178,10 +210,10 @@ if ($someoneStreaming == false or $gotCurl == false ) {
 	print <<<WHELP
 			<div class="panel panel-default">
 				<header class="panel-heading">
-					<h3 class="panel-title">Streams offline</h3>
+					<h3 class="panel-title">Stream Offline</h3>
 				</header>
 				<div class="panel-body">
-					<p>It looks like no one from the community is streaming right now.</p>
+					<p>It looks like no one from the community is streaming right now, how about checking out users below?.</p>
 					<!-- put some links here to main channels? -->
 				</div>
 			</div>
