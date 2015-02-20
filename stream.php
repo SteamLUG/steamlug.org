@@ -83,7 +83,7 @@ if ( extension_loaded('curl') ) {
 	if ( $hitboxStreamers != null ) {
 		foreach ( $hitboxStreamers['members'] as $streamer ) {
 			$hitboxPeeps .= '<li class="' . ($streamer['is_live'] == 1 ? 'live': '' ) .  '">';
-			$hitboxPeeps .= '<a href="//hitbox.tv/' . $streamer['user_name'] . '">';
+			$hitboxPeeps .= '<a href="http://hitbox.tv/' . $streamer['user_name'] . '">';
 			$hitboxPeeps .= '<img src="//edge.sf.hitbox.tv/' . $streamer['user_logo_small'] . '" />';
 			$hitboxPeeps .= $streamer['user_name'] . '</a>';
 			$hitboxPeeps .= '</li>';
@@ -145,12 +145,12 @@ if ($hitboxOnline) {
 echo <<<HITBOX
 			<article class="panel panel-default">
 				<header class="panel-heading">
-					<h3 class="panel-title"><a href="https://hitbox.tv/steamlug">SteamLUG on HitBox</a></h3>
+					<h3 class="panel-title"><a href="http://hitbox.tv/steamlug">SteamLUG on HitBox</a></h3>
 				</header>
 				<div class="panel-body">
-					<!-- <div id="hitbox-viewer"><iframe width="640" height="360" src="//hitbox.tv/#!/embed/steamlug?autoplay=true" frameborder="0" allowfullscreen></iframe></div> -->
+					<!-- <div id="hitbox-viewer"><iframe width="640" height="360" src="http://hitbox.tv/#!/embed/steamlug?autoplay=true" frameborder="0" allowfullscreen></iframe></div> -->
 					<p>We can’t embed Hitbox here for you to watch, because their embed dislikes https, please click the link below.</p>
-					<p><a href="http://www.hitbox.tv/steamlug" class="btn btn-primary">Click for hitbox stream</a></p>
+					<p><a href="http://hitbox.tv/steamlug" class="btn btn-primary">Click for hitbox stream</a></p>
 				</div>
 			</article>
 HITBOX;
