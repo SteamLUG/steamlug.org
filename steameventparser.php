@@ -33,7 +33,7 @@ class SteamEventParser {
 	 */
 	private function parseEvent($str, $month, $year, $tzSrc, $tzDest) {
 		$html = new DOMDocument();
-		$html->loadHTML($str);
+		$html->loadHTML("<?xml encoding='UTF-8' ?>" . $str);
 		$event = array();
 		$node = $html->getElementsByTagName("body");
 		foreach ($node as $body) {
