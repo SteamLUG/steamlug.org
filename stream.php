@@ -35,6 +35,7 @@
 	$someoneStreaming = false;
 	$twitchOnline = false;
 	$hitboxOnline = false;
+	$streamers = "";
 
 if ( extension_loaded('curl') ) {
 	$gotCurl = true;
