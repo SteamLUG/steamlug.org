@@ -64,7 +64,6 @@
 
 	foreach ( $results as $id => $data )
 	{
-		$serverHost = $data['gq_address'] . ":" . $data['gq_port'];
 		if (!$data['gq_online'])
 		{
 			echo <<<SERVERSTRING
@@ -73,7 +72,7 @@
 				<td></td>
 				<td></td>
 				<td><em>Server Unresponsive</em></td>
-				<td><em>{$serverHost}</em></td>
+				<td><em>{$data['gq_address']}:{$data['gq_port']}</em></td>
 				<td><em>0 ⁄ 0</em></td>
 				<td><em>N/A</em></td>
 				<td><span class="text-danger"><i class="fa fa-circle-o"></i></span></td>
@@ -87,6 +86,8 @@ SERVERSTRING;
 			$serverDesc	= !empty($data['gq_name']) ? $data['gq_name'] : '';
 			$serverNum	= (!empty($data['gq_numplayers']) ? $data['gq_numplayers'] : '0') . ' ⁄ ' . $data['gq_maxplayers'];
 			$serverMap	= substr( $data['gq_mapname'], 0, 18 );
+			$connectPort	= (!empty($data['port']) ? $data['port'] : (isset($data['gameport']) ? $data['gameport'] : $data['gq_port']));
+			$serverHost	= $data['gq_address'] . ":" . $connectPort;
 			echo <<<SERVERSTRING
 			<tr>
 				<td><span style="display:none">{$serverLoc}</span><img src="/images/flags/{$serverLoc}.png" alt="Hosted in {$serverLoc}"></td>
