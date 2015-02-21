@@ -17,17 +17,12 @@
  */
 
 /**
- * Armed Assault 2 Protocol Class
+ * Counter-Strike 1.5 Protocol Class
  *
- * @author Austin Bischoff <austin@codebeard.com>
+ * @author Nikolay Ipanyuk <rostov114@gmail.com>
  */
-class GameQ_Protocols_Armedassault2 extends GameQ_Protocols_Gamespy3
+class GameQ_Protocols_Cs15 extends GameQ_Protocols_Won
 {
-
-	protected $name      = "armedassault2";
-
-	protected $name_long = "Armed Assault 2";
-
-	protected $port      = 2302;
-
+	protected $name = "cs15";
+	protected $name_long = "Counter-Strike 1.5";
 }

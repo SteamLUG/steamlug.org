@@ -17,17 +17,12 @@
  */
 
 /**
- * Armed Assault 2 Protocol Class
+ * America's Army Proving Grounds
  *
  * @author Austin Bischoff <austin@codebeard.com>
  */
-class GameQ_Protocols_Armedassault2 extends GameQ_Protocols_Gamespy3
+class GameQ_Protocols_Aapg extends GameQ_Protocols_Aa3
 {
-
-	protected $name      = "armedassault2";
-
-	protected $name_long = "Armed Assault 2";
-
-	protected $port      = 2302;
-
+	protected $name = "aapg";
+	protected $name_long = " America's Army: Proving Grounds";
 }

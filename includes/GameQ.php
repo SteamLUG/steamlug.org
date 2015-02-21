@@ -3,16 +3,16 @@
  * This file is part of GameQ.
  *
  * GameQ is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
+ * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * GameQ is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
@@ -43,7 +43,7 @@ class GameQ
 	/*
 	 * Constants
 	 */
-	const VERSION = '2.0.1';
+	const VERSION = '2.0.3';
 
 	/*
 	 * Server array keys
@@ -291,7 +291,7 @@ class GameQ
 			|| !is_array($server_info[self::SERVER_OPTIONS])
 			|| empty($server_info[self::SERVER_OPTIONS]))
 		{
-			// Make an id so each server has an id when returned
+			// Default the options to an empty array
 			$server_info[self::SERVER_OPTIONS] = array();
 		}
 
@@ -793,6 +793,12 @@ class GameQ
 		$read = $sockets;
 		$write = NULL;
 		$except = NULL;
+
+		// Check to see if $read is empty, if so stream_select() will throw a warning
+		if(empty($read))
+		{
+		    return $responses;
+		}
 
 		// This is when it should stop
 		$time_stop = microtime(TRUE) + $this->timeout;
