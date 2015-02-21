@@ -49,6 +49,6 @@ class GameQ_Protocols_Starbound extends GameQ_Protocols_Source
 	*
 	* @var string
 	*/
-	protected $packet_mode = self::PACKET_MODE_LINEAR;
+	// protected $packet_mode = self::PACKET_MODE_LINEAR;
 
 }
