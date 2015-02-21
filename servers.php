@@ -84,7 +84,7 @@ SERVERSTRING;
 			$serverLoc	= geoip_country_code_by_name($data['gq_address']);
 			$serverSec	= !empty($data['secure']) ? '<i class="fa fa-shield"></i>' : '';
 			$serverPass	= !empty($data['gq_password']) ? '<i class="fa fa-lock"></i>' : '';
-			$serverDesc	= !empty($data['gq_name']) ? ($data['gq_name'] == 'Source Server' ? ($data['game_descr'] == 'Team Fortress' ? 'Team Fortress 2' : $data['game_descr']) : $data['gq_name'] ) : '';
+			$serverDesc	= !empty($data['gq_name']) ? $data['gq_name'] : '';
 			$serverNum	= (!empty($data['gq_numplayers']) ? $data['gq_numplayers'] : '0') . ' ⁄ ' . $data['gq_maxplayers'];
 			$serverMap	= substr( $data['gq_mapname'], 0, 18 );
 			echo <<<SERVERSTRING
