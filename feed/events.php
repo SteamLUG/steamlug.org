@@ -4,7 +4,7 @@
 	require_once('../rbt_prs.php');
 	require_once('../steameventparser.php');
 
-	echo "<?xml version='1.0'?>\n";
+	echo "<?xml version='1.0' encoding='UTF-8' ?>\n";
 	echo "<rss version='2.0' xmlns:atom='http://www.w3.org/2005/Atom'>\n";
 	echo "<channel>\n";
 	echo "\t<title>";
