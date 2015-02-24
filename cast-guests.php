@@ -1,17 +1,36 @@
 <?php
-	$pageTitle = "Cast Guest Guidelines";
+	$pageTitle = "Cast Guests";
 	include_once('includes/header.php');
 	include_once('includes/paths.php');
 
 	echo <<<DOCUMENT
-		<h1 class="text-center">SteamLUG Cast Guest Guidelines <!-- And
+		<h1 class="text-center">SteamLUG Cast Guest Information <!-- And
 		thirdly, the phrase is more what you'd call ‘advice’ than actual guidelines.
 		--></h1>
+		<article class="panel panel-default">
+			<header class="panel-heading">
+				<h3 class="panel-title">Guest Applications</h3>
+			</header>
+			<div class="panel-body">
+				<h4 id="potential-guest">If you want to join us</h4>
+				<p>Are you involved in the Linux Gaming community? Do you or
+				your team develop or port games? Do you contribute to Free Software? Do you
+				<em>love</em> talking about any of these things at length?</p>
+				<p>If so, you’re likely someone we’d like to get on the cast in
+				the future! Send us an <a href="cast@steamlug.org">email</a>
+				and tell us a little about yourself, give us some idea of the
+				time‐frame you’d be interested in (we understand the
+				time-sensitive nature of releases), with the understanding that
+				we record each cast fortnightly on a Friday evening UTC.</p>
+			</div>
+		</article>
+
 		<article class="panel panel-default">
 			<header class="panel-heading">
 				<h3 class="panel-title">Guest Guidelines</h3>
 			</header>
 			<div class="panel-body">
+				<h4 id="confirmed-guest">You’re joining us already!</h4>
 				<p>We’re excited to have you join us! We record our show using
 				a common multiplayer chat tool called <a
 				href="//mumble.sourceforge.net/">Mumble</a>, we generally have a chatty
