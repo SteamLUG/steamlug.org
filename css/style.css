@@ -279,13 +279,13 @@ p a.group-join { font-size:100%; }
 @keyframes showpolls { from { width: 0%; } }
 
 /* Steam login appearance */
+.navbar-nav > li.steamLogin { right: 0; }
 .navbar-nav > li.steamLogin > a { display: block; border: 0; padding: 3px 5px 4px 3px; }
 .navbar-nav > li.navbar-avatar > a { padding: 6px; }
 /* hung to the right */
 div#navbar { position: relative; }
 div .navbar-brand { position: relative; z-index: 15 }
-
-.navbar-nav > li.steamLogin { position: absolute; right: 0; }
+div .navbar-nav { margin-bottom: 0 }
 
 /* Steam avatar border. improve */
 #steamAvatar { border: 3px solid green; height: 38px; width: 38px; border-radius: 4px; }
