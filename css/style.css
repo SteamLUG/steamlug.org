@@ -135,26 +135,15 @@ nav .nav > li > a {
 padding-right: 13px; padding-left: 13px;
 }
 
-/* Poll and form styles */
-
-#mumble-list ul {
-        list-style-type: none;
-}
-
-#mumble-list li li.channel
-{
-		opacity: 0.6;
-}
-
-#mumble-list li li li.channel
-{
-		opacity: 0.4;
-}
-
-#mumble-list li.user
-{
-		opacity: 1.0 !important
-}
+#mumble-list dl, #mumble-list ul { margin-left: 25px; margin-bottom: 0 }
+#mumble-list ul { list-style-type: none; padding-left: 0 }
+#mumble-list li i, #mumble-list dt i { margin-right: .75em; }
+#mumble-list li i { padding-left: 2px; padding-right: 1px }
+#mumble-list dl { opacity: .85; }
+#mumble-list dt.populated { opacity: 1 }
+/* hide team channels if they are empty */
+#mumble-list dl dl dl .empty, #mumble-list dl dl dl .empty + dd { display: none }
+#mumble-list dl dl .populated, #mumble-list dl dl .populated + dd { display: block; }
 
 /* Bootstrap needs JS for this, apparently? Confirm this is decent for all */
 li.dropdown:hover > .dropdown-menu, .dropdown-menu:hover { display:block; }

@@ -25,35 +25,34 @@
 	$status = $murmur->get_status();
 	$info = $status['original'];
 
-	function Users($array)
-	{
-	global $statusString;
-		foreach ($array as $value)
-		{
-		$statusString .= "\n<ul>\n";
-			if (is_array($value) && count($value) > 0 && isset($value['name']))
-			{
-					if (isset($value['users']))
-					{
-						$statusString .= "<li class=\"channel\"><i class=\"fa fa-group text-warning\"></i> " . $value['name'];
-					}
-					else
-					{
-						$statusString .= "<li class=\"user\"><i class=\"fa fa-user text-info\"></i> " . $value['name'];
-					}
+	function MumbleTree($array) {
+		$statusString = "";
 
-					if ( isset($value['users']) && is_array($value['users']) && count($value['users']) > 0 && isset($value['name']))
-					{
-						Users($value['users']);
-					}
-					if (isset($value['channels']))
-					{
-						Users($value['channels']);
-					}
-						$statusString .= "</li>\n";
+		foreach ($array as $value) {
+
+			if (is_array($value) && count($value) > 0 && isset($value['name'])) {
+
+				if (isset($value['name']) && isset($value['users'])) {
+					$peeps = count($value['users']);
+					$chans = count($value['channels']);
+					$statusString .= '<dt' . ($peeps > 0? ' class="populated"': ($chans > 0? '': ' class="empty"') ). '><i class="fa fa-group text-warning"></i>' . $value['name'] . "</dt>\n";
+					$statusString .= "<dd>";
+				}
+				if ( isset($value['channels'] ) && is_array($value['channels']) && (count($value['channels']) !== 0) ) {
+					$statusString .= "<dl>\n" . MumbleTree( $value['channels'] ) . "</dl>\n";
+				}
+				if ( isset( $value['users'] ) && is_array($value['users']) && (count($value['users']) !== 0) ) {
+					$statusString .= "<ul>". MumbleTree( $value['users'] ) . "</ul>\n";
+				}
+				if (isset($value['name']) && !isset($value['users'])) {
+					$statusString .= "<li><i class=\"fa fa-user text-info\"></i>" . $value['name'] . "</li>";
+				}
+				if (isset($value['name']) && isset($value['users'])) {
+					$statusString .= "</dd>";
+				}
 			}
-		$statusString .= "</ul>\n";
 		}
+		return $statusString;
 	}
 ?>
 	<h1 class="text-center">Mumble Server</h1>
@@ -87,7 +86,6 @@
 		$statusChannels = "N/A";
 		$statusUsers = "N/A";
 	}
-	Users($rootChannels);
 ?>
 			<dl class="dl-horizontal">
 				<dt>Server</dt><dd>Online</dd>
@@ -104,8 +102,9 @@
 		</header>
 		<div class="panel-body" id="mumble-list">
 <?php
-	echo $statusString;
-
+	print "<dl>";
+	print MumbleTree($rootChannels);
+	print "</dl>";
 ?>
 		</div>
 	</article>
