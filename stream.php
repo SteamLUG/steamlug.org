@@ -94,7 +94,7 @@ if ( extension_loaded('curl') ) {
 							<div class="col-sm-6">
 								<article class="panel panel-default">
 									<header class="panel-heading">
-										<h3 class="panel-title">SteamLUG Twitch streamers</h3>
+										<h3 class="panel-title">Our Twitch streamers</h3>
 									</header>
 									<div class="panel-body">
 										<p>A collection of Linux gamers from the Steam group http://steamcommunity.com/groups/steamlug</p>
@@ -128,7 +128,7 @@ TWITCHBOX;
 						<div class="col-sm-6">
 							<article class="panel panel-default">
 								<header class="panel-heading">
-									<h3 class="panel-title">{$hitboxStreamers['info']['group_display_name']} Hitbox streamers</h3>
+									<h3 class="panel-title">Our Hitbox streamers</h3>
 								</header>
 								<div class="panel-body">
 									<p>{$hitboxStreamers['info']['group_text']}</p>
@@ -161,7 +161,7 @@ if (!$someoneStreaming) {
 						<div class="col-sm-6">
 							<article class="panel panel-default">
 								<header class="panel-heading">
-									<h3 class="panel-title"><a href="<?=$data["events"][0]["url"];?>"><?=$data["events"][0]["title"];?></a></h3>
+									<h3 class="panel-title"><a href="<?=$data["events"][0]["url"];?>"><?=str_replace( 'SteamLUG ','',$data["events"][0]["title"])?></a></h3>
 								</header>
 <!--							<div class="panel-body">
 									<p class="text-center"><img src="<?=$data["events"][0]["img_header"];?>" alt="<?=$data["events"][0]["title"];?>" /></p>

@@ -4,7 +4,7 @@
 	include_once('includes/lastRSS.php');
 ?>
 		<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-		<h1 class="text-center">SteamLUG News</h1>
+		<h1 class="text-center">News</h1>
 		<article class="panel panel-primary tweets col-sm-4 col-sm-push-8">
 			<header class="panel-heading">
 				<h3 class="panel-title">Tweets</h3>

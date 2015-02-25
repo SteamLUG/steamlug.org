@@ -11,14 +11,14 @@
 	$Servers = file( $serversList );
 
 ?>
-		<h1 class="text-center">SteamLUG Game Servers</h1>
+		<h1 class="text-center">Game Servers</h1>
 		<article class="panel panel-default">
 			<header class="panel-heading">
 				<h3 class="panel-title">About</h3>
 			</header>
 			<div class="panel-body">
 				<p>Below you can find a list of our currently active game servers. Where possible, live information for the current map, number of players, etc. will be shown.</p>
-				<p>If you would like to host a SteamLUG server, or help manage our existing ones,<br>please contact <a href = 'http://twitter.com/steamlug'>@steamlug</a>.</p>
+				<p>If you would like to host a server for SteamLUG, or help manage our existing ones,<br>please contact <a href = 'http://twitter.com/steamlug'>@steamlug</a>.</p>
 			</div>
 		</article>
 		<article class="panel panel-default">

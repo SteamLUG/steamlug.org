@@ -56,7 +56,7 @@
 		}
 	}
 ?>
-	<h1 class="text-center">SteamLUG Mumble Server</h1>
+	<h1 class="text-center">Mumble Server</h1>
 	<article class="panel panel-default">
 		<header class="panel-heading">
 			<h3 class="panel-title">About</h3>

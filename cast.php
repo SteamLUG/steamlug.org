@@ -304,7 +304,7 @@ CASTENTRY;
 				<span id="s2">{$es[1]}</span>
 			</div>
 			<p>This episode will be recorded on {$dt}</p>
-			<p>Listen in live as our hosts and guests discuss Linux gaming on our <a href="mumble">SteamLUG Mumble server</a>.</p>
+			<p>Listen in live as our hosts and guests discuss Linux gaming on our <a href="mumble">Mumble server</a>.</p>
 			<p><a href="{$u}" class="btn btn-primary btn-lg pull-right">Click for details</a></p>
 		</div>
 	</article>
@@ -323,7 +323,7 @@ NEXTCAST;
 			<h3 class="panel-title">About</h3>
 		</header>
 		<div class="panel-body">
-			<p>SteamLUG Cast is a casual, fortnightly live audiocast held on the <a href="/mumble">SteamLUG Mumble server</a> which aims to provide interesting news and discussion for the SteamLUG and broader Linux gaming communities. SteamLUG Cast is licenced <a href = 'http://creativecommons.org/licenses/by-sa/3.0/'>CC BY-SA</a></p>
+			<p>SteamLUG Cast is a casual, fortnightly live audiocast held on our <a href="/mumble">Mumble server</a> which aims to provide interesting news and discussion for the SteamLUG and broader Linux gaming communities. The cast is licensed <a href = 'http://creativecommons.org/licenses/by-sa/3.0/'>CC BY-SA</a></p>
 			<p>From time to time, we also have guests joining to share their insights on Linux, the gaming industry and the SteamLUG community. Check back for recording archives, shownotes and further announcements!</p>
 			<p><a href="/cast-guests">Do you want to be a guest?</a></p>
 		</div>
