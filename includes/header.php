@@ -33,6 +33,7 @@ if(!login_check())
 	<head>
 		<meta charset="UTF-8" />
 		<title>SteamLUG <?php echo $pageTitle; ?></title>
+		<meta name="viewport" content="width=400, initial-scale=1" />
 		<meta name="description" content="<?php echo $description; ?>" />
 		<meta name="keywords" content="<?php echo $keywords; ?>" />
 <?php
