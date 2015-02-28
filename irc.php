@@ -59,8 +59,8 @@ include_once('includes/header.php');
 			<header class="panel-heading">
 				<h3 class="panel-title">Webclient</h3>
 			</header>
-			<div class="panel-body">
-				<iframe src="https://webchat.freenode.net?channels=steamlug&amp;nick=<?=rawurlencode(htmlspecialchars($preferredNick))?>" width="100%" height="600px">
+			<div class="panel-body irc">
+				<iframe src="https://webchat.freenode.net?channels=steamlug&amp;nick=<?=rawurlencode(htmlspecialchars($preferredNick))?>" width="400" height="300">
 					<p>Your browser does not support iframes.</p>
 				</iframe>
 			</div>

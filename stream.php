@@ -86,7 +86,7 @@ if ( extension_loaded('curl') ) {
 				$person = $streamer['channel'];
 				$twitchPeeps .= '<li>';
 				$twitchPeeps .= '<a href="' . $person['url'] . '">';
-				$twitchPeeps .= '<img src="' . ( $person['logo'] != '' ? $person['logo'] : '//static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_150x150.png' ) . '" />';
+				$twitchPeeps .= '<img src="' . ( $person['logo'] != '' ? $person['logo'] : '//static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_150x150.png' ) . '" alt="A lovely picture of ' . $person['display_name'] . '" />';
 				$twitchPeeps .= $person['display_name'] . '</a>';
 				$twitchPeeps .= '</li>';
 			}
@@ -116,7 +116,7 @@ TWITCHBOX;
 		foreach ( $hitboxStreamers['members'] as $streamer ) {
 			$hitboxPeeps .= '<li class="' . ($streamer['is_live'] == 1 ? 'live': '' ) .  '">';
 			$hitboxPeeps .= '<a href="http://hitbox.tv/' . $streamer['user_name'] . '">';
-			$hitboxPeeps .= '<img src="//edge.sf.hitbox.tv/' . $streamer['user_logo_small'] . '" />';
+			$hitboxPeeps .= '<img src="//edge.sf.hitbox.tv/' . $streamer['user_logo_small'] . '" alt="A lovely picture of ' . $streamer['user_name'] . '" />';
 			$hitboxPeeps .= $streamer['user_name'] . '</a>';
 			$hitboxPeeps .= '</li>';
 			if ( $streamer['user_name'] == 'steamlug' and $streamer['is_live'] == 1) {

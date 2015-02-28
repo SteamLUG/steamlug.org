@@ -326,3 +326,5 @@ article.steam-parsed br { content: " "; display: block; line-height: .5em; heigh
 section#peeps img { border-radius: 4px; height: 80px; width: 80px; background-image: url(/avatars/default.png) }
 section#peeps article:nth-child(odd) img { margin-right: 1em; float: left }
 section#peeps article:nth-child(even) img { margin-left: 1em; float: right }
+
+div.irc iframe { width: 100%; height: 600px }
