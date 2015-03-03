@@ -16,6 +16,7 @@
  * things in case the API breaks at some point, so I left
  * them there.
  */
+include_once('includes/paths.php');
 
 /**
  * Parses Steam group events into arrays
@@ -125,9 +126,11 @@ class SteamEventParser {
 		$month = (empty($month)) ? intval(gmstrftime("%m")) : $month;
 		//$month = (strlen($month) === 1) ? "0" . $month : (string) $month;
 		$year = (empty($year)) ? gmstrftime("%Y") : $year;
-		// TODO: HTTPS?
-		$url = ($ssl) ? "https" : "http";
-		$url.= "://cenobite.swordfischer.com/" . $group . "/events_" . $month . "_" . $year . ".xml";
+		// erk
+		global $eventXMLPath;
+		$url = $eventXMLPath;
+		$url = ($ssl ? str_replace( "http:", "https:", $url ) : $url );
+		$url.= $group . "/events_" . $month . "_" . $year . ".xml";
 		// Setting the (upcoming) file handle to true for ultimate hackiness
 		$f = true;
 		// Checking robots.txt with rbt_prs (https://github.com/meklu/rbt_prs) if it's been included

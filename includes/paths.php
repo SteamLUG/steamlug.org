@@ -11,4 +11,6 @@ $creds			= "/var/www/dev.steamlug.org/creds.php";			// replaces hardcoded string
 // Avatars
 $avatarFilePath	= "/var/www/www.steamlug.org/avatars";				// public-facing dir to write to
 $avatarKeyPath  = "/var/www/dev.steamlug.org/avatar-files";			// private-facing dir to write to
+// Event XML
+$eventXMLPath   = "http://cenobite.swordfischer.com/";				// Current XML source location
 

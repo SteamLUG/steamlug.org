@@ -1,5 +1,6 @@
 <?php
 	$pageTitle = "News";
+	include_once('includes/paths.php');
 	include_once('includes/header.php');
 	include_once('includes/lastRSS.php');
 ?>
@@ -22,7 +23,7 @@
 	$rss->items_limit = 6;
 	$rssString = "";
 	$firstItem = true;
-	if ($rs = $rss->get('http://cenobite.swordfischer.com/steamlug/rss.xml'))
+	if ($rs = $rss->get($eventXMLPath . '/steamlug/rss.xml'))
 	{
 		foreach($rs['items'] as $item)
 		{
