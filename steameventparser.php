@@ -131,7 +131,7 @@ class SteamEventParser {
 		// Setting the (upcoming) file handle to true for ultimate hackiness
 		$f = true;
 		// Checking robots.txt with rbt_prs (https://github.com/meklu/rbt_prs) if it's been included
-		if (function_exists("isUrlBotSafe")) {
+		if (strpos($url,'http') !== false and function_exists("isUrlBotSafe")) {
 			if (!isUrlBotSafe($url)) {
 				$f = false;
 			}
