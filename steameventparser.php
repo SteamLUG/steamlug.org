@@ -16,7 +16,6 @@
  * things in case the API breaks at some point, so I left
  * them there.
  */
-include_once('includes/paths.php');
 
 /**
  * Parses Steam group events into arrays
@@ -119,7 +118,7 @@ class SteamEventParser {
 	 * @param string $tz The timezone to convert the returned times to
 	 * @return array An array of events
 	 */
-	public function genData($group, $month = "", $year = "", $ssl = false, $tries = 3, $tz = "UTC") {
+	public function genData($url, $group, $month = "", $year = "", $ssl = false, $tries = 3, $tz = "UTC") {
 		//This is the time zone that events seem to be stored in
 		$pst = new DateTimeZone("America/Los_Angeles");
 		$tzDest = new DateTimeZone($tz);
@@ -127,8 +126,6 @@ class SteamEventParser {
 		//$month = (strlen($month) === 1) ? "0" . $month : (string) $month;
 		$year = (empty($year)) ? gmstrftime("%Y") : $year;
 		// erk
-		global $eventXMLPath;
-		$url = $eventXMLPath;
 		$url = ($ssl ? str_replace( "http:", "https:", $url ) : $url );
 		$url.= $group . "/events_" . $month . "_" . $year . ".xml";
 		// Setting the (upcoming) file handle to true for ultimate hackiness

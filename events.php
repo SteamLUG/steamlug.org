@@ -1,6 +1,6 @@
 <?php
 $pageTitle = "Events";
-
+include_once( 'includes/paths.php' );
 require_once( 'rbt_prs.php' );
 require_once( 'steameventparser.php' );
 
@@ -8,9 +8,9 @@ $parser = new SteamEventParser();
 
 $month = gmstrftime("%m")-0;
 $year  = gmstrftime("%Y");
-$data  = $parser->genData("steamlug", $month, $year);
-$data2 = $parser->genData("steamlug", ( $month >= 12 ? 1 : ( $month +1 ) ), ( $month >= 12 ? ( $year + 1 ) : $year ));
-$data3 = $parser->genData("steamlug", ( $month <= 1 ? 12 : ( $month -1 ) ), ( $month <= 1 ? ( $year -1 ) : $year ));
+$data  = $parser->genData($eventXMLPath, "steamlug", $month, $year);
+$data2 = $parser->genData($eventXMLPath, "steamlug", ( $month >= 12 ? 1 : ( $month +1 ) ), ( $month >= 12 ? ( $year + 1 ) : $year ));
+$data3 = $parser->genData($eventXMLPath, "steamlug", ( $month <= 1 ? 12 : ( $month -1 ) ), ( $month <= 1 ? ( $year -1 ) : $year ));
 
 $data['events'] = array_merge($data['events'], $data2['events']);
 $data['pastevents'] = array_merge($data['pastevents'], $data3['pastevents']);

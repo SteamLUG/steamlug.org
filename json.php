@@ -8,6 +8,7 @@
 
 
 /* We mustn't forget to include the parser */
+include_once('includes/paths.php');
 require_once('steameventparser.php');
 /* Setting the MIME type */
 header("Content-Type: application/json");
@@ -16,6 +17,6 @@ header("Access-Control-Allow-Origin: *");
 /* Initialising the parser */
 $parser = new SteamEventParser();
 /* Generating and echoing the data */
-$data = $parser->genData("steamlug");
+$data = $parser->genData($eventXMLPath,"steamlug");
 echo json_encode($data);
 ?>

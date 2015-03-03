@@ -1,4 +1,5 @@
 <?php
+include_once('includes/paths.php');
 require_once('rbt_prs.php');
 require_once('steameventparser.php');
 $season  = isset($_GET["s"]) ? intval($_GET["s"]) : "0";
@@ -9,8 +10,8 @@ $parser = new SteamEventParser();
 
 $month = gmstrftime("%m")-0; // Yuck, apparently the 0 breaks something?
 $year = gmstrftime("%Y");
-$data = $parser->genData("steamlug", $month, $year);
-$data2 = $parser->genData("steamlug", ( $month >= 12 ? 1 : ( $month +1 ) ), ( $month >= 12 ? ( $year + 1 ) : $year ));
+$data = $parser->genData($eventXMLPath, "steamlug", $month, $year);
+$data2 = $parser->genData($eventXMLPath, "steamlug", ( $month >= 12 ? 1 : ( $month +1 ) ), ( $month >= 12 ? ( $year + 1 ) : $year ));
 /* merge the data */
 $data['events'] = array_merge($data['events'], $data2['events']);
 /* cleanup */

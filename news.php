@@ -23,7 +23,7 @@
 	$rss->items_limit = 6;
 	$rssString = "";
 	$firstItem = true;
-	if ($rs = $rss->get($eventXMLPath . '/steamlug/rss.xml'))
+	if ($rs = $rss->get($eventXMLPath . 'steamlug/rss.xml'))
 	{
 		foreach($rs['items'] as $item)
 		{

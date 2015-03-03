@@ -2,6 +2,7 @@
 	$pageTitle = "Live Stream";
 	include_once('includes/header.php');
     include_once('includes/MurmurQuery.php');
+	include_once('includes/paths.php');
 	require_once('rbt_prs.php');
 	require_once('steameventparser.php');
 
@@ -29,7 +30,7 @@
 
 	$month = gmstrftime("%m")-0; // Yuck, apparently the 0 breaks something?
 	$year = gmstrftime("%Y");
-	$data = $parser->genData("steamlug", $month, $year);
+	$data = $parser->genData($eventXMLPath,"steamlug", $month, $year);
 
 	$gotCurl = false;
 	$someoneStreaming = false;

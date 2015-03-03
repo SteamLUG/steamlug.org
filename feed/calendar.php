@@ -8,10 +8,10 @@ VERSION:2.0
 PRODID:https://steamlug.org
 
 HEADER;
-
+include_once('../includes/paths.php');
 require_once('../steameventparser.php');
 $parser = new SteamEventParser();
-$eventarr = $parser->genData("steamlug");
+$eventarr = $parser->genData($eventXMLPath,"steamlug");
 foreach ($eventarr['events'] as $event) {
 
 	/* Ignore SteamLUG cast? q.q */
