@@ -225,6 +225,7 @@ article ul { list-style-type: square; }
 .subscribe-here ul li { display: inline-block; }
 .subscribe-here li+li { padding-left: 1em; }
 .subscribe-here ul li::before { content: ""; display: inline-block; position: relative; top: 2px; height: 14px; width: 14px; margin-right: 7px; background-image: url('/images/feed-icon-14x14.png'); }
+.subscribe-here ul li.apple-why::before { background-image: url('/images/itunes-icon-14x14.png'); }
 
 .progress, .progress-bar { height: 5px !important; }
 .progress { margin-bottom: 8px !important; background-color: inherit !important; }

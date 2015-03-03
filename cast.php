@@ -340,7 +340,7 @@ NEXTCAST;
 			<ul>
 				<li><a href="/feed/cast/ogg">OGG feed</a></li>
 				<li><a href="/feed/cast/mp3">MP3 feed</a></li>
-				<li><a href="https://itunes.apple.com/gb/podcast/steamlug-cast/id673962699?mt=2">iTunes</a></li>
+				<li class="apple-why"><a href="https://itunes.apple.com/gb/podcast/steamlug-cast/id673962699?mt=2">iTunes</a></li>
 			</ul>
 		</div>
 	</article>
