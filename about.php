@@ -3,7 +3,7 @@
 ?>
 <?php include_once('includes/header.php'); ?>
 <h1 class="text-center">About SteamLUG</h1>
-		<article class="panel panel-primary">
+		<article class="panel panel-default">
 			<header class="panel-heading">
 				<h3 class="panel-title">Community</h3>
 			</header>
@@ -20,7 +20,7 @@
 				</blockquote>
 			</div>
 		</article>
-		<article class="panel panel-primary">
+		<article class="panel panel-default">
 			<header class="panel-heading">
 				<h3 class="panel-title">Activities</h3>
 			</header>
@@ -41,7 +41,7 @@
 				</div>
 			</div>
 		</article>
-		<article class="panel panel-primary">
+		<article class="panel panel-default">
 			<header class="panel-heading">
 				<h3 class="panel-title">Contact</h3>
 			</header>
@@ -56,7 +56,7 @@
 				</dl>
 			</div>
 		</article>
-		<article class="panel panel-primary">
+		<article class="panel panel-default">
 			<header class="panel-heading">
 				<h3 class="panel-title">History</h3>
 			</header>
@@ -76,7 +76,7 @@
 
 			</div>
 		</article>
-		<article class="panel panel-primary">
+		<article class="panel panel-default">
 			<header class="panel-heading">
 				<h3 class="panel-title">Steam for Linux</h3>
 			</header>

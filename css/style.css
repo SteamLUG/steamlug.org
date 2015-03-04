@@ -193,13 +193,9 @@ cursor: pointer;
 div ul, div ol { margin-bottom: 0px; }
 div p { margin: 0px; }
 p + p { margin-top: .9em; }
+
+.panel-body-table { padding: 0px !important; }
 .panel-footer p + p { margin-top: 0; }
-
-.panel-body-table
-{
-	padding: 0px !important;
-}
-
 .panel-footer p { margin: 0px 0px 10px; }
 .panel-footer { padding-bottom: 0 !important; }
 
@@ -233,9 +229,8 @@ article ul { list-style-type: square; }
 
 .panel > .panel-heading,
 .panel-primary > .panel-heading,
-.panel-default > .panel-heading {
-background-color: #7A8288;
-}
+.panel-default > .panel-heading { background-color: #7A8288; }
+.panel-heading .panel-title > a { color: #e8e8e8; }
 
 #twitter-widget-1 {
  /* !important because Twitter wants 180 ←→ 520 width? no */

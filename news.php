@@ -6,7 +6,7 @@
 ?>
 		<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 		<h1 class="text-center">News</h1>
-		<article class="panel panel-primary tweets col-sm-4 col-sm-push-8">
+		<article class="panel panel-default tweets col-sm-4 col-sm-push-8">
 			<header class="panel-heading">
 				<h3 class="panel-title">Tweets</h3>
 			</header>
@@ -58,7 +58,7 @@
 					$firstItem = false;
 				}
 				?>
-			<article class="panel panel-primary steam-parsed <?=$addclass?>">
+			<article class="panel panel-default steam-parsed <?=$addclass?>">
 				<header class="panel-heading">
 					<h3 class="panel-title"><a href="<?=$item['link'];?>"><?=htmlspecialchars_decode($item['title'])?></a></h3>
 				</header>
@@ -78,7 +78,7 @@
 	else
 	{
 		?>
-		<article class="panel panel-primary">
+		<article class="panel panel-default">
 			<header class="panel-heading">
 				<h3 class="panel-title"><a href = 'http://steamcommunity.com/groups/steamlug/announcements/'>Error</a></h3>
 			</header>

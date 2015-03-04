@@ -4,7 +4,7 @@
 	include_once('includes/lastRSS.php');
 ?>
 <h1 class="text-center">Community Polls</h1>
-		<article class="panel panel-primary">
+		<article class="panel panel-default">
 			<header class="panel-heading">
 				<h3 class="panel-title">About</h3>
 			</header>

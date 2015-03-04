@@ -202,7 +202,7 @@ print "<h1 class=\"text-center\">Admin‐only Avatar Management</h1>";
 
 if ( $body !== "" ) {
 print <<<ACTIONMSG
-			<article class="panel panel-primary {$style}">
+			<article class="panel panel-default {$style}">
 				<header class="panel-heading">
 					<h3 class="panel-title">{$action}</h3>
 				</header>
@@ -213,7 +213,7 @@ print <<<ACTIONMSG
 ACTIONMSG;
 }
 ?>
-			<article class="panel panel-primary">
+			<article class="panel panel-default">
 				<header class="panel-heading">
 					<h3 class="panel-title">Grant user permission</h3>
 				</header>
@@ -228,7 +228,7 @@ ACTIONMSG;
 					</form>
 				</div>
 			</article>
-			<article class="panel panel-primary">
+			<article class="panel panel-default">
 				<header class="panel-heading">
 					<h3 class="panel-title">Revoke user permission</h3>
 				</header>
@@ -243,7 +243,7 @@ ACTIONMSG;
 					</form>
 				</div>
 			</article>
-			<article class="panel panel-primary">
+			<article class="panel panel-default">
 				<header class="panel-heading">
 					<h3 class="panel-title">Upload avatar</h3>
 				</header>
@@ -259,7 +259,7 @@ ACTIONMSG;
 					</form>
 				</div>
 			</article>
-			<article class="panel panel-primary">
+			<article class="panel panel-default">
 				<header class="panel-heading">
 					<h3 class="panel-title">Remove avatar</h3>
 				</header>
@@ -274,7 +274,7 @@ ACTIONMSG;
 					</form>
 				</div>
 			</article>
-			<article class="panel panel-primary">
+			<article class="panel panel-default">
 				<header class="panel-heading">
 					<h3 class="panel-title">Add Gravatar</h3>
 				</header>
@@ -290,7 +290,7 @@ ACTIONMSG;
 				</div>
 			</article>
 
-			<article class="panel panel-primary">
+			<article class="panel panel-default">
 				<header class="panel-heading">
 					<h3 class="panel-title">Logfile</h3>
 				</header>
