@@ -135,10 +135,12 @@ if ($season !== "00" && $episode !== "00" && file_exists($filename)) {
 
 	$episodeYoutube = ( empty($meta['YOUTUBE']) ? '' : '<span class="youtube"><a href="//youtu.be/' . $meta['YOUTUBE'] . '">YOUTUBE</a></span>' );
 
+	$episodeTitle = $epi . ' – ' . $meta['TITLE'];
+	$pageTitle .= ' ' . $episodeTitle;
 	$extraCrap = <<<TWITCARD
 		<meta name="twitter:card" content="player">
 		<meta name="twitter:site" content="@SteamLUG">
-		<meta name="twitter:title" content="{$epi} – {$meta[ 'TITLE' ]}">
+		<meta name="twitter:title" content="{$episodeTitle}">
 		<meta name="twitter:description" content="{$meta['SHORTDESCRIPTION']}…">
 		<meta name="twitter:image:src" content="https://steamlug.org/images/steamlugcast.png">
 		<meta name="twitter:image:width" content="300">
