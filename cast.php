@@ -135,7 +135,7 @@ if ($season !== "00" && $episode !== "00" && file_exists($filename)) {
 
 	$episodeYoutube = ( empty($meta['YOUTUBE']) ? '' : '<span class="youtube"><a href="//youtu.be/' . $meta['YOUTUBE'] . '">YOUTUBE</a></span>' );
 
-	$episodeTitle = $epi . ' – ' . $meta['TITLE'];
+	$episodeTitle = 'S' . slenc($meta['SEASON']) . 'E' . slenc($meta['EPISODE']) . ' – ' . $meta['TITLE'];
 	$pageTitle .= ' ' . $episodeTitle;
 	$extraCrap = <<<TWITCARD
 		<meta name="twitter:card" content="player">
