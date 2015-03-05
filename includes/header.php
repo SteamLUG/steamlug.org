@@ -212,7 +212,7 @@ SHOWAVATAR;
 				<ul class="nav navbar-nav">
 					<li<?php echo $newsPage; ?>><a href="/news">News</a></li>
 					<li class="dropdown<?php echo $chatMenu; ?>">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Chat <b class="caret"></b></a>
+						<a href="/irc" class="dropdown-toggle" data-toggle="dropdown">Chat <b class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<li<?php echo $ircPage; ?>><a href="/irc">IRC (text)</a></li>
 							<li<?php echo $mumblePage; ?>><a href="/mumble">Mumble (voice)</a></li>
@@ -220,14 +220,14 @@ SHOWAVATAR;
 					</li>
 					<li<?php echo $castPage; ?>><a href="/cast">Cast</a></li>
 					<li class="dropdown<?php echo $gamingMenu; ?>">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Events <b class="caret"></b></a>
+						<a href="/events" class="dropdown-toggle" data-toggle="dropdown">Events <b class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<li<?php echo $eventsPage; ?>><a href="/events">Events</a></li>
 							<li<?php echo $streamPage; ?>><a href="/stream">Live Stream</a></li>
 						</ul>
 					</li>
 					<li class="dropdown<?php echo $projectsMenu; ?>">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Projects <b class="caret"></b></a>
+						<a href="/projects" class="dropdown-toggle" data-toggle="dropdown">Projects <b class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<li<?php echo $overviewPage; ?>><a href="/projects">Overview</a></li>
 							<li<?php echo $pollPage; ?>><a href="/polls">Polls</a><li>
