@@ -117,10 +117,14 @@ if ($season !== "00" && $episode !== "00" && file_exists($filename)) {
 	$castEditor			= nameplate( $meta['EDITOR'], 22 );
 	$castHosts			= array_map('trim', explode(',', $meta['HOSTS']));
 	$castGuests			= array_map('trim', explode(',', $meta['GUESTS']));
-	$listHosts = ""; $listGuests = "";
+	$listHosts = ""; $listGuests = ""; $listHostsTwits = array();
 	foreach ($castHosts as $Host) {
 		$listHosts .= nameplate( $Host, 48 );
+		$hostTwitter = parsePersonString( $Host )['twitter'];
+		if ( strlen( $hostTwitter ) > 0 )
+			$listHostsTwits[] = '@' . $hostTwitter;
 	}
+	$twits = ( empty($listHostsTwits) ? '' : ', or individually as ' . implode( ', ', $listHostsTwits) );
 	$listHosts = ( empty($listHosts) ? 'No Hosts' : $listHosts );
 	foreach ($castGuests as $Guest) {
 		$listGuests .= nameplate( $Guest, 48 );
@@ -160,7 +164,7 @@ TWITCARD;
   SteamLUG Cast is a casual, fortnightly audiocast which aims to provide interesting news and discussion for the SteamLUG and broader Linux gaming communities.
   Visit our site http://steamlug.org/ and the cast homepage http://steamlug.org/cast
   Email us feedback, questions, tips and suggestions to cast@steamlug.org
-  We can be followed on Twitter as @SteamLUG
+  We can be followed on Twitter as @SteamLUG{$twits}
 
 FOOTERBLOCK;
 	$shownotes = array_merge( $shownotes, explode( "\n", $footer ) );
