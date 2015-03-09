@@ -137,8 +137,9 @@ padding-right: 13px; padding-left: 13px;
 
 #mumble-list dl, #mumble-list ul { margin-left: 25px; margin-bottom: 0 }
 #mumble-list ul { list-style-type: none; padding-left: 0 }
-#mumble-list li i, #mumble-list dt i { margin-right: .75em; }
+#mumble-list li i, #mumble-list dt i, #mumble-list img { margin-right: .75em; }
 #mumble-list li i { padding-left: 2px; padding-right: 1px }
+#mumble-list li img { width: 14px; height: 14px; /* for noscript users → */ background-image: url(/avatars/default.png); background-size: 14px }
 #mumble-list dl { opacity: .85; }
 #mumble-list dt.populated { opacity: 1 }
 /* hide team channels if they are empty */

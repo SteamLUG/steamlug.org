@@ -45,7 +45,7 @@
 					$statusString .= "<ul>". MumbleTree( $value['users'] ) . "</ul>\n";
 				}
 				if (isset($value['name']) && !isset($value['users'])) {
-					$statusString .= "<li><i class=\"fa fa-user text-info\"></i>" . $value['name'] . "</li>";
+					$statusString .= "<li><img src=\"/avatars/" . $value['name'] . ".png\" onerror=\"this.src='/avatars/default.png'\" />" . $value['name'] . "</li>";
 				}
 				if (isset($value['name']) && isset($value['users'])) {
 					$statusString .= "</dd>";
