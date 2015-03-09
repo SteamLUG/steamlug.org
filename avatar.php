@@ -218,7 +218,7 @@ ACTIONMSG;
 					<h3 class="panel-title">Grant user permission</h3>
 				</header>
 				<div class="panel-body">
-					<form method="get" class="form-horizontal">
+					<form method="get" class="form-horizontal" action="/avatar/">
 						<fieldset>
 						<input type="hidden" name="grant">
 						<div class="form-group"><label class="control-label col-xs-2" for="name">Handle</label><input class="control-input col-xs-6" name="name" placeholder="Nickname"></div>
@@ -233,7 +233,7 @@ ACTIONMSG;
 					<h3 class="panel-title">Revoke user permission</h3>
 				</header>
 				<div class="panel-body">
-					<form method="get" class="form-horizontal">
+					<form method="get" class="form-horizontal" action="/avatar/">
 						<fieldset>
 						<input type="hidden" name="revoke">
 						<div class="form-group"><label class="control-label col-xs-2" for="name">Handle</label><input class="control-input col-xs-6" name="name" placeholder="Nickname"></div>
@@ -248,9 +248,9 @@ ACTIONMSG;
 					<h3 class="panel-title">Upload avatar</h3>
 				</header>
 				<div class="panel-body">
-					<form method="POST" class="form-horizontal" enctype="multipart/form-data">
+					<form method="POST" class="form-horizontal" enctype="multipart/form-data" action="/avatar/">
 						<fieldset>
-						<input type="hidden" name="MAX_FILE_SIZE" value="300000">
+						<input type="hidden" name="MAX_FILE_SIZE" value="500000">
 						<div class="form-group"><label class="control-label col-xs-2" for="name">Handle</label><input class="control-input col-xs-6" name="name" placeholder="Nickname"></div>
 						<div class="form-group"><label class="control-label col-xs-2" for="userfile">File</label><input class="control-input col-xs-6" type="file" name="userfile" placeholder="/home/you/files-are-here"></div>
 						<div class="form-group"><input type="submit" class="col-xs-offset-2 btn btn-primary" value="Upload"></div>
@@ -264,7 +264,7 @@ ACTIONMSG;
 					<h3 class="panel-title">Remove avatar</h3>
 				</header>
 				<div class="panel-body">
-					<form method="get" class="form-horizontal">
+					<form method="get" class="form-horizontal" action="/avatar/">
 						<fieldset>
 						<input type="hidden" name="delete">
 						<div class="form-group"><label class="control-label col-xs-2" for="name">Handle</label><input class="control-input col-xs-6" name="name" placeholder="Nickname"></div>
@@ -279,10 +279,10 @@ ACTIONMSG;
 					<h3 class="panel-title">Add Gravatar</h3>
 				</header>
 				<div class="panel-body">
-					<form method="get" class="form-horizontal">
+					<form method="get" class="form-horizontal" action="/avatar/">
 						<fieldset>
 						<div class="form-group"><label class="control-label col-xs-2" for="name">Handle</label><input class="control-input col-xs-6" name="name" placeholder="Nickname"></div>
-						<div class="form-group"><label class="control-label col-xs-2" for="name">Email</label><input class="control-input col-xs-6" name="email" type="email" placeholder="webmaster@example.com"></div>
+						<div class="form-group"><label class="control-label col-xs-2" for="email">Email</label><input class="control-input col-xs-6" name="email" type="email" placeholder="webmaster@example.com"></div>
 						<div class="form-group"><input type="submit" class="col-xs-offset-2 btn btn-primary" value="Gravatar"></div>
 						<p>This will upload the image for this email address to the file /avatars/handle.png.</p>
 						</fieldset>
@@ -295,6 +295,11 @@ ACTIONMSG;
 					<h3 class="panel-title">Logfile</h3>
 				</header>
 				<div class="panel-body">
+					<form method="get" class="form-horizontal" action="/avatar/">
+						<fieldset>
+						<div class="form-group"><label class="control-label col-xs-2">Anything changed?</label><input type="submit" class="btn btn-primary" value="Refresh"></div>
+						</fieldset>
+					</form>
 					<textarea class="form-control" rows="10"><?=readAvatarLog(); ?></textarea>
 				</div>
 			</article>
