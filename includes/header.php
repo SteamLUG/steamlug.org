@@ -24,7 +24,8 @@ if(!login_check())
 	if (!empty($steam_login_verify))
 	{
 		login($steam_login_verify);
-		header("Location: /loggedin.php?returnto=" . $_SERVER['PHP_SELF']);
+		// get PHP_SELF to replace .php to nothing, news to /
+		header("Location: /loggedin/?returnto=" . $_SERVER['PHP_SELF']);
 	}
 }
 
@@ -191,7 +192,7 @@ AUTHBUTTON;
 		if ( isset( $_SESSION['a'] ) and ( $_SESSION['a'] != "" ) )
 		{
 			$logIn = <<<SHOWAVATAR
-				<li class="steamLogin navbar-avatar"><a href="logout.php"><img width="32" height="32" id="steamAvatar" src="{$_SESSION['a']}" /></a></li>
+				<li class="steamLogin navbar-avatar"><a href="/logout"><img width="32" height="32" id="steamAvatar" src="{$_SESSION['a']}" /></a></li>
 SHOWAVATAR;
 		}
 	}
