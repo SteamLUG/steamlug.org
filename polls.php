@@ -10,19 +10,17 @@
 			</header>
 			<div class="panel-body">
 					<p>We're launching a new polling feature for SteamLUG.org, which will allow us to get better community input on things like events, SteamLUG Cast topics, future projects and more!</p>
-					<p>To vote, you need to be signed in via Steam using the button below, and you must be a member of our <a href = 'http://steamcommunity.com/groups/steamlug/'>Steam group</a>.</p>
 					<?php
 						if(!login_check())
 						{
 							if (empty($steam_login_verify))
 							{
-								$steam_sign_in_url = SteamSignIn::genUrl();
-								echo "<a class = 'steamLogin' href=\"$steam_sign_in_url\"><img src='https://steamcommunity.com/public/images/signinthroughsteam/sits_large_noborder.png' alt = 'Log into Steam' /></a>";
+								echo "<p>To vote, you need to be signed in via Steam using the button in the menu, and you must be a member of our <a href=\"http://steamcommunity.com/groups/steamlug/\">Steam group</a>.</p>";
 							}
 						}
 						else
 						{
-							echo "<p>You are currently logged in. Click to <a href = 'logout.php'>log out</a></p>";
+							echo "<p>You are currently logged in!";
 							echo "<!-- " . $_SESSION['u'] . "-->";
 						}
 					?>
