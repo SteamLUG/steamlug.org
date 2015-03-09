@@ -168,6 +168,19 @@ TWITCARD;
 
 FOOTERBLOCK;
 	$shownotes = array_merge( $shownotes, explode( "\n", $footer ) );
+
+	$adminblock = "";
+	// are we logged in? yes → grab user
+	include_once('includes/session.php');
+	if ( login_check() ) {
+		$me = $_SESSION['u'];
+		if ( in_array( $me, getAdmins() ) ) {
+			$adminblock = <<<HELPFULNESS
+<div><p>Admin helper pages:<br>YouTube <a href="/youtubethumb/{$epi}">video background</a> and <a href="/youtubedescription/{$epi}">description</a>.</p></div>
+HELPFULNESS;
+		}
+	}
+
 echo <<<CASTENTRY
 	<article class="panel panel-default" id="cast-description">
 		<header class="panel-heading">
@@ -201,6 +214,7 @@ echo <<<CASTENTRY
 						<img class='license' src='/images/by-sa.png' alt='Creative Commons By-Share‐Alike license logo' title='Licensed under CC-BY-SA'>
 					</a>
 				</p>
+				{$adminblock}
 			</div>
 		</div>
 	</article>
