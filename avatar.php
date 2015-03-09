@@ -68,7 +68,7 @@ if ( isset( $_POST['name'] ) and isset( $_FILES['userfile'] ) ) {
 	// do we want to be able to overwrite?
 	if ( !file_exists( $requestedPath ) and !is_dir( $requestedPath ) ) {
 
-		if ( is_uploaded_file( $_FILES['userfile']['tmp_name'] ) and ( $_FILES['userfile']['size'] < 300000 ) ) {
+		if ( is_uploaded_file( $_FILES['userfile']['tmp_name'] ) and ( $_FILES['userfile']['size'] < 500000 ) ) {
 			// above and below both do same checks, but we want to give admin more info
 			if ( move_uploaded_file($_FILES['userfile']['tmp_name'], $requestedPath ) ) {
 
