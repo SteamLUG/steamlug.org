@@ -170,11 +170,13 @@ FOOTERBLOCK;
 	$shownotes = array_merge( $shownotes, explode( "\n", $footer ) );
 
 	$adminblock = "";
+	$weareadmin = false;
 	// are we logged in? yes → grab user
 	include_once('includes/session.php');
 	if ( login_check() ) {
 		$me = $_SESSION['u'];
 		if ( in_array( $me, getAdmins() ) ) {
+			$weareadmin = true;
 			$adminblock = <<<HELPFULNESS
 <div><p>Admin helper pages:<br>YouTube <a href="/youtubethumb/{$epi}">video background</a> and <a href="/youtubedescription/{$epi}">description</a>.</p></div>
 HELPFULNESS;
@@ -226,8 +228,8 @@ echo <<<CASTENTRY
 
 CASTENTRY;
 
-	/* if published unset, skip this entry */
-	if ( $meta['PUBLIC'] === '' )
+	/* if published unset, skip this entry. Unless OP admin */
+	if ( $weareadmin === false and $meta['PUBLIC'] === '' )
 	{
 		/* RSS hides the episode, but the site just hides the notes */
 		echo "<p>The shownotes are currently in the works, however they're not finished as of yet.</p>\n<p>You're still able to enjoy listening to the cast until we finalize the notes.</p>\n";
