@@ -22,7 +22,7 @@
 						else
 						{
 							echo "<p>You are currently logged in. Click to <a href = 'logout.php'>log out</a></p>";
-							echo "<form class=\"form-horizontal\" action = '' method = 'get'>\n";
+							echo "<form class=\"form-horizontal\" method = 'get'>\n";
 							echo "<!-- " . $_SESSION['u'] . " !-->\n";
 							//include_once('creds.php');
 							
