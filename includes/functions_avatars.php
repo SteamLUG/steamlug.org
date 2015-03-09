@@ -125,7 +125,6 @@ if ( extension_loaded('curl') ) {
 			// consider? set_time_limit();
 			curl_setopt_array($ch, array(
 				CURLOPT_FILE    => $fileOutput,
-				CURLOPT_FOLLOWLOCATION => true,
 				CURLOPT_TIMEOUT => 20,
 				CURLOPT_URL     => $url,
 			) );
