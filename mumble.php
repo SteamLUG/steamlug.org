@@ -35,7 +35,7 @@
 				if (isset($value['name']) && isset($value['users'])) {
 					$peeps = count($value['users']);
 					$chans = count($value['channels']);
-					$statusString .= '<dt' . ($peeps > 0? ' class="populated"': ($chans > 0? '': ' class="empty"') ). '><i class="fa fa-group text-warning"></i>' . $value['name'] . "</dt>\n";
+					$statusString .= '<dt' . ($peeps > 0? ' class="populated"': ($chans > 0? '': ' class="empty"') ). '><i class="fa fa-group text-warning"></i>' . htmlspecialchars($value['name']) . "</dt>\n";
 					$statusString .= "<dd>";
 				}
 				if ( isset($value['channels'] ) && is_array($value['channels']) && (count($value['channels']) !== 0) ) {
@@ -45,7 +45,7 @@
 					$statusString .= "<ul>". MumbleTree( $value['users'] ) . "</ul>\n";
 				}
 				if (isset($value['name']) && !isset($value['users'])) {
-					$statusString .= "<li><img src=\"/avatars/" . $value['name'] . ".png\" onerror=\"this.src='/avatars/default.png'\" />" . $value['name'] . "</li>";
+					$statusString .= "<li><img src=\"/avatars/" . htmlspecialchars($value['name']) . ".png\" onerror=\"this.src='/avatars/default.png'\" />" . htmlspecialchars($value['name']) . "</li>";
 				}
 				if (isset($value['name']) && isset($value['users'])) {
 					$statusString .= "</dd>";
