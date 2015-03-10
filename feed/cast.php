@@ -63,7 +63,7 @@ CASTHEAD;
 
 	foreach( $casts as $castdir )
 	{
-		if ($castdir === '.' or $castdir === '..')
+		if ($castdir === '.' or $castdir === '..' or $castdir === '.git' or $castdir === 'README')
 			continue;
 
 		$filename		= $notesPath .'/'. $castdir . "/episode.txt";
