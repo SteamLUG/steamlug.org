@@ -64,8 +64,8 @@ table#casts img
 	vertical-align: middle;
 }
 
-table#casts tr.in-progress a { color: grey; background:inherit }
-
+table#casts tr.in-progress td, table#casts tr.in-progress a { color: grey !important; }
+table#casts tr.in-progress img { opacity: .5 }
 
 table.tablesorter img
 {
