@@ -93,6 +93,16 @@ if ($season !== "00" && $episode !== "00" && file_exists($filename)) {
 
 	$shownotes		= file($filename);
 
+	$adminblock = "";
+	$weareadmin = false;
+	// are we logged in? yes → grab user
+	include_once('includes/session.php');
+	if ( login_check() ) {
+		if ( in_array( $_SESSION['u'], getAdmins() ) ) {
+			$weareadmin = true;
+		}
+	}
+
 	$head = array_slice( $shownotes, 0, 14 );
 	$meta = array_fill_keys( array('RECORDED', 'PUBLISHED', 'TITLE',
 						'SEASON', 'EPISODE', 'DURATION', 'FILENAME',
@@ -109,12 +119,12 @@ if ($season !== "00" && $episode !== "00" && file_exists($filename)) {
 	$meta['RECORDED']  = ( $meta['RECORDED'] === "" ? "N/A" : '<time datetime="' . $meta['RECORDED'] . '">' . $meta['RECORDED'] . '</time>' );
 	$meta['PUBLIC'] = $meta['PUBLISHED'];
 	$meta['PUBLISHED'] = ($meta['PUBLISHED'] === "" ? '<span class="warning">In Progress</span>' : '<time datetime="' . $meta['PUBLISHED'] . '">' . $meta['PUBLISHED'] . '</time>');
-	$meta['TITLE'] = slenc($meta['TITLE']);
+	$meta['TITLE'] = ($meta['TITLE'] === "" ? 'Edit In Progress' : slenc($meta['TITLE']) );
 	$meta['SHORTDESCRIPTION'] = slenc(substr($meta['DESCRIPTION'],0,132));
 
 
-	$noteEditor			= nameplate( $meta['NOTESCREATOR'], 22 );
-	$castEditor			= nameplate( $meta['EDITOR'], 22 );
+	$noteEditor			= ( $meta['NOTESCREATOR'] === "" ? "" : '<span class="author">written by ' . nameplate( $meta['NOTESCREATOR'], 22 ) . '</span>' );
+	$castEditor			= ( $meta['EDITOR'] === "" ? "" : '<span class="author">edited by ' . nameplate( $meta['EDITOR'], 22 ) . '</span>' );
 	$castHosts			= array_map('trim', explode(',', $meta['HOSTS']));
 	$castGuests			= array_map('trim', explode(',', $meta['GUESTS']));
 	$listHosts = ""; $listGuests = ""; $listHostsTwits = array();
@@ -131,13 +141,17 @@ if ($season !== "00" && $episode !== "00" && file_exists($filename)) {
 	}
 	$listGuests = ( empty($listGuests) ? 'No Guests' : $listGuests );
 
-	$episodeOggFS	= (file_exists($episodeBase . ".ogg")  ? round(filesize($episodeBase . ".ogg") /1024/1024,2) : 0);
-	$siteListen		= ($episodeOggFS > 0 ? '<audio id="castplayer" preload="none" src="' . $archiveBase . '.ogg" controls="controls">Your browser does not support the &lt;audio&gt; tag.</audio>' : '');
-	$episodeOddDS	= "<span class='ogg'>" . ($episodeOggFS > 0 ? $episodeOggFS . ' MB <a download href="' . $archiveBase . '.ogg">OGG</a>' : 'N/A OGG') . "</span>";
-	$episodeMp3FS	= (file_exists($episodeBase . ".mp3")  ? round(filesize($episodeBase . ".mp3") /1024/1024,2) : 0);
-	$episodeMP3DS	= "<span class='mp3'>" . ($episodeMp3FS > 0 ? $episodeMp3FS . ' MB <a download href="' .$archiveBase . '.mp3">MP3</a>' : 'N/A MP3') . "</span>";
+	if ( $meta['PUBLIC'] === "" and $weareadmin === false ) {
+		$episodeMP3DS = $siteListen = $episodeOddDS = $episodeYoutube = "";
+	} else {
+		$episodeOggFS	= (file_exists($episodeBase . ".ogg")  ? round(filesize($episodeBase . ".ogg") /1024/1024,2) : 0);
+		$siteListen		= ($episodeOggFS > 0 ? '<audio id="castplayer" preload="none" src="' . $archiveBase . '.ogg" controls="controls">Your browser does not support the &lt;audio&gt; tag.</audio>' : '');
+		$episodeOddDS	= "<span class='ogg'>" . ($episodeOggFS > 0 ? $episodeOggFS . ' MB <a download href="' . $archiveBase . '.ogg">OGG</a>' : 'N/A OGG') . "</span>";
+		$episodeMp3FS	= (file_exists($episodeBase . ".mp3")  ? round(filesize($episodeBase . ".mp3") /1024/1024,2) : 0);
+		$episodeMP3DS	= "<span class='mp3'>" . ($episodeMp3FS > 0 ? $episodeMp3FS . ' MB <a download href="' .$archiveBase . '.mp3">MP3</a>' : 'N/A MP3') . "</span>";
 
-	$episodeYoutube = ( empty($meta['YOUTUBE']) ? '' : '<span class="youtube"><a href="//youtu.be/' . $meta['YOUTUBE'] . '">YOUTUBE</a></span>' );
+		$episodeYoutube = ( empty($meta['YOUTUBE']) ? '' : '<span class="youtube"><a href="//youtu.be/' . $meta['YOUTUBE'] . '">YOUTUBE</a></span>' );
+	}
 
 	$episodeTitle = 'S' . slenc($meta['SEASON']) . 'E' . slenc($meta['EPISODE']) . ' – ' . $meta['TITLE'];
 	$pageTitle .= ' ' . $episodeTitle;
@@ -169,24 +183,16 @@ TWITCARD;
 FOOTERBLOCK;
 	$shownotes = array_merge( $shownotes, explode( "\n", $footer ) );
 
-	$adminblock = "";
-	$weareadmin = false;
-	// are we logged in? yes → grab user
-	include_once('includes/session.php');
-	if ( login_check() ) {
-		$me = $_SESSION['u'];
-		if ( in_array( $me, getAdmins() ) ) {
-			$weareadmin = true;
-			$adminblock = <<<HELPFULNESS
+	if ( $weareadmin === true ) {
+		$adminblock = <<<HELPFULNESS
 <div><p>Admin helper pages:<br>YouTube <a href="/youtubethumb/{$epi}">video background</a> and <a href="/youtubedescription/{$epi}">description</a>.</p></div>
 HELPFULNESS;
-		}
 	}
 
 echo <<<CASTENTRY
 	<article class="panel panel-default" id="cast-description">
 		<header class="panel-heading">
-			<h3 class="panel-title">{$meta[ 'TITLE' ]} <span class="author">edited by {$castEditor}</span></h3>
+			<h3 class="panel-title">{$meta[ 'TITLE' ]} {$castEditor}</h3>
 		</header>
 		<div class="panel-body">
 			<div class="row">
@@ -222,7 +228,7 @@ echo <<<CASTENTRY
 	</article>
 	<article class="panel panel-default">
 		<header class="panel-heading">
-			<h3 class="panel-title">Shownotes <span class="author">written by {$noteEditor}</span></h3>
+			<h3 class="panel-title">Shownotes {$noteEditor}</h3>
 		</header>
 		<div class="panel-body shownotes">
 
@@ -232,7 +238,7 @@ CASTENTRY;
 	if ( $weareadmin === false and $meta['PUBLIC'] === '' )
 	{
 		/* RSS hides the episode, but the site just hides the notes */
-		echo "<p>The shownotes are currently in the works, however they're not finished as of yet.</p>\n<p>You're still able to enjoy listening to the cast until we finalize the notes.</p>\n";
+		echo "<p>The episode recording is currently in the works.</p>\n";
 	} else {
 
 		foreach ( array_slice( $shownotes, 15 ) as $note)
@@ -390,13 +396,14 @@ ABOUTCAST;
 				<tbody>
 CASTTABLE;
 
-	$casts = scandir($filePath, 1);
+	$casts = scandir($notesPath, 1);
 	foreach( $casts as $castdir )
 	{
 		if ($castdir === '.' or $castdir === '..')
 			continue;
 
 		$filename		= $notesPath .'/'. $castdir . "/episode.txt";
+
 		if (!file_exists($filename))
 			continue;
 		/* let’s grab less here, 2K ought to be enough */
@@ -412,8 +419,12 @@ CASTTABLE;
 		}
 
 		/* if published unset, skip this entry */
-		if ( $meta['PUBLISHED'] === '' )
-			continue;
+		$wip = "";
+		if ( $meta['PUBLISHED'] === '' ) {
+			$meta['TITLE'] = 'Edit In Progress';
+			$wip = "class=\"in-progress\" ";
+		}
+
 
 		$castHosts = array_map('trim', explode(',', $meta['HOSTS']));
 		$listHosts = ""; $listGuests = "";
@@ -431,7 +442,7 @@ CASTTABLE;
 			$listGuests .= nameplate( $Guest, 22 );
 		}
 		echo <<<CASTENTRY
-			<tr>
+			<tr {$wip}>
 				<td><a href="/cast/s{$meta['SEASON']}e{$meta['EPISODE']}">S{$meta['SEASON']}E{$meta['EPISODE']}</a></td>
 				<td>{$meta['RECORDED']}</td>
 				<td><a href="/cast/s{$meta['SEASON']}e{$meta['EPISODE']}">{$meta[ 'TITLE' ]}</a></td>

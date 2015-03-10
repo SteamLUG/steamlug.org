@@ -64,6 +64,8 @@ table#casts img
 	vertical-align: middle;
 }
 
+table#casts tr.in-progress a { color: grey; background:inherit }
+
 
 table.tablesorter img
 {
