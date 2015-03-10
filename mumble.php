@@ -6,9 +6,11 @@
 	// 10 second cache
 	header("Cache-Control: public, max-age=10");
 
+	$mumbleServer = 'mumble.steamlug.org';
+
 	$settings		=	array
 	(
-		'host'		=>	'mumble.dk.steamlug.org',
+		'host'		=>	$mumbleServer,
 		'port'		=>	27800,
 		'timeout'	=>	200,
 		'format'	=>	'json'
@@ -62,10 +64,10 @@
 		</header>
 		<div class="panel-body">
 			<div class="col-md-7">
-				<p>In place of in-game voice chat, we host a <a href = 'http://mumble.sourceforge.net/'>Mumble</a> voice chat server, allowing our community members to talk across servers and between games. We have configurable "channels" for events, team talk and general chat including the <a href = 'cast'>SteamLUG Cast</a>. If you have the Mumble client installed, you can join by clicking <a href="mumble://mumble.dk.steamlug.org">here</a>.</p>
+				<p>In place of in-game voice chat, we host a <a href = 'http://mumble.sourceforge.net/'>Mumble</a> voice chat server, allowing our community members to talk across servers and between games. We have configurable "channels" for events, team talk and general chat including the <a href = 'cast'>SteamLUG Cast</a>. If you have the Mumble client installed, you can join by clicking <a href="mumble://<?=$mumbleServer;?>">here</a>.</p>
 				<p>You can join us on Mumble by connecting to:</p>
 				<dl class="dl-horizontal">
-				<dt>Host</dt><dd>mumble.dk.steamlug.org</dd>
+				<dt>Host</dt><dd><?=$mumbleServer;?></dd>
 				<dt>Port</dt><dd><?=$info['x_gtmurmur_connectport'];?> (<em>default port</em>)</dd>
 				</dl>
 			</div>
@@ -102,9 +104,11 @@
 		</header>
 		<div class="panel-body" id="mumble-list">
 <?php
-	print "<dl>";
-	print MumbleTree($rootChannels);
-	print "</dl>";
+	if ( isset( $rootChannels ) ) {
+		print "<dl>";
+		print MumbleTree($rootChannels);
+		print "</dl>";
+	}
 ?>
 		</div>
 	</article>
