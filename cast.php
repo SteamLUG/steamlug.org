@@ -68,6 +68,7 @@ function nameplate( $string, $size = 32 ) {
 	if ( strlen( $person['avatar'] ) > 0 ) {
 		$avatar = <<<AVATAR
 <img src="{$person['avatar']}" title="{$name}" width="{$size}" height="{$size}" alt="{$name}" class="img-rounded"/>
+
 AVATAR;
 	} else
 		$avatar = $name;
