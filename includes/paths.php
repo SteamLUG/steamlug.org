@@ -13,4 +13,6 @@ $avatarFilePath	= "/var/www/www.steamlug.org/avatars";				// public-facing dir t
 $avatarKeyPath  = "/var/www/dev.steamlug.org/avatar-files";			// private-facing dir to write to
 // Event XML
 $eventXMLPath   = "http://cenobite.swordfischer.com/";				// Current XML source location
+// Mumble Server
+$mumbleServer	= 'mumble.dk.steamlug.org';							// Not really a path, but eh
 
