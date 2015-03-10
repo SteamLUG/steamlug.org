@@ -29,7 +29,7 @@ include_once('includes/header.php');
 		</article>
 	</div>
 	<div class="col-md-7">
-		<article class="panel panel-danger" id="coc">
+		<article class="panel panel-info" id="coc">
 			<header class="panel-heading">
 				<h3 class="panel-title">Community Code of Conduct</h3>
 			</header>

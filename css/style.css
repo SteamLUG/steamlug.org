@@ -201,6 +201,7 @@ p + p { margin-top: .9em; }
 .panel-footer p + p { margin-top: 0; }
 .panel-footer p { margin: 0px 0px 10px; }
 .panel-footer { padding-bottom: 0 !important; }
+html .panel-info > .panel-heading { background: #297CC2 }
 
 .table
 {
