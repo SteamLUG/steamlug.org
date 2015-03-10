@@ -27,7 +27,7 @@
         $server = 'https://';
     }
 	$server .= $_SERVER['SERVER_NAME'];
-	$server .= (!empty($_SERVER['SERVER_PORT']) ? ":" . $_SERVER['SERVER_PORT'] : '');
+	$server .= (!empty($_SERVER['SERVER_PORT'] and $_SERVER['SERVER_PORT'] != '443') ? ":" . $_SERVER['SERVER_PORT'] : '');
 
 	/* for sake of reading/modification, use HEREDOC syntax */
 	echo <<<CASTHEAD
