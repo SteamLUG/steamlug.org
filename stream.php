@@ -182,7 +182,7 @@ echo <<<HITBOX
 				</header>
 				<div class="panel-body">
 					<!-- <div id="hitbox-viewer"><iframe width="640" height="360" src="http://hitbox.tv/#!/embed/steamlug?autoplay=true" frameborder="0" allowfullscreen></iframe></div> -->
-					<p>We can’t embed Hitbox here for you to watch, because their embed dislikes https, please click the link below.</p>
+					<p>We can’t embed Hitbox here for you to watch, because their embed dislikes https, follow the link to watch!</p>
 					<p><a href="http://hitbox.tv/steamlug" class="btn btn-primary">Click for hitbox stream</a></p>
 				</div>
 			</article>
@@ -214,7 +214,7 @@ if ($someoneStreaming == false or $gotCurl == false ) {
 					<h3 class="panel-title">Stream Offline</h3>
 				</header>
 				<div class="panel-body">
-					<p>It looks like no one from the community is streaming right now, how about checking out users below?</p>
+					<p>It looks like no one from the community is streaming right now, how about checking out our regular streamers:</p>
 					<!-- put some links here to main channels? -->
 				</div>
 			</div>
