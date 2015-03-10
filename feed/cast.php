@@ -16,7 +16,7 @@
 	}
 
 	/* gives us a list, like s02e03, s02e02, etc of all of our casts */
-	$casts = scandir($filePath, 1);
+	$casts = scandir($notesPath, 1);
 	/* naïve as fook, but we know this. */
 	$latestCast = date("D, d M Y H:i:s O", filemtime( $filePath . '/' . $casts[0] ));
 
