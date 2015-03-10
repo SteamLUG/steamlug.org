@@ -167,7 +167,7 @@ GAMESINTRO;
 	</g>
 	</defs>
 	<g id="background">
-		<image xlink:href="https://archive.steamlug.org/1280x720_bg.png" width="1280" height="720" />
+		<image xlink:href="/images/youtubebg.png" width="1280" height="720" />
 	</g>
 	<g id="gutters">
 		<rect width="1280" height="130" style="fill:url(#shade-top);overflow:visible;" />
@@ -203,7 +203,7 @@ THUMB;
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="1280" height="720">
 	<g id="background">
-		<image xlink:href="https://archive.steamlug.org/1280x720_bg.png" width="1280" height="720" />
+		<image xlink:href="/images/youtubebg.png" width="1280" height="720" />
 	</g>
 	<g id="episode" style="font-style:normal;font-size: 50px; line-height:125%;text-anchor:middle;fill:#8dc9fa;stroke:none;font-family:Orbitron">
 		<g transform="translate(640,360)" style="fill:red" >
