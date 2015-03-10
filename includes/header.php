@@ -176,6 +176,10 @@ if(!login_check())
 	{
 		$aboutPage = $active;
 	}
+	else if (strpos($_SERVER["SCRIPT_NAME"], "about-peeps.php"))
+	{
+		$aboutPage = $active;
+	}
 
 	if(!login_check())
 	{
