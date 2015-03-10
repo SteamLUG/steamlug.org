@@ -1,5 +1,8 @@
 # DirectoryIndex news.php
 
+IndexIgnore *.php *.flac
+Options -Indexes
+
 ErrorDocument 404 /error-page/404.php
 
 RewriteBase /
