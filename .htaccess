@@ -1,5 +1,7 @@
 # DirectoryIndex news.php
 
+ErrorDocument 404 /error-page/404.php
+
 RewriteBase /
 RewriteEngine on
 RewriteCond %{HTTP_HOST} ^www\.(.*)$
