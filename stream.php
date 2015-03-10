@@ -98,7 +98,6 @@ if ( extension_loaded('curl') ) {
 										<h3 class="panel-title">Our Twitch streamers</h3>
 									</header>
 									<div class="panel-body">
-										<p>A collection of Linux gamers from the Steam group http://steamcommunity.com/groups/steamlug</p>
 										<ul class="streamers-list" id="twitch">
 											{$twitchPeeps}
 										</ul>
@@ -132,7 +131,6 @@ TWITCHBOX;
 									<h3 class="panel-title">Our Hitbox streamers</h3>
 								</header>
 								<div class="panel-body">
-									<p>{$hitboxStreamers['info']['group_text']}</p>
 									<ul class="streamers-list" id="hitbox">
 										{$hitboxPeeps}
 									</ul>
@@ -214,7 +212,7 @@ if ($someoneStreaming == false or $gotCurl == false ) {
 					<h3 class="panel-title">Stream Offline</h3>
 				</header>
 				<div class="panel-body">
-					<p>It looks like no one from the community is streaming right now, how about checking out our regular streamers:</p>
+					<p>It looks like no one is streaming on SteamLUG right now, how about checking out our regular streamers:</p>
 					<!-- put some links here to main channels? -->
 				</div>
 			</div>
