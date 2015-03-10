@@ -100,7 +100,7 @@ table.tablesorter thead th i, table.tablesorter tbody td i {
 .shownotes h4 { margin-top: 5px; font-weight: bold; font-size: 14px; line-height: 18px; }
 
 .shownotes .dl-horizontal dt { float: left; text-align: right; }
-.shownotes dl { line-height: 20px; margin-bottom: 5px; }
+.shownotes dl { line-height: 20px; }
 .shownotes dl dt { width: 7em; }
 .shownotes dl dd { margin-left: 7.1em; }
 .shownotes time { margin-right: 10px; color: #626262; }
@@ -136,6 +136,8 @@ dt.highlighted, dt.highlighted time, dt.highlighted + dd { background-color: #06
 nav .nav > li > a {
 padding-right: 13px; padding-left: 13px;
 }
+
+html dl { margin-bottom: 8px; }
 
 #mumble-list dl, #mumble-list ul { margin-left: 25px; margin-bottom: 0 }
 #mumble-list ul { list-style-type: none; padding-left: 0 }

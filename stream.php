@@ -8,9 +8,11 @@
 
 	header("Cache-Control: public, max-age=10");
 
+	// TODO move to paths.php | config
+	$mumbleServer = 'mumble.dk.steamlug.org';
 	$settings               =       array
 	(
-			'host'          =>      '130.226.217.215',
+			'host'          =>      $mumbleServer,
 			'port'          =>      27800,
 			'timeout'       =>      200,
 			'format'        =>      'json'

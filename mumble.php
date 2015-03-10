@@ -2,12 +2,12 @@
 	$pageTitle = "Mumble";
 	include_once('includes/header.php');
 	include_once('includes/MurmurQuery.php');
+	include_once('includes/paths.php');
 
-	// 10 second cache
 	header("Cache-Control: public, max-age=10");
 
-	$mumbleServer = 'mumble.steamlug.org';
-
+	// TODO move to paths.php | config
+	$mumbleServer = 'mumble.dk.steamlug.org';
 	$settings		=	array
 	(
 		'host'		=>	$mumbleServer,
@@ -56,11 +56,30 @@
 		}
 		return $statusString;
 	}
+
+	$users = $murmur->get_users();
+	$rootChannels = $info['root']['channels'];
+	$statusClass = "";
+	if($murmur->is_online())
+	{
+		$statusOnline = "Online";
+		$statusChannels = count($murmur->get_channels());
+		$statusUsers = count($users);
+		$statusClass = "panel-default";
+	}
+	else
+	{
+		$statusOnline = "Offline";
+		$statusChannels = "N/A";
+		$statusUsers = "N/A";
+		$statusClass = "panel-danger";
+	}
+
 ?>
 	<h1 class="text-center">Mumble Server</h1>
-	<article class="panel panel-default">
+	<article class="panel <?=$statusClass;?>">
 		<header class="panel-heading">
-			<h3 class="panel-title">About</h3>
+			<h3 class="panel-title">Mumble: <?=$statusOnline;?></h3>
 		</header>
 		<div class="panel-body">
 			<div class="col-md-7">
@@ -72,32 +91,24 @@
 				</dl>
 			</div>
 			<div class="col-md-5">
-<?php
-	$users = $murmur->get_users();
-	$rootChannels = $info['root']['channels'];
-
-	if($murmur->is_online())
-	{
-		$statusOnline = "Online";
-		$statusChannels = count($murmur->get_channels());
-		$statusUsers = count($users);
-	}
-	else
-	{
-		$statusOnline = "Offline";
-		$statusChannels = "N/A";
-		$statusUsers = "N/A";
-	}
-?>
 			<dl class="dl-horizontal">
-				<dt>Server</dt><dd>Online</dd>
+				<dt>Server</dt><dd><?=$statusOnline;?></dd>
+<?php
+	if($murmur->is_online()) {
+?>
 				<dt>Version</dt><dd><?=$info['x_gtmurmur_server_version'];?></dd>
 				<dt>Channels</dt><dd><?=$statusChannels;?></dd>
 				<dt>Users</dt><dd><?=$statusUsers;?> / <?=$info['x_gtmurmur_max_users'];?></dd>
+<?php
+	}
+?>
 			</dl>
 			</div>
 		</div>
 	</article>
+<?php
+	if($murmur->is_online()) {
+?>
 	<article class="panel panel-default">
 		<header class="panel-heading">
 			<h3 class="panel-title">Status</h3>
@@ -112,4 +123,7 @@
 ?>
 		</div>
 	</article>
-<?php	include_once('includes/footer.php'); ?>
+<?php
+	}
+?>
+<?php	include_once('includes/footer.php');
