@@ -171,7 +171,7 @@ if ( isset( $_GET['revoke'] ) and isset( $_GET['name'] ) ) {
 	if ( file_exists( $requestedPath ) and !is_dir( $requestedPath ) ) {
 		writeAvatarLog( 0, $me, $requestedName, 'revoke' );
 		$body = "<p>Revoked permission for the user {$requestedName}.</p>";
-		// unlink( $requestedPath );
+		unlink( $requestedPath );
 	} else {
 		$style = "panel-danger";
 		$body = "<p>Can not revoke permission for the user {$requestedName}.</p>";
@@ -188,7 +188,7 @@ if ( isset( $_GET['delete'] ) and isset( $_GET['name'] ) ) {
 	if ( file_exists( $requestedPath ) and !is_dir( $requestedPath ) ) {
 		writeAvatarLog( 0, $me, $requestedName, 'delete' );
 		$body = "<p>Removed avatar file for user {$requestedName}.</p>";
-		// unlink( $requestedPath );
+		unlink( $requestedPath );
 	} else {
 		// fancy this message up.
 		$style = "panel-danger";
