@@ -31,7 +31,7 @@
 		SteamSignIn::logout();
 		$_SESSION = array();
 		$cookieParams = session_get_cookie_params();
-		setcookie(session_name(),  '', time() - 42000, $params["path"], $params["domain"], $params["secure"], $params["httponly"]);
+		setcookie(session_name(),  '', time() - 42000, $cookieParams["path"], $cookieParams["domain"], $cookieParams["secure"], $cookieParams["httponly"]);
 		session_destroy();
 		header ("Location: /");
 	}
