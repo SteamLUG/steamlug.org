@@ -115,6 +115,8 @@ if(!login_check())
 	$castPage = "";
 	$pollPage = "";
 	$pollArchivePage = "";
+	$adminMenu = "";
+	$avatarAdminPage = ""; $pollAdminPage = "";
 	$active = " class=\"active\"";
 
 	if (strpos($_SERVER["SCRIPT_NAME"], "news.php"))
@@ -164,6 +166,16 @@ if(!login_check())
 		$projectsMenu = " active";
 		$pollArchivePage = $active;
 	}
+	else if (strpos($_SERVER["SCRIPT_NAME"], "poll-admin.php"))
+	{
+		$adminMenu = " active";
+		$pollAdminPage = $active;
+	}
+	else if (strpos($_SERVER["SCRIPT_NAME"], "avatar.php"))
+	{
+		$adminMenu = " active";
+		$avatarAdminPage = $active;
+	}
 	else if (strpos($_SERVER["SCRIPT_NAME"], "cast.php"))
 	{
 		$castPage = $active;
@@ -181,6 +193,7 @@ if(!login_check())
 		$aboutPage = $active;
 	}
 
+	$weareadmin = false;
 	if(!login_check())
 	{
 		if (empty($steam_login_verify))
@@ -199,6 +212,10 @@ AUTHBUTTON;
 				<li class="steamLogin navbar-avatar"><a href="/logout"><img width="32" height="32" id="steamAvatar" src="{$_SESSION['a']}" /></a></li>
 SHOWAVATAR;
 		}
+		if ( in_array( $_SESSION['u'], getAdmins() ) ) {
+			$weareadmin = true;
+		}
+
 	}
 
 ?>
@@ -239,7 +256,24 @@ SHOWAVATAR;
 						</ul>
 					</li>
 					<li<?php echo $serversPage; ?>><a href="/servers">Servers</a></li>
+<?php
+	if ($weareadmin) {
+?>
+					<li class="dropdown<?php echo $adminMenu; ?>">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li<?php echo $avatarAdminPage; ?>><a href="/avatar">Avatars</a></li>
+							<li<?php echo $pollAdminPage; ?>><a href="/poll-admin">Polls</a><li>
+							<li><a href="/transcriberer">Transcriberer</a><li>
+							<li><a href="//data.steamlug.org/updatesteamlug.php">Update events</a><li>
+							<li<?php echo $aboutPage; ?>><a href="/about">About</a></li>
+						</ul>
+					</li>
+<?php
+	} else {
+?>
 					<li<?php echo $aboutPage; ?>><a href="/about">About</a></li>
+<?php } ?>
 					<?php echo $logIn; ?>
 					</ul>
 				</div>
