@@ -264,8 +264,8 @@ SHOWAVATAR;
 						<ul class="dropdown-menu">
 							<li<?php echo $avatarAdminPage; ?>><a href="/avatar">Avatars</a></li>
 							<li<?php echo $pollAdminPage; ?>><a href="/poll-admin">Polls</a><li>
-							<li><a href="/transcriberer">Transcriberer</a><li>
-							<li><a href="//data.steamlug.org/updatesteamlug.php">Update events</a><li>
+							<li><a target="_blank" href="/transcriberer">Transcriberer</a><li>
+							<li><a target="_blank" href="//data.steamlug.org/updatesteamlug.php">Update events</a><li>
 							<li<?php echo $aboutPage; ?>><a href="/about">About</a></li>
 						</ul>
 					</li>
