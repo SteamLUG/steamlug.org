@@ -1,8 +1,8 @@
 <?php
 	global $conn;
 
-	include_once("includes/creds.php");
-	include_once("includes/functions_db.php");
+	include_once('includes/creds.php');
+	include_once('includes/functions_db.php');
 
 	$conn = null;
 	connectDB();

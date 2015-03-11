@@ -3,16 +3,16 @@
  * This file is part of GameQ.
  *
  * GameQ is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
+ * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * GameQ is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
@@ -40,7 +40,7 @@ class GameQ_Protocols_Teamspeak3 extends GameQ_Protocols
             'dedicated' => array('dedicated'),
             'hostname' => array('virtualservername'),
             'password' => array('virtualserverflagpassword'),
-            'numplayers' => array('virtualserverclientsonline'),
+            //'numplayers' => array('virtualserverclientsonline'),
             'maxplayers' => array('virtualservermaxclients'),
             'players' => array('players'),
             'teams' => array('teams'),
@@ -123,6 +123,8 @@ class GameQ_Protocols_Teamspeak3 extends GameQ_Protocols
 	 */
 	protected $name_long = "Teamspeak 3";
 
+	protected $join_link = "ts3server://%s?port=%d";
+
 	/**
 	 * Define the items being replaced to fix the return
 	 *
@@ -141,6 +143,26 @@ class GameQ_Protocols_Teamspeak3 extends GameQ_Protocols
       "\\r" => "\r",
       "\\t" => "\t"
     );
+
+	/**
+	 * Overload so we can check for some special options
+	 *
+	 * @param string $ip
+	 * @param int $port
+	 * @param array $options
+	 */
+	public function __construct($ip = FALSE, $port = FALSE, $options = array())
+	{
+	    // Got to do this first
+	    parent::__construct($ip, $port, $options);
+
+	    // Check for override in master server port (query)
+	    if(isset($this->options['master_server_port']) && !empty($this->options['master_server_port']))
+	    {
+	        // Override the master server port
+            $this->master_server_port = (int) $this->options['master_server_port'];
+	    }
+	}
 
 	/**
 	 * We need to affect the packets we are sending before they are sent
@@ -209,6 +231,9 @@ class GameQ_Protocols_Teamspeak3 extends GameQ_Protocols
 		{
 			$result->add($key, $value);
 		}
+
+		// Do correction for virtual clients
+		$result->add('numplayers', ($data['virtualserver_clientsonline'] - $data['virtualserver_queryclientsonline']));
 
 		unset($data, $buffer, $key, $value);
 

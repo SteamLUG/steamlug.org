@@ -3,22 +3,22 @@
  * This file is part of GameQ.
  *
  * GameQ is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
+ * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * GameQ is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 /**
  * Battlefield 3 Protocol Class
- * 
+ *
  * Good place for doc status and info is http://www.fpsadmin.com/forum/showthread.php?t=24134
  *
  * @author Austin Bischoff <austin@codebeard.com>
@@ -90,7 +90,7 @@ class GameQ_Protocols_Bf3 extends GameQ_Protocols
 	 *
 	 * @var int
 	 */
-	protected $port = 25200; // Default port, used if not set when instanced
+	protected $port = 47200; // Default port, used if not set when instanced
 
 	/**
 	 * The protocol being used
@@ -195,7 +195,7 @@ class GameQ_Protocols_Bf3 extends GameQ_Protocols
     	$result->add('region', $words[$index_current + 10]);
     	$result->add('pingsite', $words[$index_current + 11]);
     	$result->add('country', $words[$index_current + 12]);
-    	
+
     	// Added in R29, No docs as of yet
     	$result->add('quickmatch', $words[$index_current + 13] === 'true'); // Guessed from research
 
@@ -281,7 +281,7 @@ class GameQ_Protocols_Bf3 extends GameQ_Protocols
 		$tags = array_slice($words, 2, $num_tags);
 
 		// Just incase this changed between calls.
-		$result->add('numplayers', $words[9]);
+		$result->add('numplayers', $words[$num_tags+2]);
 
 		// Loop until we run out of positions
 		for($pos=(3+$num_tags);$pos<=$words_total;$pos+=$num_tags)

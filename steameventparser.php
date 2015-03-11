@@ -33,7 +33,7 @@ class SteamEventParser {
 	 */
 	private function parseEvent($str, $month, $year, $tzSrc, $tzDest) {
 		$html = new DOMDocument();
-		$html->loadHTML($str);
+		$html->loadHTML("<?xml encoding='UTF-8' ?>" . $str);
 		$event = array();
 		$node = $html->getElementsByTagName("body");
 		foreach ($node as $body) {
@@ -53,15 +53,19 @@ class SteamEventParser {
 						$a = $subnode->firstChild;
 						$_url = $a->getAttribute("href");
 						$img = $a->firstChild;
-						$_img_small = $img->getAttribute("src");
-						$_appid = explode("/", $_img_small);
+						$_img_icon = $img->getAttribute("src");
+						// relocate onto a // aware domain, cdn.akamai.steamstatic.com → steamcdn-a.akamaihd.net
+						$_img_icon = str_replace( "http://cdn.akamai.steamstatic.com", "//steamcdn-a.akamaihd.net", $_img_icon);
+						$_appid = explode("/", $_img_icon);
 						$_appid = intval($_appid[count($_appid) - 2]);
 						if ($_appid === 0) {
 							$_img_header = "";
 							$_img_header_small = "";
+							$_img_capsule = "";
 						} else {
-							$_img_header = "http://cdn.akamai.steamstatic.com/steam/apps/" . $_appid . "/header.jpg";
-							$_img_header_small = "http://cdn.akamai.steamstatic.com/steam/apps/" . $_appid . "/header_292x136.jpg";
+							$_img_header = "//steamcdn-a.akamaihd.net/steam/apps/" . $_appid . "/header.jpg";
+							$_img_header_small = "//steamcdn-a.akamaihd.net/steam/apps/" . $_appid . "/header_292x136.jpg";
+							$_img_capsule = "//steamcdn-a.akamaihd.net/steam/apps/" . $_appid . "/capsule_sm_120.jpg";
 						}
 					} elseif ($class === "eventBlockTitle") {
 						$l = $subnode->childNodes;
@@ -96,7 +100,8 @@ class SteamEventParser {
 		$event["time"] = $tempDate->format("H:i");
 		$event["tz"] = $tempDate->format("e");
 		$event["appid"] = $_appid;
-		$event["img_small"] = $_img_small;
+		$event["img_icon"] = $_img_icon;
+		$event["img_capsule"] = $_img_capsule;
 		$event["img_header"] = $_img_header;
 		$event["img_header_small"] = $_img_header_small;
 		return $event;
@@ -113,20 +118,20 @@ class SteamEventParser {
 	 * @param string $tz The timezone to convert the returned times to
 	 * @return array An array of events
 	 */
-	public function genData($group, $month = "", $year = "", $ssl = false, $tries = 3, $tz = "UTC") {
+	public function genData($url, $group, $month = "", $year = "", $ssl = false, $tries = 3, $tz = "UTC") {
 		//This is the time zone that events seem to be stored in
 		$pst = new DateTimeZone("America/Los_Angeles");
 		$tzDest = new DateTimeZone($tz);
 		$month = (empty($month)) ? intval(gmstrftime("%m")) : $month;
 		//$month = (strlen($month) === 1) ? "0" . $month : (string) $month;
 		$year = (empty($year)) ? gmstrftime("%Y") : $year;
-		// TODO: HTTPS?
-		$url = ($ssl) ? "https" : "http";
-		$url.= "://cenobite.swordfischer.com/" . $group . "/events_" . $month . "_" . $year . ".xml";
+		// erk
+		$url = ($ssl ? str_replace( "http:", "https:", $url ) : $url );
+		$url.= $group . "/events_" . $month . "_" . $year . ".xml";
 		// Setting the (upcoming) file handle to true for ultimate hackiness
 		$f = true;
 		// Checking robots.txt with rbt_prs (https://github.com/meklu/rbt_prs) if it's been included
-		if (function_exists("isUrlBotSafe")) {
+		if (strpos($url,'http') !== false and function_exists("isUrlBotSafe")) {
 			if (!isUrlBotSafe($url)) {
 				$f = false;
 			}

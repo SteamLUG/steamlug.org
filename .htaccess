@@ -1,0 +1,23 @@
+# DirectoryIndex news.php
+
+IndexIgnore *.php *.flac
+Options -Indexes
+
+ErrorDocument 403 /error-page/403.php
+ErrorDocument 404 /error-page/404.php
+ErrorDocument 500 /error-page/500.php
+
+RewriteBase /
+RewriteEngine on
+RewriteCond %{HTTP_HOST} ^www\.(.*)$
+RewriteRule ^(.*)$ https://%1/$1 [L,R=301]
+RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -d
+RewriteRule ^(.*)$ - [L]
+
+RewriteCond %{DOCUMENT_ROOT}/$1.php -f
+RewriteRule ^((.*/)*[^./]+)/*$ $1.php [L]
+
+RewriteRule ^cast/s(\d+)e(\d+)$ /cast.php?s=$1&e=$2 [NC,L]
+RewriteRule ^feed/cast/(\w+)$ /feed/cast.php?t=$1 [NC,L]
+RewriteRule ^youtubethumb/(\w+)$ /youtubethumb.php?t=$1 [NC,L]
+RewriteRule ^youtubedescription/(\w+)$ /youtubedescription.php?t=$1 [NC,L]

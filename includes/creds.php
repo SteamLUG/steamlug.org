@@ -9,5 +9,6 @@
 		getGroupID32()
 		getSteamAPIKey()
 	*/
-	include("/var/www/dev.steamlug.org/creds.php");
+	include( "paths.php" );
+	include( $creds );
 ?>

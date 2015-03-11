@@ -4,8 +4,8 @@
 	{
 		global $conn;
 
-		include_once("creds.php");
-		include_once("functions_db.php");
+		include_once('creds.php');
+		include_once('functions_db.php');
 
 		if (!isset($conn))
 		{
@@ -41,21 +41,21 @@
 		$poll = array();
 		if ($stmt)
 		{
-			echo "<div class = 'formPair'>\n";
-			echo "<label for  = '" . $elementID . "'>Select Poll</label>\n";
-			echo "\t<select id = '" . $elementID . "' name = '" . $elementID . "'>\n";
+			echo "<div class=\"form-group\">\n
+					<label for=\"" . $elementID . "\" class=\"col-lg-2 control-label\">Select Poll</label>\n
+					<div class=\"col-lg-10\">
+					\t<select class=\"form-control\" name=\"" . $elementID . "\" id=\"" . $elementID . "\">\n";
 			if ($new)
 			{
-				echo "\t\t<option value = '-1'>-- New --</option>\n";
+				echo "\t\t<option value=\"-1\">-- New --</option>\n";
 			}
 			$poll = $stmt->fetchAll(PDO::FETCH_ASSOC);
 			$stmt->closeCursor();
 			foreach ($poll as $p)
 			{
-				echo "\t\t<option value = '" . $p['id'] . "' " . ($p['id'] == $default ? "selected = 'selected'" : "") .">" . $p['title'] . " (exp: " . $p['expireDate']. ")</option>\n";
+				echo "\t\t<option value=\"" . $p['id'] . "\" " . ($p['id'] == $default ? "selected = 'selected'" : "") .">" . $p['title'] . " (exp: " . $p['expireDate']. ")</option>\n";
 			}
-			echo "\t</select>\n";
-			echo "</div>\n";
+			echo "\t</select></div></div>\n";
 		}
 	
 	}
@@ -180,21 +180,20 @@
 
 		//print_r($poll);
 		//print_r($options);
-
+		echo "<article class=\"panel panel-primary\">
+				<div class=\"panel-heading\">";
+		echo "\t<h3 class=\"panel-title\" data-poll-id=\"" . $poll['id'] . "\">" . htmlspecialchars($poll['title'], ENT_QUOTES) . "</h3>";
+		echo "</div>
+		<div class=\"panel-body\">";
 		if ($canVote)
 		{
-			echo "<form class = 'pollBox' method = 'post' action = 'poll_vote.php'>\n";
+			echo "<form method=\"post\" action=\"poll_vote.php\">\n";
 		}
-		else
-		{
-			echo "<div class = 'pollBox'>\n";
-		}
-
-		echo "\t<h2 data-poll-id = '" . $poll['id'] . "'>" . htmlspecialchars($poll['title'], ENT_QUOTES) . "<span class = 'pollExpiry'>" . $poll['publishDate'] . " to " . $poll['expireDate'] . "</span></h2>\n";
+		echo "<p class=\"text-right\">" . $poll['publishDate'] . " to " . $poll['expireDate'] . "</p>\n";
 		echo "\t<p>" . htmlspecialchars($poll['description'], ENT_QUOTES) . "</p>\n";
 		if ($poll['url'] != "")
 		{
-			echo "\t<p class = 'supportingLink'><a href = '" . $poll['url'] . "'>Read more</a></p>\n";
+			echo "\t<p><a href = '" . $poll['url'] . "'>Read more</a></p>\n";
 		}
 
 		$inputType = 'radio';
@@ -202,23 +201,21 @@
 		{
 			$inputType = 'checkbox';
 		}
-		echo "\t<div class = 'pollOptions'>\n";
 		foreach ($options as $o)
 		{
-			echo "\t\t<div class = 'pollOption'>\n";
 			if ($canVote)
 			{
-				echo "\t\t\t<input type = '" . $inputType . "' name = 'poll_selection[]' value = '" . $o['id'] . "' id = 'option_" . $o['id'] . "' />\n";
+				echo "\t\t\t<input type=\"" . $inputType . "\" name=\"poll_selection[]\" value=\"" . $o['id'] . "\" id=\"option_" . $o['id'] . "\" />\n";
 				echo "\t\t\t<label class = 'pollOptionLabel' title = '" . ($o['description'] != "" ? htmlspecialchars($o['description'], ENT_QUOTES) : htmlspecialchars($o['name'], ENT_QUOTES)) . "' for = 'option_" . $o['id'] . "'><span></span>" . htmlspecialchars($o['name'], ENT_QUOTES) . ($o['url'] != "" ? " <a href = '" . $o['url'] . "'>[link]</a>" : "" ) .  " (" . round($o['percentage'], 2) . "%)</label>\n";
 			}
 			else
 			{
-				echo "\t\t\t<p class = 'pollOptionLabel'  title = '" . ($o['description'] != "" ? htmlspecialchars($o['description'], ENT_QUOTES) : htmlspecialchars($o['name'], ENT_QUOTES)) . "'>" . htmlspecialchars($o['name'], ENT_QUOTES) . ($o['url'] != "" ? " <a href = '" . $o['url'] . "'>[link]</a>" : "" ) . " (" . round($o['percentage'], 2) . "%)</p>\n";
+				echo "\t\t\t<p title = '" . ($o['description'] != "" ? htmlspecialchars($o['description'], ENT_QUOTES) : htmlspecialchars($o['name'], ENT_QUOTES)) . "'>" . htmlspecialchars($o['name'], ENT_QUOTES) . ($o['url'] != "" ? " <a href = '" . $o['url'] . "'>[link]</a>" : "" ) . " (" . round($o['percentage'], 2) . "%)</p>\n";
 			}
-			echo "\t\t\t<div class = 'pollBar'  title = '" . ($o['description'] != "" ? htmlspecialchars($o['description'], ENT_QUOTES) : htmlspecialchars($o['name'], ENT_QUOTES)) . "' style = 'width: " . (is_numeric($o['percentage']) ? $o['percentage'] : 0 ) . "%;'></div>\n";
-			echo "\t\t</div>\n";
+			echo "\t\t\t<div class=\"progress\">
+						<div class=\"progress-bar progress-bar-info\" title = '" . ($o['description'] != "" ? htmlspecialchars($o['description'], ENT_QUOTES) : htmlspecialchars($o['name'], ENT_QUOTES)) . "' style = 'width: " . (is_numeric($o['percentage']) ? $o['percentage'] : 0 ) . "%;'></div>\n";
+			echo "\t\t\t</div>\n";
 		}
-		echo "\t</div>\n";
 
 		if ($poll['uid'])
 		{
@@ -237,28 +234,23 @@
 		
 		if ($canVote)
 		{
-			echo "\t<input type ='hidden' name = 'poll' value = '" . $poll['id'] . "' />\n";
-			echo "\t<input type ='hidden' name = 'page' value = '" . $_SERVER['SCRIPT_NAME'] . "' />\n";
-			echo "\t<input type = 'submit' value = 'Vote' />\n";
-//			echo "\t<br class = 'clearfix' />\n";
+			echo "\t<input type=\"hidden\" name=\"poll\" value=\"" . $poll['id'] . "\" />\n";
+			echo "\t<input type=\"hidden\" name=\"page\" value=\"" . $_SERVER['SCRIPT_NAME'] . "\" />\n";
+			echo "\t<input class=\"btn btn-info\" type=\"submit\" value=\"Vote\" />\n";
 			echo "</form>\n";
 		}
-		else
-		{
-			echo "</div>\n";
-		}
-		echo "<br class = 'clearfix' />\n";
+		echo "\t</div></article>\n";
 	}
 
 
 	function deletePoll($id)
 	{
 	
-		include_once("creds.php");
+		include_once('creds.php');
 		if (in_array($_SESSION['u'], getAdmins()))
 		{
 			global $conn;
-			include_once("functions_db.php");
+			include_once('functions_db.php');
 			if (!isset($conn))
 			{
 				$conn = null;
@@ -296,11 +288,11 @@
 	function savePoll()
 	{
 	
-		include_once("creds.php");
+		include_once('creds.php');
 		if (in_array($_SESSION['u'], getAdmins()))
 		{
 			global $conn;
-			include_once("functions_db.php");
+			include_once('functions_db.php');
 			if (!isset($conn))
 			{
 				$conn = null;
@@ -319,10 +311,10 @@
 						$stmt = $conn->prepare("update poll set title = :title, description = :description, url = :url, type = :type, multipleChoice = :multipleChoice, publishDate = :publishDate, expireDate = :expireDate where id = :pollID");
 						$stmt->execute(array(
 							'title' => $_POST['poll_title'],
-							'description' => $_POST['poll_description'], 
-							'url' => $_POST['poll_url'], 
-							'type' => $_POST['poll_type'], 
-							'multipleChoice' => ( isset($_POST['poll_multipleChoice']) ? True : False ), 
+							'description' => $_POST['poll_description'],
+							'url' => $_POST['poll_url'],
+							'type' => $_POST['poll_type'],
+							'multipleChoice' => ( isset($_POST['poll_multipleChoice']) ? True : False ),
 							'publishDate' => $_POST['poll_publishDate'],
 							'expireDate' => $_POST['poll_expireDate'],
 							'pollID' => $pollID
@@ -340,10 +332,10 @@
 					$stmt = $conn->prepare("insert into poll (title, description, url, type, multipleChoice, publishDate, expireDate) values (:title, :description, :url, :type, :multipleChoice, :publishDate, :expireDate)");
 					$stmt->execute(array(
 							'title' => $_POST['poll_title'],
-							'description' => $_POST['poll_description'], 
-							'url' => $_POST['poll_url'], 
-							'type' => $_POST['poll_type'], 
-							'multipleChoice' => ( isset($_POST['poll_multipleChoice']) ? True : False ), 
+							'description' => $_POST['poll_description'],
+							'url' => $_POST['poll_url'],
+							'type' => $_POST['poll_type'],
+							'multipleChoice' => ( isset($_POST['poll_multipleChoice']) ? True : False ),
 							'publishDate' => $_POST['poll_publishDate'],
 							'expireDate' => $_POST['poll_expireDate']
 							));
@@ -437,13 +429,13 @@
 	
 	function showPollAdmin()
 	{
-		include_once("creds.php");
+		include_once('creds.php');
 		echo "Logged in as " . $_SESSION['u'];
 		if (in_array($_SESSION['u'], getAdmins()))
 		{
 			global $conn;
 
-			include_once("functions_db.php");
+			include_once('functions_db.php');
 			if (!isset($conn))
 			{
 				$conn = null;
@@ -468,7 +460,7 @@
 					{
 						//We're trying to edit a post that doesn't exist, but lets just let the player make a new one.
 						unset($_GET['poll']);
-						echo "<p class = 'warningMessage'>Warning: The specified poll does not exist.</p>";
+						echo "<p class=\"text-warning\">Warning: The specified poll does not exist.</p>";
 					}
 
 					$stmt->closeCursor();
@@ -477,29 +469,67 @@
 				{
 					//We're trying to edit a post that doesn't exist, but lets just let the player make a new one.
 					unset($_GET['poll']);
-					echo "<p class = 'warningMessage'>Warning: Invalid poll id.</p>";
+					echo "<p class=\"text-warning\">Warning: Invalid poll id.</p>";
 				}
 			}
 		?>
-			<form method = 'post' action = 'poll-admin.php<?php echo (isset($_GET['poll']) ? "?poll=" . $_GET['poll'] : "")?>'>
-			<h2><?php echo (count($poll) > 0 ? "Poll Details" : "New Poll")?></h2>
-			<div class = 'formPair'><label for = 'poll_title'>Title</label><input id = 'poll_title' name = 'poll_title' type = 'text' placeholder = 'The title of the poll' value = '<?php echo (isset($poll['title']) ? $poll['title'] : "") ?>'/></div>
-			<div class = 'formPair'><label for = 'poll_description'>Description</label><textarea id = 'poll_description' name = 'poll_description' placeholder = 'Poll description'><?php echo (isset($poll['description']) ? $poll['description'] : "") ?></textarea></div>
-			<div class = 'formPair'><label for = 'poll_url'>URL</label><input type = 'text' id = 'poll_url' name = 'poll_url' placeholder = 'Optional supporting URL for the poll.' value = '<?php echo (isset($poll['url']) ? $poll['url'] : "") ?>' /></div>
-			<div class = 'formPair'><label for = 'poll_type'>Type</label>
-			<select id = 'poll_type' name = 'poll_type'>
-				<option value = 'decision' <?php echo ($poll['type'] == 'decision' ? "selected = 'selected'" : "") ?>>Decision</option>
-				<option value = 'event' <?php echo ($poll['type'] == 'event' ? "selected = 'selected'" : "") ?>>Event</option>
-				<option value = 'research' <?php echo ($poll['type'] == 'research' ? "selected = 'selected'" : "") ?>>Research</option>
-			</select>
 			</div>
-			<div class = 'formPair'><label for = 'poll_multipleChoice'>Multiple Choice</label><input id = 'poll_multipleChoice' name = 'poll_multipleChoice' type = 'checkbox' <?php if (isset($poll['multipleChoice'])) { echo ($poll['multipleChoice'] != 0 ? "checked = 'checked'" : ""); } ?>'/></div>
-			<div class = 'formPair'><label for = 'poll_publishDate'>Publish Date</label><input id = 'poll_publishDate' name = 'poll_publishDate' type = 'text' placeholder = '2013-11-03' value = '<?php echo (isset($poll['publishDate']) ? $poll['publishDate']: "") ?>'/></div>
-			<div class = 'formPair'><label for = 'poll_expireDate'>Expire Date</label><input id = 'poll_expireDate' name = 'poll_expireDate' type = 'text' placeholder = '2013-11-29' value = '<?php echo (isset($poll['expireDate']) ? $poll['expireDate'] : "") ?>'/></div>
-			<?php echo (isset($poll['id']) ? "<input type = 'hidden' name = 'poll_id' id = 'poll_id' value = '" . $poll['id'] . "' />": "") ?>
+		</article>
+		<article class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title"><?php echo (count($poll) > 0 ? "Poll Details" : "New Poll")?></h3>
+			</div>
+			<div class="panel-body">
+			<form class="form-horizontal" method = 'post' action = 'poll-admin.php<?php echo (isset($_GET['poll']) ? "?poll=" . $_GET['poll'] : "")?>'>
+			<div class="form-group">
+				<label class="col-lg-2 control-label" for="poll_title">Title</label>
+				<div class="col-lg-10">
+					<input class="form-control" id="poll_title" name="poll_title" type="text" placeholder="The title of the poll" value='<?php echo (isset($poll['title']) ? $poll['title'] : "") ?>'/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-lg-2 control-label" for="poll_description">Description</label>
+				<div class="col-lg-10">
+					<textarea class="form-control" rows="3" id="poll_description" name="poll_description" placeholder="Poll description"><?php echo (isset($poll['description']) ? $poll['description'] : "") ?></textarea>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-lg-2 control-label" for="poll_url">URL</label>
+				<div class="col-lg-10">
+					<input class="form-control" type="text" id="poll_url" name="poll_url" placeholder="Optional supporting URL for the poll." value = "<?php echo (isset($poll['url']) ? $poll['url'] : "") ?>" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-lg-2 control-label" for="poll_type">Type</label>
+				<div class="col-lg-10">
+					<select class="form-control" id="poll_type" name="poll_type">
+						<option value="decision" <?php echo ($poll['type'] == 'decision' ? "selected = 'selected'" : "") ?>>Decision</option>
+						<option value="event" <?php echo ($poll['type'] == 'event' ? "selected = 'selected'" : "") ?>>Event</option>
+						<option value="research" <?php echo ($poll['type'] == 'research' ? "selected = 'selected'" : "") ?>>Research</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-lg-2 control-label" for="poll_multipleChoice">Multiple Choice</label>
+				<div class="col-lg-10">
+					<input id="poll_multipleChoice" name="poll_multipleChoice" type="checkbox" <?php if (isset($poll['multipleChoice'])) { echo ($poll['multipleChoice'] != 0 ? "checked = 'checked'" : ""); } ?>/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-lg-2 control-label" for="poll_publishDate">Publish Date</label>
+				<div class="col-lg-10">
+					<input class="form-control" id="poll_publishDate" name="poll_publishDate" type="text" placeholder="2013-11-03" value = '<?php echo (isset($poll['publishDate']) ? $poll['publishDate']: "") ?>'/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-lg-2 control-label" for="poll_expireDate">Expire Date</label>
+				<div class="col-lg-10">
+					<input class="form-control" id="poll_expireDate" name="poll_expireDate" type="text" placeholder="2013-11-29" value = '<?php echo (isset($poll['expireDate']) ? $poll['expireDate'] : "") ?>'/>
+				</div>
+			</div>
+				<?php echo (isset($poll['id']) ? "<input type=\"hidden\" name=\"poll_id\" id=\"poll_id\" value=\"" . $poll['id'] . "\" />": "") ?>
 
-
-			<h2>Poll Options</h2>
+			<h3>Poll Options</h3>
 			<?php
 			$stmt = $conn->prepare("select id, name, description, url from poll_option where pollID = ?");
 			$stmt->execute(array( (isset($poll['id']) ? $poll['id'] : "") ));
@@ -515,24 +545,49 @@
 				}
 			?>
 			<hr />
-			<div class = 'formPair'><label for = "option_name_<?php echo $i; ?>">Option Name</label><input id = 'option_name_<?php echo $i; ?>' name = 'option_name[<?php echo $i; ?>]' type = 'text' placeholder = 'A name for this option' value = '<?php echo (isset($o['name']) ? $o['name'] : "") ?>' /></div>
-			<div class = 'formPair'><label for = 'option_description_<?php echo $i; ?>'>Option Description</label><textarea id = 'option_description_<?php echo $i; ?>' name = 'option_description[<?php echo $i; ?>]' placeholder = 'A brief description for this option.'><?php echo (isset($o['description']) ? $o['description'] : "") ?></textarea></div>
-			<div class = 'formPair'><label for = 'option_url_<?php echo $i; ?>'>Option URL</label><input type = 'text' id = 'option_url_<?php echo $i; ?>' name = 'option_url[<?php echo $i; ?>]' placeholder = 'An optional supporting URL.' value = '<?php echo (isset($o['url']) ? $o['url'] : "") ?>' /></div>
-			<div class = 'formPair'><label for = 'option_pollID_<?php echo $i; ?>'>Poll ID</label><input type = 'text' placeholder = 'Leave blank if this is for the current poll.' id = 'option_pollID_<?php echo $i; ?>' name = 'option_pollID[<?php echo $i; ?>]' value = '<?php echo (isset($poll['id']) ? $poll['id']: "") ?>'/></div>
-			<div class = 'formPair'><label for = 'option_delete_<?php echo $i; ?>'>Delete Option</label><input type = 'checkbox' id = 'option_deleve<?php echo $i; ?>' name = 'option_delete[<?php echo $i; ?>]' /></div>
-			<?php echo "<input type = 'hidden' name = 'option_id[" . $i . "]' id = 'option_id[" . $i . "]' id = 'pollID' value = '" . (isset($o['id']) ? $o['id'] : -1) . "' />"; ?>
+			<div class="form-group">
+				<label class="col-lg-2 control-label" for="option_name_<?php echo $i; ?>">Option Name</label>
+				<div class="col-lg-10">
+					<input class="form-control" id="option_name_<?php echo $i; ?>" name="option_name[<?php echo $i; ?>]" type="text" placeholder="A name for this option" value="<?php echo (isset($o['name']) ? $o['name'] : "") ?>" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-lg-2 control-label" for="option_description_<?php echo $i; ?>">Option Description</label>
+				<div class="col-lg-10">
+					<textarea class="form-control" rows="3" id="option_description_<?php echo $i; ?>" name="option_description[<?php echo $i; ?>]" placeholder="A brief description for this option."><?php echo (isset($o['description']) ? $o['description'] : "") ?></textarea>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-lg-2 control-label" for="option_url_<?php echo $i; ?>">Option URL</label>
+				<div class="col-lg-10">
+					<input class="form-control" type="text" id="option_url_<?php echo $i; ?>" name="option_url[<?php echo $i; ?>]" placeholder="An optional supporting URL." value="<?php echo (isset($o['url']) ? $o['url'] : "") ?>" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-lg-2 control-label" for="option_pollID_<?php echo $i; ?>">Poll ID</label>
+				<div class="col-lg-10">
+					<input class="form-control" type="text" placeholder="Leave blank if this is for the current poll." id="option_pollID_<?php echo $i; ?>" name="option_pollID[<?php echo $i; ?>]" value="<?php echo (isset($poll['id']) ? $poll['id']: "") ?>"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-lg-2 control-label" for="option_delete_<?php echo $i; ?>">Delete Option</label>
+				<div class="col-lg-10">
+					<input type="checkbox" id="option_delete<?php echo $i; ?>" name="option_delete[<?php echo $i; ?>]" />
+				</div>
+			</div>
 			<?php
+				echo "<input type=\"hidden\" name=\"option_id[" . $i . "]\" id=\"option_id[" . $i . "]\" value=\"" . (isset($o['id']) ? $o['id'] : -1) . "\" />";
 			}
 			?>
 			<!-- this is needed so that we can be confident that the array exists even if nothing is being deleted -->
-			<input type = 'hidden' name = 'option_delete[-1]' id = 'delete_option_placeholder' />
-			<input type = 'submit' value = 'save' />
+			<input type="hidden" name="option_delete[-1]" id="delete_option_placeholder" />
+			<input class="btn btn-success" type="submit" value="Save" />
 			</form>
 		<?php
 		}
 		else
 		{
-			echo "<p>You don't belong here.</p>";
+			echo "<p class=\"text-error\">You don't belong here.</p>";
 		}
 	}
 ?>

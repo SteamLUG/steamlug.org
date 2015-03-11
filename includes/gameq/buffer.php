@@ -3,16 +3,16 @@
  * This file is part of GameQ.
  *
  * GameQ is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
+ * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * GameQ is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  *
@@ -103,7 +103,7 @@ class GameQ_Buffer
     public function read($length = 1)
     {
         if (($length + $this->index) > $this->length) {
-            throw new GameQ_ProtocolsException('Unable to read length={$length} from buffer.  Bad protocol format or return?');
+            throw new GameQ_ProtocolsException('Unable to read length=' . $length . ' from buffer.  Bad protocol format or return?');
         }
 
         $string = substr($this->data, $this->index, $length);
@@ -284,12 +284,30 @@ class GameQ_Buffer
     }
 
     /**
-     * Read a 16-big signed integer
+     * Read a 16-bit signed integer
      */
     public function readInt16Signed()
     {
     	$int = unpack('sint', $this->read(2));
     	return $int['int'];
+    }
+
+    /**
+     *  Read a 16-bit unsigned little endian integer
+     */
+    public function readInt16LE()
+    {
+        $int = unpack('vint', $this->read(2));
+        return $int['int'];
+    }
+
+    /**
+     * Read a 16-bit unsigned big endian integer
+     */
+    public function readInt16BE()
+    {
+        $int = unpack('nint', $this->read(2));
+        return $int['int'];
     }
 
     /**

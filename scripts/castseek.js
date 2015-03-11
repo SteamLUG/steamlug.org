@@ -1,9 +1,21 @@
 (function () {
     "use strict";
 
+    function pad(number) {
+        return ("00" + number).slice(-2);
+    }
+
     function time_to_seconds(time) {
         var s = time.attributes.datetime.value.split(":");
         return parseInt(s[0] * 3600, 10) + parseInt(s[1] * 60, 10) + parseInt(s[2], 10);
+    }
+
+    function seconds_to_time( seconds ) {
+        seconds = Number(seconds);
+        var h = Math.floor(seconds / 3600);
+        var m = Math.floor(seconds % 3600 / 60);
+        var s = Math.floor(seconds % 3600 % 60);
+        return pad( h ) + ":"  + pad( m ) + ":" + pad( s );
     }
 
     var highlighter = {
@@ -16,7 +28,7 @@
             var nodes, i, time, seconds, audio;
 
             // collect time tags
-            nodes = document.querySelectorAll('.casttimestamp');
+            nodes = document.querySelectorAll('.shownotes dt time');
 
             for (i = 0; i < nodes.length; i += 1) {
                 time = nodes[i];
@@ -30,12 +42,12 @@
 
             // listen to audio events
             audio = document.getElementById('castplayer');
-            audio.addEventListener("timeupdate", this.timeupdate_handler);
-            audio.addEventListener("progress", this.progress_handler);
-
-            this.audio = audio;
-
-            console.log("highlighter initialized!");
+            if (audio) {
+                audio.addEventListener("timeupdate", this.timeupdate_handler);
+                audio.addEventListener("progress", this.progress_handler);
+                this.audio = audio;
+                console.log("highlighter initialized!");
+            }
         },
 
         /*
@@ -51,13 +63,18 @@
          */
         click_handler: function () {
             var audio, seconds, seek_once;
+            seconds = this.seconds;
 
+            /* assume if user clicks, they want history */
+            if (history.pushState) {
+                history.pushState( { time: seconds }, "Skipped to" + seconds,
+                            "#ts-" + seconds_to_time( seconds ) );
+            }
             audio = highlighter.audio;
             if (audio.paused) {
                 audio.play();
 
                 // The following mess is needed to seek after the audio has started playing,
-                seconds = this.seconds;
                 seek_once = function () {
                     console.log("seeking to", seconds);
                     this.currentTime = seconds;
@@ -66,7 +83,7 @@
                 audio.addEventListener('canplay', seek_once, false);
             } else {
                 // Seek!
-                audio.currentTime = this.seconds;
+                audio.currentTime = seconds;
             }
         },
 
@@ -139,6 +156,12 @@
                 if (!this.in_range(secs)) {
                     var n = this.find_node_before(secs);
                     this.highlight(n);
+
+                    /* whereas here, they probably don’t want history */
+                    if (history.replaceState) {
+                        history.replaceState( { time: secs }, "Played to" + secs,
+                                    "#ts-" + seconds_to_time( secs ) );
+                    }
                 }
             } else {
                 // nothing was highlighted, so highlight the first thing.

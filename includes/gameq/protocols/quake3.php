@@ -3,16 +3,16 @@
  * This file is part of GameQ.
  *
  * GameQ is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
+ * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * GameQ is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
@@ -119,22 +119,21 @@ class GameQ_Protocols_Quake3 extends GameQ_Protocols
 
 		// Set the result to a new result instance
 		$result = new GameQ_Result();
-		$result->add('game_descr', $this->name_long);
 
 		// Lets pre process and make sure these things are in the proper order by id
-	    	$data = $this->preProcess_status($this->packets_response[self::PACKET_STATUS]);
+    	$data = $this->preProcess_status($this->packets_response[self::PACKET_STATUS]);
 
-	    	// Make buffer
-	    	$buf = new GameQ_Buffer($data);
+    	// Make buffer
+    	$buf = new GameQ_Buffer($data);
 
-	    	// First section is the server info, the rest is player info
-	    	$server_info = $buf->readString("\x0A");
-	    	$player_info = $buf->getBuffer();
+    	// First section is the server info, the rest is player info
+    	$server_info = $buf->readString("\x0A");
+    	$player_info = $buf->getBuffer();
 
-	    	unset($buf);
+    	unset($buf);
 
-	    	// Make a new buffer for the server info
-	    	$buf_server = new GameQ_Buffer($server_info);
+    	// Make a new buffer for the server info
+    	$buf_server = new GameQ_Buffer($server_info);
 
 		// Key / value pairs
 		while ($buf_server->getLength())

@@ -6,20 +6,21 @@
 	function sec_session_start() {
 		$session_name = 'steamlug'; // Set a custom session name
 		$secure = false; // Set to true if using https.
-		$httponly = true; // This stops javascript being able to access the session id. 
-	 
-		ini_set('session.use_only_cookies', 1); // Forces sessions to only use cookies. 
+		$httponly = true; // This stops javascript being able to access the session id.
+
+		ini_set('session.use_only_cookies', 1); // Forces sessions to only use cookies.
 		$cookieParams = session_get_cookie_params(); // Gets current cookies params.
-		session_set_cookie_params($cookieParams["lifetime"], $cookieParams["path"], $cookieParams["domain"], $secure, $httponly); 
+		session_set_cookie_params($cookieParams["lifetime"], $cookieParams["path"], $cookieParams["domain"], $secure, $httponly);
 		session_name($session_name); // Sets the session name to the one set above.
 		session_start(); // Start the php session
-		session_regenerate_id(true); // regenerated the session, delete the old one.  
+		session_regenerate_id(true); // regenerated the session, delete the old one
 	}
 
 	function login($uid)
 	{
 		$_SESSION['u'] = $uid;
 		$_SESSION['g'] = group_check($uid);
+		store_user_details($uid);
 		$_SESSION['i'] = getenv("REMOTE_ADDR");
 		$_SESSION['t'] = time() + 1800;
 	}
@@ -81,6 +82,28 @@
 		return false;
 	}
 
+	/* TODO consider using this to also grab users game library so we can highlight events */
+	/* These calls can take time… async them somehow? */
+	function store_user_details($uid)
+	{
+		$details = file_get_contents('http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=' . getSteamAPIKey() . '&steamids=' . $uid);
+		if ($details === false)
+		{
+			//Quick fix for Steam non-responsiveness and private user accounts
+			// Cannot get user avatar
+			return;
+		}
+		$details = (array) json_decode($details, true);
+		if (is_array($details))
+		{
+			if ( isset( $details['response']['players'] ) )
+			{
+				$_SESSION['n'] = $details['response']['players'][0]['personaname'];
+				$_SESSION['a'] = $details['response']['players'][0]['avatarfull'];
+			}
+		}
+		return;
+	}
 
 	sec_session_start();
 ?>

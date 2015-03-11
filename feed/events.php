@@ -1,10 +1,11 @@
 <?php
 	header("Content-Type: application/rss+xml");
 	header("Access-Control-Allow-Origin: *");
-	require_once("../rbt_prs.php");
-	require_once("../steameventparser.php");
+	include_once('../includes/paths.php');
+	require_once('../rbt_prs.php');
+	require_once('../steameventparser.php');
 
-	echo "<?xml version='1.0'?>\n";
+	echo "<?xml version='1.0' encoding='UTF-8' ?>\n";
 	echo "<rss version='2.0' xmlns:atom='http://www.w3.org/2005/Atom'>\n";
 	echo "<channel>\n";
 	echo "\t<title>";
@@ -36,8 +37,8 @@
 	$parser = new SteamEventParser();
 	$month = gmstrftime("%m")-0; // Yuck, apparently the 0 breaks something?
 	$year = gmstrftime("%Y");
-	$data = $parser->genData("steamlug", $month, $year);
-	$data2 = $parser->genData("steamlug", ( $month >= 12 ? 1 : ( $month +1 ) ), ( $month >= 12 ? ( $year + 1 ) : $year ));
+	$data = $parser->genData($eventXMLPath, "steamlug", $month, $year);
+	$data2 = $parser->genData($eventXMLPath, "steamlug", ( $month >= 12 ? 1 : ( $month +1 ) ), ( $month >= 12 ? ( $year + 1 ) : $year ));
 	$data['events'] = array_merge($data['events'], $data2['events']);
 	
 	
