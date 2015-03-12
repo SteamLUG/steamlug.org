@@ -186,7 +186,7 @@ FOOTERBLOCK;
 
 	if ( $weareadmin === true ) {
 		$adminblock = <<<HELPFULNESS
-<div><p>Admin helper pages:<br>YouTube <a href="/youtubethumb/{$epi}">video background</a> and <a href="/youtubedescription/{$epi}">description</a>.</p></div>
+<div><p>Admin helper pages:<br>YouTube <a href="/youtubethumb/{$epi}">video background</a> and <a href="/youtubedescription/{$epi}">description</a>. <a target="_blank" href="/transcriberer?audio={$archiveBase}.ogg">Note creation</a>.</p></div>
 HELPFULNESS;
 	}
 
