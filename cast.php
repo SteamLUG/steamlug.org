@@ -1,37 +1,21 @@
 <?php
 include_once('includes/paths.php');
-require_once('rbt_prs.php');
-require_once('steameventparser.php');
+
 $season  = isset($_GET["s"]) ? intval($_GET["s"]) : "0";
 $season  = str_pad($season, 2, '0', STR_PAD_LEFT);
 $episode = isset($_GET["e"]) ? intval($_GET["e"]) : "0";
 $episode = str_pad($episode, 2, '0', STR_PAD_LEFT);
-$parser = new SteamEventParser();
 
-$month = gmstrftime("%m")-0; // Yuck, apparently the 0 breaks something?
-$year = gmstrftime("%Y");
-$data = $parser->genData($eventXMLPath, "steamlug", $month, $year);
-$data2 = $parser->genData($eventXMLPath, "steamlug", ( $month >= 12 ? 1 : ( $month +1 ) ), ( $month >= 12 ? ( $year + 1 ) : $year ));
-/* merge the data */
-$data['events'] = array_merge($data['events'], $data2['events']);
-/* cleanup */
-unset($data2);
+include_once('includes/functions_events.php');
+include_once('includes/functions_avatars.php');
 
-/* loopety loop through the events */
-foreach ($data["events"] as $event) {
-	// only use if it's a special (non-game/non-app) event and a cast
-	if ($event["appid"] !== 0 || strpos($event["title"], "Cast") === false) {
-		continue;
-	}
-	$d = explode("-", $event['date']);
-	$t = explode(":", $event['time']);
-	$eTime = strtotime($d[0] . "-" . $d[1] . "-" . $d[2] . 'T' . $t[0] . ':' . $t[1] . 'Z');
-	unset($d); unset($t);
-	$dt = $event['date'] . " " . $event['time'] . " " . $event['tz'];
-	$u = $event['url'];
-	$c = preg_replace("#(.*)(S[0-9][0-9])(E[0-9][0-9])(.*)#", "\$3", $event["title"]);
-	$s = preg_replace("#(.*)(S[0-9][0-9])(E[0-9][0-9])(.*)#", "\$2", $event["title"]);
-	break;
+$cast = getNextEvent( true );
+if ($cast != null) {
+	$eTime = $cast['utctime'];
+	$dt = $cast['date'] . " " . $cast['time'] . " " . $cast['tz'];
+	$u = $cast['url'];
+	$c = preg_replace("#(.*)(S[0-9][0-9])(E[0-9][0-9])(.*)#", "\$3", $cast["title"]);
+	$s = preg_replace("#(.*)(S[0-9][0-9])(E[0-9][0-9])(.*)#", "\$2", $cast["title"]);
 }
 
 if (isset($eTime)) {
@@ -43,9 +27,6 @@ $syncexternalJS = array( '/scripts/jquery.tablesorter.min.js', '/scripts/jquery.
 $pageTitle = "Cast";
 
 $rssLinks = '<link rel="alternate" type="application/rss+xml" title="SteamLUG Cast (mp3) Feed" href="https://steamlug.org/feed/cast/mp3" /><link rel="alternate" type="application/rss+xml" title="SteamLUG Cast (Ogg) Feed" href="https://steamlug.org/feed/cast/ogg" />';
-
-include_once('includes/paths.php');
-include_once('includes/functions_avatars.php');
 
 function slenc($u)
 {

@@ -1,52 +1,40 @@
 <?php
-	$pageTitle = "Live Stream";
-	include_once('includes/header.php');
-    include_once('includes/MurmurQuery.php');
-	include_once('includes/paths.php');
-	require_once('rbt_prs.php');
-	require_once('steameventparser.php');
+$pageTitle = "Live Stream";
+include_once('includes/header.php');
+include_once('includes/MurmurQuery.php');
+include_once('includes/paths.php');
+include_once('includes/functions_events.php');
 
-	header("Cache-Control: public, max-age=10");
+header("Cache-Control: public, max-age=10");
 
-	$settings               =       array
-	(
-			'host'          =>      $mumbleServer,
-			'port'          =>      27800,
-			'timeout'       =>      200,
-			'format'        =>      'json'
-	);
-	$murmur = new MurmurQuery();
-	$murmur->setup($settings);
-	$murmur->query();
-	$status = $murmur->get_status();
-	$info = $status['original'];
-	//$channels = $murmur->get_channels();
-	$mumbleHeader = ": Offline";
-	if($murmur->is_online()) {
-		$mumbleHeader = ': Online, ' . count($murmur->get_users()) . ' ⁄ ' . $info['x_gtmurmur_max_users'];
-	}
+$settings           =       array
+(
+	'host'          =>      $mumbleServer,
+	'port'          =>      27800,
+	'timeout'       =>      200,
+	'format'        =>      'json'
+);
+$murmur = new MurmurQuery();
+$murmur->setup($settings);
+$murmur->query();
+$status = $murmur->get_status();
+$info = $status['original'];
+//$channels = $murmur->get_channels();
+$mumbleHeader = ": Offline";
+if($murmur->is_online()) {
+	$mumbleHeader = ': Online, ' . count($murmur->get_users()) . ' ⁄ ' . $info['x_gtmurmur_max_users'];
+}
 
-	$parser = new SteamEventParser();
+$data = getNextEvent( false );
 
-	$month = gmstrftime("%m")-0; // Yuck, apparently the 0 breaks something?
-	$year = gmstrftime("%Y");
-	$data = $parser->genData($eventXMLPath,"steamlug", $month, $year);
-
-	$gotCurl = false;
-	$someoneStreaming = false;
-	$twitchOnline = false;
-	$hitboxOnline = false;
-	$streamers = "";
+$gotCurl = false;
+$someoneStreaming = false;
+$twitchOnline = false;
+$hitboxOnline = false;
+$streamers = "";
 
 if ( extension_loaded('curl') ) {
 	$gotCurl = true;
-	/*
-	http://api.hitbox.tv/team/steamlug
-	http://api.hitbox.tv/user/johndrinkwater
-	https://api.twitch.tv/kraken/streams?channel=steamlug
-	https://api.twitch.tv/kraken/channels/steamlug/follows
-	{"streams":[],"_to tal":0,"_links":{"self":"https://api.twitch.tv/kraken/streams?channel=steamlug&limit=25&offset=0","next":"https://api.twitch.tv/kraken/streams?channel=steamlug&limit=25&offset=25","featured":"https://api.twitch.tv/kraken/streams/featured","summary":"https://api.twitch.tv/kraken/streams/summary","followed":"https://api.twitch.tv/kraken/streams/followed"}}
-	*/
 
 	/* This should return a JSON string, or an error! */
 	function curl_url( $url, $get = array(), $header = array() ) {
@@ -160,11 +148,11 @@ if (!$someoneStreaming) {
 						<div class="col-sm-6">
 							<article class="panel panel-default">
 								<header class="panel-heading">
-									<h3 class="panel-title"><a href="<?=$data["events"][0]["url"];?>"><?=str_replace( 'SteamLUG ','',$data["events"][0]["title"])?></a></h3>
+									<h3 class="panel-title"><a href="<?=$data["url"];?>"><?=str_replace( 'SteamLUG ','',$data["title"])?></a></h3>
 								</header>
 <!--							<div class="panel-body">
-									<p class="text-center"><img src="<?=$data["events"][0]["img_header"];?>" alt="<?=$data["events"][0]["title"];?>" /></p>
-									<p><a href="<?=$data["events"][0]["url"];?>" class="btn btn-primary">Click for details</a></p>
+									<p class="text-center"><img src="<?=$data["img_header"];?>" alt="<?=$data["title"];?>" /></p>
+									<p><a href="<?=$data["url"];?>" class="btn btn-primary">Click for details</a></p>
 								</div>-->
 							</article>
 						</div>
