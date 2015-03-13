@@ -86,7 +86,7 @@ CASTHEAD;
 			continue;
 
 		$epi = "s" . slenc($meta['SEASON']) . "e" . slenc($meta['EPISODE']);
-		$archiveBase = $publicURL . '/' . $epi . '/' . $meta['FILENAME'];
+		$archiveBase = 'https:' . $publicURL . '/' . $epi . '/' . $meta['FILENAME'];
 		$episodeBase = $filePath .'/' . $castdir . '/' . $meta['FILENAME'];
 
 		/* if file missing, skip this entry */
