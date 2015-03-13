@@ -64,6 +64,8 @@ table#casts img
 	vertical-align: middle;
 }
 
+table#admins tr.you td { background-color: blue !important;  }
+
 table#casts tr.in-progress td, table#casts tr.in-progress a { color: grey !important; }
 table#casts tr.in-progress img { opacity: .5 }
 

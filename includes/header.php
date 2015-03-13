@@ -116,7 +116,7 @@ if(!login_check())
 	$pollPage = "";
 	$pollArchivePage = "";
 	$adminMenu = "";
-	$avatarAdminPage = ""; $pollAdminPage = "";
+	$avatarAdminPage = ""; $adminAdminPage = ""; $pollAdminPage = "";
 	$active = " class=\"active\"";
 
 	if (strpos($_SERVER["SCRIPT_NAME"], "news.php"))
@@ -175,6 +175,11 @@ if(!login_check())
 	{
 		$adminMenu = " active";
 		$avatarAdminPage = $active;
+	}
+	else if (strpos($_SERVER["SCRIPT_NAME"], "admins.php"))
+	{
+		$adminMenu = " active";
+		$adminAdminPage = $active;
 	}
 	else if (strpos($_SERVER["SCRIPT_NAME"], "cast.php"))
 	{
@@ -264,6 +269,7 @@ SHOWAVATAR;
 						<ul class="dropdown-menu">
 							<li<?php echo $avatarAdminPage; ?>><a href="/avatar">Avatars</a></li>
 							<li<?php echo $pollAdminPage; ?>><a href="/poll-admin">Polls</a><li>
+							<li<?php echo $adminAdminPage; ?>><a href="/admins">Admins</a></li>
 							<li><a target="_blank" href="/transcriberer">Transcriberer</a><li>
 							<li><a target="_blank" href="//data.steamlug.org/updatesteamlug.php">Update events</a><li>
 							<li<?php echo $aboutPage; ?>><a href="/about">About</a></li>
