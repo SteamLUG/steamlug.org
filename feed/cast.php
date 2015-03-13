@@ -45,11 +45,11 @@
 		</itunes:owner>
 		<language>en</language>
 		<image>
-			<url>https://steamlug.org/images/steamlugcast.png</url>
+			<url>http://steamlug.org/images/steamlugcast.png</url>
 			<title>SteamLUG Cast</title>
 			<link>https://steamlug.org/cast</link>
 		</image>
-		<itunes:image href="https://steamlug.org/images/steamlugcast.png" />
+		<itunes:image href="http://steamlug.org/images/steamlugcast.png" />
 		<copyright>2013 © SteamLUG cast, CC-BY-SA http://creativecommons.org/licenses/by-sa/3.0/</copyright>
 		<cc:license rdf:resource="http://creativecommons.org/licenses/by-sa/3.0/" />
 		<pubDate>$latestCast</pubDate>
@@ -86,7 +86,7 @@ CASTHEAD;
 			continue;
 
 		$epi = "s" . slenc($meta['SEASON']) . "e" . slenc($meta['EPISODE']);
-		$archiveBase = $publicURL . '/' . $epi . '/' . $meta['FILENAME'];
+		$archiveBase = 'http:' . $publicURL . '/' . $epi . '/' . $meta['FILENAME'];
 		$episodeBase = $filePath .'/' . $castdir . '/' . $meta['FILENAME'];
 
 		/* if file missing, skip this entry */

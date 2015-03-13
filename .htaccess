@@ -19,5 +19,5 @@ RewriteRule ^((.*/)*[^./]+)/*$ $1.php [L]
 
 RewriteRule ^cast/s(\d+)e(\d+)$ /cast.php?s=$1&e=$2 [NC,L]
 RewriteRule ^feed/cast/(\w+)$ /feed/cast.php?t=$1 [NC,L]
-RewriteRule ^youtubethumb/(\w+)$ /youtubethumb.php?t=$1 [NC,L]
-RewriteRule ^youtubedescription/(\w+)$ /youtubedescription.php?t=$1 [NC,L]
+RewriteRule ^youtubethumb/s(\d+)e(\d+)$ /youtubethumb/?s=$1&e=$2 [NC,L]
+RewriteRule ^youtubedescription/s(\d+)e(\d+)$ /youtubedescription/?s=$1&e=$2 [NC,L]
