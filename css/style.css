@@ -335,3 +335,7 @@ section#peeps article:nth-child(odd) img { margin-right: 1em; float: left }
 section#peeps article:nth-child(even) img { margin-left: 1em; float: right }
 
 div.irc iframe { width: 100%; height: 600px }
+
+article.twit input[type=submit] { height: 27px; padding-top: 2px }
+article.twit .form-group, article.twit p { margin-bottom: 8px }
+article.twit .form-horizontal .form-group { margin-left: 0; margin-right: 0; }
