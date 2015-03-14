@@ -218,7 +218,7 @@ table th { background-color: #3D4655; color: #959595; }
 
 article ul { list-style-type: square; }
 
-#casts a, #cast-description a { text-decoration: none; outline: none }
+#casts a, #cast-description a, #admins a { text-decoration: none; outline: none }
 
 .panel-title .author { font-size: small; vertical-align: middle; float: right; }
 .panel-title .author a { padding-left: 6px; }

@@ -27,7 +27,7 @@
 							<th class="col-xs-2">SteamID
 							<th class="col-xs-5">Persona Name
 							<th class="col-xs-1">Location
-							<th class="col-xs-3">Last On
+							<th class="col-xs-3">Online?
 						</tr>
 					</thead>
 					<tbody>
@@ -36,10 +36,17 @@ DOCUMENT;
 	$approvedUsers = getAdminNames();
 	$memaybe = "";
 	foreach ($approvedUsers as $admin) {
-		$thenDate = new DateTime(); $thenDate->setTimestamp($admin['lastlogoff']);
-		$diff = date_diff($thenDate, new DateTime("now"));
-		$admin['lastlogoffdate'] = '<time datetime="' . date("c",$admin['lastlogoff']) . 
-									'">' . $diff->format("%a days, %H hours") . '</time>';
+		print "\n<!-- ";
+		print_r( $admin );
+		print " -->\n";
+		if ($admin['personastate'] != 0) {
+			$thenDate = new DateTime(); $thenDate->setTimestamp($admin['lastlogoff']);
+			$diff = date_diff($thenDate, new DateTime("now"));
+			$admin['lastlogoffdate'] = '<time datetime="' . date("c",$admin['lastlogoff']) .
+										'">' . $diff->format("%a days, %H hours") . '</time>';
+		} else {
+			$admin['lastlogoffdate'] = 'Offline';
+		}
 		if ( $admin['steamid'] == $me ) {
 			$memaybe = ' class="you"';
 		} else {
@@ -49,7 +56,7 @@ DOCUMENT;
 				<tr{$memaybe}>
 					<td><img src="{$admin['avatar']}" /></td>
 					<td>{$admin['steamid']}</td>
-					<td>{$admin['personaname']}</td>
+					<td><a href="{$admin['profileurl']}">{$admin['personaname']}</a></td>
 					<td>{$admin['loccountrycode']}</td>
 					<td>{$admin['lastlogoffdate']}</td>
 				</tr>
