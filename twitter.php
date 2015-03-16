@@ -1,5 +1,5 @@
 <?php
-$pageTitle = "Avatars";
+$pageTitle = "Twitter";
 include_once('includes/session.php');
 include_once('includes/paths.php');
 
@@ -28,6 +28,8 @@ $style = " panel-success";
 $nextGameEvent = getNextEvent( false );
 $nextCastEvent = getNextEvent( true );
 
+$recentTweets = getRecentTweets( );
+
 // are we supplying a tweet via GET? → send tweet
 if ( isset( $_GET['tweet'] ) and isset( $_GET['message'] ) ) {
 
@@ -53,6 +55,8 @@ ACTIONMSG;
 
 print "<!--\n";
 print_r ( $nextGameEvent );
+$laterMessage = 'Hey #Linux gamers, join us for some ' . $nextGameEvent['title'] . ' at %time! Everybody’s welcome ' . $nextGameEvent['url'];
+$typicalMessage = 'Hey #Linux gamers, join us for some ' . $nextGameEvent['title'] . ' fun! Everybody’s welcome ' . $nextGameEvent['url'];
 print "-->\n";
 ?>
 			<article class="panel panel-default twit">
@@ -63,14 +67,14 @@ print "-->\n";
 					<form method="get" class="form-horizontal" action="/twitter.php/">
 						<fieldset>
 						<input type="hidden" name="tweet">
-						<div class="form-group"><input type="submit" class="col-xs-1 btn btn-primary" value="Tweet"><input maxlength="140" class="control-input col-xs-11" name="message" placeholder="<?=$nextGameEvent['title'];?>" value="<?=$nextGameEvent['title'];?>"></div>
+						<div class="form-group"><input type="submit" class="col-xs-1 btn btn-primary" value="Tweet"><input maxlength="140" class="control-input col-xs-11" name="message" placeholder="<?=$laterMessage;?>" value="<?=$laterMessage;?>"></div>
 						<p>Best posted a few hours before event</p>
 						</fieldset>
 					</form>
 					<form method="get" class="form-horizontal" action="/twitter.php/">
 						<fieldset>
 						<input type="hidden" name="tweet">
-						<div class="form-group"><input type="submit" class="col-xs-1 btn btn-primary" value="Tweet"><input maxlength="140" class="control-input col-xs-11" name="message" placeholder="<?=$nextGameEvent['title'];?>" value="<?=$nextGameEvent['title'];?>"></div>
+						<div class="form-group"><input type="submit" class="col-xs-1 btn btn-primary" value="Tweet"><input maxlength="140" class="control-input col-xs-11" name="message" placeholder="<?=$typicalMessage;?>" value="<?=$typicalMessage;?>"></div>
 						<p>Best posted as we start gaming / when Steam event fires</p>
 						</fieldset>
 					</form>
@@ -79,6 +83,8 @@ print "-->\n";
 <?php
 print "<!--\n";
 print_r ( $nextCastEvent );
+$laterMessage = "Join us for the live recording of SteamLUG Cast at %time, where we will be talking about %stuff. " . $nextCastEvent['url'];
+$typicalMessage = "Join us for the live recording of SteamLUG Cast, where we will be talking about %stuff. " . $nextCastEvent['url'];
 print "-->\n";
 ?>
 			<article class="panel panel-default twit">
@@ -89,14 +95,14 @@ print "-->\n";
 					<form method="get" class="form-horizontal" action="/twitter.php/">
 						<fieldset>
 						<input type="hidden" name="tweet">
-						<div class="form-group"><input type="submit" class="col-xs-1 btn btn-primary" value="Tweet"><input maxlength="140" class="control-input col-xs-11" name="message" placeholder="<?=$nextCastEvent['title'];?>" value="<?=$nextCastEvent['title'];?>"></div>
+						<div class="form-group"><input type="submit" class="col-xs-1 btn btn-primary" value="Tweet"><input maxlength="140" class="control-input col-xs-11" name="message" placeholder="<?=$laterMessage;?>" value="<?=$laterMessage;?>"></div>
 						<p>Best posted a few hours before recording</p>
 						</fieldset>
 					</form>
 					<form method="get" class="form-horizontal" action="/twitter.php/">
 						<fieldset>
 						<input type="hidden" name="tweet">
-						<div class="form-group"><input type="submit" class="col-xs-1 btn btn-primary" value="Tweet"><input maxlength="140" class="control-input col-xs-11" name="message" placeholder="<?=$nextCastEvent['title'];?>" value="<?=$nextCastEvent['title'];?>"></div>
+						<div class="form-group"><input type="submit" class="col-xs-1 btn btn-primary" value="Tweet"><input maxlength="140" class="control-input col-xs-11" name="message" placeholder="<?=$typicalMessage;?>" value="<?=$typicalMessage;?>"></div>
 						<p>Best posted as we start recording / when Steam event fires, to encourage more people to get onto mumble</p>
 						</fieldset>
 					</form>
@@ -104,7 +110,8 @@ print "-->\n";
 			</article>
 <?php
 	// fetch latest episode and get deets
-	$castPublish = "blah blah";
+	// TODO this is waiting on a new functions_cast(?) to have some easy-to-use data calls
+	$castPublish = "SteamLUG Cast s00e00 about %stuff with HANDLESHERE is now available! https://steamlug.org/cast/s00e00";
 ?>
 			<article class="panel panel-default twit">
 				<header class="panel-heading">
@@ -120,5 +127,42 @@ print "-->\n";
 					</form>
 				</div>
 			</article>
+			<article class="panel panel-default twit">
+				<header class="panel-heading">
+					<h3 class="panel-title">Delete Tweet?</h3>
+				</header>
+				<div class="panel-body panel-body-table">
+					<table id="delete-tweets" class="table table-striped table-hover tablesorter">
+						<thead>
+							<tr>
+								<th class="col-xs-2">When
+								<th class="col-xs-9">Tweet
+								<th class="col-xs-1">Delete?
+							</tr>
+						</thead>
+						<tbody>
+<?php
+
+	// recent tweets, option to delete
+	foreach ($recentTweets as $tweet) {
+		print "\n<!-- ";
+		print_r( $tweet );
+		print " -->\n";
+		$tweet['created_ts'] = str_replace( '+00:00', '', date("c", strtotime( $tweet['created_at'] ) ) );
+		$tweet['created_str'] = '<time datetime="' . $tweet['created_ts'] . '">' . $tweet['created_ts'] . '</time>';
+		echo <<<TWEET
+				<tr>
+					<td>{$tweet['created_str']}</td>
+					<td>{$tweet['text']}</td>
+					<td><input type="hidden" name="tweet" value="{$tweet['id']}" /><input type="submit" value="x"/></td>
+				</tr>
+TWEET;
+
+	}
+?>
+					</tbody>
+				</table>
+			</div>
+		</article>
 <?php include_once('includes/footer.php');
 
