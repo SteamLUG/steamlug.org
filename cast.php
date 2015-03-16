@@ -407,7 +407,6 @@ CASTTABLE;
 			$wip = "class=\"in-progress\" ";
 		}
 
-
 		$castHosts = array_map('trim', explode(',', $meta['HOSTS']));
 		$listHosts = ""; $listGuests = "";
 		foreach ($castHosts as $Host) {

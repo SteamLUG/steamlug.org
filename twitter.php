@@ -3,6 +3,9 @@ $pageTitle = "Twitter";
 include_once('includes/session.php');
 include_once('includes/paths.php');
 
+// TODO, remove 140 maxlength limits, URL will get shrunk, and we don’t want messages cropped
+// TODO, verify CURL doesn’t have issues (apparently it will)
+
 // are we logged in? no → leave
 if ( !login_check() ) {
 	header( "Location: /" );
@@ -19,6 +22,7 @@ if ( in_array( $me, getAdmins() ) ) {
 }
 
 include_once('includes/functions_events.php');
+include_once('includes/functions_cast.php');
 include_once('includes/functions_twitter.php');
 
 $action = "Failure";
@@ -27,7 +31,7 @@ $style = " panel-success";
 
 $nextGameEvent = getNextEvent( false );
 $nextCastEvent = getNextEvent( true );
-
+$latestCast = getLatestCast( );
 $recentTweets = getRecentTweets( );
 
 // are we supplying a tweet via GET? → send tweet
@@ -55,7 +59,7 @@ ACTIONMSG;
 
 print "<!--\n";
 print_r ( $nextGameEvent );
-$laterMessage = 'Hey #Linux gamers, join us for some ' . $nextGameEvent['title'] . ' at %time! Everybody’s welcome ' . $nextGameEvent['url'];
+$laterMessage = 'Hey #Linux gamers, join us for some ' . $nextGameEvent['title'] . ' in %time! Everybody’s welcome ' . $nextGameEvent['url'];
 $typicalMessage = 'Hey #Linux gamers, join us for some ' . $nextGameEvent['title'] . ' fun! Everybody’s welcome ' . $nextGameEvent['url'];
 print "-->\n";
 ?>
@@ -83,7 +87,7 @@ print "-->\n";
 <?php
 print "<!--\n";
 print_r ( $nextCastEvent );
-$laterMessage = "Join us for the live recording of SteamLUG Cast at %time, where we will be talking about %stuff. " . $nextCastEvent['url'];
+$laterMessage = "Join us for the live recording of SteamLUG Cast in %time, where we will be talking about %stuff. " . $nextCastEvent['url'];
 $typicalMessage = "Join us for the live recording of SteamLUG Cast, where we will be talking about %stuff. " . $nextCastEvent['url'];
 print "-->\n";
 ?>
@@ -111,7 +115,29 @@ print "-->\n";
 <?php
 	// fetch latest episode and get deets
 	// TODO this is waiting on a new functions_cast(?) to have some easy-to-use data calls
-	$castPublish = "SteamLUG Cast s00e00 about %stuff with HANDLESHERE is now available! https://steamlug.org/cast/s00e00";
+	print "<!--\n";
+	print_r ( $latestCast );
+	print "-->\n";
+
+	$slug = 's' . $latestCast['SEASON'] . 'e' . $latestCast['EPISODE'];
+	$title = $latestCast['TITLE'];
+	$listHostsTwits = array(); $listGuestsTwits = array();
+	foreach ($latestCast['HOSTS2'] as $Host) {
+		if ( strlen( $Host['twitter'] ) > 0 )
+			$listHostsTwits[] = '@' . $Host['twitter'];
+		else
+			$listHostsTwits[] = $Host['name'];
+	}
+
+	foreach ( $latestCast['GUESTS2'] as $Guest ) {
+		if ( strlen( $Guest['twitter'] ) > 0 )
+			$listGuestsTwits[] = '@' . $Guest['twitter'];
+		else
+			$listGuestsTwits[] = $Guest['name'];
+	}
+	$hosts = ( empty($listHostsTwits) ? '' : implode( ', ', $listHostsTwits) );
+	$guests = ( empty($listGuestsTwits) ? '' : ' speaking with ' . implode( ', ', $listGuestsTwits) );
+	$typicalMessage = "SteamLUG Cast {$slug} ‘{$title}’ with {$hosts}{$guests} is now available to listen to https://steamlug.org/cast/{$slug}";
 ?>
 			<article class="panel panel-default twit">
 				<header class="panel-heading">
@@ -121,7 +147,7 @@ print "-->\n";
 					<form method="get" class="form-horizontal" action="/twitter.php/">
 						<fieldset>
 						<input type="hidden" name="tweet">
-						<div class="form-group"><input type="submit" class="col-xs-1 btn btn-primary" value="Tweet"><input maxlength="140" class="control-input col-xs-11" name="message" placeholder="<?=$castPublish;?>" value="<?=$castPublish;?>"></div>
+						<div class="form-group"><input type="submit" class="col-xs-1 btn btn-primary" value="Tweet"><input maxlength="140" class="control-input col-xs-11" name="message" placeholder="<?=$typicalMessage;?>" value="<?=$typicalMessage;?>"></div>
 						<p>Once YouTube video is processed, notes complete, RSS feed live, post this and Steam announcement</p>
 						</fieldset>
 					</form>
