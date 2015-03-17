@@ -1,22 +1,11 @@
 <?php
 	$pageTitle = "Mumble";
 	include_once('includes/header.php');
-	include_once('includes/MurmurQuery.php');
-	include_once('includes/paths.php');
+	include_once('includes/functions_mumble.php');
 
 	header("Cache-Control: public, max-age=10");
 
-	$settings		=	array
-	(
-		'host'		=>	$mumbleServer,
-		'port'		=>	27800,
-		'timeout'	=>	200,
-		'format'	=>	'json'
-	);
-
-	$murmur = new MurmurQuery();
-	$murmur->setup($settings);
-	$murmur->query();
+	$murmur = getMumble( );
 
 	$statusOnline = "Pending";
 	$statusChannels = 0;
