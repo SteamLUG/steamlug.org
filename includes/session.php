@@ -2,7 +2,7 @@
 
 	include_once('steam.php');
 	include_once('creds.php');
-	
+
 	function sec_session_start() {
 		$session_name = 'steamlug'; // Set a custom session name
 		$secure = false; // Set to true if using https.
