@@ -79,7 +79,6 @@ if ($season !== "00" && $episode !== "00" && file_exists($filename)) {
 	$adminblock = "";
 	$weareadmin = false;
 	// are we logged in? yes → grab user
-	include_once('includes/session.php');
 	if ( login_check() ) {
 		if ( in_array( $_SESSION['u'], getAdmins() ) ) {
 			$weareadmin = true;
