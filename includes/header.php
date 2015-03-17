@@ -1,7 +1,4 @@
-<!DOCTYPE html>
 <?php
-// caching (60 seconds)
-header("Cache-Control: public, max-age=60");
 if (!isset($description))
 {
 	$description = "SteamLUG - the Steam Linux User Group! A multilingual community of Linux gamers which aims to be a fun, welcoming space for people of all backgrounds and aptitudes.";
@@ -17,7 +14,6 @@ if (!isset($pageTitle))
 }
 
 include_once('session.php');
-include_once('functions_poll.php');
 if(!login_check())
 {
 	$steam_login_verify = SteamSignIn::validate();
@@ -28,8 +24,11 @@ if(!login_check())
 		header("Location: /loggedin/?returnto=" . $_SERVER['PHP_SELF']);
 	}
 }
+// send only after any cookie tweaks
+header("Cache-Control: public, max-age=60");
 
 ?>
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 	<head>
 		<meta charset="UTF-8" />
@@ -56,6 +55,7 @@ if(!login_check())
 			var serverTime = <?php echo microtime(true); ?>;
 		</script>
 <?php
+	include_once('functions_poll.php');
 	if (isset($deferJS))
 	{
 		foreach ($deferJS as $js)
