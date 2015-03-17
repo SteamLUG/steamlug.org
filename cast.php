@@ -8,6 +8,7 @@ $episode = str_pad($episode, 2, '0', STR_PAD_LEFT);
 
 include_once('includes/functions_events.php');
 include_once('includes/functions_avatars.php');
+include_once('includes/functions_cast.php');
 
 $cast = getNextEvent( true );
 if ($cast != null) {
@@ -86,15 +87,9 @@ if ($season !== "00" && $episode !== "00" && file_exists($filename)) {
 	}
 
 	$head = array_slice( $shownotes, 0, 14 );
-	$meta = array_fill_keys( array('RECORDED', 'PUBLISHED', 'TITLE',
-						'SEASON', 'EPISODE', 'DURATION', 'FILENAME',
-				'DESCRIPTION','HOSTS','GUESTS','ADDITIONAL', 'YOUTUBE' ), '');
-	foreach ( $head as $entry ) {
-		list($k, $v) = explode( ':', $entry, 2 );
-		$meta[$k] = trim($v); /* TODO remember to slenc() stuff! */
-	}
+	$meta = castHeader( $head );
 
-	$epi = 's' . slenc($meta['SEASON']) . 'e' . slenc($meta['EPISODE']);
+	$epi = 's' . $meta['SEASON'] . 'e' . $meta['EPISODE'];
 	$archiveBase = $publicURL . '/' . $epi . '/' . $meta['FILENAME'];
 	$episodeBase = $filePath .'/' . $epi . '/' . $meta['FILENAME'];
 
@@ -104,21 +99,19 @@ if ($season !== "00" && $episode !== "00" && file_exists($filename)) {
 	$meta['TITLE'] = ( ( ($meta['TITLE'] === "") or ( $weareadmin === false ) ) ? 'Edit In Progress' : slenc($meta['TITLE']) );
 	$meta['SHORTDESCRIPTION'] = slenc(substr($meta['DESCRIPTION'],0,132));
 
-
 	$noteEditor			= ( $meta['NOTESCREATOR'] === "" ? "" : '<span class="author">written by ' . nameplate( $meta['NOTESCREATOR'], 22 ) . '</span>' );
 	$castEditor			= ( $meta['EDITOR'] === "" ? "" : '<span class="author">edited by ' . nameplate( $meta['EDITOR'], 22 ) . '</span>' );
-	$castHosts			= array_map('trim', explode(',', $meta['HOSTS']));
-	$castGuests			= array_map('trim', explode(',', $meta['GUESTS']));
 	$listHosts = ""; $listGuests = ""; $listHostsTwits = array();
-	foreach ($castHosts as $Host) {
+	foreach ($meta['HOSTS'] as $Host) {
 		$listHosts .= nameplate( $Host, 48 );
-		$hostTwitter = parsePersonString( $Host )['twitter'];
-		if ( strlen( $hostTwitter ) > 0 )
-			$listHostsTwits[] = '@' . $hostTwitter;
+	}
+	foreach ($meta['HOSTS2'] as $Host) {
+		if ( strlen( $Host['twitter'] ) > 0 )
+			$listHostsTwits[] = '@' . $Host['twitter'];
 	}
 	$twits = ( empty($listHostsTwits) ? '' : ', or individually as ' . implode( ', ', $listHostsTwits) );
 	$listHosts = ( empty($listHosts) ? 'No Hosts' : $listHosts );
-	foreach ($castGuests as $Guest) {
+	foreach ($meta['GUESTS'] as $Guest) {
 		$listGuests .= nameplate( $Guest, 48 );
 	}
 	$listGuests = ( empty($listGuests) ? 'No Guests' : $listGuests );
@@ -135,7 +128,7 @@ if ($season !== "00" && $episode !== "00" && file_exists($filename)) {
 		$episodeYoutube = ( empty($meta['YOUTUBE']) ? '' : '<span class="youtube"><a href="//youtu.be/' . $meta['YOUTUBE'] . '">YOUTUBE</a></span>' );
 	}
 
-	$episodeTitle = 'S' . slenc($meta['SEASON']) . 'E' . slenc($meta['EPISODE']) . ' – ' . $meta['TITLE'];
+	$episodeTitle = 'S' . $meta['SEASON'] . 'E' . $meta['EPISODE'] . ' – ' . $meta['TITLE'];
 	$pageTitle .= ' ' . $episodeTitle;
 	$extraCrap = <<<TWITCARD
 		<meta name="twitter:card" content="player">
@@ -388,17 +381,9 @@ CASTTABLE;
 
 		if (!file_exists($filename))
 			continue;
-		/* let’s grab less here, 2K ought to be enough */
-		$header			= explode( "\n", file_get_contents($filename, false, NULL, 0, 1024) );
 
-		$head = array_slice( $header, 0, 14 );
-		$meta = array_fill_keys( array('RECORDED', 'PUBLISHED', 'TITLE',
-							'SEASON', 'EPISODE', 'DURATION', 'FILENAME',
-					'DESCRIPTION','HOSTS','GUESTS','ADDITIONAL', 'YOUTUBE' ), '');
-		foreach ( $head as $entry ) {
-			list($k, $v) = explode( ':', $entry, 2 );
-			$meta[$k] = trim($v); /* TODO remember to slenc() stuff! */
-		}
+		$header			= file_get_contents($filename, false, NULL, 0, 950);
+		$meta			= castHeaderFromString( $header );
 
 		/* if published unset, skip this entry */
 		$wip = "";
@@ -407,25 +392,19 @@ CASTTABLE;
 			$wip = "class=\"in-progress\" ";
 		}
 
-		$castHosts = array_map('trim', explode(',', $meta['HOSTS']));
+		$meta['TITLE'] = slenc($meta['TITLE']);
+
 		$listHosts = ""; $listGuests = "";
-		foreach ($castHosts as $Host) {
+		foreach ($meta['HOSTS'] as $Host) {
 			$listHosts .= nameplate( $Host, 22 );
 		}
-		/* TODO: pretty the datetime= & public value up */
-		$meta['RECORDED']  = '<time datetime="' . $meta['RECORDED'] . '">' . $meta['RECORDED'] . '</time>';
-		$meta['PUBLISHED'] = '<time datetime="' . $meta['PUBLISHED'] . '">' . $meta['PUBLISHED'] . '</time>';
-
-		$meta['TITLE'] = slenc($meta['TITLE']);
-		/* TODO: add these in HTML, we want to show off guests! */
-		$castGuests			= array_map('trim', explode(',', $meta['GUESTS']));
-		foreach ($castGuests as $Guest) {
+		foreach ($meta['GUESTS'] as $Guest) {
 			$listGuests .= nameplate( $Guest, 22 );
 		}
 		echo <<<CASTENTRY
 			<tr {$wip}>
 				<td><a href="/cast/s{$meta['SEASON']}e{$meta['EPISODE']}">S{$meta['SEASON']}E{$meta['EPISODE']}</a></td>
-				<td>{$meta['RECORDED']}</td>
+				<td><time datetime="{$meta['RECORDED']}">{$meta['RECORDED']}</time></td>
 				<td><a href="/cast/s{$meta['SEASON']}e{$meta['EPISODE']}">{$meta[ 'TITLE' ]}</a></td>
 				<td>$listHosts</td>
 				<td>$listGuests</td>

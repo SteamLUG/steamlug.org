@@ -5,12 +5,17 @@ include_once('functions_avatars.php');
 // TODO: what other functions do we want in here?
 // our shownotes parsing? listing all casts?
 
-function castHeader( $filecontents ) {
+function castHeaderFromString( $filecontents ) {
+
+	return castHeader( array_slice( explode( "\n", $filecontents ), 0, 14 ) );
+}
+
+function castHeader( $header ) {
 
 	$meta = array_fill_keys( array('RECORDED', 'PUBLISHED', 'TITLE',
 						'SEASON', 'EPISODE', 'DURATION', 'FILENAME',
 				'DESCRIPTION','HOSTS','GUESTS','ADDITIONAL', 'YOUTUBE' ), '');
-	foreach ( array_slice( $filecontents, 0, 14 ) as $entry ) {
+	foreach ( $header as $entry ) {
 		list($k, $v) = explode( ':', $entry, 2 );
 		$meta[$k] = trim($v);
 	}
@@ -33,22 +38,19 @@ function castHeader( $filecontents ) {
 function getLatestCast( ) {
 
 	global $notesPath;
-	$casts = scandir($notesPath, 1);
-	$cast = array(); // TODO: prepopulate for failure?
 
-	foreach( $casts as $castdir )
+	foreach( scandir($notesPath, 1) as $castdir )
 	{
 		if ($castdir === '.' or $castdir === '..' or $castdir === '.git' or $castdir === 'README')
 			continue;
 
 		$filename = $notesPath .'/'. $castdir . "/episode.txt";
-
 		if (!file_exists($filename))
 			continue;
 
-		$header = explode( "\n", file_get_contents($filename, false, NULL, 0, 1024) );
-		$cast	= castHeader( $header );
-		break;
+		// TODO: s02e09 has longest pragma so far; suggest we pick a low cap and enforce it 
+		$header = file_get_contents($filename, false, NULL, 0, 950);
+		return castHeaderFromString( $header );
 	}
-	return $cast;
+	return array();
 }
