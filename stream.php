@@ -2,6 +2,7 @@
 $pageTitle = "Live Stream";
 include_once('includes/header.php');
 include_once('includes/functions_events.php');
+include_once('includes/functions_geturl.php');
 include_once('includes/functions_mumble.php');
 
 header("Cache-Control: public, max-age=10");
@@ -22,14 +23,14 @@ $streamers = "";
 
 $streamers = '<div class="row">';
 /* Twitch */
-$maybeOnline = curl_url( 'https://api.twitch.tv/kraken/streams/steamlug', array(), array( 'Accept: application/vnd.twitchtv.v3.json' ) );
+$maybeOnline = geturl( 'https://api.twitch.tv/kraken/streams/steamlug', array(), array( 'Accept: application/vnd.twitchtv.v3.json' ) );
 $twitchStream = json_decode( $maybeOnline, true );
 if ( $twitchStream['stream'] != null ) {
 	$someoneStreaming = true;
 	$twitchOnline = true;
 } else {
 	// if Twitch is offline, maybe we can pull the channel following
-	$twitchUsers = curl_url( 'https://api.twitch.tv/kraken/users/steamlug/follows/channels', array(), array( 'Accept: application/vnd.twitchtv.v3.json' ) );
+	$twitchUsers = geturl( 'https://api.twitch.tv/kraken/users/steamlug/follows/channels', array(), array( 'Accept: application/vnd.twitchtv.v3.json' ) );
 	$twitchStreamers = @json_decode( $twitchUsers, true );
 	$twitchPeeps = "";
 	if ( $twitchStreamers != null ) {
@@ -59,7 +60,7 @@ TWITCHBOX;
 }
 
 /* HitBox */
-$hitboxUsers = curl_url( 'http://api.hitbox.tv/team/steamlug' );
+$hitboxUsers = geturl( 'http://api.hitbox.tv/team/steamlug' );
 $hitboxStreamers = @json_decode( $hitboxUsers, true );
 $hitboxPeeps = "";
 if ( $hitboxStreamers != null ) {

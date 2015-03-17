@@ -1,6 +1,7 @@
 <?php
 
 	include_once( 'creds.php' );
+	// TODO this script relies on curl; make this fail too, if so?
 	require_once( 'TwitterAPIExchange.php' );
 
 	$twitterKeys = getTwitterKeys();
