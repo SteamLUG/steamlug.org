@@ -52,6 +52,9 @@ DOCUMENT;
 		} else {
 			$memaybe = '';
 		}
+		if ( !array_key_exists( 'loccountrycode', $admin ) ) {
+			$admin['loccountrycode'] = '';
+		}
 		echo <<<ADMINUSER
 				<tr{$memaybe}>
 					<td><img src="{$admin['avatar']}" /></td>
