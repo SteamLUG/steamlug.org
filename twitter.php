@@ -174,8 +174,8 @@ print "-->\n";
 		print "\n<!-- ";
 		print_r( $tweet );
 		print " -->\n";
-		$tweet['created_ts'] = str_replace( '+00:00', '', date("c", strtotime( $tweet['created_at'] ) ) );
-		$tweet['created_str'] = '<time datetime="' . $tweet['created_ts'] . '">' . $tweet['created_ts'] . '</time>';
+		$tweet['created_at'] = str_replace( '+00:00', '', date("c", strtotime( $tweet['created_at'] ) ) );
+		$tweet['created_str'] = '<time datetime="' . $tweet['created_at'] . '">' . $tweet['created_at'] . '</time>';
 		echo <<<TWEET
 				<tr>
 					<td>{$tweet['created_str']}</td>
