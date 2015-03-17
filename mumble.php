@@ -1,9 +1,8 @@
 <?php
 	$pageTitle = "Mumble";
+	header("Cache-Control: public, max-age=10");
 	include_once('includes/header.php');
 	include_once('includes/functions_mumble.php');
-
-	header("Cache-Control: public, max-age=10");
 
 	$murmur = getMumble( );
 
