@@ -42,7 +42,7 @@
 				<p class="muted credit text-center">This site is not affiliated with or endorsed by Valve, Steam, or any of their partners.<br />
 All registered trademarks or copyrights are property of their respective owners.</p>
 <?php
-if ( login_check() && in_array( $_SESSION['u'], getAdmins() ) ) {
+if ( $weareadmin ) {
 	print '<p class="muted credit text-center">Memory: ' . memory_get_usage( ) . '</p>';
 }
 ?>

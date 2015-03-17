@@ -77,13 +77,6 @@ if ($season !== "00" && $episode !== "00" && file_exists($filename)) {
 	$shownotes		= file($filename);
 
 	$adminblock = "";
-	$weareadmin = false;
-	// are we logged in? yes → grab user
-	if ( login_check() ) {
-		if ( in_array( $_SESSION['u'], getAdmins() ) ) {
-			$weareadmin = true;
-		}
-	}
 
 	$head = array_slice( $shownotes, 0, 14 );
 	$meta = castHeader( $head );

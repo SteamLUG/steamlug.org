@@ -14,6 +14,7 @@ if (!isset($pageTitle))
 }
 
 include_once('session.php');
+$weareadmin = false;
 if(!login_check())
 {
 	$steam_login_verify = SteamSignIn::validate();
@@ -22,6 +23,22 @@ if(!login_check())
 		login($steam_login_verify);
 		// get PHP_SELF to replace .php to nothing, news to /
 		header("Location: /loggedin/?returnto=" . $_SERVER['PHP_SELF']);
+	} else {
+
+		$steam_sign_in_url = SteamSignIn::genUrl();
+		$logIn = <<<AUTHBUTTON
+			<li class="steamLogin"><a href="{$steam_sign_in_url}"><img src="//steamcommunity.com/public/images/signinthroughsteam/sits_large_noborder.png" alt="Log into Steam" /></a></li>
+AUTHBUTTON;
+	}
+} else {
+	if ( isset( $_SESSION['a'] ) and ( $_SESSION['a'] != "" ) )
+	{
+		$logIn = <<<SHOWAVATAR
+			<li class="steamLogin navbar-avatar"><a href="/logout"><img width="32" height="32" id="steamAvatar" src="{$_SESSION['a']}" /></a></li>
+SHOWAVATAR;
+	}
+	if ( in_array( $_SESSION['u'], getAdmins() ) ) {
+		$weareadmin = true;
 	}
 }
 // send only after any cookie tweaks
@@ -196,31 +213,6 @@ header("Cache-Control: public, max-age=60");
 	else if (strpos($_SERVER["SCRIPT_NAME"], "about-peeps.php"))
 	{
 		$aboutPage = $active;
-	}
-
-	$weareadmin = false;
-	if(!login_check())
-	{
-		if (empty($steam_login_verify))
-		{
-			$steam_sign_in_url = SteamSignIn::genUrl();
-			$logIn = <<<AUTHBUTTON
-				<li class="steamLogin"><a href="{$steam_sign_in_url}"><img src="//steamcommunity.com/public/images/signinthroughsteam/sits_large_noborder.png" alt="Log into Steam" /></a></li>
-AUTHBUTTON;
-		}
-	}
-	else
-	{
-		if ( isset( $_SESSION['a'] ) and ( $_SESSION['a'] != "" ) )
-		{
-			$logIn = <<<SHOWAVATAR
-				<li class="steamLogin navbar-avatar"><a href="/logout"><img width="32" height="32" id="steamAvatar" src="{$_SESSION['a']}" /></a></li>
-SHOWAVATAR;
-		}
-		if ( in_array( $_SESSION['u'], getAdmins() ) ) {
-			$weareadmin = true;
-		}
-
 	}
 
 ?>
