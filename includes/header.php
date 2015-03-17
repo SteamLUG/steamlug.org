@@ -23,6 +23,7 @@ if(!login_check())
 		login($steam_login_verify);
 		// get PHP_SELF to replace .php to nothing, news to /
 		header("Location: /loggedin/?returnto=" . $_SERVER['PHP_SELF']);
+		exit();
 	} else {
 
 		$steam_sign_in_url = SteamSignIn::genUrl();
@@ -31,10 +32,13 @@ if(!login_check())
 AUTHBUTTON;
 	}
 } else {
-	if ( isset( $_SESSION['a'] ) and ( $_SESSION['a'] != "" ) )
-	{
+	if ( isset( $_SESSION['a'] ) and ( $_SESSION['a'] != "" ) ) {
 		$logIn = <<<SHOWAVATAR
 			<li class="steamLogin navbar-avatar"><a href="/logout"><img width="32" height="32" id="steamAvatar" src="{$_SESSION['a']}" /></a></li>
+SHOWAVATAR;
+	} else {
+		$logIn = <<<SHOWAVATAR
+			<li class="steamLogin navbar-avatar"><a href="/logout"><img width="32" height="32" id="steamAvatar" src="/avatars/default.png" /></a></li>
 SHOWAVATAR;
 	}
 	if ( in_array( $_SESSION['u'], getAdmins() ) ) {
