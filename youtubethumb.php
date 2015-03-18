@@ -6,8 +6,8 @@ $season  = str_pad($season, 2, '0', STR_PAD_LEFT);
 $episode = isset($_GET["e"]) ? intval($_GET["e"]) : "0";
 $episode = str_pad($episode, 2, '0', STR_PAD_LEFT);
 
-include_once('includes/paths.php');
 include_once('includes/functions_avatars.php');
+include_once('includes/functions_cast.php');
 
 function nameplate( $string, $offset = 0, $guest = 0 ) {
 
@@ -68,21 +68,10 @@ $filename = $notesPath . "/s" . $season . "e" . $episode . "/episode.txt";
 /* User wanting to see a specific cast, and shownotes file exists */
 if ($season !== "00" && $episode !== "00" && file_exists($filename))
 {
-	$shownotes		= file($filename);
+	$shownotes			= file( $filename );
+	$meta				= castHeader( array_slice( $shownotes, 0, 14 ) );
 
-	$head = array_slice( $shownotes, 0, 14 );
-	$meta = array_fill_keys( array('RECORDED', 'PUBLISHED', 'TITLE',
-						'SEASON', 'EPISODE', 'DURATION', 'FILENAME',
-				'DESCRIPTION','HOSTS','GUESTS','ADDITIONAL', 'YOUTUBE' ), '');
-	foreach ( $head as $entry ) {
-		list($k, $v) = explode( ':', $entry, 2 );
-		$meta[$k] = trim($v);
-	}
-
-	$castHosts			= array_map('trim', explode(',', $meta['HOSTS']));
-	$castGuests			= array_map('trim', explode(',', $meta['GUESTS']));
 	$devGames			= array_map('trim', explode(',', $meta['ADDITIONAL']));
-
 	$listGames = [];
 
 	$guestsBlockOffset = 0; $hostsBlockOffset = 0;
@@ -90,16 +79,16 @@ if ($season !== "00" && $episode !== "00" && file_exists($filename))
 	$guestsIncludeString = ""; $hostsIncludeString = "";
 	$alignment = array(0, 610, 520, 430, 340, 250, 160, 50);
 
-	$hostsBlockOffset = $alignment[count($castHosts)]; $startIndex = 0;
-	foreach ($castHosts as $Host) {
+	$hostsBlockOffset = $alignment[count($meta['HOSTS'])]; $startIndex = 0;
+	foreach ($meta['HOSTS'] as $Host) {
 
 		if ($Host == "") break;
 		$hostsIncludeString .= nameplate( $Host, $startIndex ) ;
 		$startIndex += 180;
 	}
 
-	$guestsBlockOffset = $alignment[count($castGuests)]; $startIndex = 0;
-	foreach ($castGuests as $Guest) {
+	$guestsBlockOffset = $alignment[count($meta['GUESTS'])]; $startIndex = 0;
+	foreach ($meta['GUESTS'] as $Guest) {
 
 		if ($Guest == "") break;
 		$guestsIncludeString .= nameplate( $Guest, $startIndex, 1 );
