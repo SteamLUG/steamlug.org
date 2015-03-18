@@ -1,15 +1,13 @@
 <?php
 	global $conn;
 
-	include_once('includes/creds.php');
+	include_once('includes/session.php');
 	include_once('includes/functions_db.php');
+	include_once('includes/functions_poll.php');
 
 	$conn = null;
 	connectDB();
 
-	//if logged in
-	include_once('includes/session.php');
-	
 	if(login_check())
 	{
 		if (isset($_POST['poll']) && isset($_POST['poll_selection']))

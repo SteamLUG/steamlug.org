@@ -77,7 +77,6 @@ header("Cache-Control: public, max-age=60");
 			var serverTime = <?php echo microtime(true); ?>;
 		</script>
 <?php
-	include_once('functions_poll.php');
 	if (isset($deferJS))
 	{
 		foreach ($deferJS as $js)
