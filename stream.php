@@ -1,11 +1,15 @@
 <?php
 $pageTitle = "Live Stream";
+
+// because we hate cache
+header("Cache-Control: no-cache, must-revalidate");
+// HTTP 1.0ld header("Pragma: no-cache");
+
 include_once('includes/header.php');
+
 include_once('includes/functions_events.php');
 include_once('includes/functions_geturl.php');
 include_once('includes/functions_mumble.php');
-
-header("Cache-Control: public, max-age=10");
 
 $murmur = getMumble( );
 $maxUsers = $murmur->get_status( )['original']['x_gtmurmur_max_users'];
