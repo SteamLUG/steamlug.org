@@ -23,7 +23,7 @@ if(!login_check())
 	{
 		login($steam_login_verify);
 		// TODO this isn’t secure, fix that
-		header("Location: /loggedin/?returnto=" . preg_replace('/\?.*$/', '', $_SERVER["REQUEST_URI"]) );
+		header("Location: /loggedin/?returnto=" . preg_replace('/\?.*$/', '', $_SERVER["REDIRECT_URL"]) );
 		exit();
 	} else {
 
