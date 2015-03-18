@@ -88,7 +88,8 @@ if ($season !== "00" && $episode !== "00" && file_exists($filename)) {
 	$meta['RECORDED']  = ( $meta['RECORDED'] === "" ? "N/A" : '<time datetime="' . $meta['RECORDED'] . '">' . $meta['RECORDED'] . '</time>' );
 	$meta['PUBLIC'] = $meta['PUBLISHED'];
 	$meta['PUBLISHED'] = ($meta['PUBLISHED'] === "" ? '<span class="warning">In Progress</span>' : '<time datetime="' . $meta['PUBLISHED'] . '">' . $meta['PUBLISHED'] . '</time>');
-	$meta['TITLE'] = ( ( ($meta['TITLE'] === "") or ( $weareadmin === false ) ) ? 'Edit In Progress' : slenc($meta['TITLE']) );
+	$episodeTitle = 'S' . $meta['SEASON'] . 'E' . $meta['EPISODE'] . ' – ' . ( ($meta['TITLE'] === "") ? 'Edit In Progress' : slenc( $meta['TITLE'] ) );
+
 	$meta['SHORTDESCRIPTION'] = slenc(substr($meta['DESCRIPTION'],0,132));
 
 	$noteEditor			= ( $meta['NOTESCREATOR'] === "" ? "" : '<span class="author">written by ' . nameplate( $meta['NOTESCREATOR'], 22 ) . '</span>' );
@@ -108,19 +109,6 @@ if ($season !== "00" && $episode !== "00" && file_exists($filename)) {
 	}
 	$listGuests = ( empty($listGuests) ? 'No Guests' : $listGuests );
 
-	if ( $meta['PUBLIC'] === "" and $weareadmin === false ) {
-		$episodeMP3DS = $siteListen = $episodeOddDS = $episodeYoutube = "";
-	} else {
-		$episodeOggFS	= (file_exists($episodeBase . ".ogg")  ? round(filesize($episodeBase . ".ogg") /1024/1024,2) : 0);
-		$siteListen		= ($episodeOggFS > 0 ? '<audio id="castplayer" preload="none" src="' . $archiveBase . '.ogg" controls="controls">Your browser does not support the &lt;audio&gt; tag.</audio>' : '');
-		$episodeOddDS	= "<span class='ogg'>" . ($episodeOggFS > 0 ? $episodeOggFS . ' MB <a download href="' . $archiveBase . '.ogg">OGG</a>' : 'N/A OGG') . "</span>";
-		$episodeMp3FS	= (file_exists($episodeBase . ".mp3")  ? round(filesize($episodeBase . ".mp3") /1024/1024,2) : 0);
-		$episodeMP3DS	= "<span class='mp3'>" . ($episodeMp3FS > 0 ? $episodeMp3FS . ' MB <a download href="' .$archiveBase . '.mp3">MP3</a>' : 'N/A MP3') . "</span>";
-
-		$episodeYoutube = ( empty($meta['YOUTUBE']) ? '' : '<span class="youtube"><a href="//youtu.be/' . $meta['YOUTUBE'] . '">YOUTUBE</a></span>' );
-	}
-
-	$episodeTitle = 'S' . $meta['SEASON'] . 'E' . $meta['EPISODE'] . ' – ' . $meta['TITLE'];
 	$pageTitle .= ' ' . $episodeTitle;
 	$extraCrap = <<<TWITCARD
 		<meta name="twitter:card" content="player">
@@ -140,6 +128,21 @@ TWITCARD;
 
 	/* We start late to give us the ability to compose header info for twitter cards */
 	include('includes/header.php');
+
+	$meta['TITLE'] = ( ( ($meta['TITLE'] === "") or ( $weareadmin === false ) ) ? 'Edit In Progress' : slenc($meta['TITLE']) );
+
+	if ( $meta['PUBLIC'] === "" and $weareadmin === false ) {
+		$episodeMP3DS = $siteListen = $episodeOddDS = $episodeYoutube = "";
+	} else {
+		$episodeOggFS	= (file_exists($episodeBase . ".ogg")  ? round(filesize($episodeBase . ".ogg") /1024/1024,2) : 0);
+		$siteListen		= ($episodeOggFS > 0 ? '<audio id="castplayer" preload="none" src="' . $archiveBase . '.ogg" controls="controls">Your browser does not support the &lt;audio&gt; tag.</audio>' : '');
+		$episodeOddDS	= "<span class='ogg'>" . ($episodeOggFS > 0 ? $episodeOggFS . ' MB <a download href="' . $archiveBase . '.ogg">OGG</a>' : 'N/A OGG') . "</span>";
+		$episodeMp3FS	= (file_exists($episodeBase . ".mp3")  ? round(filesize($episodeBase . ".mp3") /1024/1024,2) : 0);
+		$episodeMP3DS	= "<span class='mp3'>" . ($episodeMp3FS > 0 ? $episodeMp3FS . ' MB <a download href="' .$archiveBase . '.mp3">MP3</a>' : 'N/A MP3') . "</span>";
+
+		$episodeYoutube = ( empty($meta['YOUTUBE']) ? '' : '<span class="youtube"><a href="//youtu.be/' . $meta['YOUTUBE'] . '">YOUTUBE</a></span>' );
+	}
+
 	echo $start;
 	$footer = <<<FOOTERBLOCK
   SteamLUG Cast is a casual, fortnightly audiocast which aims to provide interesting news and discussion for the SteamLUG and broader Linux gaming communities.
