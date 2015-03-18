@@ -21,8 +21,8 @@ if(!login_check())
 	if (!empty($steam_login_verify))
 	{
 		login($steam_login_verify);
-		// get PHP_SELF to replace .php to nothing, news to /
-		header("Location: /loggedin/?returnto=" . $_SERVER['PHP_SELF']);
+		// TODO this isn’t secure, fix that
+		header("Location: /loggedin/?returnto=" . preg_replace('/\?.*$/', '', $_SERVER["REQUEST_URI"]) );
 		exit();
 	} else {
 
