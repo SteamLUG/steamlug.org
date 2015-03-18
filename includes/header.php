@@ -1,4 +1,6 @@
 <?php
+include_once('session.php');
+
 if (!isset($description))
 {
 	$description = "SteamLUG - the Steam Linux User Group! A multilingual community of Linux gamers which aims to be a fun, welcoming space for people of all backgrounds and aptitudes.";
@@ -13,7 +15,6 @@ if (!isset($pageTitle))
 	$pageTitle = "Super Secret Unnamed Page!";
 }
 
-include_once('session.php');
 $weareadmin = false;
 if(!login_check())
 {

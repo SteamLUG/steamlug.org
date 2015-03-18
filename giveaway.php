@@ -1,4 +1,8 @@
-<?php include_once('includes/header.php'); ?>
+<?php
+$pageTitle = "Giveaways";
+
+include_once('includes/header.php');
+?>
         <header>
                 <h1>Giveaway</h1>
         </header>
