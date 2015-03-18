@@ -69,52 +69,51 @@ $start = <<<STARTPAGE
 		<h1 class="text-center">SteamLUG Cast</h1>
 STARTPAGE;
 
-$filename = $notesPath . "/s" . $season . "e" . $episode . "/episode.txt";
+$filename = $notesPath . '/s' . $season . 'e' . $episode . '/episode.txt';
 
 /* User wanting to see a specific cast, and shownotes file exists */
-if ($season !== "00" && $episode !== "00" && file_exists($filename)) {
+if ( $season !== "00" && $episode !== "00" && file_exists( $filename ) ) {
 
-	$shownotes		= file($filename);
+	$shownotes			= file( $filename );
+	$meta				= castHeader( array_slice( $shownotes, 0, 14 ) );
 
-	$adminblock = "";
+	$epi				= 's' . $meta['SEASON'] . 'e' . $meta['EPISODE'];
+	$archiveBase		= $publicURL . '/' . $epi . '/' . $meta['FILENAME'];
+	$episodeBase		= $filePath  . '/' . $epi . '/' . $meta['FILENAME'];
 
-	$head = array_slice( $shownotes, 0, 14 );
-	$meta = castHeader( $head );
+	$meta['RECORDED']	= ( $meta['RECORDED'] === "" ? 'N/A' :	'<time datetime="' . $meta['RECORDED'] . '">' . $meta['RECORDED'] . '</time>' );
+	$meta['PUBLIC']		= ( $meta['PUBLISHED'] );
+	$meta['PUBLISHED']	= ( $meta['PUBLISHED'] === "" ? '<span class="warning">In Progress</span>' : '<time datetime="' . $meta['PUBLISHED'] . '">' . $meta['PUBLISHED'] . '</time>');
+	$episodeTitle		= $epi . ' – ' . ( ($meta['TITLE'] === "") ? 'Edit In Progress' : slenc( $meta['TITLE'] ) );
+	$pageTitle		   .= ' ' . $episodeTitle;
+	$meta['SHORTDESC']	= slenc( substr( $meta['DESCRIPTION'], 0, 132 ) );
+	$noteEditor			= ( $meta['NOTESCREATOR'] === "" ? "" :	'<span class="author">written by ' . nameplate( $meta['NOTESCREATOR'], 22 ) . '</span>' );
+	$castEditor			= ( $meta['EDITOR'] === "" ? "" :		'<span class="author">edited by ' . nameplate( $meta['EDITOR'], 22 ) . '</span>' );
 
-	$epi = 's' . $meta['SEASON'] . 'e' . $meta['EPISODE'];
-	$archiveBase = $publicURL . '/' . $epi . '/' . $meta['FILENAME'];
-	$episodeBase = $filePath .'/' . $epi . '/' . $meta['FILENAME'];
-
-	$meta['RECORDED']  = ( $meta['RECORDED'] === "" ? "N/A" : '<time datetime="' . $meta['RECORDED'] . '">' . $meta['RECORDED'] . '</time>' );
-	$meta['PUBLIC'] = $meta['PUBLISHED'];
-	$meta['PUBLISHED'] = ($meta['PUBLISHED'] === "" ? '<span class="warning">In Progress</span>' : '<time datetime="' . $meta['PUBLISHED'] . '">' . $meta['PUBLISHED'] . '</time>');
-	$episodeTitle = 'S' . $meta['SEASON'] . 'E' . $meta['EPISODE'] . ' – ' . ( ($meta['TITLE'] === "") ? 'Edit In Progress' : slenc( $meta['TITLE'] ) );
-
-	$meta['SHORTDESCRIPTION'] = slenc(substr($meta['DESCRIPTION'],0,132));
-
-	$noteEditor			= ( $meta['NOTESCREATOR'] === "" ? "" : '<span class="author">written by ' . nameplate( $meta['NOTESCREATOR'], 22 ) . '</span>' );
-	$castEditor			= ( $meta['EDITOR'] === "" ? "" : '<span class="author">edited by ' . nameplate( $meta['EDITOR'], 22 ) . '</span>' );
-	$listHosts = ""; $listGuests = ""; $listHostsTwits = array();
+	$listHosts = '';
 	foreach ($meta['HOSTS'] as $Host) {
 		$listHosts .= nameplate( $Host, 48 );
 	}
+	$listHosts			= ( empty($listHosts) ? 'No Hosts' : $listHosts );
+
+	$listHostsTwits = array( );
 	foreach ($meta['HOSTS2'] as $Host) {
 		if ( strlen( $Host['twitter'] ) > 0 )
 			$listHostsTwits[] = '@' . $Host['twitter'];
 	}
-	$twits = ( empty($listHostsTwits) ? '' : ', or individually as ' . implode( ', ', $listHostsTwits) );
-	$listHosts = ( empty($listHosts) ? 'No Hosts' : $listHosts );
+	$twits				= ( empty($listHostsTwits) ? '' : ', or individually as ' . implode( ', ', $listHostsTwits) );
+
+	$listGuests = '';
 	foreach ($meta['GUESTS'] as $Guest) {
 		$listGuests .= nameplate( $Guest, 48 );
 	}
-	$listGuests = ( empty($listGuests) ? 'No Guests' : $listGuests );
+	$listGuests			= ( empty($listGuests) ? 'No Guests' : $listGuests );
 
-	$pageTitle .= ' ' . $episodeTitle;
 	$extraCrap = <<<TWITCARD
 		<meta name="twitter:card" content="player">
 		<meta name="twitter:site" content="@SteamLUG">
 		<meta name="twitter:title" content="{$episodeTitle}">
-		<meta name="twitter:description" content="{$meta['SHORTDESCRIPTION']}…">
+		<meta name="twitter:description" content="{$meta['SHORTDESC']}…">
 		<meta name="twitter:image:src" content="https://steamlug.org/images/steamlugcast.png">
 		<meta name="twitter:image:width" content="300">
 		<meta name="twitter:image:height" content="300">
@@ -123,10 +122,8 @@ if ($season !== "00" && $episode !== "00" && file_exists($filename)) {
 		<meta name="twitter:player:height" content="360">
 
 TWITCARD;
-#		<meta name="twitter:player:stream" content="https://www.youtube.com/embed/MY_URL">
-#		<meta name="twitter:player:stream:content_type" content="video/mp4; codecs=&quot;avc1.42E01E1, mp4a.40.2&quot;">
 
-	/* We start late to give us the ability to compose header info for twitter cards */
+	/* We start late to populate our Twitter player card */
 	include('includes/header.php');
 
 	$meta['TITLE'] = ( ( ($meta['TITLE'] === "") or ( $weareadmin === false ) ) ? 'Edit In Progress' : slenc($meta['TITLE']) );
@@ -134,13 +131,13 @@ TWITCARD;
 	if ( $meta['PUBLIC'] === "" and $weareadmin === false ) {
 		$episodeMP3DS = $siteListen = $episodeOddDS = $episodeYoutube = "";
 	} else {
-		$episodeOggFS	= (file_exists($episodeBase . ".ogg")  ? round(filesize($episodeBase . ".ogg") /1024/1024,2) : 0);
+		$episodeOggFS	= ( file_exists( $episodeBase . '.ogg' )  ? round( filesize( $episodeBase . '.ogg' ) /1024/1024, 2 ) : 0 );
 		$siteListen		= ($episodeOggFS > 0 ? '<audio id="castplayer" preload="none" src="' . $archiveBase . '.ogg" controls="controls">Your browser does not support the &lt;audio&gt; tag.</audio>' : '');
-		$episodeOddDS	= "<span class='ogg'>" . ($episodeOggFS > 0 ? $episodeOggFS . ' MB <a download href="' . $archiveBase . '.ogg">OGG</a>' : 'N/A OGG') . "</span>";
-		$episodeMp3FS	= (file_exists($episodeBase . ".mp3")  ? round(filesize($episodeBase . ".mp3") /1024/1024,2) : 0);
-		$episodeMP3DS	= "<span class='mp3'>" . ($episodeMp3FS > 0 ? $episodeMp3FS . ' MB <a download href="' .$archiveBase . '.mp3">MP3</a>' : 'N/A MP3') . "</span>";
+		$episodeOddDS	= '<span class="ogg">' . ( $episodeOggFS > 0 ? $episodeOggFS . ' MB <a download href="' . $archiveBase . '.ogg">OGG</a>' : 'N/A OGG' ) . '</span>';
+		$episodeMp3FS	= ( file_exists( $episodeBase . '.mp3' )  ? round( filesize( $episodeBase . '.mp3' ) /1024/1024, 2 ) : 0 );
+		$episodeMP3DS	= '<span class="mp3">' . ( $episodeMp3FS > 0 ? $episodeMp3FS . ' MB <a download href="' .$archiveBase . '.mp3">MP3</a>' : 'N/A MP3' ) . '</span>';
 
-		$episodeYoutube = ( empty($meta['YOUTUBE']) ? '' : '<span class="youtube"><a href="//youtu.be/' . $meta['YOUTUBE'] . '">YOUTUBE</a></span>' );
+		$episodeYoutube = ( empty( $meta['YOUTUBE'] ) ? '' : '<span class="youtube"><a href="//youtu.be/' . $meta['YOUTUBE'] . '">YOUTUBE</a></span>' );
 	}
 
 	echo $start;
@@ -152,7 +149,7 @@ TWITCARD;
 
 FOOTERBLOCK;
 	$shownotes = array_merge( $shownotes, explode( "\n", $footer ) );
-
+	$adminblock = "";
 	if ( $weareadmin === true ) {
 		$adminblock = <<<HELPFULNESS
 <div><p>Admin helper pages:<br>YouTube <a href="/youtubethumb/{$epi}">video background</a> and <a href="/youtubedescription/{$epi}">description</a>. <a target="_blank" href="/transcriberer?audio={$archiveBase}.ogg">Note creation</a>.</p></div>
