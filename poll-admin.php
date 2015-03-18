@@ -1,7 +1,6 @@
 <?php
 	$pageTitle = "Polls";
 	include_once('includes/header.php');
-	include_once('includes/lastRSS.php');
 ?>
 <h1 class="text-center">Poll Admin</h1>
 		<article class="panel panel-default">
