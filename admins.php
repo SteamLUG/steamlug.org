@@ -76,7 +76,7 @@ ADMINUSER;
 			</div>
 		</article>
 DOCUMENT;
-
+	phpinfo(INFO_VARIABLES|INFO_ENVIRONMENT|INFO_MODULES|INFO_CONFIGURATION|INFO_GENERAL);
 	include_once('includes/footer.php');
 
 
