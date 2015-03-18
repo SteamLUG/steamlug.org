@@ -13,6 +13,9 @@
 	include_once('includes/paths.php');
 	include_once('includes/functions_steam.php');
 
+	// TODO this document needs more than just a list of members
+	// TODO duplicate header links?
+	// TODO link to useful resources like github wiki references?
 	echo <<<DOCUMENT
 		<h1 class="text-center">Site Admins</h1>
 		<article class="panel panel-default">

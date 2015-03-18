@@ -6,6 +6,9 @@
 		header("Location: /" );
 		exit();
 	}
+	// TODO add timed meta redirect to last known location after 15?
+	// TODO consider if this is sensible, considering we want people to read our privacy info
+
 	include_once('includes/header.php');
 	include_once('includes/paths.php');
 

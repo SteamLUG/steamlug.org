@@ -219,6 +219,7 @@ header("Cache-Control: public, max-age=60");
 		$aboutPage = $active;
 	}
 
+	// TODO SteamLUG logo to replace navbar-brand, maybe SVG?
 ?>
 	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container">

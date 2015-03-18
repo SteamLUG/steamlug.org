@@ -65,6 +65,7 @@ if ( isset( $_POST['name'] ) and isset( $_FILES['userfile'] ) ) {
 	$requestedPath = $avatarFilePath . '/' . $requestedName . '.png';
 	$hostedURL		= '/avatars/' . $requestedName . '.png';
 
+	// TODO php docs mention getimagesize(tmpfile) !== false as a useful test, look into it
 	// do we want to be able to overwrite?
 	if ( !file_exists( $requestedPath ) and !is_dir( $requestedPath ) ) {
 
@@ -305,7 +306,9 @@ ACTIONMSG;
 			</article>
 <?php include_once('includes/footer.php');
 
-// TODO improvements: convert log into a scrollable table?
-// List active permission slips.
-// List avatars?
+// TODO improve log, convert into a table?
+// TODO add functions_steam support to the admin log
+// TODO List active permission slips.
+// TODO List existing avatars?
+// TODO allow users with valid permission slip to overwrite their current avatar
 

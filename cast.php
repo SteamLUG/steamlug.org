@@ -156,6 +156,7 @@ FOOTERBLOCK;
 HELPFULNESS;
 	}
 
+	// TODO add download stats from webalizer + youtube API?
 echo <<<CASTENTRY
 	<article class="panel panel-default" id="cast-description">
 		<header class="panel-heading">
