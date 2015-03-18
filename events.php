@@ -1,6 +1,5 @@
 <?php
 $pageTitle = "Events";
-include_once( 'includes/paths.php' );
 include_once( 'includes/functions_events.php' );
 
 $event = getNextEvent( );

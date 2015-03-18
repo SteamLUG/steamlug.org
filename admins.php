@@ -10,7 +10,6 @@
 	}
 
 	include_once('includes/header.php');
-	include_once('includes/paths.php');
 	include_once('includes/functions_steam.php');
 
 	// TODO this document needs more than just a list of members

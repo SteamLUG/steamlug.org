@@ -1,7 +1,6 @@
 <?php
 $pageTitle = "Twitter";
 include_once('includes/session.php');
-include_once('includes/paths.php');
 
 // TODO, remove 140 maxlength limits, URL will get shrunk, and we don’t want messages cropped
 // TODO, verify CURL doesn’t have issues (apparently it will)

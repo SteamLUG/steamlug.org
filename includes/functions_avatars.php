@@ -1,5 +1,5 @@
 <?php
-	include_once('includes/paths.php');
+	include_once('paths.php');
 
 	/* we take: ‘johndrinkwater’ / ‘@johndrinkwater’ / ‘John Drinkwater (@twitter)’ / ‘John Drinkwater {URL}’ and spit out Person{} */
 	function parsePersonString( $string ) {

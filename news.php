@@ -1,6 +1,5 @@
 <?php
 	$pageTitle = "News";
-	include_once('includes/paths.php');
 	include_once('includes/header.php');
 	include_once('includes/lastRSS.php');
 ?>

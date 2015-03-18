@@ -1,7 +1,6 @@
 <?php
 	$pageTitle = "About Peeps";
 	include_once('includes/header.php');
-	include_once('includes/paths.php');
 
 	echo <<<DOCUMENT
 		<h1 class="text-center">SteamLUG Admins</h1>

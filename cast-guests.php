@@ -1,7 +1,6 @@
 <?php
 	$pageTitle = "Cast Guests";
 	include_once('includes/header.php');
-	include_once('includes/paths.php');
 
 	echo <<<DOCUMENT
 		<h1 class="text-center">SteamLUG Cast Guest Information <!-- And
