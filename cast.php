@@ -125,6 +125,7 @@ TWITCARD;
 
 	/* We start late to populate our Twitter player card */
 	include('includes/header.php');
+	echo $start;
 
 	$meta['TITLE'] = ( ( ($meta['TITLE'] === "") or ( $weareadmin === false ) ) ? 'Edit In Progress' : slenc($meta['TITLE']) );
 
@@ -140,7 +141,6 @@ TWITCARD;
 		$episodeYoutube = ( empty( $meta['YOUTUBE'] ) ? '' : '<span class="youtube"><a href="//youtu.be/' . $meta['YOUTUBE'] . '">YOUTUBE</a></span>' );
 	}
 
-	echo $start;
 	$footer = <<<FOOTERBLOCK
   SteamLUG Cast is a casual, fortnightly audiocast which aims to provide interesting news and discussion for the SteamLUG and broader Linux gaming communities.
   Visit our site http://steamlug.org/ and the cast homepage http://steamlug.org/cast
@@ -270,6 +270,7 @@ CASTENTRY;
 
 	include('includes/header.php');
 	echo $start;
+
 	echo "		<div class=\"row\">";
 	/* TODO make this show as being live for the duration of the event */
 	if (isset($eTime) && (( $eTime - time() ) <= 14 * 86400)) {

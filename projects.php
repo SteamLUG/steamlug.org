@@ -1,6 +1,6 @@
 <?php
 
-$pageTitle = "About";
+$pageTitle = "Projects";
 ?>
 <?php include_once('includes/header.php'); ?>
 <h1 class="text-center">Projects - Coming Soon…</h1>
