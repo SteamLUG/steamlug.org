@@ -1,5 +1,6 @@
 <?php
 	$pageTitle = "Admins";
+	date_default_timezone_set('UTC');
 	include_once('includes/session.php');
 	// are we logged in? no → leave
 	if ( !login_check() ) {

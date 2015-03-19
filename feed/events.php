@@ -1,6 +1,7 @@
 <?php
 	header("Content-Type: application/rss+xml");
 	header("Access-Control-Allow-Origin: *");
+	date_default_timezone_set('UTC');
 	include_once('../includes/functions_events.php');
 
 	echo "<?xml version='1.0' encoding='UTF-8' ?>\n";

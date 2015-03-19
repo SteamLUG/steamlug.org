@@ -1,5 +1,6 @@
 <?php
 $pageTitle = "Twitter";
+date_default_timezone_set('UTC');
 include_once('includes/session.php');
 
 // TODO, remove 140 maxlength limits, URL will get shrunk, and we don’t want messages cropped

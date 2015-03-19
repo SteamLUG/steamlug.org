@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set('UTC');
 include_once( 'paths.php' );
 require_once( 'rbt_prs.php' );
 require_once( 'steameventparser.php' );

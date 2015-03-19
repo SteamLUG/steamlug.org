@@ -1,6 +1,7 @@
 <?php
 header('Content-type: text/calendar; charset=utf-8');
 header("Content-Disposition: inline; filename=steamlug-events.ics" );
+date_default_timezone_set('UTC');
 
 echo <<<HEADER
 BEGIN:VCALENDAR
