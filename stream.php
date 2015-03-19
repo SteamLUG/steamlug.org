@@ -69,15 +69,17 @@ $hitboxStreamers = @json_decode( $hitboxUsers, true );
 $hitboxPeeps = "";
 if ( $hitboxStreamers != null ) {
 	foreach ( $hitboxStreamers['members'] as $streamer ) {
-		$hitboxPeeps .= '<li class="' . ($streamer['is_live'] == 1 ? 'live': '' ) .  '">';
+		$hitboxPeeps .= '<li>';
 		$hitboxPeeps .= '<a href="http://hitbox.tv/' . $streamer['user_name'] . '">';
 		$hitboxPeeps .= '<img src="//edge.sf.hitbox.tv/' . $streamer['user_logo_small'] . '" alt="A lovely picture of ' . $streamer['user_name'] . '" />';
-		$hitboxPeeps .= $streamer['user_name'] . ($streamer['is_live'] == 1 ? ' <i>is live</i>': '' ) . '</a>';
+		$hitboxPeeps .= $streamer['user_name'] . '</a>';
 		$hitboxPeeps .= '</li>';
+		/*
 		if ( $streamer['user_name'] == 'steamlug' and $streamer['is_live'] == 1) {
 			$someoneStreaming = true;
 			$hitboxOnline = true; // we cannot embed the hitbox viewer because it is http only true;
 		}
+		*/
 	}
 	$streamers .= <<<HITBOXBOX
 						<div class="col-sm-6">
