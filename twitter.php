@@ -119,8 +119,6 @@ print "-->\n";
 	print_r ( $latestCast );
 	print "-->\n";
 
-	$slug = 's' . $latestCast['SEASON'] . 'e' . $latestCast['EPISODE'];
-	$title = $latestCast['TITLE'];
 	$listHostsTwits = array(); $listGuestsTwits = array();
 	foreach ($latestCast['HOSTS2'] as $Host) {
 		if ( strlen( $Host['twitter'] ) > 0 )
@@ -137,7 +135,7 @@ print "-->\n";
 	}
 	$hosts = ( empty($listHostsTwits) ? '' : implode( ', ', $listHostsTwits) );
 	$guests = ( empty($listGuestsTwits) ? '' : ' speaking with ' . implode( ', ', $listGuestsTwits) );
-	$typicalMessage = "SteamLUG Cast {$slug} ‘{$title}’ with {$hosts}{$guests} is now available to listen to https://steamlug.org/cast/{$slug}";
+	$typicalMessage = "SteamLUG Cast {$latestCast['SLUG']} ‘{$latestCast['TITLE']}’ with {$hosts}{$guests} is now available to listen to https://steamlug.org/cast/{$latestCast['SLUG']}";
 ?>
 			<article class="panel panel-default twit">
 				<header class="panel-heading">

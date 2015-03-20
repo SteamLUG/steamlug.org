@@ -14,11 +14,10 @@ if ($season !== "00" && $episode !== "00" && file_exists($filename))
 	$shownotes			= file( $filename );
 	$meta				= castHeader( array_slice( $shownotes, 0, 14 ) );
 
-	$epi				= 's' . $meta['SEASON'] . 'e' . $meta['EPISODE'];
 	$meta['RECORDED']	= ( $meta['RECORDED'] === '' ? "N/A" : $meta['RECORDED'] );
 
 	echo "{$meta['DESCRIPTION']}<br>\n<br>\n";
-	echo "Shownotes featuring full descriptions and links can be found at https://steamlug.org/cast/{$epi}<br>\n";
+	echo "Shownotes featuring full descriptions and links can be found at https://steamlug.org/cast/{$meta['SLUG']}<br>\n";
 	echo "This cast was recorded on {$meta['RECORDED']}<br>\n<br>\n";
 
 	foreach ( array_slice( $shownotes, 15 ) as $note)

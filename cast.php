@@ -71,14 +71,13 @@ if ( $season !== "00" && $episode !== "00" && file_exists( $filename ) ) {
 	$shownotes			= file( $filename );
 	$meta				= castHeader( array_slice( $shownotes, 0, 14 ) );
 
-	$epi				= 's' . $meta['SEASON'] . 'e' . $meta['EPISODE'];
-	$archiveBase		= $publicURL . '/' . $epi . '/' . $meta['FILENAME'];
-	$episodeBase		= $filePath  . '/' . $epi . '/' . $meta['FILENAME'];
+	$archiveBase		= $publicURL . '/' . $meta['SLUG'] . '/' . $meta['FILENAME'];
+	$episodeBase		= $filePath  . '/' . $meta['SLUG'] . '/' . $meta['FILENAME'];
 
 	$meta['RECORDED']	= ( $meta['RECORDED'] === "" ? 'N/A' :	'<time datetime="' . $meta['RECORDED'] . '">' . $meta['RECORDED'] . '</time>' );
 	$meta['PUBLIC']		= ( $meta['PUBLISHED'] );
 	$meta['PUBLISHED']	= ( $meta['PUBLISHED'] === "" ? '<span class="warning">In Progress</span>' : '<time datetime="' . $meta['PUBLISHED'] . '">' . $meta['PUBLISHED'] . '</time>');
-	$episodeTitle		= $epi . ' – ' . ( ($meta['TITLE'] === "") ? 'Edit In Progress' : slenc( $meta['TITLE'] ) );
+	$episodeTitle		= $meta['SLUG'] . ' – ' . ( ($meta['TITLE'] === "") ? 'Edit In Progress' : slenc( $meta['TITLE'] ) );
 	$pageTitle		   .= ' ' . $episodeTitle;
 	$meta['SHORTDESC']	= slenc( substr( $meta['DESCRIPTION'], 0, 132 ) );
 	$noteEditor			= ( $meta['NOTESCREATOR'] === "" ? "" :	'<span class="author">written by ' . nameplate( $meta['NOTESCREATOR'], 22 ) . '</span>' );
@@ -146,7 +145,7 @@ FOOTERBLOCK;
 	$adminblock = "";
 	if ( $weareadmin === true ) {
 		$adminblock = <<<HELPFULNESS
-<div><p>Admin helper pages:<br>YouTube <a href="/youtubethumb/{$epi}">video background</a> and <a href="/youtubedescription/{$epi}">description</a>. <a target="_blank" href="/transcriberer?audio={$archiveBase}.ogg">Note creation</a>.</p></div>
+<div><p>Admin helper pages:<br>YouTube <a href="/youtubethumb/{$meta['SLUG']}">video background</a> and <a href="/youtubedescription/{$meta['SLUG']}">description</a>. <a target="_blank" href="/transcriberer?audio={$archiveBase}.ogg">Note creation</a>.</p></div>
 HELPFULNESS;
 	}
 
@@ -391,9 +390,9 @@ CASTTABLE;
 		}
 		echo <<<CASTENTRY
 			<tr {$wip}>
-				<td><a href="/cast/s{$meta['SEASON']}e{$meta['EPISODE']}">S{$meta['SEASON']}E{$meta['EPISODE']}</a></td>
+				<td><a href="/cast/{$meta['SLUG']}">{$meta['SLUG']}</a></td>
 				<td><time datetime="{$meta['RECORDED']}">{$meta['RECORDED']}</time></td>
-				<td><a href="/cast/s{$meta['SEASON']}e{$meta['EPISODE']}">{$meta[ 'TITLE' ]}</a></td>
+				<td><a href="/cast/{$meta['SLUG']}">{$meta[ 'TITLE' ]}</a></td>
 				<td>$listHosts</td>
 				<td>$listGuests</td>
 			</tr>

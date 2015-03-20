@@ -8,6 +8,7 @@ $episode = str_pad($episode, 2, '0', STR_PAD_LEFT);
 
 // TODO: what other functions do we want in here?
 // our shownotes parsing? listing all casts?
+// validate File Headers?
 
 function castHeaderFromString( $filecontents ) {
 
@@ -25,6 +26,7 @@ function castHeader( $header ) {
 	}
 	$meta['EPISODE']	= str_pad($meta['EPISODE'], 2, '0', STR_PAD_LEFT);
 	$meta['SEASON']		= str_pad($meta['SEASON'], 2, '0', STR_PAD_LEFT);
+	$meta['SLUG']		= 's' . $meta['SEASON'] . 'e' . $meta['EPISODE'];
 
 	$meta['HOSTS']		= array_map('trim', explode(',', $meta['HOSTS']));
 	$meta['HOSTS2']		= array();
