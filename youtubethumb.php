@@ -103,7 +103,7 @@ if ($season !== "00" && $episode !== "00" && file_exists($filename))
 		$alignment = array(0, -91, -191, -291, -391, -491);
 		$gamesBlockOffset = $alignment[$games];
 
-		$plural = count($castGuests) > 1 ? "s" : "";
+		$plural = count($meta['GUESTS']) > 1 ? "s" : "";
 		$gamesString = <<<GAMESINTRO
 			<text id="game-name" style="font-size:23px;">With Special Guest{$plural} and Developer{$plural} of</text>
 			<g transform="translate({$gamesBlockOffset},26)">
