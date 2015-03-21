@@ -32,7 +32,7 @@
 
 	/*
 		Accept any text, push to Twitter?
-	 */
+	*/
 	function postTweet( $message ) {
 
 		if ( $message == "" )
@@ -60,11 +60,11 @@
 	/*
 		Take ID to tweet, pass it to twitter
 		deleteTweet( '577505080074756097' )
-	 */
+	*/
 	function deleteTweet( $tweetId ) {
 
 		// Returns if we cannot delete this tweet
-		// Array ( [errors] => Array ( [0] => Array ( [message] => Your credentials do not allow access to this resource [code] => 220 ) ) ) 
+		// Array ( [errors] => Array ( [0] => Array ( [message] => Your credentials do not allow access to this resource [code] => 220 ) ) )
 
 		if ( !isset( $tweetId ) )
 			return;

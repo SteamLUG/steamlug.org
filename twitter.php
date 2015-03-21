@@ -3,7 +3,8 @@ $pageTitle = "Twitter";
 date_default_timezone_set('UTC');
 include_once('includes/session.php');
 
-// TODO, remove 140 maxlength limits, URL will get shrunk, and we don’t want messages cropped
+// TODO, verify what happens if we post over the tweet length limit
+// TODO, verify what happens if our tweet exceeds length limit yet contains a URL that will be shortened
 // TODO, verify CURL doesn’t have issues (apparently it will)
 
 // are we logged in? no → leave
@@ -71,14 +72,14 @@ print "-->\n";
 					<form method="get" class="form-horizontal" action="/twitter.php/">
 						<fieldset>
 						<input type="hidden" name="tweet">
-						<div class="form-group"><input type="submit" class="col-xs-1 btn btn-primary" value="Tweet"><input maxlength="140" class="control-input col-xs-11" name="message" placeholder="<?=$laterMessage;?>" value="<?=$laterMessage;?>"></div>
+						<div class="form-group"><input type="submit" class="col-xs-1 btn btn-primary" value="Tweet"><input class="control-input col-xs-11" name="message" placeholder="<?=$laterMessage;?>" value="<?=$laterMessage;?>"></div>
 						<p>Best posted a few hours before event</p>
 						</fieldset>
 					</form>
 					<form method="get" class="form-horizontal" action="/twitter.php/">
 						<fieldset>
 						<input type="hidden" name="tweet">
-						<div class="form-group"><input type="submit" class="col-xs-1 btn btn-primary" value="Tweet"><input maxlength="140" class="control-input col-xs-11" name="message" placeholder="<?=$typicalMessage;?>" value="<?=$typicalMessage;?>"></div>
+						<div class="form-group"><input type="submit" class="col-xs-1 btn btn-primary" value="Tweet"><input class="control-input col-xs-11" name="message" placeholder="<?=$typicalMessage;?>" value="<?=$typicalMessage;?>"></div>
 						<p>Best posted as we start gaming / when Steam event fires</p>
 						</fieldset>
 					</form>
@@ -99,14 +100,14 @@ print "-->\n";
 					<form method="get" class="form-horizontal" action="/twitter.php/">
 						<fieldset>
 						<input type="hidden" name="tweet">
-						<div class="form-group"><input type="submit" class="col-xs-1 btn btn-primary" value="Tweet"><input maxlength="140" class="control-input col-xs-11" name="message" placeholder="<?=$laterMessage;?>" value="<?=$laterMessage;?>"></div>
+						<div class="form-group"><input type="submit" class="col-xs-1 btn btn-primary" value="Tweet"><input class="control-input col-xs-11" name="message" placeholder="<?=$laterMessage;?>" value="<?=$laterMessage;?>"></div>
 						<p>Best posted a few hours before recording</p>
 						</fieldset>
 					</form>
 					<form method="get" class="form-horizontal" action="/twitter.php/">
 						<fieldset>
 						<input type="hidden" name="tweet">
-						<div class="form-group"><input type="submit" class="col-xs-1 btn btn-primary" value="Tweet"><input maxlength="140" class="control-input col-xs-11" name="message" placeholder="<?=$typicalMessage;?>" value="<?=$typicalMessage;?>"></div>
+						<div class="form-group"><input type="submit" class="col-xs-1 btn btn-primary" value="Tweet"><input class="control-input col-xs-11" name="message" placeholder="<?=$typicalMessage;?>" value="<?=$typicalMessage;?>"></div>
 						<p>Best posted as we start recording / when Steam event fires, to encourage more people to get onto mumble</p>
 						</fieldset>
 					</form>
@@ -145,7 +146,7 @@ print "-->\n";
 					<form method="get" class="form-horizontal" action="/twitter.php/">
 						<fieldset>
 						<input type="hidden" name="tweet">
-						<div class="form-group"><input type="submit" class="col-xs-1 btn btn-primary" value="Tweet"><input maxlength="140" class="control-input col-xs-11" name="message" placeholder="<?=$typicalMessage;?>" value="<?=$typicalMessage;?>"></div>
+						<div class="form-group"><input type="submit" class="col-xs-1 btn btn-primary" value="Tweet"><input class="control-input col-xs-11" name="message" placeholder="<?=$typicalMessage;?>" value="<?=$typicalMessage;?>"></div>
 						<p>Once YouTube video is processed, notes complete, RSS feed live, post this and Steam announcement</p>
 						</fieldset>
 					</form>
