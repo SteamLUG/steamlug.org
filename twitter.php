@@ -26,19 +26,23 @@ include_once('includes/functions_events.php');
 include_once('includes/functions_cast.php');
 include_once('includes/functions_twitter.php');
 
-$action = "Failure";
-$body = "";
-$style = " panel-success";
+$action	= "Failure";
+$body	= "";
+$style	= " panel-success";
 
-$nextGameEvent = getNextEvent( false );
-$nextCastEvent = getNextEvent( true );
-$latestCast = getLatestCast( );
-$recentTweets = getRecentTweets( );
+$nextGameEvent	= getNextEvent( false );
+$nextCastEvent	= getNextEvent( true );
+$latestCast		= getLatestCast( );
+$recentTweets	= getRecentTweets( );
 
 // are we supplying a tweet via GET? → send tweet
 if ( isset( $_GET['tweet'] ) and isset( $_GET['message'] ) ) {
 
+	$action = "Post Tweet";
 	// set $body to a success or fail message
+	$reply = postTweet( $_GET['message'] );
+	// test reply here…
+	$body = $reply;
 }
 
 include_once('includes/header.php');
