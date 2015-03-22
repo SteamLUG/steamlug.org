@@ -69,14 +69,14 @@ print "-->\n";
 					<h3 class="panel-title">Event, gaming!</h3>
 				</header>
 				<div class="panel-body">
-					<form method="get" class="form-horizontal" action="/twitter.php/">
+					<form method="get" class="form-horizontal" action="/twitter/">
 						<fieldset>
 						<input type="hidden" name="tweet">
 						<div class="form-group"><input type="submit" class="col-xs-1 btn btn-primary" value="Tweet"><input class="control-input col-xs-11" name="message" placeholder="<?=$laterMessage;?>" value="<?=$laterMessage;?>"></div>
 						<p>Best posted a few hours before event</p>
 						</fieldset>
 					</form>
-					<form method="get" class="form-horizontal" action="/twitter.php/">
+					<form method="get" class="form-horizontal" action="/twitter/">
 						<fieldset>
 						<input type="hidden" name="tweet">
 						<div class="form-group"><input type="submit" class="col-xs-1 btn btn-primary" value="Tweet"><input class="control-input col-xs-11" name="message" placeholder="<?=$typicalMessage;?>" value="<?=$typicalMessage;?>"></div>
@@ -97,14 +97,14 @@ print "-->\n";
 					<h3 class="panel-title">Cast, recording</h3>
 				</header>
 				<div class="panel-body">
-					<form method="get" class="form-horizontal" action="/twitter.php/">
+					<form method="get" class="form-horizontal" action="/twitter/">
 						<fieldset>
 						<input type="hidden" name="tweet">
 						<div class="form-group"><input type="submit" class="col-xs-1 btn btn-primary" value="Tweet"><input class="control-input col-xs-11" name="message" placeholder="<?=$laterMessage;?>" value="<?=$laterMessage;?>"></div>
 						<p>Best posted a few hours before recording</p>
 						</fieldset>
 					</form>
-					<form method="get" class="form-horizontal" action="/twitter.php/">
+					<form method="get" class="form-horizontal" action="/twitter/">
 						<fieldset>
 						<input type="hidden" name="tweet">
 						<div class="form-group"><input type="submit" class="col-xs-1 btn btn-primary" value="Tweet"><input class="control-input col-xs-11" name="message" placeholder="<?=$typicalMessage;?>" value="<?=$typicalMessage;?>"></div>
@@ -143,7 +143,7 @@ print "-->\n";
 					<h3 class="panel-title">Cast, publishing</h3>
 				</header>
 				<div class="panel-body">
-					<form method="get" class="form-horizontal" action="/twitter.php/">
+					<form method="get" class="form-horizontal" action="/twitter/">
 						<fieldset>
 						<input type="hidden" name="tweet">
 						<div class="form-group"><input type="submit" class="col-xs-1 btn btn-primary" value="Tweet"><input class="control-input col-xs-11" name="message" placeholder="<?=$typicalMessage;?>" value="<?=$typicalMessage;?>"></div>
