@@ -79,6 +79,7 @@ $diff = date_diff($eventDate, new DateTime("now"));
 $difference = $diff->format("%H hours");
 $laterMessage = 'Hey #Linux gamers, join us for some ' . $nextGameEvent['title'] . " in {$difference}! Everybody’s welcome " . $nextGameEvent['url'];
 $typicalMessage = 'Hey #Linux gamers, join us for some ' . $nextGameEvent['title'] . ' fun! Everybody’s welcome ' . $nextGameEvent['url'];
+$when = str_replace( 'T', ' ', str_replace( '+00:00', '', date("c", $nextGameEvent['utctime'] ) ) );
 print "-->\n";
 ?>
 			<article class="panel panel-default twit">
@@ -86,6 +87,7 @@ print "-->\n";
 					<h3 class="panel-title">Event, gaming!</h3>
 				</header>
 				<div class="panel-body">
+					<p>This takes place on <?=$when;?>.</p>
 					<form method="post" class="form-horizontal" action="/twitter/">
 						<fieldset>
 						<input type="hidden" name="tweet">
@@ -110,6 +112,7 @@ $diff = date_diff($eventDate, new DateTime("now"));
 $difference = $diff->format("%H hours");
 $laterMessage = "Join us for the live recording of SteamLUG Cast in {$difference}, where we will be talking about %stuff. " . $nextCastEvent['url'];
 $typicalMessage = "Join us for the live recording of SteamLUG Cast, where we will be talking about %stuff. " . $nextCastEvent['url'];
+$when = str_replace( 'T', ' ', str_replace( '+00:00', '', date("c", $nextCastEvent['utctime'] ) ) );
 print "-->\n";
 ?>
 			<article class="panel panel-default twit">
@@ -117,6 +120,7 @@ print "-->\n";
 					<h3 class="panel-title">Cast, recording</h3>
 				</header>
 				<div class="panel-body">
+					<p>This takes place on <?=$when;?>.</p>
 					<form method="post" class="form-horizontal" action="/twitter/">
 						<fieldset>
 						<input type="hidden" name="tweet">
