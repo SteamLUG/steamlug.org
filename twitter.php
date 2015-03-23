@@ -35,14 +35,24 @@ $nextCastEvent	= getNextEvent( true );
 $latestCast		= getLatestCast( );
 $recentTweets	= getRecentTweets( );
 
-// are we supplying a tweet via GET? → send tweet
-if ( isset( $_GET['tweet'] ) and isset( $_GET['message'] ) ) {
+// are we supplying tweet, message via POST? → send tweet
+if ( isset( $_POST['tweet'] ) and isset( $_POST['message'] ) ) {
 
 	$action = "Post Tweet";
 	// set $body to a success or fail message
-	$reply = postTweet( $_GET['message'] );
+	// $reply = postTweet( $_POST['message'] );
 	// test reply here…
-	$body = $reply;
+	$body = 'Sent ' . $_POST['message'] . ' and got ' . $reply;
+}
+
+// are we supplying delete, key via POST? → delete tweet
+if ( isset( $_POST['delete'] ) and isset( $_POST['key'] ) ) {
+
+	$action = "Delete Tweet";
+	// set $body to a success or fail message
+	// $reply = deleteTweet( $_POST['key'] );
+	// test reply here…
+	$body = 'Deleted ' . $_POST['key'] . ' and got ' . $reply;
 }
 
 include_once('includes/header.php');
@@ -73,14 +83,14 @@ print "-->\n";
 					<h3 class="panel-title">Event, gaming!</h3>
 				</header>
 				<div class="panel-body">
-					<form method="get" class="form-horizontal" action="/twitter/">
+					<form method="post" class="form-horizontal" action="/twitter/">
 						<fieldset>
 						<input type="hidden" name="tweet">
 						<div class="form-group"><input type="submit" class="col-xs-1 btn btn-primary" value="Tweet"><input class="control-input col-xs-11" name="message" placeholder="<?=$laterMessage;?>" value="<?=$laterMessage;?>"></div>
 						<p>Best posted a few hours before event</p>
 						</fieldset>
 					</form>
-					<form method="get" class="form-horizontal" action="/twitter/">
+					<form method="post" class="form-horizontal" action="/twitter/">
 						<fieldset>
 						<input type="hidden" name="tweet">
 						<div class="form-group"><input type="submit" class="col-xs-1 btn btn-primary" value="Tweet"><input class="control-input col-xs-11" name="message" placeholder="<?=$typicalMessage;?>" value="<?=$typicalMessage;?>"></div>
@@ -101,14 +111,14 @@ print "-->\n";
 					<h3 class="panel-title">Cast, recording</h3>
 				</header>
 				<div class="panel-body">
-					<form method="get" class="form-horizontal" action="/twitter/">
+					<form method="post" class="form-horizontal" action="/twitter/">
 						<fieldset>
 						<input type="hidden" name="tweet">
 						<div class="form-group"><input type="submit" class="col-xs-1 btn btn-primary" value="Tweet"><input class="control-input col-xs-11" name="message" placeholder="<?=$laterMessage;?>" value="<?=$laterMessage;?>"></div>
 						<p>Best posted a few hours before recording</p>
 						</fieldset>
 					</form>
-					<form method="get" class="form-horizontal" action="/twitter/">
+					<form method="post" class="form-horizontal" action="/twitter/">
 						<fieldset>
 						<input type="hidden" name="tweet">
 						<div class="form-group"><input type="submit" class="col-xs-1 btn btn-primary" value="Tweet"><input class="control-input col-xs-11" name="message" placeholder="<?=$typicalMessage;?>" value="<?=$typicalMessage;?>"></div>
@@ -147,7 +157,7 @@ print "-->\n";
 					<h3 class="panel-title">Cast, publishing</h3>
 				</header>
 				<div class="panel-body">
-					<form method="get" class="form-horizontal" action="/twitter/">
+					<form method="post" class="form-horizontal" action="/twitter/">
 						<fieldset>
 						<input type="hidden" name="tweet">
 						<div class="form-group"><input type="submit" class="col-xs-1 btn btn-primary" value="Tweet"><input class="control-input col-xs-11" name="message" placeholder="<?=$typicalMessage;?>" value="<?=$typicalMessage;?>"></div>
@@ -161,6 +171,9 @@ print "-->\n";
 					<h3 class="panel-title">Delete Tweet?</h3>
 				</header>
 				<div class="panel-body panel-body-table">
+					<form method="post" class="form-horizontal" action="/twitter/">
+					<fieldset>
+					<input type="hidden" name="delete">
 					<table id="delete-tweets" class="table table-striped table-hover tablesorter">
 						<thead>
 							<tr>
@@ -183,7 +196,7 @@ print "-->\n";
 				<tr>
 					<td>{$tweet['created_str']}</td>
 					<td>{$tweet['text']}</td>
-					<td><input type="hidden" name="tweet" value="{$tweet['id']}" /><input type="submit" value="x"/></td>
+					<td><input type="hidden" name="key" value="{$tweet['id']}" /><input type="submit" value="x"/></td>
 				</tr>
 TWEET;
 
@@ -191,6 +204,8 @@ TWEET;
 ?>
 					</tbody>
 				</table>
+				</fieldset>
+				</form>
 			</div>
 		</article>
 <?php include_once('includes/footer.php');
