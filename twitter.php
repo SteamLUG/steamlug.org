@@ -40,19 +40,50 @@ if ( isset( $_POST['tweet'] ) and isset( $_POST['message'] ) ) {
 
 	$action = "Post Tweet";
 	// set $body to a success or fail message
-	// $reply = postTweet( $_POST['message'] );
+	$reply = postTweet( $_POST['message'] );
 	// test reply here…
-	$body = 'Sent ' . $_POST['message'] . ' and got ' . $reply;
+	if ( array_key_exists( 'errors', $reply ) ) {
+
+		$style = "panel-danger";
+		// TODO, do additional checks in the future. Ask admins to copy/paste the error
+		$body = 'Error code ' . $reply['errors'][0]['code'] . ', with message: ' . $reply['errors'][0]['message'] . '<br>';
+		$body .= print_r( $reply, true );
+		$body .= "<br>Please copy/paste the above error, put it in a gist and share with webmaster.";
+
+	} else {
+
+		$body = 'Sent ‘' . $_POST['message'] . '’<br>';
+		$body .= print_r( $reply, true );
+	}
 }
 
 // are we supplying delete, key via POST? → delete tweet
 if ( isset( $_POST['delete'] ) and isset( $_POST['key'] ) ) {
 
 	$action = "Delete Tweet";
+	$tweet = $_POST['key'];
 	// set $body to a success or fail message
-	// $reply = deleteTweet( $_POST['key'] );
-	// test reply here…
-	$body = 'Deleted ' . $_POST['key'] . ' and got ' . $reply;
+	$reply = deleteTweet( $tweet );
+
+	if ( array_key_exists( 'errors', $reply ) ) {
+
+		$style = "panel-danger";
+		// TODO, do additional checks in the future. Ask admins to copy/paste the error
+		$body = 'Error code ' . $reply['errors'][0]['code'] . ', with message: ' . $reply['errors'][0]['message'] . '<br>';
+		$body .= print_r( $reply, true );
+		$body .= "<br>Please copy/paste the above error, put it in a gist and share with webmaster.";
+
+	} else {
+
+		// atm, assume it was all good?
+		$body = 'Deleted ' . $tweet . '.<br>';
+		$body .= print_r( $reply, true );
+	}
+	// Tweet does not exist:
+	// Array ( [errors] => Array ( [0] => Array ( [code] => 144 [message] => No status found with that ID. ) ) )
+	// Tweet delete ok:
+	// Deleted 576171168509624320 and got Array ( [created_at] => Fri Mar 13 00:01:25 +0000 2015 [id] => 576171168509624320 [id_str] => 576171168509624320 [text] => Hey #Linux gamers! Join us for some Guns of Icarus Online fun! Everybody's welcome! http://t.co/xylp8KEetF [source] => TweetDeck [truncated] => [in_reply_to_status_id] => [in_reply_to_status_id_str] => [in_reply_to_user_id] => [in_reply_to_user_id_str] => [in_reply_to_screen_name] => [user] => Array ( [id] => 1282779350 [id_str] => 1282779350 [name] => SteamLUG [screen_name] => SteamLUG [location] => [profile_location] => [description] => The Steam Linux User Group! A multilingual community of Linux gamers which aims to be a fun, welcoming space for people of all backgrounds and aptitudes [url] => http://t.co/UV563TiKNB [entities] => Array ( [url] => Array ( [urls] => Array ( [0] => Array ( [url] => http://t.co/UV563TiKNB [expanded_url] => http://steamlug.org [display_url] => steamlug.org [indices] => Array ( [0] => 0 [1] => 22 ) ) ) ) [description] => Array ( [urls] => Array ( ) ) ) [protected] => [followers_count] => 338 [friends_count] => 5 [listed_count] => 23 [created_at] => Wed Mar 20 09:10:33 +0000 2013 [favourites_count] => 30 [utc_offset] => [time_zone] => [geo_enabled] => [verified] => [statuses_count] => 851 [lang] => en [contributors_enabled] => [is_translator] => [is_translation_enabled] => [profile_background_color] => C0DEED [profile_background_image_url] => http://abs.twimg.com/images/themes/theme1/bg.png [profile_background_image_url_https] => https://abs.twimg.com/images/themes/theme1/bg.png [profile_background_tile] => [profile_image_url] => http://pbs.twimg.com/profile_images/3420706844/0169c9632f67b7928a84e723fb460380_normal.png [profile_image_url_https] => https://pbs.twimg.com/profile_images/3420706844/0169c9632f67b7928a84e723fb460380_normal.png [profile_link_color] => 0084B4 [profile_sidebar_border_color] => C0DEED [profile_sidebar_fill_color] => DDEEF6 [profile_text_color] => 333333 [profile_use_background_image] => 1 [default_profile] => 1 [default_profile_image] => [following] => [follow_request_sent] => [notifications] => ) [geo] => [coordinates] => [place] => [contributors] => [retweet_count] => 2 [favorite_count] => 2 [entities] => Array ( [hashtags] => Array ( [0] => Array ( [text] => Linux [indices] => Array ( [0] => 4 [1] => 10 ) ) ) [symbols] => Array ( ) [user_mentions] => Array ( ) [urls] => Array ( [0] => Array ( [url] => http://t.co/xylp8KEetF [expanded_url] => http://steamcommunity.com/groups/steamlug#events/116304948101305169 [display_url] => steamcommunity.com/groups/steamlu… [indices] => Array ( [0] => 84 [1] => 106 ) ) ) ) [favorited] => [retweeted] => [possibly_sensitive] => [lang] => en ) 
+
 }
 
 include_once('includes/header.php');
@@ -183,9 +214,6 @@ print "-->\n";
 					<h3 class="panel-title">Delete Tweet?</h3>
 				</header>
 				<div class="panel-body panel-body-table">
-					<form method="post" class="form-horizontal" action="/twitter/">
-					<fieldset>
-					<input type="hidden" name="delete">
 					<table id="delete-tweets" class="table table-striped table-hover tablesorter">
 						<thead>
 							<tr>
@@ -208,7 +236,7 @@ print "-->\n";
 				<tr>
 					<td>{$tweet['created_str']}</td>
 					<td>{$tweet['text']}</td>
-					<td><input type="hidden" name="key" value="{$tweet['id']}" /><input type="submit" value="x"/></td>
+					<td><form method="post" class="form-horizontal" action="/twitter/"><fieldset><input type="hidden" name="delete"><input type="hidden" name="key" value="{$tweet['id']}" /><input type="submit" value="x"/></fieldset></form></td>
 				</tr>
 TWEET;
 
@@ -216,8 +244,6 @@ TWEET;
 ?>
 					</tbody>
 				</table>
-				</fieldset>
-				</form>
 			</div>
 		</article>
 <?php include_once('includes/footer.php');
