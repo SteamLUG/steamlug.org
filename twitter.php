@@ -74,7 +74,10 @@ ACTIONMSG;
 
 print "<!--\n";
 print_r ( $nextGameEvent );
-$laterMessage = 'Hey #Linux gamers, join us for some ' . $nextGameEvent['title'] . ' in %time! Everybody’s welcome ' . $nextGameEvent['url'];
+$eventDate = new DateTime(); $eventDate->setTimestamp($nextGameEvent['utctime']);
+$diff = date_diff($eventDate, new DateTime("now"));
+$difference = $diff->format("%H hours");
+$laterMessage = 'Hey #Linux gamers, join us for some ' . $nextGameEvent['title'] . " in {$difference}! Everybody’s welcome " . $nextGameEvent['url'];
 $typicalMessage = 'Hey #Linux gamers, join us for some ' . $nextGameEvent['title'] . ' fun! Everybody’s welcome ' . $nextGameEvent['url'];
 print "-->\n";
 ?>
@@ -102,7 +105,10 @@ print "-->\n";
 <?php
 print "<!--\n";
 print_r ( $nextCastEvent );
-$laterMessage = "Join us for the live recording of SteamLUG Cast in %time, where we will be talking about %stuff. " . $nextCastEvent['url'];
+$eventDate = new DateTime(); $eventDate->setTimestamp($nextCastEvent['utctime']);
+$diff = date_diff($eventDate, new DateTime("now"));
+$difference = $diff->format("%H hours");
+$laterMessage = "Join us for the live recording of SteamLUG Cast in {$difference}, where we will be talking about %stuff. " . $nextCastEvent['url'];
 $typicalMessage = "Join us for the live recording of SteamLUG Cast, where we will be talking about %stuff. " . $nextCastEvent['url'];
 print "-->\n";
 ?>
