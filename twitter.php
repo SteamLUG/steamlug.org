@@ -160,6 +160,7 @@ print "-->\n";
 	}
 	$hosts = ( empty($listHostsTwits) ? '' : implode( ', ', $listHostsTwits) );
 	$guests = ( empty($listGuestsTwits) ? '' : ' speaking with ' . implode( ', ', $listGuestsTwits) );
+	$warning = ( $latestCast['PUBLISHED'] === "" ? '<span class="warning">In Progress</span>' : '<time datetime="' . $latestCast['PUBLISHED'] . '">' . $latestCast['PUBLISHED'] . '</time>' );
 	$typicalMessage = "SteamLUG Cast {$latestCast['SLUG']} ‘{$latestCast['TITLE']}’ with {$hosts}{$guests} is now available to listen to https://steamlug.org/cast/{$latestCast['SLUG']}";
 ?>
 			<article class="panel panel-default twit">
@@ -167,6 +168,7 @@ print "-->\n";
 					<h3 class="panel-title">Cast, publishing</h3>
 				</header>
 				<div class="panel-body">
+					<p><?=$warning;?></p>
 					<form method="post" class="form-horizontal" action="/twitter/">
 						<fieldset>
 						<input type="hidden" name="tweet">

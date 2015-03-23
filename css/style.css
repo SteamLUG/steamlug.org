@@ -341,5 +341,7 @@ article.twit input[type=submit] { height: 27px; padding-top: 2px }
 article.twit .form-group, article.twit p { margin-bottom: 8px }
 article.twit .form-horizontal .form-group { margin-left: 0; margin-right: 0; }
 
+.warning { color: red; background: transparent }
+
 /* TODO maybe make links to Steam have background-image? */
 /* TODO maybe replace Twitter links ‘@’ with colourful background-image? */
