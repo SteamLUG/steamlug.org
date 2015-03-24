@@ -36,7 +36,7 @@
 	function postTweet( $message ) {
 
 		if ( $message == "" )
-			return;
+			return array( 'errors' => array( array( "code" => -1, "message" => 'No message given?' ), array() ) );
 
 		// TODO do checks for >140 and being < a few
 
@@ -67,7 +67,7 @@
 		// Array ( [errors] => Array ( [0] => Array ( [message] => Your credentials do not allow access to this resource [code] => 220 ) ) )
 
 		if ( !isset( $tweetId ) )
-			return;
+			return array( 'errors' => array( array( "code" => -1, "message" => 'No message id given?' ), array() ) );
 
 		// TODO do checks for >140 and being < a few
 

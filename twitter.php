@@ -52,7 +52,7 @@ if ( isset( $_POST['tweet'] ) and isset( $_POST['message'] ) ) {
 
 	} else {
 
-		$body = 'Sent ‘' . $_POST['message'] . '’<br>';
+		$body = 'Sent ‘' . $_POST['message'] . "’<br>\n";
 		$body .= print_r( $reply, true );
 	}
 }
@@ -76,7 +76,7 @@ if ( isset( $_POST['delete'] ) and isset( $_POST['key'] ) ) {
 	} else {
 
 		// atm, assume it was all good?
-		$body = 'Deleted ' . $tweet . '.<br>';
+		$body = 'Deleted ' . $tweet . ".<br>\n";
 		$body .= print_r( $reply, true );
 	}
 	// Tweet does not exist:
