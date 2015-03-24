@@ -36,14 +36,13 @@
  	private $response;
 
  	private $status;
- 	private $raw;
  	private $online = false;
 
  	/**
 	* Constructor
 	*
 	* @access	public
-	* @param	string			hostname 
+	* @param	string			hostname
 	* @param	integer			port (optional)
 	* @param	integer			timeout in miliseconds (optional)
 	* @param	string			format (optional)
@@ -129,7 +128,7 @@
 
  	public function get_status($raw = false)
  	{
- 		return ($raw) ? $this->raw : $this->status;
+		return ($raw) ? $this->response : $this->status;
  	}
 
  	/**
@@ -233,9 +232,7 @@
 		{
 			while($resp = @fread($this->socket, 1024)) $this->response .= $resp;
 			stream_set_timeout($this->socket, 0, $this->timeout * 1000);
-
-			$this->raw = $this->response;
-			$this->status = $this->parse_response($this->response, $this->format);
+			$this->status = $this->parse_response($this->format);
 		}
 	}
 
@@ -250,7 +247,6 @@
 	{
 		if($this->socket) fclose($this->socket);
 
-		$this->response = NULL;
 		$this->data = NULL;
 		$this->socket = NULL;
 	}
@@ -264,20 +260,20 @@
 	* @return	array	parsed data
 	*/
 	
-	public function parse_response($data, $format = 'json')
+	public function parse_response($format = 'json')
 	{
 		switch($format)
 		{
 			case 'json':
-				$parsed_data = $this->_parse_json($data);
+				$parsed_data = $this->_parse_json();
 			break;
 
 			case 'xml':
-				$parsed_data = $this->_parse_xml($data);
+				$parsed_data = $this->_parse_xml();
 			break;
 
 			default:
-				$parsed_data = $this->_parse_json($data);
+				$parsed_data = $this->_parse_json();
 			break;
 		}
 
@@ -292,10 +288,10 @@
 	* @return	array	parsed data
 	*/
 
-	private function _parse_json($data)
+	private function _parse_json()
 	{
 		$parsed_data = array();
-		$decoded = json_decode($data, true);
+		$decoded = json_decode($this->response, true);
 
 		$this->_parse_channels($decoded);
 
@@ -315,10 +311,10 @@
 	*/
 
 	// Does not work properly yet.
-	private function _parse_xml($data)
+	private function _parse_xml()
 	{
 		$parsed_data = array();
-		$decoded = simplexml_load_string($data);
+		$decoded = simplexml_load_string($this->response);
 
 		$this->_parse_channels($decoded);
 
@@ -377,4 +373,3 @@
 	}
  }
 
-?>
