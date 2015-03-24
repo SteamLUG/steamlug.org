@@ -3,21 +3,15 @@
 	ini_set( 'session.use_strict_mode', 1 );
 	ini_set( 'session.name', 'steamlug' );
 	ini_set( 'session.cookie_httponly', 1 );
+	ini_set( 'session.cookie_secure', 1 );
 
 	include_once('steam.php');
 	include_once('creds.php');
 
 	function sec_session_start() {
 
-		$currentSesh = session_id( );
-		if ( empty( $currentSesh ) ) {
-			$secure = false; // Set to true if using https.
-			$httponly = true; // This stops javascript being able to access the session id.
-			$cookieParams = session_get_cookie_params(); // Gets current cookies params.
-			session_set_cookie_params($cookieParams["lifetime"], $cookieParams["path"], $cookieParams["domain"], $secure, $httponly);
-			session_start(); // Start the php session
-			session_regenerate_id(true); // regenerated the session, delete the old one
-		}
+		session_start(); // Start the php session
+		session_regenerate_id(true); // regenerated the session, delete the old one
 	}
 
 	function login($uid)
