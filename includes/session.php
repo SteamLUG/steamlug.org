@@ -3,6 +3,7 @@
 	ini_set( 'session.use_strict_mode', 1 );
 	ini_set( 'session.name', 'steamlug' );
 	ini_set( 'session.cookie_httponly', 1 );
+	// this setting breaks sessions for localhost, disable when testing locally
 	ini_set( 'session.cookie_secure', 1 );
 
 	include_once('steam.php');
