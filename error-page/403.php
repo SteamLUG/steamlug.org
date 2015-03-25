@@ -1,5 +1,6 @@
 <?php
 	$pageTitle = "403 Forbidden";
+	$skipAuth = "please";
 	include_once('../includes/header.php');
 
 	echo <<<DOCUMENT

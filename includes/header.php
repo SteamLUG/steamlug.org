@@ -1,5 +1,8 @@
 <?php
-include_once('session.php');
+// our error pages probably don’t want to touch this
+if ( !isset($skipAuth) ) {
+	include_once('session.php');
+}
 
 if (!isset($description))
 {
@@ -16,38 +19,41 @@ if (!isset($pageTitle))
 }
 
 $weareadmin = false;
-if(!login_check())
-{
-	$steam_login_verify = SteamSignIn::validate();
-	if (!empty($steam_login_verify))
+$logIn = "";
+if ( !isset($skipAuth) ) {
+	if(!login_check())
 	{
-		login($steam_login_verify);
-		// TODO this isn’t secure, fix that
-		if ( array_key_exists( 'REDIRECT_URL', $_SERVER ) ) {
-			header( "Location: /loggedin/?returnto=" . preg_replace('/\?.*$/', '', $_SERVER["REDIRECT_URL"]) );
+		$steam_login_verify = SteamSignIn::validate();
+		if (!empty($steam_login_verify))
+		{
+			login($steam_login_verify);
+			// TODO this isn’t secure, fix that
+			if ( array_key_exists( 'REDIRECT_URL', $_SERVER ) ) {
+				header( "Location: /loggedin/?returnto=" . preg_replace('/\?.*$/', '', $_SERVER["REDIRECT_URL"]) );
+			} else {
+				header( "Location: /loggedin/" );
+			}
+			exit();
 		} else {
-			header( "Location: /loggedin/" );
-		}
-		exit();
-	} else {
 
-		$steam_sign_in_url = SteamSignIn::genUrl();
-		$logIn = <<<AUTHBUTTON
-			<li class="steamLogin"><a href="{$steam_sign_in_url}"><img src="//steamcommunity.com/public/images/signinthroughsteam/sits_large_noborder.png" alt="Log into Steam" /></a></li>
+			$steam_sign_in_url = SteamSignIn::genUrl();
+			$logIn = <<<AUTHBUTTON
+				<li class="steamLogin"><a href="{$steam_sign_in_url}"><img src="//steamcommunity.com/public/images/signinthroughsteam/sits_large_noborder.png" alt="Log into Steam" /></a></li>
 AUTHBUTTON;
-	}
-} else {
-	if ( isset( $_SESSION['a'] ) and ( $_SESSION['a'] != "" ) ) {
-		$logIn = <<<SHOWAVATAR
-			<li class="steamLogin navbar-avatar"><a href="/logout"><img width="32" height="32" id="steamAvatar" src="{$_SESSION['a']}" /></a></li>
-SHOWAVATAR;
+		}
 	} else {
-		$logIn = <<<SHOWAVATAR
-			<li class="steamLogin navbar-avatar"><a href="/logout"><img width="32" height="32" id="steamAvatar" src="/avatars/default.png" /></a></li>
+		if ( isset( $_SESSION['a'] ) and ( $_SESSION['a'] != "" ) ) {
+			$logIn = <<<SHOWAVATAR
+				<li class="steamLogin navbar-avatar"><a href="/logout"><img width="32" height="32" id="steamAvatar" src="{$_SESSION['a']}" /></a></li>
 SHOWAVATAR;
-	}
-	if ( in_array( $_SESSION['u'], getAdmins() ) ) {
-		$weareadmin = true;
+		} else {
+			$logIn = <<<SHOWAVATAR
+				<li class="steamLogin navbar-avatar"><a href="/logout"><img width="32" height="32" id="steamAvatar" src="/avatars/default.png" /></a></li>
+SHOWAVATAR;
+		}
+		if ( in_array( $_SESSION['u'], getAdmins() ) ) {
+			$weareadmin = true;
+		}
 	}
 }
 // send only after any cookie tweaks

@@ -1,5 +1,6 @@
 <?php
 	$pageTitle = "500 Server Error";
+	$skipAuth = "please";
 	include_once('../includes/header.php');
 
 	echo <<<DOCUMENT
