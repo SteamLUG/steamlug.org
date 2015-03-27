@@ -11,6 +11,7 @@
 			<div class="panel-body">
 					<p>We're launching a new polling feature for SteamLUG.org, which will allow us to get better community input on things like events, SteamLUG Cast topics, future projects and more!</p>
 					<?php
+						// TODO remove these blocks, header already does check…
 						if(!login_check())
 						{
 							if (empty($steam_login_verify))

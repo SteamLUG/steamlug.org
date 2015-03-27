@@ -5,6 +5,7 @@
 	require_once( 'TwitterAPIExchange.php' );
 
 	$twitterKeys = getTwitterKeys();
+	// TODO move this into our variables
 	$screenname	= 'SteamLUG';
 
 	/*
@@ -74,6 +75,7 @@
 		$result = $twit->setPostfields( $fields )
 					->buildOauth( $resource, 'POST' )
 					->performRequest( );
+		// NOTE 403 error can mean duplicate or rate limited, but this API wont return that…
 		// TODO error handling
 		return json_decode( $result, true );
 
