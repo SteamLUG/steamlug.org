@@ -49,8 +49,8 @@
 			'trim_user' => true,
 		);
 
-		$result = $twit->setGetfields( $fields )
-					->buildOauth( $resource, 'GET' )
+		$result = $twit->setPostfields( $fields )
+					->buildOauth( $resource, 'POST' )
 					->performRequest( );
 		// TODO error handling
 		return json_decode( $result, true );
