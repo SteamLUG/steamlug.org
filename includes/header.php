@@ -147,7 +147,7 @@ header("Cache-Control: public, max-age=60");
 	$pollPage = "";
 	$pollArchivePage = "";
 	$adminMenu = "";
-	$avatarAdminPage = ""; $adminAdminPage = ""; $pollAdminPage = "";
+	$avatarAdminPage = ""; $adminAdminPage = ""; $pollAdminPage = ""; $twitterAdminPage = "";
 	$active = " class=\"active\"";
 
 	if (strpos($_SERVER["SCRIPT_NAME"], "news.php"))
@@ -211,6 +211,11 @@ header("Cache-Control: public, max-age=60");
 	{
 		$adminMenu = " active";
 		$adminAdminPage = $active;
+	}
+	else if (strpos($_SERVER["SCRIPT_NAME"], "twitter.php"))
+	{
+		$adminMenu = " active";
+		$twitterAdminPage = $active;
 	}
 	else if (strpos($_SERVER["SCRIPT_NAME"], "cast.php"))
 	{
@@ -276,6 +281,7 @@ header("Cache-Control: public, max-age=60");
 						<ul class="dropdown-menu">
 							<li<?php echo $avatarAdminPage; ?>><a href="/avatar">Avatars</a></li>
 							<li<?php echo $pollAdminPage; ?>><a href="/poll-admin">Polls</a><li>
+							<li<?php echo $twitterAdminPage; ?>><a href="/twitter">Twitter</a><li>
 							<li<?php echo $adminAdminPage; ?>><a href="/admins">Admins</a></li>
 							<li><a target="_blank" href="/transcriberer">Transcriberer</a><li>
 							<li><a target="_blank" href="//data.steamlug.org/updatesteamlug.php">Update events</a><li>
