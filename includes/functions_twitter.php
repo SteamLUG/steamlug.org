@@ -30,6 +30,29 @@
 	}
 
 	/*
+		Expose recent mentions so our admins can reply to users easily
+	*/
+	function getRecentMentions( $count = 8 ) {
+
+		global $twitterKeys;
+		$twit = new TwitterAPIExchange( $twitterKeys );
+		$resource = 'https://api.twitter.com/1.1/statuses/mentions_timeline.json';
+
+		$fields = array(
+			'count' => $count,
+			'trim_user' => true,
+		);
+
+		$result = $twit->setGetfields( $fields )
+					->buildOauth( $resource, 'GET' )
+					->performRequest( );
+		// TODO error handling
+		return json_decode( $result, true );
+	}
+
+
+
+	/*
 		Accept any text, push to Twitter?
 	*/
 	function postTweet( $message ) {
