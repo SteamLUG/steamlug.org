@@ -10,12 +10,11 @@
 	/*
 		Expose recent tweets so our admins can delete a mistake
 	*/
-	function getRecentTweets() {
+	function getRecentTweets( $count = 8 ) {
 
 		global $screenname, $twitterKeys;
 		$twit = new TwitterAPIExchange( $twitterKeys );
 		$resource = 'https://api.twitter.com/1.1/statuses/user_timeline.json';
-		$count = 8;
 
 		$fields = array(
 			'screen_name' => $screenname,
@@ -40,7 +39,7 @@
 
 		// TODO do checks for >140 and being < a few
 
-		global $screenname, $twitterKeys;
+		global $twitterKeys;
 		$twit = new TwitterAPIExchange( $twitterKeys );
 		$resource = 'https://api.twitter.com/1.1/statuses/update.json';
 
@@ -71,7 +70,7 @@
 
 		// TODO do checks for >140 and being < a few
 
-		global $screenname, $twitterKeys;
+		global $twitterKeys;
 		$twit = new TwitterAPIExchange( $twitterKeys );
 		$resource = 'https://api.twitter.com/1.1/statuses/destroy/' . $tweetId . '.json';
 
