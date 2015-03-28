@@ -137,13 +137,19 @@ print "-->\n";
 			</article>
 <?php
 print "<!--\n";
-print_r ( $nextCastEvent );
-$eventDate = new DateTime(); $eventDate->setTimestamp($nextCastEvent['utctime']);
-$diff = date_diff($eventDate, new DateTime("now"));
-$difference = $diff->format("%h hours");
-$laterMessage = "Join us for the live recording of SteamLUG Cast in {$difference}, where we will be talking about %stuff. " . $nextCastEvent['url'];
-$typicalMessage = "Join us for the live recording of SteamLUG Cast, where we will be talking about %stuff. " . $nextCastEvent['url'];
-$when = str_replace( 'T', ' ', str_replace( '+00:00', '', date("c", $nextCastEvent['utctime'] ) ) );
+if ( $nextCastEvent != null ) {
+
+	print_r ( $nextCastEvent );
+	$eventDate = new DateTime(); $eventDate->setTimestamp($nextCastEvent['utctime']);
+	$diff = date_diff($eventDate, new DateTime("now"));
+	$difference = $diff->format("%h hours");
+	$laterMessage = "Join us for the live recording of SteamLUG Cast in {$difference}, where we will be talking about %stuff. " . $nextCastEvent['url'];
+	$typicalMessage = "Join us for the live recording of SteamLUG Cast, where we will be talking about %stuff. " . $nextCastEvent['url'];
+	$when = str_replace( 'T', ' ', str_replace( '+00:00', '', date("c", $nextCastEvent['utctime'] ) ) );
+} else {
+	$when = 'a future date when someone creates the event!';
+	$laterMessage = $typicalMessage = "Join us for the live recording of SteamLUG Cast";
+}
 print "-->\n";
 ?>
 			<article class="panel panel-default twit">
