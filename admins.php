@@ -14,10 +14,19 @@
 	include_once('includes/functions_steam.php');
 
 	// TODO this document needs more than just a list of members
-	// TODO duplicate header links?
 	// TODO link to useful resources like github wiki references?
 	echo <<<DOCUMENT
-		<h1 class="text-center">Site Admins</h1>
+		<h1 class="text-center">Admin Page</h1>
+		<article class="panel panel-default">
+			<header class="panel-heading">
+				<h3 class="panel-title">Helpful Stuff</h3>
+			</header>
+			<div class="panel-body">
+				<p>Hey! So if you’re reading this, you’re one of SteamLUGs few admins. Hopefully you’ve been given all the links you need, but if not… here are some!</p>
+				<p>Our <a href="https://github.com/SteamLUG/">GitHub</a> with all the <a href="https://github.com/SteamLUG/steamlug.org/">site source</a>, <a href="https://github.com/SteamLUG/steamlugcast-shownotes">SteamLUG Cast notes</a>, and <a href="https://github.com/SteamLUG/steamlug-gaming-servers">gaming servers list</a>. Only a few admins will have write access to the site repo, but notes and gaming servers should be r/w for contributors. For people that aren’t yet contributors, accepting their pull requests on these two repos is allowed.</p>
+				<p>All of the site‐based event querying relies on XML files we pull from Steam and cache locally. They’re on a cronjob, if our local copy is old, you can prompt the server to get more recent copies by visiting <a href="http://data.steamlug.org/updatesteamlug.php">Update events</a>. </p>
+			</div>
+		</article>
 		<article class="panel panel-default">
 			<header class="panel-heading">
 				<h3 class="panel-title">Admins</h3>
@@ -38,6 +47,7 @@ DOCUMENT;
 
 	$approvedUsers = getAdminNames();
 	$memaybe = "";
+	// TODO should this pull Steam Group admins, to show if we have any differences?
 	foreach ($approvedUsers as $admin) {
 		print "\n<!-- ";
 		print_r( $admin );
