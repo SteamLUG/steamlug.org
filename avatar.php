@@ -64,21 +64,31 @@ if ( isset( $_POST['name'] ) and isset( $_FILES['userfile'] ) ) {
 	$requestedPath = $avatarFilePath . '/' . $requestedName . '.png';
 	$hostedURL		= '/avatars/' . $requestedName . '.png';
 
-	// TODO php docs mention getimagesize(tmpfile) !== false as a useful test, look into it
 	// do we want to be able to overwrite?
 	if ( !file_exists( $requestedPath ) and !is_dir( $requestedPath ) ) {
 
 		if ( is_uploaded_file( $_FILES['userfile']['tmp_name'] ) and ( $_FILES['userfile']['size'] < 500000 ) ) {
-			// above and below both do same checks, but we want to give admin more info
-			if ( move_uploaded_file($_FILES['userfile']['tmp_name'], $requestedPath ) ) {
 
-				// success
-				writeAvatarLog( 0, $me, $requestedName, 'upload' );
-				$body = "<p>File uploaded. [<img height=\"14\" width=\"14\" src=\"{$hostedURL}\" />]</p>";
+			$image = getimagesize( $_FILES['userfile']['tmp_name'] );
+			// NOTE we have a more limited set of images to accept here. No BMP ffs!
+			$typesAllowed = array( IMAGETYPE_GIF, IMAGETYPE_JPEG, IMAGETYPE_PNG );
+
+			if ( ( $image !== false and in_array( $image[2],  $typesAllowed ) ) ) {
+
+				if ( move_uploaded_file($_FILES['userfile']['tmp_name'], $requestedPath ) ) {
+
+					// success
+					writeAvatarLog( 0, $me, $requestedName, 'upload' );
+					$body = "<p>File uploaded. [<img height=\"14\" width=\"14\" src=\"{$hostedURL}\" />]</p>";
+				} else {
+
+					$style = "panel-danger";
+					$body = "<p>File failed to move to location.</p>";
+				}
 			} else {
 
 				$style = "panel-danger";
-				$body = "<p>File failed to move to location.</p>";
+				$body = "<p>File failed to validate as an image.</p>";
 			}
 		} else {
 
