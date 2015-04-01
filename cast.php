@@ -77,7 +77,7 @@ if ( $season !== "00" && $episode !== "00" && file_exists( $filename ) ) {
 	$meta['RECORDED']	= ( $meta['RECORDED'] === "" ? 'N/A' :	'<time datetime="' . $meta['RECORDED'] . '">' . $meta['RECORDED'] . '</time>' );
 	$meta['PUBLIC']		= ( $meta['PUBLISHED'] );
 	$meta['PUBLISHED']	= ( $meta['PUBLISHED'] === "" ? '<span class="warning">In Progress</span>' : '<time datetime="' . $meta['PUBLISHED'] . '">' . $meta['PUBLISHED'] . '</time>');
-	$episodeTitle		= $meta['SLUG'] . ' – ' . ( ($meta['TITLE'] === "") ? 'Edit In Progress' : slenc( $meta['TITLE'] ) );
+	$episodeTitle		= $meta['SLUG'] . ' – ' . ( ($meta['PUBLIC'] === "") ? 'Edit In Progress' : slenc( $meta['TITLE'] ) );
 	$pageTitle		   .= ' ' . $episodeTitle;
 	$meta['SHORTDESC']	= slenc( substr( $meta['DESCRIPTION'], 0, 132 ) );
 	$noteEditor			= ( $meta['NOTESCREATOR'] === "" ? "" :	'<span class="author">written by ' . nameplate( $meta['NOTESCREATOR'], 22 ) . '</span>' );
@@ -120,7 +120,7 @@ TWITCARD;
 	include('includes/header.php');
 	echo $start;
 
-	$meta['TITLE'] = ( ( ($meta['TITLE'] === "") or ( $weareadmin === false ) ) ? 'Edit In Progress' : slenc($meta['TITLE']) );
+	$meta['TITLE'] = ( ( ($meta['PUBLIC'] === "" ) and ( $weareadmin === false ) ) ? 'Edit In Progress' : slenc($meta['TITLE']) );
 
 	if ( $meta['PUBLIC'] === "" and $weareadmin === false ) {
 		$episodeMP3DS = $siteListen = $episodeOddDS = $episodeYoutube = "";
