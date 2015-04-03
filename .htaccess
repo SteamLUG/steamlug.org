@@ -3,9 +3,6 @@
 IndexIgnore *.php *.flac
 Options -Indexes
 
-# value for E_ALL in 5.4.x
-php_value error_reporting 32767
-
 ErrorDocument 403 /error-page/403.php
 ErrorDocument 404 /error-page/404.php
 ErrorDocument 500 /error-page/500.php
