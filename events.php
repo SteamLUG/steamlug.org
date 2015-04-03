@@ -1,17 +1,17 @@
 <?php
 $pageTitle = "Events";
-$externalJS = array('/scripts/events.js');
-include_once( 'includes/header.php' );
 include_once( 'includes/functions_events.php' );
 
 $event = getNextEvent( );
 $data = getRecentEvents( );
 if ($event != null) {
 	$eTime = $event['utctime'];
-	if (isset($eTime))
+	if (isset($eTime)) {
 		$extraJS = "\t\t\tvar target = new Date(" . $eTime . ");";
+		$externalJS = array('/scripts/events.js');
+	}
 }
-
+include_once( 'includes/header.php' );
 ?>
 		<h1 class="text-center">SteamLUG Events</h1>
 		<article class="panel panel-default">
