@@ -343,5 +343,8 @@ article.twit .form-horizontal .form-group { margin-left: 0; margin-right: 0; }
 
 .warning { color: red; background: transparent }
 
+input[type=text].warn, label.warn { color: red; }
+input[type=text].caution, label.caution { color: purple; }
+
 /* TODO maybe make links to Steam have background-image? */
 /* TODO maybe replace Twitter links ‘@’ with colourful background-image? */
