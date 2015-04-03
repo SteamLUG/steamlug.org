@@ -1,8 +1,8 @@
 <?php
-
-$pageTitle = "About";
+$pageTitle = "Projects";
+// TODO Clan pages?
+include_once('includes/header.php');
 ?>
-<?php include_once('includes/header.php'); ?>
 <h1 class="text-center">Projects - Coming Soon…</h1>
 <article class="panel panel-default">
 	<header class="panel-heading">

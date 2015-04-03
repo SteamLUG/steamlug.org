@@ -1,17 +1,19 @@
 <?php
 	header("Content-Type: application/rss+xml");
 	header("Access-Control-Allow-Origin: *");
-	if (!isset($_GET['t'])|| $_GET['t'] == "ogg")
-	{
+	date_default_timezone_set('UTC');
+
+	if (!isset($_GET['t'])|| $_GET['t'] == "ogg" ) {
+
 		$type = "ogg";
-	} else
-	{
+	} else {
+
 		$type = "mp3";
 	}
-	include_once('../includes/paths.php');
+	include_once('../includes/functions_cast.php');
 
-	function slenc($u)
-	{
+	function slenc($u) {
+
 		return htmlspecialchars($u, ENT_NOQUOTES, "UTF-8");
 	}
 
@@ -67,48 +69,40 @@ CASTHEAD;
 			continue;
 
 		$filename		= $notesPath .'/'. $castdir . "/episode.txt";
+
 		if (!file_exists($filename))
 			continue;
 
-		$shownotes		= file($filename);
-
-		$head = array_slice( $shownotes, 0, 14 );
-		$meta = array_fill_keys( array('RECORDED', 'PUBLISHED', 'TITLE',
-							'SEASON', 'EPISODE', 'DURATION', 'FILENAME',
-					'DESCRIPTION','HOSTS','GUESTS','ADDITIONAL' ), '');
-		foreach ( $head as $entry ) {
-			list($k, $v) = explode( ':', $entry, 2 );
-			$meta[$k] = trim($v); /* TODO remember to slenc() stuff! */
-		}
+		$shownotes			= file($filename);
+		$meta				= castHeader( array_slice( $shownotes, 0, 14 ) );
 
 		/* if published unset, skip this entry */
 		if ( $meta['PUBLISHED'] === '' )
 			continue;
 
-		$epi = "s" . slenc($meta['SEASON']) . "e" . slenc($meta['EPISODE']);
-		$archiveBase = 'http:' . $publicURL . '/' . $epi . '/' . $meta['FILENAME'];
-		$episodeBase = $filePath .'/' . $castdir . '/' . $meta['FILENAME'];
+		$archiveBase		= 'http:' . $publicURL . '/' . $meta['SLUG'] . '/' . $meta['FILENAME'];
+		$episodeBase		= $filePath . '/' . $castdir . '/' . $meta['FILENAME'];
 
 		/* if file missing, skip this entry */
 		if (!file_exists( $episodeBase . "." . $type))
 			continue;
 
-		$meta['PUBLISHED'] = date(DATE_RFC2822, strtotime( $meta['PUBLISHED'] ));
-		$meta['TITLE'] = slenc($meta['TITLE']);
-		$meta['SHORTDESCRIPTION'] = slenc(substr($meta['DESCRIPTION'],0,158));
-		$meta['DESCRIPTION'] = slenc($meta['DESCRIPTION']);
+		$meta['PUBLISHED']	= date( DATE_RFC2822, strtotime( $meta['PUBLISHED'] ) );
+		$meta['TITLE']		= slenc( $meta['TITLE'] );
+		$meta['SHORTDESC']	= slenc( substr( $meta['DESCRIPTION'],0,158 ) );
+		$meta['DESCRIPTION']= slenc( $meta['DESCRIPTION'] );
 
-		$episodeSize	= filesize($episodeBase . '.' . $type );
-		$episodeMime	= $type == "ogg" ? "audio/ogg" : "audio/mpeg";
+		$episodeSize		= filesize($episodeBase . '.' . $type );
+		$episodeMime		= $type == "ogg" ? "audio/ogg" : "audio/mpeg";
 
 		echo <<<CASTENTRY
 
 		<item>
-			<title>{$epi} – {$meta[ 'TITLE' ]}</title>
+			<title>{$meta['SLUG']} – {$meta[ 'TITLE' ]}</title>
 			<pubDate>{$meta['PUBLISHED']}</pubDate>
 			<itunes:duration>{$meta['DURATION']}</itunes:duration>
-			<link>https://steamlug.org/cast/{$epi}</link>
-			<guid>https://steamlug.org/cast/{$epi}</guid>
+			<link>https://steamlug.org/cast/{$meta['SLUG']}</link>
+			<guid>https://steamlug.org/cast/{$meta['SLUG']}</guid>
 			<enclosure url="{$archiveBase}.{$type}" length="{$episodeSize}" type="{$episodeMime}" />
 			<media:content url="{$archiveBase}.{$type}" fileSize="{$episodeSize}" type="{$episodeMime}" medium="audio" expression="full" />
 			<itunes:explicit>no</itunes:explicit>
@@ -174,7 +168,7 @@ CASTENTRY;
 		}
 		echo <<<CASTENTRY
 			]]></description>
-			<itunes:subtitle>{$meta['SHORTDESCRIPTION']}…</itunes:subtitle>
+			<itunes:subtitle>{$meta['SHORTDESC']}…</itunes:subtitle>
 		</item>
 CASTENTRY;
 	}

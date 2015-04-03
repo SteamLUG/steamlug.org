@@ -1,11 +1,7 @@
 <?php
 header('Content-Type: text/html; charset=UTF-8');
-$season  = isset($_GET["s"]) ? intval($_GET["s"]) : "0";
-$season  = str_pad($season, 2, '0', STR_PAD_LEFT);
-$episode = isset($_GET["e"]) ? intval($_GET["e"]) : "0";
-$episode = str_pad($episode, 2, '0', STR_PAD_LEFT);
 
-include_once('includes/paths.php');
+include_once('includes/functions_cast.php');
 
 function slenc($u)
 {
@@ -15,22 +11,13 @@ function slenc($u)
 $filename = $notesPath . "/s" . $season . "e" . $episode . "/episode.txt";
 if ($season !== "00" && $episode !== "00" && file_exists($filename))
 {
-	$shownotes		= file($filename);
+	$shownotes			= file( $filename );
+	$meta				= castHeader( array_slice( $shownotes, 0, 14 ) );
 
-	$head = array_slice( $shownotes, 0, 14 );
-	$meta = array_fill_keys( array('RECORDED', 'PUBLISHED', 'TITLE',
-						'SEASON', 'EPISODE', 'DURATION', 'FILENAME',
-				'DESCRIPTION','HOSTS','GUESTS','ADDITIONAL', 'YOUTUBE' ), '');
-	foreach ( $head as $entry ) {
-		list($k, $v) = explode( ':', $entry, 2 );
-		$meta[$k] = trim($v);
-	}
-	$epi = 's' . slenc($meta['SEASON']) . 'e' . slenc($meta['EPISODE']);
-
-	$meta['RECORDED']  = ( $meta['RECORDED'] === '' ? "N/A" : $meta['RECORDED'] );
+	$meta['RECORDED']	= ( $meta['RECORDED'] === '' ? "N/A" : $meta['RECORDED'] );
 
 	echo "{$meta['DESCRIPTION']}<br>\n<br>\n";
-	echo "Shownotes featuring full descriptions and links can be found at https://steamlug.org/cast/{$epi}<br>\n";
+	echo "Shownotes featuring full descriptions and links can be found at https://steamlug.org/cast/{$meta['SLUG']}<br>\n";
 	echo "This cast was recorded on {$meta['RECORDED']}<br>\n<br>\n";
 
 	foreach ( array_slice( $shownotes, 15 ) as $note)

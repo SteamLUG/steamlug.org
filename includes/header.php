@@ -1,7 +1,9 @@
-<!DOCTYPE html>
 <?php
-// caching (60 seconds)
-header("Cache-Control: public, max-age=60");
+// our error pages probably don’t want to touch this
+if ( !isset($skipAuth) ) {
+	include_once('session.php');
+}
+
 if (!isset($description))
 {
 	$description = "SteamLUG - the Steam Linux User Group! A multilingual community of Linux gamers which aims to be a fun, welcoming space for people of all backgrounds and aptitudes.";
@@ -16,20 +18,49 @@ if (!isset($pageTitle))
 	$pageTitle = "Super Secret Unnamed Page!";
 }
 
-include_once('session.php');
-include_once('functions_poll.php');
-if(!login_check())
-{
-	$steam_login_verify = SteamSignIn::validate();
-	if (!empty($steam_login_verify))
+$weareadmin = false;
+$logIn = "";
+if ( !isset($skipAuth) ) {
+	if(!login_check())
 	{
-		login($steam_login_verify);
-		// get PHP_SELF to replace .php to nothing, news to /
-		header("Location: /loggedin/?returnto=" . $_SERVER['PHP_SELF']);
+		$steam_login_verify = SteamSignIn::validate();
+		if (!empty($steam_login_verify))
+		{
+			login($steam_login_verify);
+			// TODO this isn’t secure, fix that
+			if ( array_key_exists( 'REDIRECT_URL', $_SERVER ) ) {
+				header( "Location: /loggedin/?returnto=" . preg_replace('/\?.*$/', '', $_SERVER["REDIRECT_URL"]) );
+			} else {
+				header( "Location: /loggedin/" );
+			}
+			exit();
+		} else {
+
+			$steam_sign_in_url = SteamSignIn::genUrl();
+			$logIn = <<<AUTHBUTTON
+				<li class="steamLogin"><a href="{$steam_sign_in_url}"><img src="//steamcommunity.com/public/images/signinthroughsteam/sits_large_noborder.png" alt="Log into Steam" /></a></li>
+AUTHBUTTON;
+		}
+	} else {
+		if ( isset( $_SESSION['a'] ) and ( $_SESSION['a'] != "" ) ) {
+			$logIn = <<<SHOWAVATAR
+				<li class="steamLogin navbar-avatar"><a href="/logout"><img width="32" height="32" id="steamAvatar" src="{$_SESSION['a']}" /></a></li>
+SHOWAVATAR;
+		} else {
+			$logIn = <<<SHOWAVATAR
+				<li class="steamLogin navbar-avatar"><a href="/logout"><img width="32" height="32" id="steamAvatar" src="/avatars/default.png" /></a></li>
+SHOWAVATAR;
+		}
+		if ( in_array( $_SESSION['u'], getAdmins() ) ) {
+			$weareadmin = true;
+		}
 	}
 }
+// send only after any cookie tweaks
+header("Cache-Control: public, max-age=60");
 
 ?>
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 	<head>
 		<meta charset="UTF-8" />
@@ -116,7 +147,7 @@ if(!login_check())
 	$pollPage = "";
 	$pollArchivePage = "";
 	$adminMenu = "";
-	$avatarAdminPage = ""; $pollAdminPage = "";
+	$avatarAdminPage = ""; $adminAdminPage = ""; $pollAdminPage = ""; $twitterAdminPage = "";
 	$active = " class=\"active\"";
 
 	if (strpos($_SERVER["SCRIPT_NAME"], "news.php"))
@@ -176,6 +207,16 @@ if(!login_check())
 		$adminMenu = " active";
 		$avatarAdminPage = $active;
 	}
+	else if (strpos($_SERVER["SCRIPT_NAME"], "admins.php"))
+	{
+		$adminMenu = " active";
+		$adminAdminPage = $active;
+	}
+	else if (strpos($_SERVER["SCRIPT_NAME"], "twitter.php"))
+	{
+		$adminMenu = " active";
+		$twitterAdminPage = $active;
+	}
 	else if (strpos($_SERVER["SCRIPT_NAME"], "cast.php"))
 	{
 		$castPage = $active;
@@ -193,31 +234,7 @@ if(!login_check())
 		$aboutPage = $active;
 	}
 
-	$weareadmin = false;
-	if(!login_check())
-	{
-		if (empty($steam_login_verify))
-		{
-			$steam_sign_in_url = SteamSignIn::genUrl();
-			$logIn = <<<AUTHBUTTON
-				<li class="steamLogin"><a href="{$steam_sign_in_url}"><img src="//steamcommunity.com/public/images/signinthroughsteam/sits_large_noborder.png" alt="Log into Steam" /></a></li>
-AUTHBUTTON;
-		}
-	}
-	else
-	{
-		if ( isset( $_SESSION['a'] ) and ( $_SESSION['a'] != "" ) )
-		{
-			$logIn = <<<SHOWAVATAR
-				<li class="steamLogin navbar-avatar"><a href="/logout"><img width="32" height="32" id="steamAvatar" src="{$_SESSION['a']}" /></a></li>
-SHOWAVATAR;
-		}
-		if ( in_array( $_SESSION['u'], getAdmins() ) ) {
-			$weareadmin = true;
-		}
-
-	}
-
+	// TODO SteamLUG logo to replace navbar-brand, maybe SVG?
 ?>
 	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container">
@@ -264,6 +281,8 @@ SHOWAVATAR;
 						<ul class="dropdown-menu">
 							<li<?php echo $avatarAdminPage; ?>><a href="/avatar">Avatars</a></li>
 							<li<?php echo $pollAdminPage; ?>><a href="/poll-admin">Polls</a><li>
+							<li<?php echo $twitterAdminPage; ?>><a href="/twitter">Twitter</a><li>
+							<li<?php echo $adminAdminPage; ?>><a href="/admins">Admins</a></li>
 							<li><a target="_blank" href="/transcriberer">Transcriberer</a><li>
 							<li><a target="_blank" href="//data.steamlug.org/updatesteamlug.php">Update events</a><li>
 							<li<?php echo $aboutPage; ?>><a href="/about">About</a></li>

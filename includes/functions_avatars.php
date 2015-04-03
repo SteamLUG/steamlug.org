@@ -1,42 +1,39 @@
 <?php
-	include_once('includes/paths.php');
+	include_once('paths.php');
 
 	/* we take: ‘johndrinkwater’ / ‘@johndrinkwater’ / ‘John Drinkwater (@twitter)’ / ‘John Drinkwater {URL}’ and spit out Person{} */
 	function parsePersonString( $string ) {
 
-		$person = array(); $name = ""; $nickname = ""; $twitter = ""; $avatar = "";
+		$person = array_fill_keys( array( 'twitter', 'nickname', 'name', 'avatar' ), '');
 		foreach ( explode( " ", $string ) as $data ) {
 
 			// (@johndrinkwater) or @johndrinkwater
 			if ( preg_match( '/\(?@([a-z0-9_]+)\)?/i', $data, $twitterResult ) ) {
-				$twitter = $twitterResult[1];
+				$person['twitter'] = $twitterResult[1];
 
 			// (johndrinkwater)
 			} else if ( preg_match( '/\(([a-z0-9_]+)\)/i', $data, $nicknameResult) ) {
-				$nickname = $nicknameResult[1];
+				$person['nickname'] = $nicknameResult[1];
 
 			// {//i.imgur.com/8YkJva1.jpg}
 			} else if ( preg_match( '/{(.*)}/i', $data, $avatarURLResult) ) {
-				$avatar = $avatarURLResult[1];
+				$person['avatar'] = $avatarURLResult[1];
 
 			// John Drinkwater
 			} else {
-				$name .= $data . " ";
+				$person['name'] .= $data . " ";
 			}
 		}
-		$person['name'] = trim( $name );
-		$person['nickname'] = $nickname;
-		$person['twitter']	= $twitter;
+		$person['name'] = trim( $person['name'] );
 
-		if ( strlen( $avatar ) > 0 ) {
-			$person['avatar'] = $avatar;
+		if ( strlen( $person['avatar'] ) > 0 ) {
 		} else {
-			$lookup = trim( $name );
-			if ( strlen( $nickname ) > 0 )
-				$lookup = $nickname;
+			$lookup = $person['name'];
+			if ( strlen( $person['nickname'] ) > 0 )
+				$lookup = $person['nickname'];
 
-			if ( strlen( $twitter ) > 0 )
-				$lookup = $twitter;
+			if ( strlen( $person['twitter'] ) > 0 )
+				$lookup = $person['twitter'];
 			$person['avatar'] = '/avatars/' . $lookup . '.png';
 		}
 		return $person;

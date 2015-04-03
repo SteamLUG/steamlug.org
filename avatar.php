@@ -1,7 +1,6 @@
 <?php
 $pageTitle = "Avatars";
 include_once('includes/session.php');
-include_once('includes/paths.php');
 include_once('includes/functions_avatars.php');
 
 // are we logged in? no → leave
@@ -69,16 +68,27 @@ if ( isset( $_POST['name'] ) and isset( $_FILES['userfile'] ) ) {
 	if ( !file_exists( $requestedPath ) and !is_dir( $requestedPath ) ) {
 
 		if ( is_uploaded_file( $_FILES['userfile']['tmp_name'] ) and ( $_FILES['userfile']['size'] < 500000 ) ) {
-			// above and below both do same checks, but we want to give admin more info
-			if ( move_uploaded_file($_FILES['userfile']['tmp_name'], $requestedPath ) ) {
 
-				// success
-				writeAvatarLog( 0, $me, $requestedName, 'upload' );
-				$body = "<p>File uploaded. [<img height=\"14\" width=\"14\" src=\"{$hostedURL}\" />]</p>";
+			$image = getimagesize( $_FILES['userfile']['tmp_name'] );
+			// NOTE we have a more limited set of images to accept here. No BMP ffs!
+			$typesAllowed = array( IMAGETYPE_GIF, IMAGETYPE_JPEG, IMAGETYPE_PNG );
+
+			if ( ( $image !== false and in_array( $image[2],  $typesAllowed ) ) ) {
+
+				if ( move_uploaded_file($_FILES['userfile']['tmp_name'], $requestedPath ) ) {
+
+					// success
+					writeAvatarLog( 0, $me, $requestedName, 'upload' );
+					$body = "<p>File uploaded. [<img height=\"14\" width=\"14\" src=\"{$hostedURL}\" />]</p>";
+				} else {
+
+					$style = "panel-danger";
+					$body = "<p>File failed to move to location.</p>";
+				}
 			} else {
 
 				$style = "panel-danger";
-				$body = "<p>File failed to move to location.</p>";
+				$body = "<p>File failed to validate as an image.</p>";
 			}
 		} else {
 
@@ -305,7 +315,9 @@ ACTIONMSG;
 			</article>
 <?php include_once('includes/footer.php');
 
-// TODO improvements: convert log into a scrollable table?
-// List active permission slips.
-// List avatars?
+// TODO improve log, convert into a table?
+// TODO add functions_steam support to the admin log
+// TODO List active permission slips.
+// TODO List existing avatars?
+// TODO allow users with valid permission slip to overwrite their current avatar
 

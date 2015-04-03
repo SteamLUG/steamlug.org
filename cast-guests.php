@@ -1,7 +1,6 @@
 <?php
 	$pageTitle = "Cast Guests";
 	include_once('includes/header.php');
-	include_once('includes/paths.php');
 
 	echo <<<DOCUMENT
 		<h1 class="text-center">SteamLUG Cast Guest Information <!-- And
@@ -17,7 +16,7 @@
 				your team develop or port games? Do you contribute to Free Software? Do you
 				<em>love</em> talking about any of these things at length?</p>
 				<p>If so, you’re likely someone we’d like to get on the cast in
-				the future! Send us an <a href="cast@steamlug.org">email</a>
+				the future! Send us an <a href="mailto:cast@steamlug.org">email</a>
 				and tell us a little about yourself, give us some idea of the
 				time‐frame you’d be interested in (we understand the
 				time-sensitive nature of releases), with the understanding that

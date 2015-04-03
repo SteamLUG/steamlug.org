@@ -1,36 +1,16 @@
 <?php
 $pageTitle = "Events";
-include_once( 'includes/paths.php' );
-require_once( 'rbt_prs.php' );
-require_once( 'steameventparser.php' );
+include_once( 'includes/functions_events.php' );
 
-$parser = new SteamEventParser();
-
-$month = gmstrftime("%m")-0;
-$year  = gmstrftime("%Y");
-$data  = $parser->genData($eventXMLPath, "steamlug", $month, $year);
-$data2 = $parser->genData($eventXMLPath, "steamlug", ( $month >= 12 ? 1 : ( $month +1 ) ), ( $month >= 12 ? ( $year + 1 ) : $year ));
-$data3 = $parser->genData($eventXMLPath, "steamlug", ( $month <= 1 ? 12 : ( $month -1 ) ), ( $month <= 1 ? ( $year -1 ) : $year ));
-
-$data['events'] = array_merge($data['events'], $data2['events']);
-$data['pastevents'] = array_merge($data['pastevents'], $data3['pastevents']);
-
-foreach ($data['events'] as $event) {
-	if ($event['appid'] === 0) {
-		continue;
+$event = getNextEvent( );
+$data = getRecentEvents( );
+if ($event != null) {
+	$eTime = $event['utctime'];
+	if (isset($eTime)) {
+		$extraJS = "\t\t\tvar target = new Date(" . $eTime . ");";
+		$externalJS = array('/scripts/events.js');
 	}
-	$d = explode("-", $event['date']);
-	$t = explode(":", $event['time']);
-	$eTime = strtotime($d[0] . "-" . $d[1] . "-" . $d[2] . 'T' . $t[0] . ':' . $t[1] . 'Z');
-	unset($d); unset($t);
-
-	break;
 }
-if (isset($eTime)) {
-	$extraJS = "\t\t\tvar target = new Date(" . $eTime . ");";
-}
-$externalJS = array('/scripts/events.js');
-
 include_once( 'includes/header.php' );
 ?>
 		<h1 class="text-center">SteamLUG Events</h1>
@@ -44,12 +24,8 @@ include_once( 'includes/header.php' );
 $eventButton = "";
 $eventImage = "";
 $eventTitle = "";
-foreach ($data['events'] as $event) {
-	if ($event['appid'] === 0)
-	{
-		continue;
-	}
-
+if ($event != null) {
+	// TODO: tidy this mess, the next block, and the HEREDOC into one clean thing
 	$eventTitle = '<h3 class="centred"><a href="' . $event['url'] . '">' .  str_replace( 'SteamLUG ','',$event['title'] ) . '</a></h3>';
 	($event['appid'] !== 0 ?
 	$eventImage = "<a href='" . $event['url'] . "'><img class=\"img-rounded eventimage\" src='" . $event['img_header'] . "' alt='" . $event['title'] . "'/></a>" :
@@ -57,7 +33,6 @@ foreach ($data['events'] as $event) {
 	);
 	$eventButton = "<p><a class=\"btn btn-primary btn-lg pull-right\" href=\"" . $event['url'] . "\">Click for details</a></p>";
 	$dt = $event['date'] . " " . $event['time'] . " " . $event['tz'];
-	break;
 }
 
 if (isset($eTime)) {

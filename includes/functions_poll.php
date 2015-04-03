@@ -503,9 +503,9 @@
 				<label class="col-lg-2 control-label" for="poll_type">Type</label>
 				<div class="col-lg-10">
 					<select class="form-control" id="poll_type" name="poll_type">
-						<option value="decision" <?php echo ($poll['type'] == 'decision' ? "selected = 'selected'" : "") ?>>Decision</option>
-						<option value="event" <?php echo ($poll['type'] == 'event' ? "selected = 'selected'" : "") ?>>Event</option>
-						<option value="research" <?php echo ($poll['type'] == 'research' ? "selected = 'selected'" : "") ?>>Research</option>
+						<option value="decision" <?php echo (isset($poll['type']) and $poll['type'] == 'decision' ? "selected = 'selected'" : "") ?>>Decision</option>
+						<option value="event" <?php echo (isset($poll['type']) and $poll['type'] == 'event' ? "selected = 'selected'" : "") ?>>Event</option>
+						<option value="research" <?php echo (isset($poll['type']) and $poll['type'] == 'research' ? "selected = 'selected'" : "") ?>>Research</option>
 					</select>
 				</div>
 			</div>

@@ -1,5 +1,6 @@
 <?php
 	$pageTitle = "404 Not Found";
+	$skipAuth = "please";
 	include_once('../includes/header.php');
 
 	echo <<<DOCUMENT

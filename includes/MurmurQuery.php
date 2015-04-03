@@ -19,47 +19,46 @@
 
  class MurmurQuery
  {
- 	/* Packets */
- 	const Q_XML		= "\x78\x6D\x6C";
- 	const Q_JSON	= "\x6A\x73\x6F\x6E";
+	/* Packets */
+	const Q_XML		= "\x78\x6D\x6C";
+	const Q_JSON	= "\x6A\x73\x6F\x6E";
 
- 	private $users = array();
- 	private $channels = array();
+	private $users = array();
+	private $channels = array();
 
- 	private $socket;
+	private $socket;
 
- 	private $host;
- 	private $port;
- 	private $timeout;
- 	private $format;
+	private $host;
+	private $port;
+	private $timeout;
+	private $format;
 
- 	private $response;
+	private $response;
 
- 	private $status;
- 	private $raw;
- 	private $online = false;
+	private $status;
+	private $online = false;
 
- 	/**
+	/**
 	* Constructor
 	*
 	* @access	public
-	* @param	string			hostname 
+	* @param	string			hostname
 	* @param	integer			port (optional)
 	* @param	integer			timeout in miliseconds (optional)
 	* @param	string			format (optional)
 	* @return	void
 	*/
 
- 	public function __construct($host = '', $port = 27800, $timeout = 200, $format = 'json')
- 	{
- 		if(!empty($host))
- 		{
- 			$this->setup($host, $port, $timeout, $format);
-	 		$this->query();
- 		}
- 	}
+	public function __construct($host = '', $port = 27800, $timeout = 200, $format = 'json')
+	{
+		if(!empty($host))
+		{
+			$this->setup($host, $port, $timeout, $format);
+			$this->query();
+		}
+	}
 
- 	/**
+	/**
 	* Set the parameters
 	*
 	* @access	public
@@ -70,25 +69,25 @@
 	* @return	void
 	*/
 
- 	public function setup($host, $port = 27800, $timeout = 200, $format = 'json')
- 	{
- 		if(is_array($host))
- 		{
- 			$this->host = array_key_exists('host', $host) ? $host['host'] : '';
- 			$this->port = array_key_exists('port', $host) ? $host['port'] : $port;
- 			$this->timeout = array_key_exists('timeout', $host) ? $host['timeout'] : $timeout;
- 			$this->format = array_key_exists('format', $host) ? $host['format'] : $format;
- 		}
- 		else
- 		{
- 			$this->host = $host;
- 			$this->port = $port;
- 			$this->timeout = $timeout;
- 			$this->format = $format;
- 		}
- 	}
+	public function setup($host, $port = 27800, $timeout = 200, $format = 'json')
+	{
+		if(is_array($host))
+		{
+			$this->host = array_key_exists('host', $host) ? $host['host'] : '';
+			$this->port = array_key_exists('port', $host) ? $host['port'] : $port;
+			$this->timeout = array_key_exists('timeout', $host) ? $host['timeout'] : $timeout;
+			$this->format = array_key_exists('format', $host) ? $host['format'] : $format;
+		}
+		else
+		{
+			$this->host = $host;
+			$this->port = $port;
+			$this->timeout = $timeout;
+			$this->format = $format;
+		}
+	}
 
- 	/**
+	/**
 	* Set data format
 	*
 	* @access	public
@@ -96,20 +95,20 @@
 	* @return	void
 	*/
 
- 	public function set_format($format = 'json')
- 	{
- 		$this->format = $format;
- 	}
+	public function set_format($format = 'json')
+	{
+		$this->format = $format;
+	}
 
- 	/**
+	/**
 	* Query the server
 	*
 	* @access	public
 	* @return	void
 	*/
 
- 	public function query()
- 	{
+	public function query()
+	{
 		$this->_connect();
 		$this->_send_query($this->format);
 		$this->_catch_response();
@@ -117,9 +116,9 @@
 		if(!empty($this->response)) $this->online = true;
 
 		$this->_close();
- 	}
+	}
 
- 	/**
+	/**
 	* Get server status
 	*
 	* @access	public
@@ -127,66 +126,66 @@
 	* @return	mixed		json/xml if set to return raw response or array otherwise
 	*/
 
- 	public function get_status($raw = false)
- 	{
- 		return ($raw) ? $this->raw : $this->status;
- 	}
+	public function get_status($raw = false)
+	{
+		return ($raw) ? $this->response : $this->status;
+	}
 
- 	/**
+	/**
 	* Get users
 	*
 	* @access	public
 	* @return	array
 	*/
 
- 	public function get_users()
- 	{
- 		return $this->users;
- 	}
+	public function get_users()
+	{
+		return $this->users;
+	}
 
- 	/**
+	/**
 	* Get channels
 	*
 	* @access	public
 	* @return	array
 	*/
 
- 	public function get_channels()
- 	{
- 		return $this->channels;
- 	}
+	public function get_channels()
+	{
+		return $this->channels;
+	}
 
- 	/**
+	/**
 	* Check if the server is online
 	*
 	* @access	public
 	* @return	bool
 	*/
 
- 	public function is_online()
- 	{
- 		return $this->online;
- 	}
+	public function is_online()
+	{
+		return $this->online;
+	}
 
- 	/**
+	/**
 	* Establish a socket connection
 	*
 	* @access	private
 	* @return	bool
 	*/
 
- 	private function _connect()
- 	{
- 		// We need timeout in seconds for fsockopen()
- 		$timeout = ($this->timeout < 1000) ? 1 : ceil($this->timeout / 1000);
+	private function _connect()
+	{
+		// We need timeout in seconds for fsockopen()
+		$timeout = ($this->timeout < 1000) ? 1 : ceil($this->timeout / 1000);
 		$this->socket = @fsockopen($this->host, $this->port, $errno, $errstr, $this->timeout);
 
 		if(!$this->socket) return false;
 
 		return true;
- 	}
+	}
 
- 	/**
+	/**
 	* Send query to the server
 	*
 	* @access	private
@@ -220,7 +219,7 @@
 		}
 	}
 
- 	/**
+	/**
 	* Receive response from the server
 	*
 	* @access	private
@@ -233,13 +232,11 @@
 		{
 			while($resp = @fread($this->socket, 1024)) $this->response .= $resp;
 			stream_set_timeout($this->socket, 0, $this->timeout * 1000);
-
-			$this->raw = $this->response;
-			$this->status = $this->parse_response($this->response, $this->format);
+			$this->status = $this->parse_response($this->format);
 		}
 	}
 
- 	/**
+	/**
 	* Close socket connection
 	*
 	* @access	private
@@ -250,7 +247,6 @@
 	{
 		if($this->socket) fclose($this->socket);
 
-		$this->response = NULL;
 		$this->data = NULL;
 		$this->socket = NULL;
 	}
@@ -264,27 +260,27 @@
 	* @return	array	parsed data
 	*/
 	
-	public function parse_response($data, $format = 'json')
+	public function parse_response($format = 'json')
 	{
 		switch($format)
 		{
 			case 'json':
-				$parsed_data = $this->_parse_json($data);
+				$parsed_data = $this->_parse_json();
 			break;
 
 			case 'xml':
-				$parsed_data = $this->_parse_xml($data);
+				$parsed_data = $this->_parse_xml();
 			break;
 
 			default:
-				$parsed_data = $this->_parse_json($data);
+				$parsed_data = $this->_parse_json();
 			break;
 		}
 
 		return $parsed_data;
 	}
 
- 	/**
+	/**
 	* Parse JSON
 	*
 	* @access	private
@@ -292,10 +288,10 @@
 	* @return	array	parsed data
 	*/
 
-	private function _parse_json($data)
+	private function _parse_json()
 	{
 		$parsed_data = array();
-		$decoded = json_decode($data, true);
+		$decoded = json_decode($this->response, true);
 
 		$this->_parse_channels($decoded);
 
@@ -306,7 +302,7 @@
 		return $parsed_data;
 	}
 
- 	/**
+	/**
 	* Parse XML
 	*
 	* @access	private
@@ -315,10 +311,10 @@
 	*/
 
 	// Does not work properly yet.
-	private function _parse_xml($data)
+	private function _parse_xml()
 	{
 		$parsed_data = array();
-		$decoded = simplexml_load_string($data);
+		$decoded = simplexml_load_string($this->response);
 
 		$this->_parse_channels($decoded);
 
@@ -329,7 +325,7 @@
 		return $parsed_data;
 	}
 
- 	/**
+	/**
 	* Parse the channels
 	*
 	* @access	private
@@ -377,4 +373,3 @@
 	}
  }
 
-?>

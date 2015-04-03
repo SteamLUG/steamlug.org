@@ -1,14 +1,12 @@
 <?php
 $pageTitle = "Chat";
-include_once('includes/session.php');
+include_once('includes/header.php');
 
 $preferredNick = "";
-if (login_check()) {
-	$preferredNick = $_SESSION['n'];
-	$preferredNick = preg_replace('/[^\w{}\[\]\\`_\^\|]+/', '', $preferredNick );
+if ( isset( $_SESSION['n'] ) ) {
+	$preferredNick = preg_replace('/[^\w{}\[\]\\`_\^\|]+/', '', $_SESSION['n'] );
 }
 
-include_once('includes/header.php');
 ?>
 		<h1 class="text-center">Chat</h1>
 <div class="row">

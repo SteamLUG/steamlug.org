@@ -1,6 +1,7 @@
 <?php
 header('Content-type: text/calendar; charset=utf-8');
 header("Content-Disposition: inline; filename=steamlug-events.ics" );
+date_default_timezone_set('UTC');
 
 echo <<<HEADER
 BEGIN:VCALENDAR
@@ -8,11 +9,9 @@ VERSION:2.0
 PRODID:https://steamlug.org
 
 HEADER;
-include_once('../includes/paths.php');
-require_once('../steameventparser.php');
-$parser = new SteamEventParser();
-$eventarr = $parser->genData($eventXMLPath,"steamlug");
-foreach ($eventarr['events'] as $event) {
+include_once( '../includes/functions_events.php' );
+$data = getRecentEvents( );
+foreach ($data['events'] as $event) {
 
 	/* Ignore SteamLUG cast? q.q */
 	/* TODO: sort out steamlugcast & non-gaming events for this */
