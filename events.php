@@ -1,5 +1,6 @@
 <?php
 $pageTitle = "Events";
+$externalJS = array('/scripts/events.js');
 include_once( 'includes/header.php' );
 include_once( 'includes/functions_events.php' );
 
@@ -11,7 +12,6 @@ if ($event != null) {
 		$extraJS = "\t\t\tvar target = new Date(" . $eTime . ");";
 }
 
-$externalJS = array('/scripts/events.js');
 ?>
 		<h1 class="text-center">SteamLUG Events</h1>
 		<article class="panel panel-default">
