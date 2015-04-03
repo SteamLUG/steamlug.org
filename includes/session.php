@@ -27,7 +27,6 @@
 
 	function logout()
 	{
-		SteamSignIn::logout();
 		session_destroy();
 		header ("Location: /");
 	}

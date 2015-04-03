@@ -91,33 +91,4 @@ class SteamSignIn
 		return preg_match("#is_valid\s*:\s*true#i", $result) == 1 ? $steamID64 : '';
 	}
 	
-	/**
-	* Validate the incoming data
-	*
-	* @return string Returns the SteamID64 if successful or empty string on failure
-	*/
-	public static function logout()
-	{
-		
-		
-		// Star off with some basic params
-		$params = array();
-		
-		// Stored to send a Content-Length header
-		$data =  http_build_query($params);
-		$context = stream_context_create(array(
-			'http' => array(
-				'method'  => 'POST',
-				'header'  => 
-					"Accept-language: en\r\n".
-					"Content-type: application/x-www-form-urlencoded\r\n" .
-					"Content-Length: " . strlen($data) . "\r\n",
-				'content' => $data,
-			),
-		));
-
-		$result = file_get_contents(self::STEAM_LOGOUT, false, $context);
-		// TODO: We should probably alert the user to any potential issues with logging out so that they can take any actions they feel are appropriate
-		return;
-	}
 }
