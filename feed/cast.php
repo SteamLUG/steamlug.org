@@ -52,7 +52,7 @@
 			<link>https://steamlug.org/cast</link>
 		</image>
 		<itunes:image href="http://steamlug.org/images/steamlugcast.png" />
-		<copyright>2013 © SteamLUG cast, CC-BY-SA http://creativecommons.org/licenses/by-sa/3.0/</copyright>
+		<copyright>2013 – 2015 © SteamLUG cast, CC-BY-SA http://creativecommons.org/licenses/by-sa/3.0/</copyright>
 		<cc:license rdf:resource="http://creativecommons.org/licenses/by-sa/3.0/" />
 		<pubDate>$latestCast</pubDate>
 		<itunes:category text="Games &amp; Hobbies">
