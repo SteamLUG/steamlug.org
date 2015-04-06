@@ -9,10 +9,12 @@ if ($cast != null) {
 	$eTime = $cast['utctime'];
 	$dt = $cast['date'] . " " . $cast['time'] . " " . $cast['tz'];
 	$u = $cast['url'];
-	$c = preg_replace("#(.*)S([0-9]+)E([0-9]+)(.*)#", "\$3", $cast["title"]);
-	$c = 'e' . str_pad( $c, 2, '0', STR_PAD_LEFT);
-	$s = preg_replace("#(.*)S([0-9]+)E([0-9]+)(.*)#", "\$2", $cast["title"]);
-	$s = 's' . str_pad( $s, 2, '0', STR_PAD_LEFT);
+	if ( preg_match("#.*S([0-9]+)E([0-9]+).*#", $cast["title"], $matches) == 1 ) {
+		$c = 'e' . str_pad( $matches[2], 2, '0', STR_PAD_LEFT);
+		$s = 's' . str_pad( $matches[1], 2, '0', STR_PAD_LEFT);
+	} else {
+		unset( $eTime );
+	}
 }
 
 if (isset($eTime)) {
