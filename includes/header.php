@@ -44,11 +44,11 @@ AUTHBUTTON;
 	} else {
 		if ( isset( $_SESSION['a'] ) and ( $_SESSION['a'] != "" ) ) {
 			$logIn = <<<SHOWAVATAR
-				<li class="steamLogin navbar-avatar"><a href="/logout"><img width="32" height="32" id="steamAvatar" src="{$_SESSION['a']}" /></a></li>
+				<li class="steamLogin navbar-avatar"><a href="/logout"><img width="32" height="32" id="steamAvatar" alt="Your Steam avatar" src="{$_SESSION['a']}" /></a></li>
 SHOWAVATAR;
 		} else {
 			$logIn = <<<SHOWAVATAR
-				<li class="steamLogin navbar-avatar"><a href="/logout"><img width="32" height="32" id="steamAvatar" src="/avatars/default.png" /></a></li>
+				<li class="steamLogin navbar-avatar"><a href="/logout"><img width="32" height="32" id="steamAvatar" alt="Default Steam avatar" src="/avatars/default.png" /></a></li>
 SHOWAVATAR;
 		}
 		if ( in_array( $_SESSION['u'], getAdmins() ) ) {
