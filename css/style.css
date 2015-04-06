@@ -82,7 +82,7 @@ li.dropdown:hover > .dropdown-menu, .dropdown-menu:hover { display:block }
 
 #countdown { width: 25em; margin: 0px auto; margin-bottom: .5em; line-height: 2em }
 
-body { padding: 60px 0 0 0; color: #959595; background: url('/images/noise4.png'); background-position: center top; font-size: 13px !important; font-family: Arial,Helvetica,sans-serif; text-shadow: 1px 1px 1px #000 }
+body { padding: 60px 0 0 0; color: #cbcbcb; background: url('/images/noise4.png'); background-position: center top; font-size: 13px !important; font-family: Arial,Helvetica,sans-serif; text-shadow: 1px 1px 1px #000 }
 
 h1, h2, h3, h4, h5, h6 { text-shadow: 1px 1px 1px #111 !important }
 
@@ -124,7 +124,7 @@ article ul { list-style-type: square }
 .progress { margin-bottom: 8px !important; background-color: inherit !important }
 .progress-bar { background-color: #529CDE; border-radius: 2px; min-width: 0.5% }
 
-.panel > .panel-heading, .panel-primary > .panel-heading, .panel-default > .panel-heading { background-color: #7A8288 }
+/* .panel > .panel-heading, .panel-primary > .panel-heading, .panel-default > .panel-heading { background-color: #7A8288 } */
 .panel-heading .panel-title > a { color: #e8e8e8 }
 
 .twitter-link::before { content: "@"; padding-right: .05em }
