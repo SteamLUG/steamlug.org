@@ -400,6 +400,7 @@ CASTTABLE;
 				<td>$listHosts</td>
 				<td>$listGuests</td>
 			</tr>
+
 CASTENTRY;
 	}
 ?>
