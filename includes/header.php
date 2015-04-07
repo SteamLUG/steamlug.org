@@ -83,6 +83,9 @@ header("Cache-Control: public, max-age=60");
 			var serverTime = <?= microtime(true); ?>;
 		</script>
 <?php
+
+	/* TODO: We ought to move all <script> entries to the footer include */
+
 	if (isset($deferJS))
 	{
 		foreach ($deferJS as $js)

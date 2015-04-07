@@ -1,6 +1,6 @@
 <?php
 $pageTitle = "Giveaways";
-
+// TODO whole page, backend for keys, requiring sign‐in, take donations, etc?
 include_once('includes/header.php');
 ?>
         <header>
