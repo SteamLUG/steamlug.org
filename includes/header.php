@@ -18,6 +18,11 @@ if (!isset($pageTitle))
 	$pageTitle = "Super Secret Unnamed Page!";
 }
 
+if (!isset($rssLinks))
+{
+	$rssLinks = '<link rel="alternate" type="application/rss+xml" title="RSS" href="http://steamcommunity.com/groups/steamlug/rss/" />';
+}
+
 $weareadmin = false;
 $logIn = "";
 if ( !isset($skipAuth) ) {
@@ -68,16 +73,7 @@ header("Cache-Control: public, max-age=60");
 		<meta name="viewport" content="width=400, initial-scale=1" />
 		<meta name="description" content="<?php echo $description; ?>" />
 		<meta name="keywords" content="<?php echo $keywords; ?>" />
-<?php
-	if (!isset($rssLinks))
-	{
-		echo "\t\t<link rel=\"alternate\" type=\"application/rss+xml\" title=\"RSS\" href=\"http://steamcommunity.com/groups/steamlug/rss/\" />\n";
-	}
-	else
-	{
-		echo $rssLinks . "\n";
-	}
-?>
+		<?php echo $rssLinks . "\n"; ?>
 		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" />
 		<link rel="stylesheet" href="/css/bootstrap.slate.css" type="text/css" />
 		<link rel="stylesheet" href="/css/style.css" type="text/css" />
