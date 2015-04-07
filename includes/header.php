@@ -69,18 +69,18 @@ header("Cache-Control: public, max-age=60");
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<title>SteamLUG <?php echo $pageTitle; ?></title>
+		<title>SteamLUG <?= $pageTitle; ?></title>
 		<meta name="viewport" content="width=400, initial-scale=1" />
-		<meta name="description" content="<?php echo $description; ?>" />
-		<meta name="keywords" content="<?php echo $keywords; ?>" />
-		<?php echo $rssLinks . "\n"; ?>
+		<meta name="description" content="<?= $description; ?>" />
+		<meta name="keywords" content="<?= $keywords; ?>" />
+		<?= $rssLinks . "\n"; ?>
 		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" />
 		<link rel="stylesheet" href="/css/bootstrap.slate.css" type="text/css" />
 		<link rel="stylesheet" href="/css/style.css" type="text/css" />
 		<script type="text/javascript" src="/scripts/jquery-2.1.3.min.js"></script>
 		<script type="text/javascript" src="/scripts/bootstrap.min.js"></script>
 		<script type="text/javascript">
-			var serverTime = <?php echo microtime(true); ?>;
+			var serverTime = <?= microtime(true); ?>;
 		</script>
 <?php
 	if (isset($deferJS))
@@ -245,51 +245,51 @@ header("Cache-Control: public, max-age=60");
 			</div>
 			<div class="navbar-collapse collapse navbar-responsive-collapse" id="navbar">
 				<ul class="nav navbar-nav">
-					<li<?php echo $newsPage; ?>><a href="/news">News</a></li>
-					<li class="dropdown<?php echo $chatMenu; ?>">
+					<li<?= $newsPage; ?>><a href="/news">News</a></li>
+					<li class="dropdown<?= $chatMenu; ?>">
 						<a href="/irc" class="dropdown-toggle" data-toggle="dropdown">Chat <b class="caret"></b></a>
 						<ul class="dropdown-menu">
-							<li<?php echo $ircPage; ?>><a href="/irc">IRC (text)</a></li>
-							<li<?php echo $mumblePage; ?>><a href="/mumble">Mumble (voice)</a></li>
+							<li<?= $ircPage; ?>><a href="/irc">IRC (text)</a></li>
+							<li<?= $mumblePage; ?>><a href="/mumble">Mumble (voice)</a></li>
 						</ul>
 					</li>
-					<li<?php echo $castPage; ?>><a href="/cast">Cast</a></li>
-					<li class="dropdown<?php echo $gamingMenu; ?>">
+					<li<?= $castPage; ?>><a href="/cast">Cast</a></li>
+					<li class="dropdown<?= $gamingMenu; ?>">
 						<a href="/events" class="dropdown-toggle" data-toggle="dropdown">Events <b class="caret"></b></a>
 						<ul class="dropdown-menu">
-							<li<?php echo $eventsPage; ?>><a href="/events">Events</a></li>
-							<li<?php echo $streamPage; ?>><a href="/stream">Live Stream</a></li>
+							<li<?= $eventsPage; ?>><a href="/events">Events</a></li>
+							<li<?= $streamPage; ?>><a href="/stream">Live Stream</a></li>
 						</ul>
 					</li>
-					<li class="dropdown<?php echo $projectsMenu; ?>">
+					<li class="dropdown<?= $projectsMenu; ?>">
 						<a href="/projects" class="dropdown-toggle" data-toggle="dropdown">Projects <b class="caret"></b></a>
 						<ul class="dropdown-menu">
-							<li<?php echo $overviewPage; ?>><a href="/projects">Overview</a></li>
-							<li<?php echo $pollPage; ?>><a href="/polls">Polls</a><li>
+							<li<?= $overviewPage; ?>><a href="/projects">Overview</a></li>
+							<li<?= $pollPage; ?>><a href="/polls">Polls</a><li>
 						</ul>
 					</li>
-					<li<?php echo $serversPage; ?>><a href="/servers">Servers</a></li>
+					<li<?= $serversPage; ?>><a href="/servers">Servers</a></li>
 <?php
 	if ($weareadmin) {
 ?>
-					<li class="dropdown<?php echo $adminMenu; ?>">
+					<li class="dropdown<?= $adminMenu; ?>">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin <b class="caret"></b></a>
 						<ul class="dropdown-menu">
-							<li<?php echo $avatarAdminPage; ?>><a href="/avatar">Avatars</a></li>
-							<li<?php echo $pollAdminPage; ?>><a href="/poll-admin">Polls</a><li>
-							<li<?php echo $twitterAdminPage; ?>><a href="/twitter">Twitter</a><li>
-							<li<?php echo $adminAdminPage; ?>><a href="/admins">Admins</a></li>
+							<li<?= $avatarAdminPage; ?>><a href="/avatar">Avatars</a></li>
+							<li<?= $pollAdminPage; ?>><a href="/poll-admin">Polls</a><li>
+							<li<?= $twitterAdminPage; ?>><a href="/twitter">Twitter</a><li>
+							<li<?= $adminAdminPage; ?>><a href="/admins">Admins</a></li>
 							<li><a target="_blank" href="/transcriberer">Transcriberer</a><li>
 							<li><a target="_blank" href="//data.steamlug.org/updatesteamlug.php">Update events</a><li>
-							<li<?php echo $aboutPage; ?>><a href="/about">About</a></li>
+							<li<?= $aboutPage; ?>><a href="/about">About</a></li>
 						</ul>
 					</li>
 <?php
 	} else {
 ?>
-					<li<?php echo $aboutPage; ?>><a href="/about">About</a></li>
+					<li<?= $aboutPage; ?>><a href="/about">About</a></li>
 <?php } ?>
-					<?php echo $logIn; ?>
+					<?= $logIn; ?>
 					</ul>
 				</div>
 		</div>
