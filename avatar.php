@@ -63,9 +63,10 @@ if ( isset( $_POST['name'] ) and isset( $_FILES['userfile'] ) ) {
 	$requestedName = sanitiseName( $_POST['name'] );
 	$requestedPath = $avatarFilePath . '/' . $requestedName . '.png';
 	$hostedURL		= '/avatars/' . $requestedName . '.png';
+	$override		= ( array_key_exists( 'overwrite', $_POST ) ? $_POST['overwrite'] : false );
 
 	// do we want to be able to overwrite?
-	if ( !file_exists( $requestedPath ) and !is_dir( $requestedPath ) ) {
+	if ( (!file_exists( $requestedPath ) or $override == true) and !is_dir( $requestedPath ) ) {
 
 		if ( is_uploaded_file( $_FILES['userfile']['tmp_name'] ) and ( $_FILES['userfile']['size'] < 500000 ) ) {
 
@@ -263,6 +264,7 @@ ACTIONMSG;
 						<input type="hidden" name="MAX_FILE_SIZE" value="500000">
 						<div class="form-group"><label class="control-label col-xs-2" for="name">Handle</label><input class="control-input col-xs-6" name="name" placeholder="Nickname"></div>
 						<div class="form-group"><label class="control-label col-xs-2" for="userfile">File</label><input class="control-input col-xs-6" type="file" name="userfile" placeholder="/home/you/files-are-here"></div>
+						<div class="form-group"><label class="control-label col-xs-2" for="overwrite">Overwrite?</label><input class="control-input" type="checkbox" name="overwrite"></div>
 						<div class="form-group"><input type="submit" class="col-xs-offset-2 btn btn-primary" value="Upload"></div>
 						<p>This will allow you to upload an avatar for the named user. This will not replace the existing avatar.</p>
 						</fieldset>

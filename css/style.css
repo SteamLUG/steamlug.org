@@ -206,6 +206,7 @@ article.twit .form-horizontal .form-group { margin-left: 0; margin-right: 0 }
 
 .warning { color: red; background: transparent }
 
+input[type=checkbox] { height: 23px; }
 input[type=text].warn, label.warn { color: red }
 input[type=text].caution, label.caution { color: purple }
 article.twit label.control-label { text-align: left !important; border: 3px solid transparent; padding: 1px 15px }
