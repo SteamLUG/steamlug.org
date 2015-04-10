@@ -26,3 +26,62 @@
 		$details = json_decode($reply, true);
 		return $details['response']['publishedfiledetails'];
 	}
+
+	/*
+	* Small utility function to return JSON details about all games on Steam
+	* Only call this RARELY as it is 17000 items
+	*/
+	function getSteamGames() {
+
+		// TODO remember to curl this!
+		$reply = file_get_contents('http://api.steampowered.com/ISteamApps/GetAppList/v0001/?format=json' );
+		$details = json_decode($reply, true);
+		return $details['applist']['apps']['app'];
+	}
+
+	/*
+	* Small utility function to return JSON details about users game collection on Steam
+	*/
+	function getMemberGames( $id ) {
+
+		// TODO remember to curl this!
+		$reply = file_get_contents('http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?format=json&key=' . getSteamAPIKey() . '&steamid=' . $id . '&include_played_free_games=1' );
+		$details = json_decode($reply, true);
+		return $details['response'];
+	}
+
+	/*
+	* Small utility function to return our active user count
+	* TODO make this share information with getMembers if that is needed to be called too
+	* TODO consider this returning membersInChat membersInGame membersOnline as an assoc array.
+	*/
+	function getGroupCount() {
+
+		// TODO remember to curl this!
+		$reply = file_get_contents('http://steamcommunity.com/groups/steamlug/memberslistxml?xml=1&p=1' );
+		$details = (array)simplexml_load_string( $reply );
+		return $details['memberCount'];
+	}
+
+
+	/*
+	* Small utility function to return JSON details about all our members
+	* This is different from the others, as it is paginated data that only this function knows about
+	*/
+	function getGroupMembers() {
+
+		$pages = 1;
+		$everyone = array();
+		// TODO remember to curl this!
+		for ( $page = 1; $page <= $pages; $page++ ) {
+			$reply		= file_get_contents('http://steamcommunity.com/groups/steamlug/memberslistxml?xml=1&p=' . $page );
+			$details	= (array)simplexml_load_string( $reply );
+			$pages		= $details['totalPages'];
+			$members	= (array)$details['members'];
+			$members	= (array)$members['steamID64'];
+			foreach ( $members as $member) {
+				array_push( $everyone, $member );
+			}
+		}
+		return $everyone;
+	}
