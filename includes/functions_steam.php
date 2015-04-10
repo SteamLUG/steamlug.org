@@ -74,12 +74,10 @@
 		$everyone = array();
 		// TODO remember to curl this!
 		for ( $page = 1; $page <= $pages; $page++ ) {
-			$reply		= file_get_contents('http://steamcommunity.com/groups/steamlug/memberslistxml?xml=1&p=' . $page );
-			$details	= (array)simplexml_load_string( $reply );
-			$pages		= $details['totalPages'];
-			$members	= (array)$details['members'];
-			$members	= (array)$members['steamID64'];
-			foreach ( $members as $member) {
+			$reply = file_get_contents('http://steamcommunity.com/groups/steamlug/memberslistxml?xml=1&p=' . $page );
+			$details = simplexml_load_string( $reply );
+			$pages = $details->totalPages;
+			foreach ( (array)$details->members->steamID64 as $member) {
 				array_push( $everyone, $member );
 			}
 		}
