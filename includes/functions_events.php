@@ -8,6 +8,7 @@ $parser = new SteamEventParser();
 
 $month = gmstrftime("%m")-0;
 $year  = gmstrftime("%Y");
+
 $present	= $parser->genData($eventXMLPath, "steamlug", $month, $year);
 $future		= $parser->genData($eventXMLPath, "steamlug", ( $month >= 12 ? 1 : ( $month +1 ) ), ( $month >= 12 ? ( $year + 1 ) : $year ));
 

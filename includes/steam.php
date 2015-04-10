@@ -62,7 +62,7 @@ class SteamSignIn
 		foreach($signed as $item)
 		{
 			$val = $_GET['openid_' . str_replace('.', '_', $item)];
-			$params['openid.' . $item] = get_magic_quotes_gpc() ? stripslashes($val) : $val; 
+			$params['openid.' . $item] = get_magic_quotes_gpc() ? stripslashes($val) : $val;
 		}
 
 		// Finally, add the all important mode. 
