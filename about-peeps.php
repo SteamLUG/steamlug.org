@@ -26,6 +26,16 @@
 				</div>
 			</article>
 
+			<article class="panel panel-default person">
+				<header class="panel-heading">
+					<h3 class="panel-title"><a href="http://twitter.com/beansmyname">bean{,s}</a></h3>
+				</header>
+				<div class="panel-body">
+					<img src="/avatars/beansmyname.png" />
+					<p>I'm bean or beans or both at the same time. I'm the pink one. Best traits: looking cute, tasting sweet and having a creamy inside.</p>
+				</div>
+			</article>
+
 		<section>
 DOCUMENT;
 
