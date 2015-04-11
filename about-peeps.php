@@ -24,6 +24,7 @@
 					<img src="/avatars/mnarikka.png" />
 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vulputate tellus non eleifend sollicitudin. In et est tincidunt, ornare tortor eget, aliquam justo. Pellentesque fermentum mollis euismod. Pellentesque libero eros, sollicitudin in laoreet a, ultrices quis odio. Fusce ipsum nulla, ullamcorper a odio ac, blandit mollis ligula. Suspendisse massa nisi, molestie at nisl non, pellentesque dapibus nulla. Vestibulum iaculis felis id ligula posuere lacinia.</p>
 				</div>
+			</article>
 
 			<article class="panel panel-default person">
 				<header class="panel-heading">
@@ -34,8 +35,6 @@
 					<p>I'm bean or beans or both at the same time. I'm the pink one. Best traits: looking cute, tasting sweet and having a creamy inside.</p>
 				</div>
 			</article>
-
-		</article>
 
 		<section>
 DOCUMENT;
