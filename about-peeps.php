@@ -22,7 +22,7 @@
 				</header>
 				<div class="panel-body">
 					<img src="/avatars/mnarikka.png" />
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vulputate tellus non eleifend sollicitudin. In et est tincidunt, ornare tortor eget, aliquam justo. Pellentesque fermentum mollis euismod. Pellentesque libero eros, sollicitudin in laoreet a, ultrices quis odio. Fusce ipsum nulla, ullamcorper a odio ac, blandit mollis ligula. Suspendisse massa nisi, molestie at nisl non, pellentesque dapibus nulla. Vestibulum iaculis felis id ligula posuere lacinia.</p>
+					<p>A consumer of copious quantities of ammonium chloride and a lazy perfectionist. All my projects are eternal.</p>
 				</div>
 			</article>
 
