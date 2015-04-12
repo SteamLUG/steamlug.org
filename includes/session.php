@@ -6,6 +6,7 @@
 	// this setting breaks sessions for localhost, disable when testing locally
 	ini_set( 'session.cookie_secure', 1 );
 
+	include_once('functions_geturl.php');
 	include_once('steam.php');
 	include_once('creds.php');
 
@@ -55,7 +56,10 @@
 
 	function group_check($uid)
 	{
-		$groups = file_get_contents('http://api.steampowered.com/ISteamUser/GetUserGroupList/v0001/?key=' . getSteamAPIKey() . '&steamid=' . $uid);
+		$params = array('key' => getSteamAPIKey(),
+						'steamid' => $uid,
+						'format' => 'json' );
+		$groups = geturl( 'http://api.steampowered.com/ISteamUser/GetUserGroupList/v0001/', $params );
 		if ($groups === false)
 		{
 			//Quick fix for Steam non-responsiveness and private user accounts
@@ -82,7 +86,10 @@
 	/* These calls can take time… async them somehow? */
 	function store_user_details($uid)
 	{
-		$details = file_get_contents('http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=' . getSteamAPIKey() . '&steamids=' . $uid);
+		$params = array('key' => getSteamAPIKey(),
+						'steamids' => $uid,
+						'format' => 'json' );
+		$details = geturl( 'http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/', $params );
 		if ($details === false)
 		{
 			//Quick fix for Steam non-responsiveness and private user accounts
