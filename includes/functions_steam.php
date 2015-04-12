@@ -1,12 +1,14 @@
 <?php
 
+	include_once('functions_geturl.php');
 	include_once('steam.php');
 	include_once('creds.php');
 
 	function getAdminNames() {
-		$admins = implode(",", getAdmins());
-		// TODO remember to curl this!
-		$reply = file_get_contents('http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=' . getSteamAPIKey() . '&steamids=' . $admins);
+		$params = array('key' => getSteamAPIKey(),
+						'steamids' => implode( ',', getAdmins() ),
+						'format' => 'json' );
+		$reply = geturl( 'http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/', $params );
 		$users = json_decode($reply, true);
 		$users = $users["response"]["players"];
 		asort( $users );
@@ -21,8 +23,10 @@
 	function getWorkshopDetails( $id ) {
 
 		// TODO allow this to take array of ids in future, return array of details
-		// TODO remember to curl this!
-		$reply = file_get_contents('http://api.steampowered.com/service/PublishedFile/GetDetails/v1/?key=' . getSteamAPIKey() . '&publishedfileids[0]=' . $id );
+		$params = array('key' => getSteamAPIKey(),
+						'publishedfileids[0]' => $id,
+						'format' => 'json' );
+		$reply = geturl( 'http://api.steampowered.com/service/PublishedFile/GetDetails/v1/', $params );
 		$details = json_decode($reply, true);
 		return $details['response']['publishedfiledetails'];
 	}
@@ -33,8 +37,9 @@
 	*/
 	function getSteamGames() {
 
-		// TODO remember to curl this!
-		$reply = file_get_contents('http://api.steampowered.com/ISteamApps/GetAppList/v0001/?format=json' );
+		$params = array('key' => getSteamAPIKey(),
+						'format' => 'json' );
+		$reply = geturl( 'http://api.steampowered.com/ISteamApps/GetAppList/v0001/', $params );
 		$details = json_decode($reply, true);
 		return $details['applist']['apps']['app'];
 	}
@@ -44,8 +49,11 @@
 	*/
 	function getMemberGames( $id ) {
 
-		// TODO remember to curl this!
-		$reply = file_get_contents('http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?format=json&key=' . getSteamAPIKey() . '&steamid=' . $id . '&include_played_free_games=1' );
+		$params = array('key' => getSteamAPIKey(),
+						'steamid' => $id,
+						'include_played_free_games' => '1',
+						'format' => 'json' );
+		$reply = geturl( 'http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/', $params );
 		$details = json_decode($reply, true);
 		return $details['response'];
 	}
@@ -57,8 +65,8 @@
 	*/
 	function getGroupCount() {
 
-		// TODO remember to curl this!
-		$reply = file_get_contents('http://steamcommunity.com/groups/steamlug/memberslistxml?xml=1&p=1' );
+		$params = array( 'xml' => '1', 'p' => '1' );
+		$reply = geturl( 'http://steamcommunity.com/groups/steamlug/memberslistxml', $params );
 		$details = (array)simplexml_load_string( $reply );
 		return $details['memberCount'];
 	}
@@ -72,9 +80,10 @@
 
 		$pages = 1;
 		$everyone = array();
-		// TODO remember to curl this!
+
 		for ( $page = 1; $page <= $pages; $page++ ) {
-			$reply = file_get_contents('http://steamcommunity.com/groups/steamlug/memberslistxml?xml=1&p=' . $page );
+			$params = array( 'xml' => '1', 'p' => $page );
+			$reply = geturl( 'http://steamcommunity.com/groups/steamlug/memberslistxml', $params );
 			$details = simplexml_load_string( $reply );
 			$pages = $details->totalPages;
 			foreach ( (array)$details->members->steamID64 as $member) {
