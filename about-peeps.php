@@ -35,6 +35,16 @@
 					<p>I'm bean or beans or both at the same time. I'm the pink one. Best traits: looking cute, tasting sweet and having a creamy inside.</p>
 				</div>
 			</article>
+			
+			<article class="panel panel-default person">
+				<header class="panel-heading">
+					<h3 class="panel-title">Nemoder</h3>
+				</header>
+				<div class="panel-body">
+					<img src="/avatars/nemoder.png" />
+					<p>I'm being eaten by zombies as I write this.</p>
+				</div>
+			</article>
 
 		<section>
 DOCUMENT;
