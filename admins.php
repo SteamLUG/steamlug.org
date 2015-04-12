@@ -13,6 +13,8 @@
 	include_once('includes/header.php');
 	include_once('includes/functions_steam.php');
 
+	$groupcount = getGroupCount();
+
 	// TODO this document needs more than just a list of members
 	// TODO link to useful resources like github wiki references?
 	echo <<<DOCUMENT
@@ -26,6 +28,11 @@
 				<p>Our <a href="https://github.com/SteamLUG/">GitHub</a> with all the <a href="https://github.com/SteamLUG/steamlug.org/">site source</a>, <a href="https://github.com/SteamLUG/steamlugcast-shownotes">SteamLUG Cast notes</a>, and <a href="https://github.com/SteamLUG/steamlug-gaming-servers">gaming servers list</a>. Only a few admins will have write access to the site repo, but notes and gaming servers should be r/w for contributors. For people that aren’t yet contributors, accepting their pull requests on these two repos is allowed.</p>
 				<p>All of the site‐based event querying relies on XML files we pull from Steam and cache locally. They’re on a cronjob, if our local copy is old, you can prompt the server to get more recent copies by visiting <a href="http://data.steamlug.org/updatesteamlug.php">Update events</a>. </p>
 			</div>
+		</article>
+		<article class="panel panel-default">
+			<header class="panel-heading">
+				<h3 class="panel-title">Current Member Count <b> {$groupcount}</b></h3>
+			</header>
 		</article>
 		<article class="panel panel-default">
 			<header class="panel-heading">
