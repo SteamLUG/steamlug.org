@@ -56,6 +56,15 @@
 				</div>
 			</article>
 			
+			<article class="panel panel-default person">
+				<header class="panel-heading">
+					<h3 class="panel-title"><a href="http://twitter.com/HeroOhOne">HER0 01</a></h3>
+				</header>
+				<div class="panel-body">
+					<img src="/avatars/HeroOhOne.png" />
+					<p>Hero. Player of games. Maker of things. Enthusiast of mine launchers.</p>
+				</div>
+			</article>
 		<section>
 DOCUMENT;
 
