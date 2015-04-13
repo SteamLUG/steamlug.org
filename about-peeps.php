@@ -41,7 +41,7 @@
 					<h3 class="panel-title">Nemoder</h3>
 				</header>
 				<div class="panel-body">
-					<img src="/avatars/nemoder.png" />
+					<img src="/avatars/Nemoder.png" />
 					<p>I'm being eaten by zombies as I write this.</p>
 				</div>
 			</article>
