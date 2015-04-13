@@ -45,7 +45,17 @@
 					<p>I'm being eaten by zombies as I write this.</p>
 				</div>
 			</article>
-
+			
+			<article class="panel panel-default person">
+				<header class="panel-heading">
+					<h3 class="panel-title">Tele42</h3>
+				</header>
+				<div class="panel-body">
+					<img src="/avatars/Tele42.png" />
+					<p>"Here's an interesting little notion. Did you realize that most people's lives are governed by telephone numbers?"</p>
+				</div>
+			</article>
+			
 		<section>
 DOCUMENT;
 
