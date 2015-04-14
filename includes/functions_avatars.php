@@ -88,7 +88,7 @@ if ( extension_loaded('curl') ) {
 		We have already tested for permission.
 		overwrite might not be needed, it is there atm though
 		Returns if we successfully wrote the file */
-	function storeURL( $url, $fileLocation, $overwrite = false ) {
+	function writeURLToLocation( $url, $fileLocation, $overwrite = false ) {
 
 		if ( file_exists( $fileLocation ) and !is_dir( $fileLocation ) and (!$overwrite) ) {
 			return false;
@@ -114,7 +114,7 @@ if ( extension_loaded('curl') ) {
 		}
 	}
 } else {
-	function storeURL( $url, $fileLocation, $overwrite = false ) {
+	function writeURLToLocation( $url, $fileLocation, $overwrite = false ) {
 		return false;
 	}
 }

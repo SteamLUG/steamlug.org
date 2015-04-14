@@ -34,7 +34,7 @@ if ( isset( $_GET['name'] ) and isset( $_GET['key'] ) ) {
 	if ( $continue and ( $givenKey === $requestedKey ) ) {
 		$requestedPath = $avatarFilePath . '/' . $requestedName . '.png';
 		$requestedURL  = $_SESSION['a']; // we trust Valve gave us unshit URL
-		$result = storeURL( $requestedURL, $requestedPath, false );
+		$result = writeURLToLocation( $requestedURL, $requestedPath, false );
 	} else { $continue = false; }
 
 	if ( $continue and $result ) {
@@ -161,7 +161,7 @@ if ( isset( $_GET['email'] ) and isset( $_GET['name'] ) ) {
 
 	$requestedPath = $avatarFilePath . '/' . $requestedName . '.png';
 	/* this returns false for existing file */
-	$result = storeURL( $requestedURL, $requestedPath, false );
+	$result = writeURLToLocation( $requestedURL, $requestedPath, false );
 
 	if ( $result ) {
 		writeAvatarLog( 0, $me, $requestedName, 'gravatar' );
