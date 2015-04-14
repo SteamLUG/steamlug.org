@@ -82,6 +82,24 @@
 		return ( (strlen($keyIn) == 32 && ctype_xdigit($keyIn)) ? $keyIn : "LITTLEHACKER" );
 	}
 
+	/* Fetches all the PNG file entries in avatarFilePath
+	*/
+	function listAvatars( ) {
+
+		global $avatarFilePath;
+		$avatars = array();
+		foreach( scandir($avatarFilePath, 1) as $avatar ) {
+
+			if ( $avatar === '.' or $avatar === '..' or is_dir( $avatar )
+				or ( substr( $avatar, -3 , 3 ) !== 'png' ) ) {
+				continue;
+			}
+			array_push( $avatars, substr( $avatar, 0 , -4 ) );
+		}
+		asort( $avatars );
+		return $avatars;
+	}
+
 if ( extension_loaded('curl') ) {
 
 	/* this can be called by users (with permission) or an admin directly

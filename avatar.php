@@ -301,7 +301,19 @@ ACTIONMSG;
 					</form>
 				</div>
 			</article>
-
+			<article class="panel panel-default">
+				<header class="panel-heading">
+					<h3 class="panel-title">Current Avatars</h3>
+				</header>
+				<div class="panel-body">
+<?php
+	foreach ( listAvatars() as $avatar ) {
+		$hostedURL = '/avatars/' . $avatar . '.png';
+		print "<img height=\"32\" title=\"$avatar\" src=\"{$hostedURL}\" />\n";
+	}
+?>
+				</div>
+			</article>
 			<article class="panel panel-default">
 				<header class="panel-heading">
 					<h3 class="panel-title">Logfile</h3>
@@ -320,6 +332,5 @@ ACTIONMSG;
 // TODO improve log, convert into a table?
 // TODO add functions_steam support to the admin log
 // TODO List active permission slips.
-// TODO List existing avatars?
 // TODO allow users with valid permission slip to overwrite their current avatar
 
