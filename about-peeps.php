@@ -65,6 +65,19 @@
 					<p>Hero. Player of games. Maker of things. Enthusiast of mine launchers.</p>
 				</div>
 			</article>
+
+			<article class="panel panel-default person">
+				<header class="panel-heading">
+					<h3 class="panel-title"><a href="http://twitter.com/Corben78">Corben</a></h3>
+				</header>
+				<div class="panel-body">
+					<img src="/avatars/Corben78.png" />
+					<p>Gamer, Linux enthusiast, developer, administrator, SteamLUG cast editor.</p>
+					<p>My first contact with Linux has been at University, from there on the fascination grew. Now I'm using Linux as my primary OS where possible. Nevertheless I'm also using OS X and Windows, as my motto in this case is, to get the best of all worlds. So I'm also a big fan of platform independent software.</p>
+					<p>Here are some recommendations: <a href="http://sublimetext.com">Sublime Text</a>, <a href="https://justgetflux.com">F.Lux</a>, <a href="http://synergy-project.com">Synergy</a></p>
+					<p>Never give up, never surrender!</p>
+				</div>
+			</article>
 		<section>
 DOCUMENT;
 
