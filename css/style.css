@@ -191,6 +191,7 @@ article.steam-parsed br { content: " "; display: block; line-height: .5em; heigh
 
 /* stop hiding our target behind the header */
 :target::before { content:"シ"; display: block; visibility:hidden; padding-top: 60px; margin-top: -60px; height:1px; width:1px }
+time:target { padding-top: 160px }
 
 /* fancy up the avatars for admins */
 section#peeps img { border-radius: 4px; height: 80px; width: 80px; background-image: url(/avatars/default.png) }
