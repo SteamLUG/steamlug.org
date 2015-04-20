@@ -167,7 +167,7 @@ GAMESINTRO;
 			<text y="30" id="subtitle" style="font-size:36px;"><tspan>‘ </tspan>{$meta['TITLE']}<tspan> ’</tspan></text>
 		</g>
 		<g transform="translate(640,460)">
- {$gamesString}
+{$gamesString}
 		</g>
 	</g>
 
