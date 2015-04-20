@@ -100,6 +100,9 @@
 		return $avatars;
 	}
 
+	/* TODO make a function here to crop/resize avatar and output as a PNG
+	producing a local backup of the source too */
+
 if ( extension_loaded('curl') ) {
 
 	/* this can be called by users (with permission) or an admin directly

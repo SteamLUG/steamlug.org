@@ -149,7 +149,7 @@ FOOTERBLOCK;
 	$adminblock = "";
 	if ( $weareadmin === true ) {
 		$adminblock = <<<HELPFULNESS
-<div><p>Admin helper pages:<br>YouTube <a href="/youtubethumb/{$meta['SLUG']}">video background</a> and <a href="/youtubedescription/{$meta['SLUG']}">description</a>. <a target="_blank" href="/transcriberer?audio={$archiveBase}.ogg">Note creation</a>.</p></div>
+<div><p>Admin helper pages:<br>YouTube <a href="/youtubethumb/{$meta['SLUG']}">video background</a> and <a href="/youtubedescription/{$meta['SLUG']}">description</a>. <a href="/youtubegeneratevideo/{$meta['SLUG']}">YouTube make video</a>. <a target="_blank" href="/transcriberer?audio={$archiveBase}.ogg">Note creation</a>.</p></div>
 HELPFULNESS;
 	}
 
