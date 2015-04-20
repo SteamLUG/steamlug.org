@@ -268,7 +268,7 @@ header("Cache-Control: public, max-age=60");
 						<a href="/projects" class="dropdown-toggle" data-toggle="dropdown">Projects <b class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<li<?= $overviewPage; ?>><a href="/projects">Overview</a></li>
-							<li<?= $pollPage; ?>><a href="/polls">Polls</a><li>
+							<li<?= $pollPage; ?>><a href="/polls">Polls</a></li>
 						</ul>
 					</li>
 					<li<?= $serversPage; ?>><a href="/servers">Servers</a></li>
@@ -279,11 +279,11 @@ header("Cache-Control: public, max-age=60");
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin <b class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<li<?= $avatarAdminPage; ?>><a href="/avatar">Avatars</a></li>
-							<li<?= $pollAdminPage; ?>><a href="/poll-admin">Polls</a><li>
-							<li<?= $twitterAdminPage; ?>><a href="/twitter">Twitter</a><li>
+							<li<?= $pollAdminPage; ?>><a href="/poll-admin">Polls</a></li>
+							<li<?= $twitterAdminPage; ?>><a href="/twitter">Twitter</a></li>
 							<li<?= $adminAdminPage; ?>><a href="/admins">Admins</a></li>
-							<li><a target="_blank" href="/transcriberer">Transcriberer</a><li>
-							<li><a target="_blank" href="//data.steamlug.org/updatesteamlug.php">Update events</a><li>
+							<li><a target="_blank" href="/transcriberer">Transcriberer</a></li>
+							<li><a target="_blank" href="//data.steamlug.org/updatesteamlug.php">Update events</a></li>
 							<li<?= $aboutPage; ?>><a href="/about">About</a></li>
 						</ul>
 					</li>
