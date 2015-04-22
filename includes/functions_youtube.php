@@ -187,7 +187,7 @@ function publishVideo( $season, $episode ) {
 	$videoStatus = $video[ 'status' ];
 
 	$updateStatus = new Google_Service_YouTube_VideoStatus( $videoStatus );
-	$updateStatus->privacyStatus 'public';
+	$updateStatus->privacyStatus = 'public';
 	$updateVideo = new Google_Service_YouTube_Video( $video );
 	$updateVideo->setStatus( $updateStatus );
 
