@@ -4,7 +4,6 @@ include_once('paths.php');
 // TODO: what other functions do we want in here?
 // TODO YouTube video stats?
 // TODO convert to php-ffmpeg? in the future
-// TODO overwrite support!
 
 /* TODO probably move this to function_cast/castvideo as it is oddly cast specific */
 /* call a longist running avconv, returns tempfile name? */
@@ -43,6 +42,9 @@ function generateVideo( $season, $episode ) {
 	$filename = $notesPath . "/s" . $season . "e" . $episode . "/episode.txt";
 	$shownotes = file( $filename );
 	$meta = castHeader( array_slice( $shownotes, 0, 14 ) );
+	// TODO check that filename is set, audio file exists
+
+	$audiofile = $filePath  . '/' . $meta['SLUG'] . '/' . $meta['FILENAME'] . '.ogg';
 
 	// capture our generated SVG
 	ob_start( );
@@ -52,39 +54,37 @@ function generateVideo( $season, $episode ) {
 	$svgcontents = str_replace( '/avatars', './avatars', $svgcontents );
 	$svgcontents = str_replace( '/images/', './images/', $svgcontents );
 
+	/* TODO: reg match on http references, check local cache for file and either dl & use, or use */
+
+
 	$svgfile = $avatarKeyPath  . '/' . $meta['FILENAME'] . '.svg';
 	$svgfileref = fopen( $svgfile, 'w' );
 	fwrite( $svgfileref, $svgcontents );
 	fclose( $svgfileref );
+	// TODO test file?
 
 	// convert SVG into PNG
 	$pngfile = $avatarKeyPath  . '/' . $meta['FILENAME'] . '.png';
-
 	$commandthumbnail = "convert -size 1280x720 -type optimize -strip svg:{$svgfile} png:{$pngfile}";
-	print $commandthumbnail . "\n";
-	echo exec( $commandthumbnail );
+	print "Running: ". $commandthumbnail . "\n";
+	echo shell_exec( $commandthumbnail . ' 2>&1' );
+	// TODO test file got created, or bail
 
 	// take audio, image and make video
-	$mp4file = $avatarKeyPath  . '/' . $meta['FILENAME'] . '.mp4';
-	$audiofile = $filePath  . '/' . $meta['SLUG'] . '/' . $meta['FILENAME'] . '.ogg';
-	$commandvideo = "avconv -loop 1 -framerate 1 -i {$pngfile} -i {$audiofile} -c:v libx264 -tune stillimage -pix_fmt yuv420p -c:a aac -strict experimental -b:a 192k -shortest {$mp4file}";
-    print $commandvideo . "\n";
+	$tmpmp4file = $avatarKeyPath  . '/' . $meta['FILENAME'] . '-temp.mp4';
+	$commandvideo = "avconv -y -loglevel warning -loop 1 -framerate 1 -i {$pngfile} -i {$audiofile} -c:v libx264 -tune stillimage -pix_fmt yuv420p -c:a aac -strict experimental -b:a 192k -shortest {$tmpmp4file}";
+	print "Running: ". $commandvideo . "\n";
 	echo shell_exec( $commandvideo . ' 2>&1' );
+	// TODO test file got created, or bail
 
 	// if possible, make it a QT faststart file, so processing is quicker
-	/*
-	$outputfileref = tmpfile();
-	$sighPHPpointlessness = stream_get_meta_data( $outputfileref );
-	$outputfile =  $sighPHPpointlessness['uri'];
-	$commandfaststart = "qt-faststart {$mp4file} {$outputfile}";
-    print $commandfaststart . "\n";
-	*/
-	// echo exec( $commandfaststart );
+	$mp4file = $avatarKeyPath  . '/' . $meta['FILENAME'] . '.mp4';
+	$commandfaststart = "qt-faststart {$tmpmp4file} {$mp4file}";
+	print "Running: ". $commandfaststart . "\n";
+	echo shell_exec( $commandfaststart . ' 2>&1' );
+	// TODO test file got created, otherwise rename $tmpmp4file $mp4file
 
-	// put our final temp file somewhere we can reference, and return that filename
-	/* removed as we no longer use tmp files :'( */
-
-	// test file is good, otherwise return false
+	// TODO test file exists, is not empty, otherwise return false
 
 	return $mp4file;
 }
