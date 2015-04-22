@@ -45,9 +45,10 @@ function generateVideo( $season, $episode ) {
 	$meta = castHeader( array_slice( $shownotes, 0, 14 ) );
 
 	// capture our generated SVG
-	ob_start();
+	ob_start( );
+	define( 'INTERNAL_USE_ONLY', 1701 );
 	include 'youtubethumb.php';
-	$svgcontents = ob_get_clean();
+	$svgcontents = ob_get_clean( );
 	$svgcontents = str_replace( '/avatars', './avatars', $svgcontents );
 	$svgcontents = str_replace( '/images/', './images/', $svgcontents );
 

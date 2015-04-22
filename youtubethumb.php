@@ -1,6 +1,8 @@
 <?php
-header('Content-Encoding: UTF-8');
-header('Content-Type: image/svg+xml');
+if ( !defined( 'INTERNAL_USE_ONLY' ) ) {
+	header('Content-Encoding: UTF-8');
+	header('Content-Type: image/svg+xml');
+}
 
 include_once('includes/functions_avatars.php');
 include_once('includes/functions_cast.php');
