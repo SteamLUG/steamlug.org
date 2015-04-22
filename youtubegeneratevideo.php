@@ -1,5 +1,6 @@
 <?php
 $pageTitle = "Generating YouTube Video";
+ini_set('implicit_flush', 1);
 include_once('includes/session.php');
 
 // are we logged in? no → leave
@@ -21,6 +22,8 @@ include_once('includes/functions_cast.php');
 include_once('includes/functions_youtube.php');
 include_once('includes/header.php');
 
+ob_end_flush();
+
 $action	= "Failure";
 $body	= "";
 $style	= " panel-success";
@@ -28,6 +31,8 @@ $style	= " panel-success";
 $filename = $notesPath . "/s" . $season . "e" . $episode . "/episode.txt";
 if ($season !== "00" && $episode !== "00" && file_exists($filename)) {
 	// TODO test we have audio?
+
+	flush(); /* visitor should get better indication that the page is actually loading now */
 
 	// TODO verify we dont have an existing youtube hash?
 	ob_start();
