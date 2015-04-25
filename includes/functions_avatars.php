@@ -100,8 +100,28 @@
 		return $avatars;
 	}
 
-	/* TODO make a function here to crop/resize avatar and output as a PNG
-	producing a local backup of the source too */
+	/* read from a file of some type, write to a PNG file */
+	function resizeAvatar( $incoming, $outgoing, $overwrite = false ) {
+
+		if ( file_exists( $outgoing ) and !is_dir( $outgoing ) and ( !$overwrite ) ) {
+			return false;
+		}
+		if ( !file_exists( $incoming ) and !is_dir( $incoming ) ) {
+			return false;
+		}
+		
+		$commandresize = "convert -resize 256x256 -type optimize -strip {$incoming} png:{$outgoing}";
+		ob_start( );
+		echo shell_exec( $commandresize . ' 2>&1' );
+		$debugoutput = ob_get_clean();
+
+		if ( file_exists( $outgoing ) ) {
+			/* do anything here? */
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 if ( extension_loaded('curl') ) {
 

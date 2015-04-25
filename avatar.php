@@ -32,9 +32,13 @@ if ( isset( $_GET['name'] ) and isset( $_GET['key'] ) ) {
 	} else { $continue = false; }
 
 	if ( $continue and ( $givenKey === $requestedKey ) ) {
+		$originalPath = $avatarFilePath . '/original/' . $requestedName . '.png';
 		$requestedPath = $avatarFilePath . '/' . $requestedName . '.png';
 		$requestedURL  = $_SESSION['a']; // we trust Valve gave us unshit URL
-		$result = writeURLToLocation( $requestedURL, $requestedPath, false );
+		$result = writeURLToLocation( $requestedURL, $originalPath, false );
+		if ( $result ) {
+			$result = resizeAvatar( $originalPath, $requestedPath );
+		}
 	} else { $continue = false; }
 
 	if ( $continue and $result ) {
@@ -61,12 +65,13 @@ if ( isset( $_POST['name'] ) and isset( $_FILES['userfile'] ) ) {
 
 	$action = "Upload File";
 	$requestedName = sanitiseName( $_POST['name'] );
+	$originalPath = $avatarFilePath . '/original/' . $requestedName . '.png';
 	$requestedPath = $avatarFilePath . '/' . $requestedName . '.png';
 	$hostedURL		= '/avatars/' . $requestedName . '.png';
 	$override		= ( array_key_exists( 'overwrite', $_POST ) ? $_POST['overwrite'] : false );
 
 	// do we want to be able to overwrite?
-	if ( (!file_exists( $requestedPath ) or $override == true) and !is_dir( $requestedPath ) ) {
+	if ( (!file_exists( $originalPath ) or $override == true) and !is_dir( $originalPath ) ) {
 
 		if ( is_uploaded_file( $_FILES['userfile']['tmp_name'] ) and ( $_FILES['userfile']['size'] < 500000 ) ) {
 
@@ -76,11 +81,15 @@ if ( isset( $_POST['name'] ) and isset( $_FILES['userfile'] ) ) {
 
 			if ( ( $image !== false and in_array( $image[2],  $typesAllowed ) ) ) {
 
-				if ( move_uploaded_file($_FILES['userfile']['tmp_name'], $requestedPath ) ) {
+				// TODO overwrite issues for requestPath?
+				if ( move_uploaded_file($_FILES['userfile']['tmp_name'], $originalPath ) ) {
 
+					$result = resizeAvatar( $originalPath, $requestedPath );
 					// success
-					writeAvatarLog( 0, $me, $requestedName, 'upload' );
-					$body = "<p>File uploaded. [<img height=\"14\" width=\"14\" src=\"{$hostedURL}\" />]</p>";
+					if ( $result ) {
+						writeAvatarLog( 0, $me, $requestedName, 'upload' );
+						$body = "<p>File uploaded. [<img height=\"14\" width=\"14\" src=\"{$hostedURL}\" />]</p>";
+					}
 				} else {
 
 					$style = "panel-danger";
@@ -159,13 +168,19 @@ if ( isset( $_GET['email'] ) and isset( $_GET['name'] ) ) {
 	$requestedURL	= "http://www.gravatar.com/avatar/" . $gravatar;
 	$hostedURL		= '/avatars/' . $requestedName . '.png';
 
+	$originalPath = $avatarFilePath . '/original/' . $requestedName . '.png';
 	$requestedPath = $avatarFilePath . '/' . $requestedName . '.png';
 	/* this returns false for existing file */
-	$result = writeURLToLocation( $requestedURL, $requestedPath, false );
+	$result = writeURLToLocation( $requestedURL, $originalPath, false );
 
 	if ( $result ) {
-		writeAvatarLog( 0, $me, $requestedName, 'gravatar' );
-		$body = "<p>Fetched gravatar for user {$requestedName}. [<img height=\"14\" width=\"14\" src=\"{$requestedURL}\" />] [<img height=\"14\" width=\"14\" src=\"{$hostedURL}\" />]</p><p>These images should match.</p>";
+
+		$result = resizeAvatar( $originalPath, $requestedPath );
+		if ( $result ) {
+
+			writeAvatarLog( 0, $me, $requestedName, 'gravatar' );
+			$body = "<p>Fetched gravatar for user {$requestedName}. [<img height=\"14\" width=\"14\" src=\"{$requestedURL}\" />] [<img height=\"14\" width=\"14\" src=\"{$hostedURL}\" />]</p><p>These images should match.</p>";
+		} /* TODO: error for resize. also, change this to failure waterfall */
 	} else {
 		$style = "panel-danger";
 		$body = "<p>Failed fetching gravatar for user {$requestedName}, confirm email is attached to their system and we don’t have that user already.</p>";
