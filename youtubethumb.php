@@ -53,6 +53,17 @@ function gameplate( $string, $offset ) {
 	if ( isset($appid) )
 		$url = "//steamcdn-a.akamaihd.net/steam/apps/{$appid}/capsule_184x69.jpg";
 
+	/* TODO check this is all good, all the time */
+	$localcopy = "/avatars/apps/{$appid}.capsule_184x69.jpg";
+	if ( file_exists( '.' . $localcopy ) and !is_dir( '.' . $localcopy ) ) {
+		$url = $localcopy;
+	} else {
+		if ( writeURLToLocation( 'http:' . $url, '.' . $localcopy ) ) {
+			/* TODO verify we always get jpg files back */
+			$url = $localcopy;
+		}
+	}
+
 	return <<<GAMEPLATE
 				<g transform="translate({$offset},0)">
 					<rect width="190" height="75" x="-3" y="-3" rx="6" ry="6" style="opacity:0.25;fill:#000000;filter:url(#blur)" />
