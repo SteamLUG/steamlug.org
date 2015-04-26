@@ -22,7 +22,7 @@ include_once('includes/functions_cast.php');
 include_once('includes/functions_youtube.php');
 include_once('includes/header.php');
 
-ob_end_flush();
+ob_flush();
 
 $action	= "Failure";
 $body	= "";
