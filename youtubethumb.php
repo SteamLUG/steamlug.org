@@ -65,17 +65,18 @@ function gameplate( $string, $offset ) {
 		}
 	}
 
-	if ( isset($appid) )
+	if ( isset($appid) ) {
 		$url = "//steamcdn-a.akamaihd.net/steam/apps/{$appid}/capsule_184x69.jpg";
 
-	/* TODO check this is all good, all the time */
-	$localcopy = "/avatars/apps/{$appid}.capsule_184x69.jpg";
-	if ( file_exists( '.' . $localcopy ) and !is_dir( '.' . $localcopy ) ) {
-		$url = $localcopy;
-	} else {
-		if ( writeURLToLocation( 'http:' . $url, '.' . $localcopy ) ) {
-			/* TODO verify we always get jpg files back */
+		/* TODO check this is all good, all the time */
+		$localcopy = "/avatars/apps/{$appid}.capsule_184x69.jpg";
+		if ( file_exists( '.' . $localcopy ) and !is_dir( '.' . $localcopy ) ) {
 			$url = $localcopy;
+		} else {
+			if ( writeURLToLocation( 'http:' . $url, '.' . $localcopy ) ) {
+				/* TODO verify we always get jpg files back */
+				$url = $localcopy;
+			}
 		}
 	}
 
