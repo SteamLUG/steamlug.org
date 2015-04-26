@@ -4,8 +4,23 @@ if ( !defined( 'INTERNAL_USE_ONLY' ) ) {
 	header('Content-Type: image/svg+xml');
 }
 
+include_once('includes/session.php');
 include_once('includes/functions_avatars.php');
 include_once('includes/functions_cast.php');
+
+// are we logged in? no → leave
+if ( !login_check() ) {
+	header( "Location: /" );
+	exit();
+} else {
+	$me = $_SESSION['u'];
+}
+// are we admin? no → leave
+if ( in_array( $me, getAdmins() ) ) {
+} else {
+	header( "Location: /" );
+	exit();
+}
 
 function nameplate( $string, $offset = 0, $guest = 0 ) {
 
