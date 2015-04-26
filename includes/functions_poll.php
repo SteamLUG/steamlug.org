@@ -590,4 +590,3 @@
 			echo "<p class=\"text-error\">You don't belong here.</p>";
 		}
 	}
-?>

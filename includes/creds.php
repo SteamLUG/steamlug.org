@@ -13,4 +13,3 @@
 	*/
 	include( "paths.php" );
 	include( $creds );
-?>

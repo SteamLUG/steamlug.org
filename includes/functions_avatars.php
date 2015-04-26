@@ -159,4 +159,3 @@ if ( extension_loaded('curl') ) {
 		return false;
 	}
 }
-?>

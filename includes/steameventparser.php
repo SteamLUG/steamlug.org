@@ -163,4 +163,3 @@ class SteamEventParser {
 		return array("status" => true, "events" => $events, "pastevents" => $pastevents);
 	}
 }
-?>

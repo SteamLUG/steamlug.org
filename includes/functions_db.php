@@ -39,4 +39,3 @@
 		global $conn;
 		$conn = null;
 	}
-?>
