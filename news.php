@@ -16,7 +16,7 @@
 		</article>
 <?php
 	$rss = new lastRSS;
-	$rss->cache_dir = './temp';
+	$rss->cache_dir = $eventXMLPath . '/steamlug/temp';
 	$rss->cache_time = 1200;
 	$rss->CDATA = 'content';
 	$rss->items_limit = 6;
