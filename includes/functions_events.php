@@ -3,6 +3,8 @@ date_default_timezone_set('UTC');
 include_once( 'paths.php' );
 require_once( 'rbt_prs.php' );
 require_once( 'steameventparser.php' );
+/* XXX eventid ~= 204128765604998122 or eventid == '' */
+$eventID = isset($_GET["eventid"]) ? $_GET["eventid"] : "0";
 
 $parser = new SteamEventParser();
 
@@ -58,6 +60,24 @@ function getRecentEvents( ) {
 
 /* json.php wants… just present month XML, so give it  */
 function getMonthsEvents() {
+
 	global $present;
 	return $present;
+}
+
+/* Pass in a Steam event ID, get the event data. Helper function, so that in future we can swap the backend for a db? :^) */
+function findEvent( $id ) {
+
+	global $present, $future;
+	$events = array_merge($present['events'], $future['events']);
+	foreach ($events as $event) {
+
+		if ( $event["id"] == $id ) {
+			$d = explode("-", $event['date']);
+			$t = explode(":", $event['time']);
+			$event['utctime'] = strtotime($d[0] . "-" . $d[1] . "-" . $d[2] . 'T' . $t[0] . ':' . $t[1] . 'Z');
+			return $event;
+		}
+	}
+	/* TODO if we get here, we are likely a legacy event and need to dig into the older files… */
 }

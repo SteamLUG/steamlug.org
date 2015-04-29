@@ -4,13 +4,34 @@ include_once( 'includes/functions_events.php' );
 
 $event = getNextEvent( );
 $data = getRecentEvents( );
-if ($event != null) {
-	$eTime = $event['utctime'];
-	if (isset($eTime)) {
-		$extraJS = "\t\t\tvar target = new Date(" . $eTime . ");";
-		$externalJS = array('/scripts/events.js');
+
+if ( $eventID == "0" ) {
+
+	$event = getNextEvent( );
+	if ( $event != null ) {
+		$eTime = $event['utctime'];
+	}
+} else {
+
+	$event = findEvent( $eventID );
+	if ( $event != null ) {
+		$eTime = $event['utctime'];
+		$extraCrap = <<<TWITCARD
+		<meta name="twitter:card" content="summary_large_image">
+		<meta name="twitter:site" content="@SteamLUG">
+		<meta name="twitter:title" content="{$event['title']}">
+		<meta name="twitter:description" content="Join our community playing ‘{$event['title']}’ at {$event['time']} UTC. Everyone is welcome!&lt;br&gt;{$event['url']}">
+		<meta name="twitter:image:src" content="https:{$event['img_header']}">
+
+TWITCARD;
 	}
 }
+
+if ( isset( $eTime ) ) {
+	$extraJS = "\t\t\tvar target = new Date(" . $eTime . ");";
+	$externalJS = array('/scripts/events.js');
+}
+
 include_once( 'includes/header.php' );
 ?>
 		<h1 class="text-center">SteamLUG Events</h1>
@@ -41,6 +62,8 @@ if (isset($eTime)) {
 	list($ed, $eh, $em, $es) = explode( ' ', $diff->format("%D %H %I %S") );
 }
 
+/* TODO make this match our stream page, optionally hiding this is $event is not set */
+/* TODO for dates in the past (now that we can link to specific events) change wording, remove ticker? */
 echo <<<EVENTSHEAD
 				{$eventTitle}
 				<div id="countdown">
