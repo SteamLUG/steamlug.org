@@ -16,10 +16,10 @@
 	}
 
 	/*
-	 * Small utility function to return JSON details about a workshop item
-	 * http://steamcommunity.com/sharedfiles/filedetails/?id=[0-9]*
-	 * we are going to assume the call has parsed URL and stripped the id off for us
-	 */
+	* Small utility function to return JSON details about a workshop item
+	* http://steamcommunity.com/sharedfiles/filedetails/?id=[0-9]*
+	* we are going to assume the call has parsed URL and stripped the id off for us
+	*/
 	function getWorkshopDetails( $id ) {
 
 		// TODO allow this to take array of ids in future, return array of details
