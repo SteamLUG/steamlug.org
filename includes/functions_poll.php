@@ -1,16 +1,14 @@
 <?php
+	include_once('creds.php');
+	include_once('functions_db.php');
 
 	function setupStuff()
 	{
 		global $conn;
 
-		include_once('creds.php');
-		include_once('functions_db.php');
-
 		if (!isset($conn))
 		{
-			$conn = null;
-			connectDB();
+			$conn = connectDB();
 		}
 
 		$loggedIn = login_check();
@@ -245,17 +243,10 @@
 
 	function deletePoll($id)
 	{
-	
-		include_once('creds.php');
 		if (in_array($_SESSION['u'], getAdmins()))
 		{
 			global $conn;
-			include_once('functions_db.php');
-			if (!isset($conn))
-			{
-				$conn = null;
-				connectDB();
-			}
+			$uid = setupStuff();
 			$error = "";
 			
 			if (is_numeric($id))
@@ -288,16 +279,10 @@
 	function savePoll()
 	{
 	
-		include_once('creds.php');
 		if (in_array($_SESSION['u'], getAdmins()))
 		{
 			global $conn;
-			include_once('functions_db.php');
-			if (!isset($conn))
-			{
-				$conn = null;
-				connectDB();
-			}
+			$uid = setupStuff();
 			$error = "";
 			echo "<!--";
 			if (isset($_POST['poll_title']) && isset($_POST['poll_description']) && isset($_POST['poll_type']) && isset($_POST['poll_publishDate']) && isset($_POST['poll_expireDate']) && isset($_POST['poll_url']))
@@ -429,19 +414,11 @@
 	
 	function showPollAdmin()
 	{
-		include_once('creds.php');
 		echo "Logged in as " . $_SESSION['u'];
 		if (in_array($_SESSION['u'], getAdmins()))
 		{
 			global $conn;
-
-			include_once('functions_db.php');
-			if (!isset($conn))
-			{
-				$conn = null;
-				connectDB();
-			}
-
+			$uid = setupStuff();
 			
 			$poll = array();
 			if (isset($_GET['poll']))
