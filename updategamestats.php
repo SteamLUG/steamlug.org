@@ -20,35 +20,43 @@ if ( in_array( $me, getAdmins() ) ) {
 	exit();
 }
 
-print "Starting stats gathering: " . date("c") . "\n<br>";
+$date = date( "Y-m-d" );
+print $date . ": Starting stats gathering: " . date("c") . "\n<br>";
 
 $database = connectDB();
-/* TODO find if mysql has a similar call?
- $database->query( "PRAGMA synchronous = OFF" );
-*/
+
+foreach(  $database->query( "SELECT count(1) AS number FROM steamlug.memberstats WHERE `date`='" . $date . "' LIMIT 1" ) as $res ) {
+
+	if ( $res[ 'number' ] == "1" ) {
+		print $date . ": We have already captured stats for today! Ending script.";
+		exit;
+	}
+}
 
 $gameslist = array( );
 foreach ( getSteamGames() as $game ) {
-	
+
 	$tempgame = array ( "name" => $game[ 'name' ], "owners" => 0, "playtime" => 0, "fortnight" => 0 );
 	$gameslist[ $game[ 'appid' ] ] = $tempgame;
 }
-print count($gameslist) . " known games.\n<br>";
+print $date . ": " . count($gameslist) . " known games.\n<br>";
 
 
 $members = getGroupMembers();
-print count($members) . " members.\n<br>";
+print $date . ": " . print count($members) . " members.\n<br>";
 
 /* pointless stats tracking GET! */
 $gamesmin = 2000;
 $gamesmax = 0;
+$publicMembers = 0;
 
 foreach ( $members as $member ) {
 
 	$memberGames = getMemberGames( $member );
 	if ( count( $memberGames ) > 0 ) {
 
-		print $member . " has " . $memberGames[ 'game_count' ] . " games.\n<br>";
+		$publicMembers++;
+		/* print $member . " has " . $memberGames[ 'game_count' ] . " games.\n<br>"; */
 
 		if ( ($memberGames[ 'game_count' ] > 0) and array_key_exists( 'games', $memberGames ) ) {
 
@@ -84,9 +92,9 @@ foreach ( $members as $member ) {
 	flush( );
 }
 
-print "Completed stats gathering: " . date("c") . "\n<br>";
-
-$date = date( "Y-m-d" );
+print $date . ": Completed stats gathering: " . date("c") . "\n<br>";
+print $date . ": " . $publicMembers . " public member profiles of " . count($members ) . " members read on " . date( "c" ) . "\n<br>";
+flush( );
 
 /*
 CREATE TABLE `steamlug`.`gamestats` (
@@ -98,7 +106,6 @@ CREATE TABLE `steamlug`.`gamestats` (
   PRIMARY KEY (`date`, `appid`),
   UNIQUE INDEX (`date`, `appid`));
 */
-
 $storestats = $database->prepare( "INSERT INTO gamestats (date, appid, owners, playtime, fortnight) VALUES (?,?,?,?,?)" );
 
 /*
@@ -109,32 +116,41 @@ CREATE TABLE `steamlug`.`memberstats` (
   `max` INT NULL,
   PRIMARY KEY (`date`));
 */
-
 $storegroupstats = $database->prepare( "INSERT INTO memberstats (date, count, min, max) VALUES (?,?,?,?)" );
 
 /*
 CREATE TABLE `steamlug`.`games` (
   `appid` INT NOT NULL,
   `name` VARCHAR(256) NOT NULL,
+  `onlinux` BIT(1) NOT NULL DEFAULT b'0',
   PRIMARY KEY (`appid`));
 */
 $storegames = $database->prepare( "REPLACE INTO games (appid, name) VALUES (?,?)" );
 
-$storegroupstats->execute( array( $date, count($members), $gamesmin, $gamesmax ) );
+try {
+	$database->beginTransaction( );
 
-foreach ( $gameslist as $appid=>$game ) {
+	foreach ( $gameslist as $appid=>$game ) {
 
-	if ( $game[ 'owners' ] == 0 )
-		continue;
+		if ( $game[ 'owners' ] == 0 )
+			continue;
 
-	$storestats->execute( array( $date, $appid, $game[ 'owners' ], $game[ 'playtime' ], $game[ 'fortnight' ] ) );
-	/*print "[" . $appid . "] " . $game[ 'name' ] . ": " . $game[ 'owners' ] . " owner, " . $game[ 'playtime' ] . " playtime, " .
-		$game[ 'fortnight' ] . " fortnightly playtime.\n<br>";*/
-} 
+		$storestats->execute( array( $date, $appid, $game[ 'owners' ], $game[ 'playtime' ], $game[ 'fortnight' ] ) );
+		/*print "[" . $appid . "] " . $game[ 'name' ] . ": " . $game[ 'owners' ] . " owner, " . $game[ 'playtime' ] . " playtime, " .
+			$game[ 'fortnight' ] . " fortnightly playtime.\n<br>";*/
+	}
 
-foreach ( $gameslist as $appid=>$game ) {
+	foreach ( $gameslist as $appid=>$game ) {
 
-	$storegames->execute( array( $appid, $game[ 'name' ] ) );
+		$storegames->execute( array( $appid, $game[ 'name' ] ) );
+	}
+
+	$storegroupstats->execute( array( $date, count($members), $gamesmin, $gamesmax ) );
+	$database->commit( );
+
+} catch ( Exception $e ) {
+
+	print $date . ": Oops, database failure";
 }
 
 /* XXX where to write this?
@@ -143,7 +159,7 @@ fwrite( $logger, $date . " Stored " . count($members) . " member profiles." );
 fclose( $logger );
 */
 
-print "Complete!\n";
+print $date . ": Completed stats storing: " . date("c") . "\n<br>";
 $completion = microtime(true) - $_SERVER["REQUEST_TIME_FLOAT"];
-print "Process Time: {$completion}.";
-print "Memory: " . memory_get_usage( ) . "\n<br>";
+print $date . ": Process Time: {$completion}.";
+print $date . ": Memory: " . memory_get_usage( ) . "\n<br>";
