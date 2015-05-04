@@ -78,6 +78,21 @@
 	}
 
 	/*
+	* Small utility function to return JSON details about users group membership on Steam
+	*/
+	function getMemberGroups( $id ) {
+
+		$params = array('key' => getSteamAPIKey(),
+						'steamid' => $id,
+						'format' => 'json' );
+		$reply = geturl( 'http://api.steampowered.com/ISteamUser/GetUserGroupList/v0001/', $params );
+		if ( $reply == false )
+			return false;
+		$details = json_decode($reply, true);
+		return $details['response'];
+	}
+
+	/*
 	* Small utility function to return our active user count
 	* TODO make this share information with getMembers if that is needed to be called too
 	* TODO consider this returning membersInChat membersInGame membersOnline as an assoc array.
