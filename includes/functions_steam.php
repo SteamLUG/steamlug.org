@@ -4,13 +4,32 @@
 	include_once('steam.php');
 	include_once('creds.php');
 
-	function getAdminNames() {
+/* { "steamid": int, "communityvisibilitystate": int, "profilestate": int,
+	"personaname": str, "lastlogoff": timestamp, "commentpermission": int,
+	"profileurl": url, "avatar": url, "avatarmedium": url, "avatarfull": url,
+	"personastate": int, "realname": str, "primaryclanid": int, "timecreated":
+	timestamp, "personastateflags": int, "loccountrycode": ISO country code,
+	"locstatecode": nfc } */
+	function getPlayerSummary( $id ) {
 		$params = array('key' => getSteamAPIKey(),
-						'steamids' => implode( ',', getAdmins() ),
+						'steamids' => $id,
 						'format' => 'json' );
 		$reply = geturl( 'http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/', $params );
 		$users = json_decode($reply, true);
-		$users = $users["response"]["players"];
+		if ( count( $users["response"]["players"] ) == 0 )
+			return false;
+		if ( strpos( $id, ',' ) !== false ) {
+			$users = $users["response"]["players"];
+		} else {
+			$users = $users["response"]["players"][0];
+		}
+		return $users;
+	}
+
+	/* lazy helper function, just calls getPlayerSummary( ) and returns a sorted array :D */
+	function getAdminNames() {
+
+		$users = getPlayerSummary( implode( ',', getAdmins() ) );
 		asort( $users );
 		return $users;
 	}
