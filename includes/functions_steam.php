@@ -64,6 +64,24 @@
 	}
 
 	/*
+	* Small utility function so we can stop having it in a few places in code
+	*/
+	function getAppImages( $appid ) {
+
+		$imgs = array_fill_keys( array( 'header', 'header_small', 'capsule', 'capsule_lg' ), '');
+		if ($_appid != 0) {
+
+			$imgs[ 'header' ]		= "//steamcdn-a.akamaihd.net/steam/apps/{$appid}/header.jpg";
+			$imgs[ 'header_small' ]	= "//steamcdn-a.akamaihd.net/steam/apps/{$appid}/header_292x136.jpg";
+			$imgs[ 'capsule_lg' ]	= "//steamcdn-a.akamaihd.net/steam/apps/{$appid}/capsule_184x69.jpg";
+			$imgs[ 'capsule' ]		= "//steamcdn-a.akamaihd.net/steam/apps/{$appid}/capsule_sm_120.jpg";
+			// icon appears to be named sha1 of icon file; so can’t guess :(
+			// http://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/227300/adc18a4fc9adc0330144b76d61cbda68bb2394a0.jpg
+		}
+		return $imgs;
+	}
+
+	/*
 	* Small utility function to return JSON details about users game collection on Steam
 	*/
 	function getMemberGames( $id ) {

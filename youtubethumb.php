@@ -6,6 +6,7 @@ if ( !defined( 'INTERNAL_USE_ONLY' ) ) {
 
 include_once('includes/session.php');
 include_once('includes/functions_avatars.php');
+include_once('includes/functions_steam.php');
 include_once('includes/functions_cast.php');
 
 // are we logged in? no → leave
@@ -66,7 +67,8 @@ function gameplate( $string, $offset ) {
 	}
 
 	if ( isset($appid) ) {
-		$url = "//steamcdn-a.akamaihd.net/steam/apps/{$appid}/capsule_184x69.jpg";
+		$images = getAppImages( $appid );
+		$url = $images[ 'capsule_lg' ];
 
 		/* TODO check this is all good, all the time */
 		$localcopy = "/avatars/apps/{$appid}.capsule_184x69.jpg";
