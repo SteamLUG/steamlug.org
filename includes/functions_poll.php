@@ -11,8 +11,7 @@
 			$conn = connectDB();
 		}
 
-		$loggedIn = login_check();
-		if ($loggedIn)
+		if ( login_check() )
 		{
 			return $_SESSION['u'];
 		}

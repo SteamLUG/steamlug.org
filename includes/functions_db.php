@@ -34,6 +34,7 @@
 
 	function closeDB( $connection ) {
 
-		// er?
 		$connection = null;
 	}
+
+	/* TODO add a logging function here for the table happenings */

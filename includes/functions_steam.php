@@ -144,3 +144,6 @@
 		}
 		return $everyone;
 	}
+
+
+	/* TODO move the download side of stats stuff here? need to fetch Steam games list & steamdb games list */
