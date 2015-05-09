@@ -3,6 +3,8 @@
 	include_once('functions_geturl.php');
 	include_once('steam.php');
 	include_once('creds.php');
+	/* TODO add support for https://github.com/xPaw/SteamID.php to normalise any incoming SteamIDs,
+	likely to need this for the server event integration due to… lol */
 
 /* { "steamid": int, "communityvisibilitystate": int, "profilestate": int,
 	"personaname": str, "lastlogoff": timestamp, "commentpermission": int,
