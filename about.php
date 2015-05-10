@@ -35,7 +35,7 @@
 					</div>
 					<div class="col-md-4">
 					<h4>Audiocast</h4>
-					<p>Our <a href = 'cast'>SteamLUG Cast</a> is a regular, ongoing fortnightly (<em>subject to change</em>) audio cast focusing on Steam/Valve news, F/OSS gaming news, Wine updates, SteamLUG happenings and other Linux gaming related tech news. You can tune in live on our <a href = 'mumble'>Mumble server</a>, or download archived shows from the <a href = 'cast'>SteamLUG Cast page</a>.</p>
+					<p>Our <a href = 'cast'>SteamLUG Cast</a> is a regular, ongoing fortnightly (<em>subject to change</em>) audio cast focusing on Steam/Valve news, F/OSS gaming news, Wine updates, SteamLUG happenings and other Linux gaming related tech news. You can tune in live on our <a href = 'mumble'>Mumble server</a>, or download archived shows from the <a href = 'cast'>SteamLUG Cast page</a> or watch it on <a href = 'https://www.youtube.com/user/SteamLUG'>YouTube</a>.</p>
 					</div>
 					<div class="col-md-4">
 					<h4>Projects</h4>
