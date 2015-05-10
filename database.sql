@@ -4,19 +4,22 @@ USE `steamlug`;
 DROP TABLE IF EXISTS `apps`;
 DROP TABLE IF EXISTS `appstats`;
 DROP TABLE IF EXISTS `badges`;
-DROP TABLE IF EXISTS `eventattendance`;
+DROP TABLE IF EXISTS `clans`;
 DROP TABLE IF EXISTS `events`;
+DROP TABLE IF EXISTS `eventattendance`;
 DROP TABLE IF EXISTS `happenings`;
-DROP TABLE IF EXISTS `memberbadges`;
 DROP TABLE IF EXISTS `members`;
+DROP TABLE IF EXISTS `memberbadges`;
 DROP TABLE IF EXISTS `memberstats`;
+DROP TABLE IF EXISTS `coteriebourgeois`;
 
 CREATE TABLE `apps` (
   `appid` int(11) unsigned NOT NULL,
   `name` varchar(256) NOT NULL,
   `onlinux` bit(1) NOT NULL DEFAULT b'0' COMMENT 'from SteamDB Linux List import… somewhere… stats update?',
   `img_icon` varchar(140) DEFAULT '' COMMENT 'from events parser for now…',
-  PRIMARY KEY (`appid`)
+  PRIMARY KEY (`appid`),
+  UNIQUE KEY `appid_key` (`appid`)
 ) DEFAULT CHARSET=utf8;
 
 CREATE TABLE `appstats` (
@@ -26,19 +29,28 @@ CREATE TABLE `appstats` (
   `playtime` int(11) unsigned DEFAULT '0',
   `fortnight` int(11) unsigned DEFAULT '0',
   PRIMARY KEY (`date`,`appid`),
-  UNIQUE KEY `date` (`date`,`appid`)
+  UNIQUE KEY `pairing` (`date`,`appid`)
 ) DEFAULT CHARSET=utf8;
 
 CREATE TABLE `badges` (
   `badgeid` int(8) unsigned NOT NULL,
   PRIMARY KEY (`badgeid`),
-  UNIQUE KEY `badgeid_UNIQUE` (`badgeid`)
+  UNIQUE KEY `badgeid_key` (`badgeid`)
+) DEFAULT CHARSET=utf8;
+
+CREATE TABLE `clans` (
+  `clanid` int(8) unsigned NOT NULL,
+  `name` varchar(100) DEFAULT NULL,
+  `creator` bigint(20) unsigned DEFAULT NULL,
+  PRIMARY KEY (`clanid`),
+  UNIQUE KEY `clanid_key` (`clanid`)
 ) DEFAULT CHARSET=utf8;
 
 CREATE TABLE `eventattendance` (
   `eventid` bigint(20) unsigned NOT NULL,
   `steamid` bigint(20) unsigned NOT NULL,
-  PRIMARY KEY (`eventid`,`steamid`)
+  PRIMARY KEY (`eventid`,`steamid`),
+  UNIQUE KEY `pairing` (`eventid`,`steamid`)
 ) DEFAULT CHARSET=utf8;
 
 CREATE TABLE `events` (
@@ -51,7 +63,7 @@ CREATE TABLE `events` (
   `server` varchar(75) DEFAULT '' COMMENT 'Server deets from the event description; so event queries can work?; set via backend',
   `serverport` varchar(5) DEFAULT '' COMMENT 'Server deets from the event description; so event queries can work?; set via backend',
   PRIMARY KEY (`eventid`,`appid`,`utctime`),
-  UNIQUE KEY `eventid_UNIQUE` (`eventid`)
+  UNIQUE KEY `eventid_key` (`eventid`)
 ) DEFAULT CHARSET=utf8;
 
 CREATE TABLE `happenings` (
@@ -59,7 +71,7 @@ CREATE TABLE `happenings` (
   `when` timestamp NULL DEFAULT NULL,
   `what` varchar(100) DEFAULT '',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `id_UNIQUE` (`id`)
+  UNIQUE KEY `log` (`id`)
 ) DEFAULT CHARSET=utf8;
 
 CREATE TABLE `memberbadges` (
@@ -68,7 +80,15 @@ CREATE TABLE `memberbadges` (
   `when` timestamp NULL DEFAULT NULL,
   `trigger` varchar(45) DEFAULT NULL COMMENT 'describes what action caused badge (internal notekeeping?)',
   PRIMARY KEY (`steamid`),
-  UNIQUE KEY `steamid_UNIQUE` (`steamid`)
+  UNIQUE KEY `pairing` (`steamid`,`badgeid`)
+) DEFAULT CHARSET=utf8;
+
+CREATE TABLE `coteriebourgeois` (
+  `clanid` int(8) unsigned NOT NULL,
+  `steamid` bigint(20) unsigned NOT NULL,
+  `role` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`clanid`,`steamid`),
+  UNIQUE KEY `pairing` (`clanid`,`steamid`)
 ) DEFAULT CHARSET=utf8;
 
 
@@ -81,13 +101,14 @@ CREATE TABLE `members` (
   `isgroupmember` bit(1) NOT NULL DEFAULT b'0' COMMENT 'When user logs in, we check this. Keep this in sync? As we limit actions like poll voting with it.',
   `suggestedvisibility` tinyint(4) DEFAULT NULL COMMENT 'Taken from PlayerSummary, to suggest better defaults?',
   PRIMARY KEY (`steamid`,`profileurl`),
-  UNIQUE KEY `steamid_UNIQUE` (`steamid`)
+  UNIQUE KEY `steamid_key` (`steamid`)
 ) DEFAULT CHARSET=utf8;
 
 CREATE TABLE `memberstats` (
   `date` date NOT NULL,
-  `count` int(11) DEFAULT NULL COMMENT 'Membership count over time',
-  `min` int(11) DEFAULT NULL COMMENT 'Minimum owned games. Know we have members with 0, pointless?',
-  `max` int(11) DEFAULT NULL COMMENT 'Maximum owned games, pointless?',
-  PRIMARY KEY (`date`)
+  `count` int(11) DEFAULT NULL,
+  `min` int(11) DEFAULT NULL,
+  `max` int(11) DEFAULT NULL,
+  PRIMARY KEY (`date`),
+  UNIQUE KEY `date_key` (`date`)
 ) DEFAULT CHARSET=utf8;
