@@ -5,6 +5,7 @@ DROP TABLE IF EXISTS `apps`;
 DROP TABLE IF EXISTS `appstats`;
 DROP TABLE IF EXISTS `badges`;
 DROP TABLE IF EXISTS `clans`;
+DROP TABLE IF EXISTS `clanroles`;
 DROP TABLE IF EXISTS `events`;
 DROP TABLE IF EXISTS `eventattendance`;
 DROP TABLE IF EXISTS `happenings`;
@@ -37,13 +38,25 @@ CREATE TABLE `badges` (
   UNIQUE KEY `badgeid_UNIQUE` (`badgeid`)
 ) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+CREATE TABLE `clanroles` (
+  `clanid` int(8) unsigned NOT NULL COMMENT 'maybe remove this, and just have generic names? then control their abilities generically…',
+  `roleid` tinyint(4) unsigned NOT NULL,
+  `name` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Admin, Player. Allow clans to rename these?',
+  PRIMARY KEY (`clanid`)
+) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 CREATE TABLE `clans` (
-  `clanid` int(8) unsigned NOT NULL,
+  `clanid` int(8) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `creator` bigint(20) unsigned DEFAULT NULL,
+  `description` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `appid` int(11) unsigned DEFAULT NULL COMMENT 'Optional game-specific reference for clan.',
+  `slug` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'friendly user-facing name for the clan. Limit to admin‐set?',
+  `membership` tinyint(4) DEFAULT '0' COMMENT 'This governs how people can join the group:\nPublic\nInvite‐only (creator/roles can invite)\nInvite-request (member can request being added + invited by creator/roles)\nPrivate (is this enough for Admin groups too?)\nFinal (for retired clans, should make everything static)',
   PRIMARY KEY (`clanid`),
-  UNIQUE KEY `clanid_UNIQUE` (`clanid`)
-) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  UNIQUE KEY `clanid_UNIQUE` (`clanid`),
+  UNIQUE KEY `slug_UNIQUE` (`slug`)
+) AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE `eventattendance` (
   `eventid` bigint(20) unsigned NOT NULL DEFAULT '0',
@@ -85,20 +98,20 @@ CREATE TABLE `memberbadges` (
 CREATE TABLE `memberclans` (
   `clanid` int(8) unsigned NOT NULL,
   `steamid` bigint(20) unsigned NOT NULL,
-  `role` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `role` tinyint(4) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`clanid`,`steamid`),
   UNIQUE KEY `pairing` (`clanid`,`steamid`)
 ) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE `members` (
   `steamid` bigint(20) unsigned NOT NULL,
-  `createdprofile` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Reference info, useful for future badge work?',
-  `personaname` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT '',
+  `createdprofile` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Reference info, useful for future badge work?\nMaybe this should be a DATETIME instead?',
+  `personaname` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `profileurl` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT 'Trimmed from PlayerSummary, can’t be unique or not null due to many people not having set this (and therefore '''')',
-  `avatar` varchar(130) COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT 'Trimmed from PlayerSummary, avatarfull',
+  `avatar` varchar(130) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Trimmed from PlayerSummary, avatarfull',
   `isgroupmember` bit(1) NOT NULL DEFAULT b'0' COMMENT 'When user logs in, we check this. Keep this in sync? As we limit actions like poll voting with it.',
-  `suggestedvisibility` tinyint(4) DEFAULT 0 COMMENT 'Taken from PlayerSummary, to suggest better defaults?',
-  PRIMARY KEY (`steamid`,`profileurl`),
+  `suggestedvisibility` tinyint(4) DEFAULT NULL COMMENT 'Taken from PlayerSummary, to suggest better defaults?',
+  PRIMARY KEY (`steamid`),
   UNIQUE KEY `steamid_UNIQUE` (`steamid`)
 ) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -110,3 +123,5 @@ CREATE TABLE `memberstats` (
   PRIMARY KEY (`date`),
   UNIQUE KEY `date` (`date`)
 ) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
