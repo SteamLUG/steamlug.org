@@ -24,6 +24,8 @@
 			$conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 			$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			//echo "PDO connection object created";
+			// We *always* enforce this
+			$conn->exec( 'SET NAMES utf8mb4;' );
 
 		} catch(PDOException $e) {
 
