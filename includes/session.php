@@ -22,7 +22,7 @@
 		$_SESSION['g'] = group_check($uid);
 		store_user_details($uid);
 		$_SESSION['i'] = getenv("REMOTE_ADDR");
-		$_SESSION['t'] = time() + (12 * 60 * 60);
+		$_SESSION['t'] = time() + (2 * 24 * 60 * 60);
 		session_write_close();
 	}
 
