@@ -1,8 +1,8 @@
 <?php
-
 include_once( 'functions_db.php' );
 
-$database = connectDB( );
+if ( !isset( $database ) )
+	$database = connectDB( );
 
 /*
 	This should control the request/display of member details in our db
