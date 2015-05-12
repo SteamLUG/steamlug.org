@@ -12,7 +12,7 @@ DROP TABLE IF EXISTS `happenings`;
 DROP TABLE IF EXISTS `members`;
 DROP TABLE IF EXISTS `memberbadges`;
 DROP TABLE IF EXISTS `memberstats`;
-DROP TABLE IF EXISTS `coteriebourgeois`;
+DROP TABLE IF EXISTS `memberclans`;
 
 CREATE TABLE `apps` (
   `appid` int(11) unsigned NOT NULL,
@@ -39,10 +39,9 @@ CREATE TABLE `badges` (
 ) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE `clanroles` (
-  `clanid` int(8) unsigned NOT NULL COMMENT 'maybe remove this, and just have generic names? then control their abilities generically…',
   `roleid` tinyint(4) unsigned NOT NULL,
   `name` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Admin, Player. Allow clans to rename these?',
-  PRIMARY KEY (`clanid`)
+  PRIMARY KEY (`roleid`)
 ) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE `clans` (

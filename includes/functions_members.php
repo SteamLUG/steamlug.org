@@ -61,6 +61,24 @@ $database = connectDB( );
 		}
 	}
 
+	function getPlayerClansDB( $id ) {
+
+		global $database;
+		try {
+			// $database->beginTransaction( );
+			/* TODO: safe-ify $id */
+			$statement = $database->prepare( "SELECT clans.clanid, memberclans.steamid, clanroles.name as clanrole, clans.name, clans.creator, clans.description, clans.slug
+				FROM steamlug.memberclans LEFT JOIN clans ON clans.clanid = memberclans.clanid LEFT JOIN clanroles ON memberclans.role = clanroles.roleid where steamid = ?;" );
+			$statement->execute( array( $id ) );
+			$clans = $statement->fetchAll( PDO::FETCH_ASSOC );
+			// $database->commit( );
+			return $clans;
+		} catch ( Exception $e ) {
+
+			return false;
+		}
+	}
+
 	function removePlayerSummaryDB( $id ) {
 
 		global $database;
