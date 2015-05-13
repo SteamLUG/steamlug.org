@@ -16,3 +16,4 @@ $eventXMLPath   = "http://cenobite.swordfischer.com/";				// Current XML source 
 // Mumble Server
 $mumbleServer	= 'mumble.steamlug.org';							// Not really a path, but eh
 
+$steamcmdPath	= '/usr/bin/steamcmd';								// Location to our installed `steamcmd`
