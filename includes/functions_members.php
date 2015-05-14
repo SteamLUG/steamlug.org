@@ -67,7 +67,7 @@ if ( !isset( $database ) )
 		try {
 			// $database->beginTransaction( );
 			/* TODO: safe-ify $id */
-			$statement = $database->prepare( "SELECT clans.clanid, memberclans.steamid, clanroles.name as clanrole, clans.name, clans.creator, clans.description, clans.slug
+			$statement = $database->prepare( "SELECT clans.clanid, memberclans.steamid, clanroles.name AS clanrole, clans.name, clans.creator, clans.description, clans.slug
 				FROM steamlug.memberclans LEFT JOIN clans ON clans.clanid = memberclans.clanid LEFT JOIN clanroles ON memberclans.role = clanroles.roleid where steamid = ?;" );
 			$statement->execute( array( $id ) );
 			$clans = $statement->fetchAll( PDO::FETCH_ASSOC );
