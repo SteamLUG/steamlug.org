@@ -22,6 +22,25 @@ if ( !isset( $database ) )
 		}
 	}
 
+	function getEventAttendance( $eventid ) {
+
+		global $database;
+		try {
+			// $database->beginTransaction( );
+			/* TODO: safe-ify $id */
+			$statement = $database->prepare( "SELECT eventattendance.steamid, personaname, profileurl, avatar FROM steamlug.eventattendance
+				LEFT JOIN members ON eventattendance.steamid = members.steamid WHERE eventattendance.eventid = ? ORDER BY members.steamid desc limit 100;" );
+			$statement->execute( array( $eventid ) );
+			$players = $statement->fetchAll( PDO::FETCH_ASSOC );
+			// $database->commit( );
+			return $players;
+		} catch ( Exception $e ) {
+
+			return false;
+		}
+	}
+
+
 	// add player to event
 	function addPlayerEventAttendance( $eventid, $steamid ) {
 
