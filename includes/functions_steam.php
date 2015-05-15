@@ -71,7 +71,7 @@
 	function getAppImages( $appid ) {
 
 		$imgs = array_fill_keys( array( 'header', 'header_small', 'capsule', 'capsule_lg' ), '');
-		if ($_appid != 0) {
+		if ($appid != 0) {
 
 			$imgs[ 'header' ]		= "//steamcdn-a.akamaihd.net/steam/apps/{$appid}/header.jpg";
 			$imgs[ 'header_small' ]	= "//steamcdn-a.akamaihd.net/steam/apps/{$appid}/header_292x136.jpg";
