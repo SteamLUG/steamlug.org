@@ -46,8 +46,7 @@
 						<tr>
 							<th class="col-xs-1">Avatar
 							<th class="col-xs-2">SteamID
-							<th class="col-xs-5">Persona Name
-							<th class="col-xs-1">Location
+							<th class="col-xs-6">Persona Name
 							<th class="col-xs-3">Online?
 						</tr>
 					</thead>
@@ -74,15 +73,11 @@ DOCUMENT;
 		} else {
 			$memaybe = '';
 		}
-		if ( !array_key_exists( 'loccountrycode', $admin ) ) {
-			$admin['loccountrycode'] = '';
-		}
 		echo <<<ADMINUSER
 				<tr{$memaybe}>
 					<td><img src="{$admin['avatar']}" /></td>
 					<td>{$admin['steamid']}</td>
 					<td><a href="{$admin['profileurl']}">{$admin['personaname']}</a></td>
-					<td>{$admin['loccountrycode']}</td>
 					<td>{$admin['lastlogoffdate']}</td>
 				</tr>
 ADMINUSER;
