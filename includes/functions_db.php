@@ -39,4 +39,20 @@
 		$connection = null;
 	}
 
+	function logDB( $message ) {
+
+		global $database;
+		try {
+			/* should this be called inside a transaction? or outside to record failed ones… */
+			/* TODO: safe-ify $id */
+			$statement = $database->prepare( "INSERT INTO steamlug.happenings (what) VALUES (?)" );
+			$statement->execute( array( $message ) );
+			$logmsg = $statement->fetch( PDO::FETCH_ASSOC );
+			return $logmsg;
+		} catch ( Exception $e ) {
+
+			return false;
+		}
+	}
+
 	/* TODO add a logging function here for the table happenings */
