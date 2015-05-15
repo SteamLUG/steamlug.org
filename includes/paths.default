@@ -1,5 +1,5 @@
 <?php
-// These are locations pulled out from the rest of the repo, to give some flexiblity
+// These are locations pulled out from the rest of the repo, to give some flexibility
 // SteamLUG Cast
 $notesPath		= "/var/www/archive.steamlug.org/steamlugcast";		// replaces $path
 $filePath		= "/var/www/archive.steamlug.org/steamlugcast";		// replaces $path
