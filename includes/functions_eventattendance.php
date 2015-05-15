@@ -1,0 +1,63 @@
+<?php
+include_once( 'functions_db.php' );
+
+if ( !isset( $database ) )
+	$database = connectDB( );
+
+	function getRecentAttendance( $steamid ) {
+
+		global $database;
+		try {
+			// $database->beginTransaction( );
+			/* TODO: safe-ify $id */
+			$statement = $database->prepare( "SELECT eventattendance.eventid, utctime, appid, title, clanid FROM steamlug.eventattendance
+				LEFT JOIN events ON eventattendance.eventid = events.eventid WHERE eventattendance.steamid = ? ORDER BY utctime desc limit 10;" );
+			$statement->execute( array( $steamid ) );
+			$events = $statement->fetchAll( PDO::FETCH_ASSOC );
+			// $database->commit( );
+			return $events;
+		} catch ( Exception $e ) {
+
+			return false;
+		}
+	}
+
+	// add player to event
+	function addPlayerEventAttendance( $eventid, $steamid ) {
+
+		global $database;
+		try {
+			$database->beginTransaction( );
+			/* TODO: once event capture is automated, retire this logging? */
+			logDB( 'EVENTATTEND ADD ' . $eventid . ':' . $steamid );
+			/* TODO: safe-ify $id */
+			$statement = $database->prepare( "INSERT INTO steamlug.eventattendance (eventid, steamid) VALUES (?, ?)
+				ON DUPLICATE KEY UPDATE eventid=VALUES(eventid), steamid=VALUES(steamid);" );
+			$statement->execute( array( $eventid, $steamid ) );
+			$addition = $statement->fetch( PDO::FETCH_ASSOC );
+			$database->commit( );
+			return $addition;
+		} catch ( Exception $e ) {
+
+			return false;
+		}
+	}
+
+	// remove player from event (shouldnt be used often)
+	function removePlayerEventAttendance( $eventid, $steamid ) {
+
+		global $database;
+		try {
+			$database->beginTransaction( );
+			/* TODO: safe-ify $id */
+			logDB( 'EVENTATTEND REM ' . $eventid . ':' . $steamid );
+			$statement = $database->prepare( "DELETE FROM steamlug.eventattendance WHERE eventid = ? AND steamid = ? LIMIT 1;" );
+			$statement->execute( array( $eventid, $steamid ) );
+			$subtraction = $statement->fetch( PDO::FETCH_ASSOC );
+			$database->commit( );
+			return $subtraction;
+		} catch ( Exception $e ) {
+
+			return false;
+		}
+	}
