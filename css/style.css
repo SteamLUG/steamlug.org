@@ -23,6 +23,7 @@ table.tablesorter th.header {	background-image: url('/images/bg.gif'); backgroun
 table.tablesorter th.headerSortUp { background-image: url('/images/asc.gif') }
 table.tablesorter th.headerSortDown { background-image: url('/images/desc.gif') }
 table.tablesorter th i, table.tablesorter td i { float: right; line-height: 20px }
+table.tablesorter td i, table.tablesorter th i[class*="fa-"] { width: 1em }
 
 audio { width: 100% }
 table#casts img { height: 22px; vertical-align: middle }
@@ -82,7 +83,7 @@ li.dropdown:hover > .dropdown-menu, .dropdown-menu:hover { display:block }
 
 #countdown { width: 25em; margin: 0px auto; margin-bottom: .5em; line-height: 2em }
 
-body { padding: 60px 0 0 0; color: #cbcbcb; background: url('/images/noise4.png'); background-position: center top; font-size: 13px !important; font-family: Arial,Helvetica,sans-serif; text-shadow: 1px 1px 1px #000 }
+body { padding: 60px 0 0 0; color: #cbcbcb; background: url('/images/noise4.png'); background-position: center top; font-size: 13px !important; text-shadow: 1px 1px 1px #000 }
 
 h1, h2, h3, h4, h5, h6 { text-shadow: 1px 1px 1px #111 !important }
 
