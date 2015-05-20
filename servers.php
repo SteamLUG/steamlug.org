@@ -29,7 +29,7 @@
 				<table id="servers" class="table table-striped table-hover tablesorter">
 					<thead>
 						<tr>
-							<th>
+							<th><i class="fa fa-globe"></i>
 							<th><i class="fa fa-shield"></i>
 							<th><i class="fa fa-lock"></i>
 							<th>Game
@@ -90,14 +90,14 @@ SERVERSTRING;
 			$serverHost	= $data['gq_address'] . ":" . $connectPort;
 			echo <<<SERVERSTRING
 			<tr>
-				<td><span style="display:none">{$serverLoc}</span><img src="/images/flags/{$serverLoc}.png" alt="Hosted in {$serverLoc}"></td>
+				<td><img src="/images/flags/{$serverLoc}.png" title="Hosted in {$serverLoc}" alt="{$serverLoc}" /></td>
 				<td>{$serverSec}</td>
 				<td>{$serverPass}</td>
 				<td>{$serverDesc}</td>
 				<td><a href="steam://connect/{$serverHost}">{$data['gq_hostname']}</a>
 				<td>{$serverNum}</td>
 				<td>{$serverMap}</td>
-				<td><span class="text-success"><i class="fa fa-circle"></i></span></td>
+				<td><i class="text-success fa-circle"></i></td>
 			</tr>
 SERVERSTRING;
 		}

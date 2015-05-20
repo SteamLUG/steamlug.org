@@ -24,6 +24,7 @@ table.tablesorter th.headerSortUp { background-image: url('/images/asc.gif') }
 table.tablesorter th.headerSortDown { background-image: url('/images/desc.gif') }
 table.tablesorter th i, table.tablesorter td i { float: right; line-height: 20px }
 table.tablesorter td i, table.tablesorter th i[class*="fa-"] { width: 1em }
+table.tablesorter th i.fa-globe { float: none; display: inline-block; margin-left: 0.2em; width: 0.7em; }
 
 audio { width: 100% }
 table#casts img { height: 22px; vertical-align: middle }
