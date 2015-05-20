@@ -1,6 +1,7 @@
 <?php
 	$pageTitle = "Mumble";
 
+	$extraCrap = "		<link rel=\"stylesheet\" href=\"/css/font-awesome.min.css\" />\n";
 	include_once('includes/header.php');
 	include_once('includes/functions_mumble.php');
 

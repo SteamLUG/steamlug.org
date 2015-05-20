@@ -121,6 +121,7 @@ if ( $season !== "00" && $episode !== "00" && file_exists( $filename ) ) {
 TWITCARD;
 
 	/* We start late to populate our Twitter player card */
+	$extraCrap = "		<link rel=\"stylesheet\" href=\"/css/font-awesome.min.css\" />\n";
 	include('includes/header.php');
 	echo $start;
 

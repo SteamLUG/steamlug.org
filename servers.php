@@ -4,6 +4,7 @@
 	ini_set('zlib.output_compression', 0);
 	ini_set('implicit_flush', 1);
 	$syncexternalJS = array( '/scripts/jquery.tablesorter.min.js', '/scripts/jquery.tablesorter.widgets.min.js' );
+	$extraCrap = "		<link rel=\"stylesheet\" href=\"/css/font-awesome.min.css\" />\n";
 	include_once('includes/header.php');
 	include_once('includes/GameQ.php');
 	include_once('includes/paths.php');
