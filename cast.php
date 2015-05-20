@@ -121,7 +121,7 @@ if ( $season !== "00" && $episode !== "00" && file_exists( $filename ) ) {
 TWITCARD;
 
 	/* We start late to populate our Twitter player card */
-	$extraCrap = "		<link rel=\"stylesheet\" href=\"/css/font-awesome.min.css\" />\n";
+	$extraCrap = "		<link rel=\"stylesheet\" href=\"/css/font-awesome-trimmed.css\" />\n";
 	include('includes/header.php');
 	echo $start;
 
@@ -267,6 +267,7 @@ CASTENTRY;
 
 } else {
 
+	$extraCrap = "		<link rel=\"stylesheet\" href=\"/css/font-awesome-trimmed.css\" />\n";
 	include('includes/header.php');
 	echo $start;
 

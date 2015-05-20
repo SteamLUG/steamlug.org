@@ -1,7 +1,7 @@
 <?php
 	$pageTitle = "Mumble";
 
-	$extraCrap = "		<link rel=\"stylesheet\" href=\"/css/font-awesome.min.css\" />\n";
+	$extraCrap = "		<link rel=\"stylesheet\" href=\"/css/font-awesome-trimmed.css\" />\n";
 	include_once('includes/header.php');
 	include_once('includes/functions_mumble.php');
 
@@ -24,7 +24,7 @@
 				if (isset($value['name']) && isset($value['users'])) {
 					$peeps = count($value['users']);
 					$chans = count($value['channels']);
-					$statusString .= '<dt' . ($peeps > 0? ' class="populated"': ($chans > 0? '': ' class="empty"') ). '><i class="fa fa-group text-warning"></i>' . htmlspecialchars($value['name']) . "</dt>\n";
+					$statusString .= '<dt' . ($peeps > 0? ' class="populated"': ($chans > 0? '': ' class="empty"') ). '><i class="fa fa-users text-warning"></i>' . htmlspecialchars($value['name']) . "</dt>\n";
 					$statusString .= "<dd>";
 				}
 				if ( isset($value['channels'] ) && is_array($value['channels']) && (count($value['channels']) !== 0) ) {
