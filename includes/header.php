@@ -75,38 +75,10 @@ header("Cache-Control: public, max-age=60");
 		<meta name="keywords" content="<?= $keywords; ?>" />
 		<?= $rssLinks . "\n"; ?>
 		<link rel="stylesheet" href="/css/bootstrap.steamlug.css" type="text/css" />
-		<script type="text/javascript" src="/scripts/jquery-2.1.3.min.js"></script>
-		<script type="text/javascript" src="/scripts/bootstrap.min.js"></script>
 		<script type="text/javascript">
 			var serverTime = <?= microtime(true); ?>;
 		</script>
 <?php
-
-	/* TODO: We ought to move all <script> entries to the footer include */
-
-	if (isset($deferJS))
-	{
-		foreach ($deferJS as $js)
-		{
-			echo "\t\t<script type=\"text/javascript\" src=\"" . $js . "\" defer=\"defer\"></script>\n";
-		}
-	}
-
-	if (isset($externalJS))
-	{
-		foreach ($externalJS as $js)
-		{
-			echo "\t\t<script type=\"text/javascript\" src=\"" . $js . "\" async=\"async\"></script>\n";
-		}
-	}
-
-	if (isset($syncexternalJS))
-	{
-		foreach ($syncexternalJS as $js)
-		{
-			echo "\t\t<script type=\"text/javascript\" src=\"" . $js . "\"></script>\n";
-		}
-	}
 
 	if (isset($extraCrap))
 	{

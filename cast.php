@@ -20,9 +20,7 @@ if ($cast != null) {
 if (isset($eTime)) {
 	$extraJS = "\t\t\tvar target = new Date(" . $eTime . ");";
 }
-$externalJS = array( '/scripts/events.js' );
-$deferJS = array( '/scripts/castseek.js' );
-$syncexternalJS = array( '/scripts/jquery.tablesorter.min.js', '/scripts/jquery.tablesorter.widgets.min.js'/*, '/scripts/jquery.twbsPagination.min.js'*/ );
+$tailJS = array( '/scripts/castseek.js', '/scripts/events.js', '/scripts/jquery.tablesorter.min.js', '/scripts/jquery.tablesorter.widgets.min.js'/*, '/scripts/jquery.twbsPagination.min.js'*/ );
 $pageTitle = "Cast";
 
 $rssLinks = '<link rel="alternate" type="application/rss+xml" title="SteamLUG Cast (mp3) Feed" href="https://steamlug.org/feed/cast/mp3" /><link rel="alternate" type="application/rss+xml" title="SteamLUG Cast (Ogg) Feed" href="https://steamlug.org/feed/cast/ogg" />';
@@ -422,33 +420,30 @@ CASTENTRY;
 ?>
 	</div>
 </article>
+<?php
 
-<script>
-		$(document).ready
-		(
-$(function() {
-
-  $.extend($.tablesorter.themes.bootstrap, {
-	table		: '',
-    caption		: 'caption',
-    header		: 'bootstrap-header',	// give the header a gradient background
-    sortNone	: 'fa-unsorted',
-    sortAsc		: 'fa-sort-up',
-    sortDesc	: 'fa-sort-down',
-  });
-  $("#casts").tablesorter({
-    theme : "bootstrap",
-    headerTemplate : '{content} {icon}',
-    widgets : [ "uitheme" ],
-  })
-}));
-</script>
-<script>
+$onload = <<<CALLTHESEPLS
+$(document).ready(
+	$(function() {
+		$.extend($.tablesorter.themes.bootstrap, {
+			table		: '',
+			caption		: 'caption',
+			sortNone	: 'fa-unsorted',
+			sortAsc		: 'fa-sort-up',
+			sortDesc	: 'fa-sort-down',
+		});
+		$("#casts").tablesorter({
+			theme : "bootstrap",
+			headerTemplate : '{content} {icon}',
+			widgets : [ "uitheme" ],
+		});
+	})
+);
 /*  $('#pagination').twbsPagination({
 	totalPages: 2,
 	visiblePages: 2,
     href: '?season={{number}}'
 	})*/
-</script>
-<?php
+CALLTHESEPLS;
+$tailScripts = array( $onload );
 include_once('includes/footer.php');

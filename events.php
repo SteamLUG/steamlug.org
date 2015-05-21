@@ -29,7 +29,7 @@ TWITCARD;
 
 if ( isset( $eTime ) ) {
 	$extraJS = "\t\t\tvar target = new Date(" . $eTime . ");";
-	$externalJS = array('/scripts/events.js');
+	$tailJS = array('/scripts/events.js');
 }
 
 include_once( 'includes/header.php' );

@@ -48,12 +48,20 @@ if ( $weareadmin ) {
 ?>
 			</div>
 		</footer>
-	</body>
+		<script src="/scripts/jquery-2.1.3.min.js" type="text/javascript"></script>
+		<script src="/scripts/bootstrap.min.js" type="text/javascript"></script>
 <?php
 if (isset($tailJS)) {
 	foreach ($tailJS as $js) {
-		echo "\t<script src='" . htmlspecialchars($js) . "' type='text/javascript'></script>\n";
+		echo "\t\t<script src='" . $js . "' type=\"text/javascript\"></script>\n";
+	}
+}
+
+if (isset($tailScripts)) {
+	foreach ($tailScripts as $js) {
+		echo "\t\t<script type=\"text/javascript\">\n" . $js . "\n\t\t</script>\n";
 	}
 }
 ?>
+	</body>
 </html>
