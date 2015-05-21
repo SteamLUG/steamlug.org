@@ -432,9 +432,9 @@ $(function() {
 	table		: '',
     caption		: 'caption',
     header		: 'bootstrap-header',	// give the header a gradient background
-    sortNone	: 'fa fa-unsorted',
-    sortAsc		: 'fa fa-sort-up',		// includes classes for Bootstrap v2 & v3
-    sortDesc	: 'fa fa-sort-down',	// includes classes for Bootstrap v2 & v3
+    sortNone	: 'fa-unsorted',
+    sortAsc		: 'fa-sort-up',
+    sortDesc	: 'fa-sort-down',
   });
   $("#casts").tablesorter({
     theme : "bootstrap",

@@ -29,9 +29,9 @@
 				<table id="servers" class="table table-striped table-hover tablesorter">
 					<thead>
 						<tr>
-							<th><i class="fa fa-globe"></i>
-							<th><i class="fa fa-shield"></i>
-							<th><i class="fa fa-lock"></i>
+							<th><i class="fa-globe"></i>
+							<th><i class="fa-shield"></i>
+							<th><i class="fa-lock"></i>
 							<th>Game
 							<th>Servers
 							<th>Players
@@ -75,14 +75,14 @@
 				<td><em>{$data['gq_address']}:{$data['gq_port']}</em></td>
 				<td><em>0 ⁄ 0</em></td>
 				<td><em>N/A</em></td>
-				<td><span class="text-danger"><i class="fa fa-circle-o"></i></span></td>
+				<td><i class="text-danger fa-circle-o"></i></span></td>
 			</tr>
 SERVERSTRING;
 		} else {
 			/* this block of code should be better… TODO it please */
 			$serverLoc	= geoip_country_code_by_name($data['gq_address']);
-			$serverSec	= !empty($data['secure']) ? '<i class="fa fa-shield"></i>' : '';
-			$serverPass	= !empty($data['gq_password']) ? '<i class="fa fa-lock"></i>' : '';
+			$serverSec	= !empty($data['secure']) ? '<i class="fa-shield"></i>' : '';
+			$serverPass	= !empty($data['gq_password']) ? '<i class="fa-lock"></i>' : '';
 			$serverDesc	= !empty($data['gq_name']) ? $data['gq_name'] : '';
 			$serverNum	= (!empty($data['gq_numplayers']) ? $data['gq_numplayers'] : '0') . ' ⁄ ' . $data['gq_maxplayers'];
 			$serverMap	= substr( $data['gq_mapname'], 0, 18 );
@@ -115,10 +115,9 @@ $(function() {
   $.extend($.tablesorter.themes.bootstrap, {
 	table		: '',
     caption		: 'caption',
-    header		: 'bootstrap-header',	// give the header a gradient background
-    sortNone	: 'fa fa-unsorted',
-    sortAsc		: 'fa fa-sort-up',		// includes classes for Bootstrap v2 & v3
-    sortDesc	: 'fa fa-sort-down',	// includes classes for Bootstrap v2 & v3
+    sortNone	: 'fa-unsorted',
+    sortAsc		: 'fa-sort-up',
+    sortDesc	: 'fa-sort-down'
   });
   $("#servers").tablesorter({
     theme : "bootstrap",
