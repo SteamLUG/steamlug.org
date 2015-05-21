@@ -84,9 +84,7 @@ li.dropdown:hover > .dropdown-menu, .dropdown-menu:hover { display:block }
 
 #countdown { width: 25em; margin: 0px auto; margin-bottom: .5em; line-height: 2em }
 
-body { padding: 60px 0 0 0; color: #cbcbcb; background: url('/images/noise4.png'); background-position: center top; font-size: 13px !important; text-shadow: 1px 1px 1px #000 }
-
-h1, h2, h3, h4, h5, h6 { text-shadow: 1px 1px 1px #111 !important }
+body { padding: 60px 0 0 0; color: #cbcbcb; background: url('/images/noise4.png'); background-position: center top; text-shadow: 1px 1px 1px #000 }
 
 .tablesorter-icon { cursor: pointer }
 
