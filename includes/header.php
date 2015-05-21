@@ -70,7 +70,7 @@ header("Cache-Control: public, max-age=60");
 	<head>
 		<meta charset="UTF-8" />
 		<title>SteamLUG <?= $pageTitle; ?></title>
-		<meta name="viewport" content="width=400, initial-scale=1" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="description" content="<?= $description; ?>" />
 		<meta name="keywords" content="<?= $keywords; ?>" />
 		<?= $rssLinks . "\n"; ?>
