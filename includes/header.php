@@ -74,7 +74,7 @@ header("Cache-Control: public, max-age=60");
 		<meta name="description" content="<?= $description; ?>" />
 		<meta name="keywords" content="<?= $keywords; ?>" />
 		<?= $rssLinks . "\n"; ?>
-		<link rel="stylesheet" href="/css/bootstrap.slate.css" type="text/css" />
+		<link rel="stylesheet" href="/css/bootstrap.steamlug.css" type="text/css" />
 		<link rel="stylesheet" href="/css/style.css" type="text/css" />
 		<script type="text/javascript" src="/scripts/jquery-2.1.3.min.js"></script>
 		<script type="text/javascript" src="/scripts/bootstrap.min.js"></script>
