@@ -16,10 +16,7 @@ blockquote { font-size: 14px !important }
 .download-links span { padding-right: 1em }
 #history li, #main li { margin: 0 10px; height: 46px; width: 100% }
 table#admins tr.you td { background-color: blue !important }
-table.tablesorter img { height: 16px; vertical-align: middle }
-table.tablesorter th.header {	background-image: url('/images/bg.gif'); background-repeat: no-repeat; background-position: center left; cursor: pointer }
-table.tablesorter th.headerSortUp { background-image: url('/images/asc.gif') }
-table.tablesorter th.headerSortDown { background-image: url('/images/desc.gif') }
+.tablesorter-icon { cursor: pointer }
 table.tablesorter th i, table.tablesorter td i { float: right; line-height: 20px }
 table.tablesorter td i, table.tablesorter th i[class*="fa-"] { width: 1em }
 table.tablesorter th i.fa-globe { float: none; display: inline-block; margin-left: 0.2em; width: 0.7em; }
@@ -72,7 +69,6 @@ li.dropdown:hover > .dropdown-menu, .dropdown-menu:hover { display:block }
 #countdown span:not(.label) { font-family: 'OrbitronMedium', Arial, sans-serif; color: #ffffff; background-color: #808080; display: inline-block; width: 1.75em; text-align: center; line-height: 1.25em; padding-top: 4px; text-shadow: none; border-radius: 3px; text-align: center; box-shadow: 0 -10px 16px -10px #303030 inset }
 #countdown { width: 25em; margin: 0px auto; margin-bottom: .5em; line-height: 2em }
 body { padding: 60px 0 0 0; color: #cbcbcb; background: url('/images/noise.png'); background-position: center top; text-shadow: 1px 1px 1px #000 }
-.tablesorter-icon { cursor: pointer }
 /* fixup padding on article */
 div ul, div ol { margin-bottom: 0px }
 div p { margin: 0px }
