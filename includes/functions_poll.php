@@ -26,7 +26,7 @@
 	{
 		global $conn;
 		$uid = setupStuff();
-		
+
 		$query = "select date_format(expireDate, '%Y-%m-%d') as expireDate, title, id from poll order by title ";
 		if (is_numeric($limit) && $limit > 0 )
 		{
@@ -54,7 +54,6 @@
 			}
 			echo "\t</select></div></div>\n";
 		}
-	
 	}
 
 	function showPastPolls($limit = -1)
@@ -87,7 +86,7 @@
 		}
 		closeDB();
 	}
-	
+
 	function showCurrentPolls( $limit = -1)
 	{
 		global $conn;
@@ -131,7 +130,7 @@
 		{
 			$poll = $stmt->fetchAll(PDO::FETCH_ASSOC);
 			$stmt->closeCursor();
-			
+
 			foreach ($poll as $p)
 			{
 				$p['uid'] = $uid;
@@ -162,7 +161,7 @@
 
 		$stmt = $conn->prepare("select id, name, description, url, responseCount, responseCount / :count * 100 as percentage from poll_option where pollID = :pollid");
 		$stmt->execute(array( 'count' => $poll['responseCount'], 'pollid' => $poll['id']));
-	
+
 		$options = array();
 		if ($stmt)
 		{
@@ -228,7 +227,7 @@
 			echo "\t<p class = 'pollVoteCount'>" . $poll['responseCount'] . " vote" . ($poll['responseCount'] != 1 ? "s" : "" ) . "</p>\n";
 			echo "\t<p>You must be logged in to vote.</p>\n";
 		}
-		
+
 		if ($canVote)
 		{
 			echo "\t<input type=\"hidden\" name=\"poll\" value=\"" . $poll['id'] . "\" />\n";
@@ -247,7 +246,7 @@
 			global $conn;
 			$uid = setupStuff();
 			$error = "";
-			
+
 			if (is_numeric($id))
 			{
 				echo "<p>";
@@ -266,18 +265,18 @@
 			{
 				$error = "bad_poll";
 			}
-			
+
 			if ($error != "")
 			{
 				echo "ERRORS " . $error;
 			}
 		}
 	}
-	
-	
+
+
 	function savePoll()
 	{
-	
+
 		if (in_array($_SESSION['u'], getAdmins()))
 		{
 			global $conn;
@@ -329,14 +328,14 @@
 						$_GET['poll'] = $pollID;
 					}
 				}
-				
+
 
 				if ($error != "")
 				{
 					echo "ERRORS " . $error;
 					$error = "";
 				}
-				
+
 				//so
 				if (isset($_POST['option_name']) && isset($_POST['option_description']) && isset($_POST['option_pollID']) && isset($_POST['option_id']) && isset($_POST['option_delete']) && isset($_POST['option_url']))
 				{
@@ -395,13 +394,13 @@
 				{
 					$error = 'bad_options';
 				}
-				
+
 			}
 			else
 			{
 				//$error = 'bad_post';
 			}
-			
+
 			if ($error != "")
 			{
 				echo "ERRORS " . $error;
@@ -410,7 +409,7 @@
 			echo "-->\n";
 		}
 	}
-	
+
 	function showPollAdmin()
 	{
 		echo "Logged in as " . $_SESSION['u'];
@@ -418,7 +417,7 @@
 		{
 			global $conn;
 			$uid = setupStuff();
-			
+
 			$poll = array();
 			if (isset($_GET['poll']))
 			{
