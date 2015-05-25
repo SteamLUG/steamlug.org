@@ -183,6 +183,7 @@ print "-->\n";
 				</div>
 			</article>
 <?php
+if ( $latestCast != false ) {
 	// fetch latest episode and get deets
 	// TODO this is waiting on a new functions_cast(?) to have some easy-to-use data calls
 	print "<!--\n";
@@ -222,7 +223,8 @@ print "-->\n";
 						</fieldset>
 					</form>
 				</div>
-			</article>
+			</article><?php
+}; ?>
 			<article class="panel panel-default twit">
 				<header class="panel-heading">
 					<h3 class="panel-title">Delete Tweet?</h3>
