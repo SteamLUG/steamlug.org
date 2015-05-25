@@ -17,7 +17,11 @@ blockquote { font-size: 14px !important }
 #history li, #main li { margin: 0 10px; height: 46px; width: 100% }
 table#admins tr.you td { background-color: blue !important }
 .tablesorter-icon { cursor: pointer }
-table.tablesorter th i, table.tablesorter td i { float: right; line-height: 20px }
+table.tablesorter .sorter-false .tablesorter-icon { display:none }
+table.tablesorter td:last-child i.fa-circle, table.tablesorter td:last-child i.fa-circle-o, table.tablesorter th:last-child i.fa-circle { float: right }
+table.tablesorter th:last-child .tablesorter-icon::before { float: left; }
+table.tablesorter th:last-child { width: 3.5em }
+table.tablesorter th i, table.tablesorter td i { line-height: 20px }
 table.tablesorter td i, table.tablesorter th i[class*="fa-"] { width: 1em }
 table.tablesorter th i.fa-globe { float: none; display: inline-block; margin-left: 0.2em; width: 0.7em; }
 audio { width: 100% }

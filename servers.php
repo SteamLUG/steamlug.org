@@ -3,7 +3,7 @@
 	// 60 second cache
 	ini_set('zlib.output_compression', 0);
 	ini_set('implicit_flush', 1);
-	$tailJS = array( '/scripts/jquery.tablesorter.min.js', '/scripts/jquery.tablesorter.widgets.min.js' );
+	$tailJS = array( '/scripts/jquery.tablesorter.min.js' );
 	$extraCrap = "		<link rel=\"stylesheet\" href=\"/css/font-awesome-trimmed.css\" />\n";
 	include_once('includes/header.php');
 	include_once('includes/GameQ.php');
@@ -36,7 +36,7 @@
 							<th>Servers
 							<th>Players
 							<th>Map
-							<th>
+							<th><i class="fa-circle"></i>
 						</tr>
 					</thead>
 					<tbody>
@@ -111,30 +111,20 @@ SERVERSTRING;
 $onload = <<<CALLTHESEPLS
 $(document).ready(
 	$(function() {
-		$.extend($.tablesorter.themes.bootstrap, {
-			table		: '',
-			caption		: 'caption',
-			sortNone	: 'fa-unsorted',
-			sortAsc		: 'fa-sort-up',
-			sortDesc	: 'fa-sort-down',
-		});
 		$("#servers").tablesorter({
 			theme : "bootstrap",
 			headerTemplate : '{content} {icon}',
-			widgets : [ "uitheme" ],
 			headers: {
-				1: { sorter: false },
-				2: { sorter: false },
+				1: { sorter: false, parser: false },
+				2: { sorter: false, parser: false },
 			},
-			sortList: [[7,1],[5,1],[0,0],[4,0]]
+			sortList: [[7,1],[5,1],[4,0],[0,0]],
+			cssIconAsc: 'fa-sort-up',
+			cssIconDesc: 'fa-sort-down',
+			cssIconNone: 'fa-unsorted'
 		});
 	})
 );
-/*  $('#pagination').twbsPagination({
-	totalPages: 2,
-	visiblePages: 2,
-    href: '?season={{number}}'
-	})*/
 CALLTHESEPLS;
 $tailScripts = array( $onload );
 include_once('includes/footer.php'); ?>
