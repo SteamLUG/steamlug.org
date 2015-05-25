@@ -428,7 +428,7 @@ $(document).ready(
 		$("#casts").tablesorter({
 			theme : "bootstrap",
 			headerTemplate : '{content} {icon}',
-			sortList: [[0,0]],
+			sortList: [[0,1]],
 			cssIconAsc: 'fa-sort-up',
 			cssIconDesc: 'fa-sort-down',
 			cssIconNone: 'fa-unsorted',
