@@ -160,8 +160,8 @@
 		}
 
 
-		$stmt = $conn->prepare("select id, name, description, url, responseCount, responseCount / ? * 100 as percentage from poll_option where pollID = ?");
-		$stmt->execute(array($poll['responseCount'], $poll['id']));
+		$stmt = $conn->prepare("select id, name, description, url, responseCount, responseCount / :count * 100 as percentage from poll_option where pollID = :pollid");
+		$stmt->execute(array( 'count' => $poll['responseCount'], 'pollid' => $poll['id']));
 	
 		$options = array();
 		if ($stmt)
@@ -424,8 +424,8 @@
 			{
 				if (is_numeric($_GET['poll']))
 				{
-					$stmt = $conn->prepare("select date_format(expireDate, '%Y-%m-%d') as expireDate, date_format(publishDate, '%Y-%m-%d') as publishDate, title, description, url, type, multipleChoice, id from poll where id = ?");
-					$stmt->execute(array($_GET['poll']));
+					$stmt = $conn->prepare("select date_format(expireDate, '%Y-%m-%d') as expireDate, date_format(publishDate, '%Y-%m-%d') as publishDate, title, description, url, type, multipleChoice, id from poll where id = :pollid");
+					$stmt->execute(array( 'pollid' => $_GET['poll'] ));
 					$poll = $stmt->fetchAll(PDO::FETCH_ASSOC);
 					//echo $_GET['poll'] . ": ".  print_r($poll);
 					if (count($poll) > 0)
@@ -507,8 +507,8 @@
 
 			<h3>Poll Options</h3>
 			<?php
-			$stmt = $conn->prepare("select id, name, description, url from poll_option where pollID = ?");
-			$stmt->execute(array( (isset($poll['id']) ? $poll['id'] : "") ));
+			$stmt = $conn->prepare("select id, name, description, url from poll_option where pollID = :pollid");
+			$stmt->execute(array( 'pollid' => (isset($poll['id']) ? $poll['id'] : "") ));
 			$options = $stmt->fetchAll(PDO::FETCH_ASSOC);
 			$stmt->closeCursor();
 

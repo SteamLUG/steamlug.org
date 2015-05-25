@@ -96,36 +96,11 @@ print $date . ": Completed stats gathering: " . date("c") . "\n<br>";
 print $date . ": " . $publicMembers . " public member profiles of " . count($members ) . " members read on " . date( "c" ) . "\n<br>";
 flush( );
 
-/*
-CREATE TABLE `steamlug`.`gamestats` (
-  `date` DATE NOT NULL,
-  `appid` INT NOT NULL,
-  `owners` INT NULL,
-  `playtime` BIGINT NULL,
-  `fortnight` INT NULL,
-  PRIMARY KEY (`date`, `appid`),
-  UNIQUE INDEX (`date`, `appid`));
-*/
-$storestats = $database->prepare( "INSERT INTO gamestats (date, appid, owners, playtime, fortnight) VALUES (?,?,?,?,?)" );
+$storestats = $database->prepare( "INSERT INTO gamestats (date, appid, owners, playtime, fortnight) VALUES (:date, :appid, :owners, :playtime, :fortnight)" );
 
-/*
-CREATE TABLE `steamlug`.`memberstats` (
-  `date` DATE NOT NULL,
-  `count` INT NULL,
-  `min` INT NULL,
-  `max` INT NULL,
-  PRIMARY KEY (`date`));
-*/
-$storegroupstats = $database->prepare( "INSERT INTO memberstats (date, count, min, max) VALUES (?,?,?,?)" );
+$storegroupstats = $database->prepare( "INSERT INTO memberstats (date, count, min, max) VALUES (:date, :count, :min, :max)" );
 
-/*
-CREATE TABLE `steamlug`.`games` (
-  `appid` INT NOT NULL,
-  `name` VARCHAR(256) NOT NULL,
-  `onlinux` BIT(1) NOT NULL DEFAULT b'0',
-  PRIMARY KEY (`appid`));
-*/
-$storegames = $database->prepare( "REPLACE INTO games (appid, name) VALUES (?,?)" );
+$storegames = $database->prepare( "REPLACE INTO games (appid, name) VALUES (:appid, :name)" );
 
 try {
 	$database->beginTransaction( );
@@ -135,17 +110,26 @@ try {
 		if ( $game[ 'owners' ] == 0 )
 			continue;
 
-		$storestats->execute( array( $date, $appid, $game[ 'owners' ], $game[ 'playtime' ], $game[ 'fortnight' ] ) );
-		/*print "[" . $appid . "] " . $game[ 'name' ] . ": " . $game[ 'owners' ] . " owner, " . $game[ 'playtime' ] . " playtime, " .
-			$game[ 'fortnight' ] . " fortnightly playtime.\n<br>";*/
+		$storestats->execute( array(
+			'data' => $date,
+			'appid' => $appid,
+			'owners' => $game[ 'owners' ],
+			'playtime' => $game[ 'playtime' ],
+			'fortnight' => $game[ 'fortnight' ] ) );
 	}
 
 	foreach ( $gameslist as $appid=>$game ) {
 
-		$storegames->execute( array( $appid, $game[ 'name' ] ) );
+		$storegames->execute( array(
+			'appid' => $appid,
+			'name' => $game[ 'name' ] ) );
 	}
 
-	$storegroupstats->execute( array( $date, count($members), $gamesmin, $gamesmax ) );
+	$storegroupstats->execute( array(
+		'date' => $date,
+		'count' => count($members),
+		'min' => $gamesmin,
+		'max' => $gamesmax ) );
 	$database->commit( );
 
 } catch ( Exception $e ) {

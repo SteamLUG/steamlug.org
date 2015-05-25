@@ -48,8 +48,8 @@ if ( !isset( $database ) )
 		try {
 			$database->beginTransaction( );
 			/* TODO: safe-ify $id */
-			$statement = $database->prepare( "SELECT * FROM steamlug.members WHERE members.steamid = ? LIMIT 1;" );
-			$statement->execute( array( $id ) );
+			$statement = $database->prepare( "SELECT * FROM steamlug.members WHERE members.steamid = :steamid LIMIT 1;" );
+			$statement->execute( array( 'steamid' => $id ) );
 			$user = $statement->fetch( PDO::FETCH_ASSOC );
 			$database->commit( );
 			if ( $user !== false )
@@ -68,8 +68,8 @@ if ( !isset( $database ) )
 			// $database->beginTransaction( );
 			/* TODO: safe-ify $id */
 			$statement = $database->prepare( "SELECT clans.clanid, memberclans.steamid, clanroles.name AS clanrole, clans.name, clans.creator, clans.description, clans.slug
-				FROM steamlug.memberclans LEFT JOIN clans ON clans.clanid = memberclans.clanid LEFT JOIN clanroles ON memberclans.role = clanroles.roleid where steamid = ?;" );
-			$statement->execute( array( $id ) );
+				FROM steamlug.memberclans LEFT JOIN clans ON clans.clanid = memberclans.clanid LEFT JOIN clanroles ON memberclans.role = clanroles.roleid where steamid = :steamid;" );
+			$statement->execute( array( 'steamid' => $id ) );
 			$clans = $statement->fetchAll( PDO::FETCH_ASSOC );
 			// $database->commit( );
 			return $clans;
@@ -85,8 +85,8 @@ if ( !isset( $database ) )
 		try {
 			$database->beginTransaction( );
 			/* TODO: safe-ify $id */
-			$statement = $database->prepare( "DELETE FROM steamlug.members WHERE members.steamid = ? LIMIT 1;" );
-			$statement->execute( array( $id ) );
+			$statement = $database->prepare( "DELETE FROM steamlug.members WHERE members.steamid = :steamid LIMIT 1;" );
+			$statement->execute( array( 'steamid' => $id ) );
 			$user = $statement->execute( );
 			$database->commit( );
 			return $user;
@@ -102,8 +102,8 @@ if ( !isset( $database ) )
 		try {
 			$database->beginTransaction( );
 			/* TODO: safe-ify $id */
-			$statement = $database->prepare( "SELECT * FROM steamlug.members WHERE members.profileurl = ? LIMIT 1;" );
-			$statement->execute( array( $vanity ) );
+			$statement = $database->prepare( "SELECT * FROM steamlug.members WHERE members.profileurl = :vanity LIMIT 1;" );
+			$statement->execute( array( 'vanity' => $vanity ) );
 			$user = $statement->fetch( PDO::FETCH_ASSOC );
 			$database->commit( );
 			if ( $user !== false )
@@ -125,10 +125,19 @@ if ( !isset( $database ) )
 			$database->beginTransaction( );
 			$profile = deflatePlayerSummary( $profile );
 			/* TODO: safe-ify _everything_ */
-			// $statement = $database->prepare( "REPLACE INTO steamlug.members (steamid, personaname, profileurl, avatar, isgroupmember, suggestedvisibility) VALUES (?, ?, ?, ?, ?, ?);" );
-			$statement = $database->prepare( "INSERT INTO steamlug.members (steamid, personaname, profileurl, avatar, isgroupmember, suggestedvisibility) VALUES (?, ?, ?, ?, ?, ?)
-				ON DUPLICATE KEY UPDATE personaname=VALUES(personaname), profileurl=VALUES(profileurl), avatar=VALUES(avatar), isgroupmember=VALUES(isgroupmember), suggestedvisibility=VALUES(suggestedvisibility);" );
-			$statement->execute( array( $profile[ 'steamid' ], $profile[ 'personaname' ], $profile[ 'profileurl' ], $profile[ 'avatar' ], $profile[ 'isgroupmember' ], $profile[ 'communityvisibilitystate' ]   ) );
+			$statement = $database->prepare( "INSERT INTO steamlug.members
+				(steamid, personaname, profileurl, avatar, isgroupmember,
+				suggestedvisibility) VALUES (:steamid, :persona, :vanity, :avatar,
+				:group, :privacy) ON DUPLICATE KEY UPDATE personaname=VALUES(personaname),
+				profileurl=VALUES(profileurl), avatar=VALUES(avatar),
+				isgroupmember=VALUES(isgroupmember),
+				suggestedvisibility=VALUES(suggestedvisibility);" );
+			$statement->execute( array( 'steamid' => $profile[ 'steamid' ],
+				'persona' => $profile[ 'personaname' ],
+				'vanity' => $profile[ 'profileurl' ],
+				'avatar' => $profile[ 'avatar' ],
+				'group' => $profile[ 'isgroupmember' ],
+				'privacy' => $profile[ 'communityvisibilitystate' ] ) );
 			$user = $statement->fetch( PDO::FETCH_ASSOC );
 			$database->commit( );
 			return $user;

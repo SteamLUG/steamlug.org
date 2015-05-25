@@ -15,8 +15,8 @@
 			if (is_numeric($_POST['poll']) && is_array($_POST['poll_selection']))
 			{
 				//Check whether this uid has voted already
-				$stmt =  $conn->prepare("select count(*) as voted from poll_respondent where uid = ?");
-				$stmt->execute(array($uid));
+				$stmt =  $conn->prepare("select count(*) as voted from poll_respondent where uid = :uid");
+				$stmt->execute(array( 'uid' => $uid ));
 				if ($stmt)
 				{
 					$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -24,8 +24,8 @@
 					if ($result[0]['voted'] == 0)
 					{
 
-						$stmt =  $conn->prepare("select multipleChoice, now() between publishDate and expireDate as canVote from poll where id = ?");
-						$stmt->execute(array($_POST['poll']));
+						$stmt =  $conn->prepare("select multipleChoice, now() between publishDate and expireDate as canVote from poll where id = :pollid");
+						$stmt->execute(array( 'pollid' => $_POST['poll']));
 						$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 						$stmt->closeCursor();
 						if ($result[0]['canVote'] == 1)
@@ -34,18 +34,17 @@
 							if ((count($_POST['poll_selection']) > 1 && $result[0]['multipleChoice'] > 0) || (count($_POST['poll_selection']) == 1))
 							{
 						
-								$stmt = $conn->prepare("insert into poll_respondent (uid, pollID) values (?, ?)");
-								$stmt->execute(array($_SESSION['u'], $_POST['poll']));
+								$stmt = $conn->prepare("insert into poll_respondent (uid, pollID) values (:steamid, :pollid)");
+								$stmt->execute(array( 'steamid' => $_SESSION['u'], 'pollid' => $_POST['poll']));
 								$stmt->closeCursor();
 
-								$stmt = $conn->prepare("update poll_option set responseCount = responseCount + 1 where id = ?");
-
+								$stmt = $conn->prepare("update poll_option set responseCount = responseCount + 1 where id = :optionid");
 
 								foreach ($_POST['poll_selection'] as $o)
 								{
 									if (is_numeric($o))
 									{
-										$stmt->execute(array($o));
+										$stmt->execute(array( 'optionid' => $o));
 										$stmt->closeCursor();
 									}
 								}

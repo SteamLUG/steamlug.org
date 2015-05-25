@@ -10,8 +10,8 @@ if ( !isset( $database ) )
 		try {
 			$database->beginTransaction( );
 			/* TODO: safe-ify $clanid */
-			$statement = $database->prepare( "SELECT * FROM steamlug.clans WHERE clans.clanid = ? LIMIT 1;" );
-			$statement->execute( array( $clanid ) );
+			$statement = $database->prepare( "SELECT * FROM steamlug.clans WHERE clans.clanid = :clanid LIMIT 1;" );
+			$statement->execute( array( 'clanid' => $clanid ) );
 			$clan = $statement->fetch( PDO::FETCH_ASSOC );
 			$database->commit( );
 			return $clan;
@@ -27,8 +27,8 @@ if ( !isset( $database ) )
 		try {
 			$database->beginTransaction( );
 			/* TODO: safe-ify $slug */
-			$statement = $database->prepare( "SELECT * FROM steamlug.clans WHERE clans.slug = ? LIMIT 1;" );
-			$statement->execute( array( $slug ) );
+			$statement = $database->prepare( "SELECT * FROM steamlug.clans WHERE clans.slug = :clanslug LIMIT 1;" );
+			$statement->execute( array( 'clanslug' => $slug ) );
 			$clan = $statement->fetch( PDO::FETCH_ASSOC );
 			$database->commit( );
 			return $clan;
@@ -47,8 +47,8 @@ if ( !isset( $database ) )
 			$statement = $database->prepare( "SELECT steamid, role, clanroles.name AS clanrole FROM steamlug.memberclans
 				LEFT JOIN clans ON clans.clanid = memberclans.clanid
 				LEFT JOIN clanroles ON memberclans.role = clanroles.roleid
-				WHERE memberclans.clanid = ? ORDER BY role;" );
-			$statement->execute( array( $clanid ) );
+				WHERE memberclans.clanid = :clanid ORDER BY role;" );
+			$statement->execute( array( 'clanid' => $clanid ) );
 			$clanmembers = $statement->fetchAll( PDO::FETCH_ASSOC );
 			// $database->commit( );
 			return $clanmembers;
