@@ -22,6 +22,8 @@ RewriteRule ^feed/cast/(\w+)$ /feed/cast.php?t=$1 [NC,L]
 RewriteRule ^youtubethumb/s(\d+)e(\d+)$ /youtubethumb/?s=$1&e=$2 [NC,L]
 RewriteRule ^youtubedescription/s(\d+)e(\d+)$ /youtubedescription/?s=$1&e=$2 [NC,L]
 
+RewriteRule ^apple-touch-icon(.*).png$ mobile-favicon.png [L]
+
 <ifmodule mod_expires.c>
 <FilesMatch "\.(png|gif|jpg|jpeg|ico)$">
 	ExpiresActive On

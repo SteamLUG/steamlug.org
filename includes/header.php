@@ -75,6 +75,7 @@ header("Cache-Control: public, max-age=60");
 		<meta name="keywords" content="<?= $keywords; ?>" />
 		<?= $rssLinks . "\n"; ?>
 		<link rel="stylesheet" href="/css/bootstrap.steamlug.min.css" type="text/css" />
+		<link rel="icon" href="/mobile-favicon.png" sizes="192x192" />
 		<script type="text/javascript">
 			var serverTime = <?= microtime(true); ?>;
 		</script>
