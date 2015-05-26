@@ -127,4 +127,4 @@ $(document).ready(
 );
 CALLTHESEPLS;
 $tailScripts = array( $onload );
-include_once('includes/footer.php'); ?>
+include_once('includes/footer.php');
