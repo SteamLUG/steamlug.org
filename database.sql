@@ -1,4 +1,4 @@
-CREATE DATABASE IF NOT EXISTS `steamlug`
+CREATE DATABASE IF NOT EXISTS `steamlug`;
 USE `steamlug`;
 
 DROP TABLE IF EXISTS `apps`;
@@ -13,6 +13,10 @@ DROP TABLE IF EXISTS `members`;
 DROP TABLE IF EXISTS `memberbadges`;
 DROP TABLE IF EXISTS `memberstats`;
 DROP TABLE IF EXISTS `memberclans`;
+DROP TABLE IF EXISTS `youtubestats`;
+DROP TABLE IF EXISTS `poll`;
+DROP TABLE IF EXISTS `poll_option`;
+DROP TABLE IF EXISTS `poll_respondent`;
 
 CREATE TABLE `apps` (
   `appid` int(11) unsigned NOT NULL,
@@ -55,7 +59,7 @@ CREATE TABLE `clans` (
   PRIMARY KEY (`clanid`),
   UNIQUE KEY `clanid_UNIQUE` (`clanid`),
   UNIQUE KEY `slug_UNIQUE` (`slug`)
-) AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE `eventattendance` (
   `eventid` bigint(20) unsigned NOT NULL DEFAULT '0',
@@ -123,13 +127,42 @@ CREATE TABLE `memberstats` (
   UNIQUE KEY `date` (`date`)
 ) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-
-DROP TABLE IF EXISTS `youtubestats`;
 CREATE TABLE `youtubestats` (
   `videoid` varchar(12) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'YouTube’s video hash',
   `updatetime` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'latest update time, obviously',
   `count` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`videoid`),
   UNIQUE KEY `videoid_UNIQUE` (`videoid`)
+) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `poll` (
+  `pollid` int(6) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT '',
+  `url` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT '',
+  `type` varchar(15) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `multipleChoice` tinyint(1) DEFAULT NULL,
+  `expireDate` date DEFAULT NULL,
+  `publishDate` date DEFAULT NULL,
+  PRIMARY KEY (`pollid`),
+  UNIQUE KEY `pollid_UNIQUE` (`pollid`)
+) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `poll_option` (
+  `optionid` int(6) unsigned NOT NULL AUTO_INCREMENT,
+  `pollid` int(6) unsigned NOT NULL,
+  `name` varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT '',
+  `url` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT '',
+  `responseCount` int(8) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`optionid`),
+  UNIQUE KEY `optionid_UNIQUE` (`optionid`)
+) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `poll_respondent` (
+  `pollid` int(6) unsigned NOT NULL,
+  `steamid` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`pollid`),
+  UNIQUE KEY `pairing` (`pollid`,`steamid`)
 ) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
