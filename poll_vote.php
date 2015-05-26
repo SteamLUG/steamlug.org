@@ -86,7 +86,7 @@
 	{
 		$error = "logged_out";
 	}
-	
+
 	if (!isset($_POST['page']))
 	{
 		$_POST['page'] = "/";

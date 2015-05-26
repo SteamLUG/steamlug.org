@@ -412,7 +412,6 @@
 
 	function showPollAdmin()
 	{
-		echo "Logged in as " . $_SESSION['u'];
 		if (in_array($_SESSION['u'], getAdmins()))
 		{
 			global $conn;

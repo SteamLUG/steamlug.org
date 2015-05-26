@@ -21,25 +21,17 @@
 						}
 						else
 						{
-							echo "<p>You are currently logged in. Click to <a href = 'logout.php'>log out</a></p>";
 							echo "<form class=\"form-horizontal\" method = 'get'>\n";
-							echo "<!-- " . $_SESSION['u'] . " !-->\n";
-							//include_once('creds.php');
-							
-							
 							if (isset($_POST['poll_title']))
 							{
 								savePoll();
 							}
-							
 							//TODO: We should probably sort out $_GET and $_POST stuff so that it's handled more consistently/nicely
 							// Would be nice to have the site send everything via POST, but still allow for navigation to an admin page via GET parameters
 							if (isset($_GET['poll']) && isset($_GET['deletePoll']))
 							{
 								deletePoll($_GET['poll']);
 							}
-							
-							
 							showPollSelector('poll', (isset($_GET['poll']) ? $_GET['poll'] : -1), True, 20);
 							echo <<<FORMGROUP
 								<div class="form-group">
