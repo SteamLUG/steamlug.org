@@ -515,12 +515,7 @@ if ( !isset( $database ) )
 					<input class="form-control" type="text" id="option_url_<?php echo $i; ?>" name="option_url[<?php echo $i; ?>]" placeholder="An optional supporting URL." value="<?php echo (isset($o['url']) ? $o['url'] : "") ?>" />
 				</div>
 			</div>
-			<div class="form-group">
-				<label class="col-lg-2 control-label" for="option_pollID_<?php echo $i; ?>">Poll ID</label>
-				<div class="col-lg-10">
-					<input class="form-control" type="text" placeholder="Leave blank if this is for the current poll." id="option_pollID_<?php echo $i; ?>" name="option_pollID[<?php echo $i; ?>]" value="<?php echo (isset($poll['id']) ? $poll['id']: "") ?>"/>
-				</div>
-			</div>
+			<input type="hidden" id="option_pollID_<?php echo $i; ?>" name="option_pollID[<?php echo $i; ?>]" value="<?php echo (isset($poll['id']) ? $poll['id']: "") ?>"/>
 			<div class="form-group">
 				<label class="col-lg-2 control-label" for="option_delete_<?php echo $i; ?>">Delete Option</label>
 				<div class="col-lg-10">
