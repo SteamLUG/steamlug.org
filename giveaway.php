@@ -36,4 +36,4 @@ include_once('includes/header.php');
             </div>
         </article>
         </section>!-->
-<?php include_once('includes/footer.php'); ?>
+<?php include_once('includes/footer.php');
