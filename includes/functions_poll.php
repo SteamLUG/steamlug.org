@@ -528,7 +528,7 @@ if ( !isset( $database ) )
 			?>
 			<!-- this is needed so that we can be confident that the array exists even if nothing is being deleted -->
 			<input type="hidden" name="option_delete[-1]" id="delete_option_placeholder" />
-			<input class="btn btn-success" type="submit" value="Save" />
+			<input class="btn btn-success col-xs-offset-2" type="submit" value="Save" />
 			</form>
 		<?php
 		}

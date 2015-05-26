@@ -42,7 +42,7 @@
 								</div>
 								<div class="form-group">
 									<div class="col-lg-12">
-										<button type="submit" class="btn btn-default">Go</button>
+										<button type="submit" class="btn btn-default col-xs-offset-2">Go</button>
 									</div>
 								</div>
 							</form>
