@@ -5,8 +5,8 @@
 	include_once('includes/functions_db.php');
 	include_once('includes/functions_poll.php');
 
-	$conn = null;
-	connectDB();
+if ( !isset( $conn ) )
+	$conn = connectDB( );
 
 	if(login_check())
 	{
