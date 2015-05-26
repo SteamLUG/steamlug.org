@@ -74,7 +74,7 @@ header("Cache-Control: public, max-age=60");
 		<meta name="description" content="<?= $description; ?>" />
 		<meta name="keywords" content="<?= $keywords; ?>" />
 		<?= $rssLinks . "\n"; ?>
-		<link rel="stylesheet" href="/css/bootstrap.steamlug.css" type="text/css" />
+		<link rel="stylesheet" href="/css/bootstrap.steamlug.min.css" type="text/css" />
 		<script type="text/javascript">
 			var serverTime = <?= microtime(true); ?>;
 		</script>
