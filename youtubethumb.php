@@ -91,12 +91,10 @@ function gameplate( $string, $offset ) {
 GAMEPLATE;
 }
 
-$filename = $notesPath . "/s" . $season . "e" . $episode . "/episode.txt";
 /* User wanting to see a specific cast, and shownotes file exists */
-if ($season !== "00" && $episode !== "00" && file_exists($filename))
-{
-	$shownotes			= file( $filename );
-	$meta				= castHeader( array_slice( $shownotes, 0, 14 ) );
+if ( $season !== "00" && $episode !== "00" && ($meta = getCastHeader( $slug ) ) ) {
+
+	$shownotes			= getCastBody( $slug );
 
 	$devGames			= array_map('trim', explode(',', $meta['ADDITIONAL']));
 	$listGames = [];

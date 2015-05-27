@@ -28,8 +28,9 @@ $action	= "Failure";
 $body	= "";
 $style	= " panel-success";
 
-$filename = $notesPath . "/s" . $season . "e" . $episode . "/episode.txt";
-if ($season !== "00" && $episode !== "00" && file_exists($filename)) {
+/* User wanting to see a specific cast, and shownotes file exists */
+if ( $season !== "00" && $episode !== "00" && ($meta = getCastHeader( $slug ) ) ) {
+
 	// TODO test we have audio?
 
 	flush(); /* visitor should get better indication that the page is actually loading now */

@@ -18,7 +18,7 @@
 	}
 
 	/* gives us a list, like s02e03, s02e02, etc of all of our casts */
-	$casts = scandir($notesPath, 1);
+	$casts = getCasts( );
 	/* naïve as fook, but we know this. */
 	$latestCast = date("D, d M Y H:i:s O", filemtime( $notesPath . '/' . $casts[0] ));
 
@@ -63,18 +63,13 @@
 		<itunes:explicit>no</itunes:explicit><media:rating scheme="urn:simple">nonadult</media:rating>
 CASTHEAD;
 
-	foreach( $casts as $castdir )
-	{
-		if ($castdir === '.' or $castdir === '..' or $castdir === '.git' or $castdir === 'README')
+	foreach( $casts as $castdir ) {
+
+		$shownotes			= getCastBody( $castdir );
+		$meta				= getCastHeader( $castdir );
+
+		if ( ( $meta == false ) or ( $shownotes == false ) )
 			continue;
-
-		$filename		= $notesPath .'/'. $castdir . "/episode.txt";
-
-		if (!file_exists($filename))
-			continue;
-
-		$shownotes			= file($filename);
-		$meta				= castHeader( array_slice( $shownotes, 0, 14 ) );
 
 		/* if published unset, skip this entry */
 		if ( $meta['PUBLISHED'] === '' )
@@ -110,8 +105,8 @@ CASTHEAD;
 			<description><![CDATA[<p>{$meta['DESCRIPTION']}</p>
 
 CASTENTRY;
-		foreach ( array_slice( $shownotes, 15 ) as $note)
-		{
+		foreach ( $shownotes as $note ) {
+
 			$note = preg_replace_callback(
 				'/\d+:\d+:\d+\s+\*(.*)\*/',
 				function($matches){ return "<p>" . slenc($matches[1]) . "</p>\n<ul>"; },

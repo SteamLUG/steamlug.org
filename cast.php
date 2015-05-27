@@ -65,13 +65,13 @@ $start = <<<STARTPAGE
 		<h1 class="text-center">SteamLUG Cast</h1>
 STARTPAGE;
 
-$filename = $notesPath . '/s' . $season . 'e' . $episode . '/episode.txt';
-
 /* User wanting to see a specific cast, and shownotes file exists */
-if ( $season !== "00" && $episode !== "00" && file_exists( $filename ) ) {
+if ( $season !== "00" && $episode !== "00" && ($meta = getCastHeader( $slug ) ) ) {
 
-	$shownotes			= file( $filename );
-	$meta				= castHeader( array_slice( $shownotes, 0, 14 ) );
+	$shownotes			= getCastBody( $slug );
+
+	if ( ( $meta == false ) or ( $shownotes == false ) )
+		continue;
 
 	$archiveBase		= $publicURL . '/' . $meta['SLUG'] . '/' . $meta['FILENAME'];
 	$episodeBase		= $filePath  . '/' . $meta['SLUG'] . '/' . $meta['FILENAME'];
@@ -80,7 +80,7 @@ if ( $season !== "00" && $episode !== "00" && file_exists( $filename ) ) {
 	$meta['PUBLIC']		= ( $meta['PUBLISHED'] );
 	$meta['PUBLISHED']	= ( $meta['PUBLISHED'] === "" ? '<span class="warning">In Progress</span>' : '<time datetime="' . $meta['PUBLISHED'] . '">' . $meta['PUBLISHED'] . '</time>');
 	$episodeTitle		= $meta['SLUG'] . ' – ' . ( ($meta['PUBLIC'] === "") ? 'Edit In Progress' : slenc( $meta['TITLE'] ) );
-	$pageTitle		   .= ' ' . $episodeTitle;
+	$pageTitle			.= ' ' . $episodeTitle;
 	$meta['SHORTDESC']	= slenc( substr( $meta['DESCRIPTION'], 0, 132 ) );
 	$noteEditor			= ( $meta['NOTESCREATOR'] === "" ? "" :	'<span class="author">written by ' . nameplate( $meta['NOTESCREATOR'], 22 ) . '</span>' );
 	$castEditor			= ( $meta['EDITOR'] === "" ? "" :		'<span class="author">edited by ' . nameplate( $meta['EDITOR'], 22 ) . '</span>' );
@@ -205,8 +205,8 @@ CASTENTRY;
 		echo "<p>The episode recording is currently in the works.</p>\n";
 	} else {
 
-		foreach ( array_slice( $shownotes, 15 ) as $note)
-		{
+		foreach ( $shownotes as $note ) {
+
 		$note = preg_replace_callback(
 			'/\d+:\d+:\d+\s+\*(.*)\*/',
 			function($matches) { return "\n<h4>" . slenc($matches[1]) . "</h4>\n<dl class=\"dl-horizontal\">"; },
@@ -362,19 +362,9 @@ ABOUTCAST;
 				<tbody>
 CASTTABLE;
 
-	$casts = scandir($notesPath, 1);
-	foreach( $casts as $castdir )
+	foreach( getCasts( ) as $castdir )
 	{
-		if ($castdir === '.' or $castdir === '..' or $castdir === '.git' or $castdir === 'README')
-			continue;
-
-		$filename		= $notesPath .'/'. $castdir . "/episode.txt";
-
-		if (!file_exists($filename))
-			continue;
-
-		$header			= file_get_contents($filename, false, NULL, 0, 950);
-		$meta			= castHeaderFromString( $header );
+		$meta = getCastHeader( $castdir );
 
 		/* if published unset, skip this entry */
 		$wip = "";

@@ -21,14 +21,14 @@ if ( !isset( $database ) )
 		}
 	}
 
-	function findClanSummaryDB( $slug ) {
+	function findClanSummaryDB( $clanslug ) {
 
 		global $database;
 		try {
 			$database->beginTransaction( );
-			/* TODO: safe-ify $slug */
+			/* TODO: safe-ify $clanslug */
 			$statement = $database->prepare( "SELECT * FROM steamlug.clans WHERE clans.slug = :clanslug LIMIT 1;" );
-			$statement->execute( array( 'clanslug' => $slug ) );
+			$statement->execute( array( 'clanslug' => $clanslug ) );
 			$clan = $statement->fetch( PDO::FETCH_ASSOC );
 			$database->commit( );
 			return $clan;

@@ -5,6 +5,7 @@ $season  = isset($_GET["s"]) ? intval($_GET["s"]) : "0";
 $season  = str_pad($season, 2, '0', STR_PAD_LEFT);
 $episode = isset($_GET["e"]) ? intval($_GET["e"]) : "0";
 $episode = str_pad($episode, 2, '0', STR_PAD_LEFT);
+$slug = 's' . $season . 'e' . $episode;
 
 // TODO: what other functions do we want in here?
 // our shownotes parsing? listing all casts?
@@ -41,22 +42,75 @@ function castHeader( $header ) {
 	return $meta;
 }
 
+/* like getCastHeader(), this will return the metadata about an episode, rather than the episode slub
+	if you want that, it is returned in the array as [ 'SLUG' ] */
 function getLatestCast( ) {
+
+	$latest = getCasts( true );
+	if ( !$latest )
+		return false;
+
+	return getCastHeader( $latest );
+}
+
+/* returns header metadata for a cast, already prepared for use
+ * $castid needs to be 's00e00' formatted
+ */
+function getCastHeader( $castid = '' ) {
 
 	global $notesPath;
 
-	foreach( scandir($notesPath, 1) as $castdir )
-	{
+	$filename = $notesPath .'/'. $castid . "/episode.txt";
+	if ( !file_exists( $filename ) )
+		return false;
+
+	// TODO: s02e09 has longest pragma so far; suggest we pick a low cap and enforce it
+	$header = file_get_contents( $filename, false, NULL, 0, 950 );
+	return castHeaderFromString( $header );
+}
+
+/* returns body shownotes for a cast, already prepared for use
+ * $castid needs to be 's00e00' formatted
+ */
+function getCastBody( $castid = '' ) {
+
+	global $notesPath;
+
+	$filename = $notesPath .'/'. $castid . "/episode.txt";
+	if ( !file_exists( $filename ) )
+		return false;
+
+	$shownotes = file( $filename );
+	return array_slice( $shownotes, 15 );
+}
+/*
+ * returns slugs for all the existing Casts, whether published or not
+ * shallow being set to true bails at the first result (a lazy way to avoid load for getLatestCast()
+ * returns: false (no matches), string (1 match, only when shallow==true), array(1 or more matches)
+ */
+function getCasts( $shallow = false ) {
+
+	global $notesPath;
+	$casts = array( );
+	$notes = scandir($notesPath, 1);
+	foreach( $notes as $castdir ) {
+
 		if ($castdir === '.' or $castdir === '..' or $castdir === '.git' or $castdir === 'README')
 			continue;
 
 		$filename = $notesPath .'/'. $castdir . "/episode.txt";
-		if (!file_exists($filename))
+
+		if ( !file_exists( $filename ) )
 			continue;
 
-		// TODO: s02e09 has longest pragma so far; suggest we pick a low cap and enforce it 
-		$header = file_get_contents($filename, false, NULL, 0, 950);
-		return castHeaderFromString( $header );
+		if ( $shallow )
+			return $castdir;
+
+		array_push( $casts, $castdir );
 	}
-	return array();
+	if ( empty( $casts ) )
+		return false;
+
+	return $casts;
 }
+
