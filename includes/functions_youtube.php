@@ -244,3 +244,37 @@ function getPlaylistId( $season ) {
 		 },
 	*/
 }
+
+/* helper function, because */
+function getVideoViews( $resourceIds ) {
+
+	include_once( 'functions_geturl.php' );
+	$googleKeys = getGoogleKeys( );
+	if ( $resourceIds == '' )
+		return;
+
+	$viewCounts = array();
+	$remainingVideos = $resourceIds;
+
+	while ( count( $remainingVideos ) > 0 ) {
+
+		$currentVideos = array_slice( $remainingVideos, 0, 30 );
+		$remainingVideos = array_slice( $remainingVideos, 30 );
+
+		$queryURL = "https://www.googleapis.com/youtube/v3/videos";
+		$params = array( 'key' => $googleKeys[ 'api_key' ], 'part' => 'statistics', 'id' => join( ',', $currentVideos ) );
+
+		$reply = geturl( $queryURL, $params );
+
+		if ( is_numeric( $reply ) )
+			return false;
+
+		$data = json_decode( $reply, true );
+		$data = $data[ 'items' ];
+		foreach ( $data as $item ) {
+			$viewCounts[ $item[ 'id' ] ] = $item[ 'statistics' ][ 'viewCount' ];
+		}
+	}
+	return $viewCounts;
+}
+
