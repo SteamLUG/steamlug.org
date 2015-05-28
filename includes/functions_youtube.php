@@ -70,6 +70,7 @@ function generateVideo( $season, $episode ) {
 	$svgcontents = ob_get_clean( );
 	$svgcontents = str_replace( '/avatars', './avatars', $svgcontents );
 	$svgcontents = str_replace( '/images/', './images/', $svgcontents );
+	$svgcontents = str_replace( '/fonts/', './fonts/', $svgcontents );
 
 	/* TODO: reg match on http references, check local cache for file and either dl & use, or use */
 
