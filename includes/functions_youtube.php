@@ -19,7 +19,6 @@ $client->setScopes( 'https://www.googleapis.com/auth/youtube' );
 $youtube = new Google_Service_YouTube( $client );
 
 // TODO: what other functions do we want in here?
-// TODO YouTube video stats?
 // TODO convert to php-ffmpeg? in the future
 
 /* TODO probably move this to function_cast/castvideo as it is oddly cast specific */
