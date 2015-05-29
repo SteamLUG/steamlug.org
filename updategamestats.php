@@ -1,7 +1,9 @@
 <?php
+date_default_timezone_set('UTC');
 include_once('includes/session.php');
 include_once('includes/functions_steam.php');
 include_once('includes/functions_db.php');
+include_once('includes/functions_apps.php');
 
 /* this can run for a good few minutes… about 80 users per minute ?! */
 set_time_limit( 5400 );
@@ -33,11 +35,23 @@ foreach(  $database->query( "SELECT count(1) AS number FROM steamlug.memberstats
 	}
 }
 
-$gameslist = array( );
-foreach ( getSteamGames() as $game ) {
+if ( true ) {
 
-	$tempgame = array ( "name" => $game[ 'name' ], "owners" => 0, "playtime" => 0, "fortnight" => 0 );
-	$gameslist[ $game[ 'appid' ] ] = $tempgame;
+	/* pick heuristic to decide to pull from db */
+	// TODO: move this to _stats, make it callable to refresh our intl db without being
+	// part of the stats update
+
+	// request Steam give us their latest this of games
+	$gameslist = array( );
+	foreach ( getSteamGames( ) as $game ) {
+
+		$gameslist[ $game[ 'appid' ] ] = array ( "name" => $game[ 'name' ], "owners" => 0, "playtime" => 0, "fortnight" => 0 );
+	}
+	storeAppsDB( $gameslist );
+
+} else {
+
+	$gameslist = getSteamAppsDB( );
 }
 print $date . ": " . count($gameslist) . " known games.\n<br>";
 
