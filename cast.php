@@ -3,6 +3,7 @@
 include_once('includes/functions_cast.php');
 include_once('includes/functions_events.php');
 include_once('includes/functions_avatars.php');
+include_once('includes/functions_stats.php');
 
 $cast = getNextEvent( true );
 if ($cast != null) {
@@ -147,8 +148,9 @@ FOOTERBLOCK;
 	$shownotes = array_merge( $shownotes, explode( "\n", $footer ) );
 	$adminblock = "";
 	if ( $weareadmin === true ) {
+		$views = getYouTubeStat( $meta[ 'YOUTUBE' ] );
 		$adminblock = <<<HELPFULNESS
-<div><p>Admin helper pages:<br>YouTube <a href="/youtubethumb/{$meta['SLUG']}">video background</a> and <a href="/youtubedescription/{$meta['SLUG']}">description</a>. <a href="/youtubegeneratevideo/{$meta['SLUG']}">YouTube make video</a>. <a target="_blank" href="/transcriberer?audio={$archiveBase}.ogg">Note creation</a>.</p></div>
+<div><p>Admin helper pages:<br>YouTube <a href="/youtubethumb/{$meta['SLUG']}">video background</a> and <a href="/youtubedescription/{$meta['SLUG']}">description</a>. <a href="/youtubegeneratevideo/{$meta['SLUG']}">YouTube make video</a>. <a target="_blank" href="/transcriberer?audio={$archiveBase}.ogg">Note creation</a>.<br>{$views} Views on YouTube.</p></div>
 HELPFULNESS;
 	}
 
