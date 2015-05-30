@@ -1,15 +1,22 @@
 <?php
+/**
+* Function collection for fetching and storing details about Steam apps in our db.
+*/
+
+/**
+*/
+
+// Unsure on the overlap between this and functions_stats for app playtimes, etc
+
 include_once( 'functions_db.php' );
 
 if ( !isset( $database ) )
 	$database = connectDB( );
 
-/*
-	Fetch and store details about steam titles in the db
-	Should also do queries on the other tables for: previous/upcoming events for app
-	Unsure on the overlap between this and functions_stats for app playtimes, etc
+/**
+* Retrieve a listing of the known apps from our database
+* @return array|false a list of apps known, indexed by appid, with members of: name, owners, playtime, fortnight, playersfortnight
 */
-
 function getSteamAppsDB( ) {
 
 	global $database;
@@ -32,7 +39,11 @@ function getSteamAppsDB( ) {
 	return false;
 }
 
-
+/**
+* Store the provided list in our database, updating known apps names if they have changed
+* @param array $apps a hash of apps, indexed by appid, with the member 'name'
+* @return void
+*/
 function storeAppsDB( $apps ) {
 
 	global $database;
@@ -56,14 +67,19 @@ function storeAppsDB( $apps ) {
 		print now(). ": Oops, database failure: " . $e;
 	}
 
-
 }
 
+/**
+* Get details about this app from our database, retrieving additional information
+* @param int $appid Steam's ID for the app
+* @return array a hash of the details for this app, with members for name, appid, owners, playtime, fortnight, playersfortnight
+*/
 function getApp( $appid ) {
 
 	global $database;
 	$statement = $database->prepare( "SELECT appid, name FROM apps WHERE appid = :appid LIMIT 1;" );
 
+	// TODO we want to expand this to expose our "for Linux" knowledge from steamdb linux list
 	try {
 
 		$statement->execute( array( 'appid' => $appid ) );

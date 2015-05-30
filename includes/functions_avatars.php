@@ -1,7 +1,18 @@
 <?php
-	include_once('paths.php');
+/**
+*
+*/
+/**
+*/
 
-	/* we take: ‘johndrinkwater’ / ‘@johndrinkwater’ / ‘John Drinkwater (@twitter)’ / ‘John Drinkwater {URL}’ and spit out Person{} */
+
+include_once('paths.php');
+
+/**
+* A utility function to parse our HOST string components
+* @param string $string of the form: ‘johndrinkwater’ / ‘@johndrinkwater’ / ‘John Drinkwater (@twitter)’ / ‘John Drinkwater {URL}’
+* @return array with members twitter, nickname, avatar, name
+*/
 	function parsePersonString( $string ) {
 
 		$person = array_fill_keys( array( 'twitter', 'nickname', 'name', 'avatar' ), '');
