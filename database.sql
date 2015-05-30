@@ -32,6 +32,7 @@ CREATE TABLE `appstats` (
   `owners` int(11) unsigned DEFAULT '0',
   `playtime` int(11) unsigned DEFAULT '0',
   `fortnight` int(11) unsigned DEFAULT '0',
+  `playersfortnight` int(11) unsigned DEFAULT '0',
   PRIMARY KEY (`date`,`appid`),
   UNIQUE KEY `pairing` (`date`,`appid`)
 ) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -127,14 +128,6 @@ CREATE TABLE `memberstats` (
   UNIQUE KEY `date` (`date`)
 ) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-CREATE TABLE `youtubestats` (
-  `videoid` varchar(12) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'YouTube’s video hash',
-  `updatetime` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'latest update time, obviously',
-  `count` int(10) unsigned DEFAULT NULL,
-  PRIMARY KEY (`videoid`),
-  UNIQUE KEY `videoid_UNIQUE` (`videoid`)
-) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
 CREATE TABLE `poll` (
   `pollid` int(6) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -144,6 +137,7 @@ CREATE TABLE `poll` (
   `multipleChoice` tinyint(1) DEFAULT NULL,
   `expireDate` date DEFAULT NULL,
   `publishDate` date DEFAULT NULL,
+  `clanid` int(8) unsigned NOT NULL,
   PRIMARY KEY (`pollid`),
   UNIQUE KEY `pollid_UNIQUE` (`pollid`)
 ) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -162,7 +156,16 @@ CREATE TABLE `poll_option` (
 CREATE TABLE `poll_respondent` (
   `pollid` int(6) unsigned NOT NULL,
   `steamid` bigint(20) unsigned NOT NULL,
+  `vote` varchar(38) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Could we, should we, store a comma separated record of their actual vote. for reference, maybe highlight when viewing the specific poll',
   PRIMARY KEY (`pollid`),
   UNIQUE KEY `pairing` (`pollid`,`steamid`)
+) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `youtubestats` (
+  `videoid` varchar(12) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'YouTube’s video hash',
+  `updatetime` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'latest update time, obviously',
+  `count` int(10) unsigned DEFAULT NULL,
+  PRIMARY KEY (`videoid`),
+  UNIQUE KEY `videoid_UNIQUE` (`videoid`)
 ) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 

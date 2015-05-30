@@ -21,7 +21,7 @@ function getSteamAppsDB( ) {
 		$apps = $statement->fetchAll( PDO::FETCH_ASSOC );
 		$appslist = array( );
 		foreach ( $apps as $app ) {
-			$appslist[ $app[ 'appid' ] ] = array ( "name" => $app[ 'name' ], "owners" => 0, "playtime" => 0, "fortnight" => 0 );
+			$appslist[ $app[ 'appid' ] ] = array ( "name" => $app[ 'name' ], "owners" => 0, "playtime" => 0, "fortnight" => 0, "playersfortnight" => 0 );
 		}
 		return $appslist;
 
@@ -68,7 +68,7 @@ function getApp( $appid ) {
 
 		$statement->execute( array( 'appid' => $appid ) );
 		$app = $statement->fetch( PDO::FETCH_ASSOC );
-		return array ( "name" => $app[ 'name' ], "appid" => $appid, "owners" => 0, "playtime" => 0, "fortnight" => 0 );
+		return array ( "name" => $app[ 'name' ], "appid" => $appid, "owners" => 0, "playtime" => 0, "fortnight" => 0, "playersfortnight" => 0 );
 
 	} catch ( Exception $e ) {
 

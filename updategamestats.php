@@ -42,26 +42,26 @@ if ( true ) {
 	// part of the stats update
 
 	// request Steam give us their latest this of games
-	$gameslist = array( );
-	foreach ( getSteamGames( ) as $game ) {
+	$appslist = array( );
+	foreach ( getSteamApps( ) as $app ) {
 
-		$gameslist[ $game[ 'appid' ] ] = array ( "name" => $game[ 'name' ], "owners" => 0, "playtime" => 0, "fortnight" => 0 );
+		$appslist[ $app[ 'appid' ] ] = array ( "name" => $app[ 'name' ], "owners" => 0, "playtime" => 0, "fortnight" => 0, "playersfortnight" => 0 );
 	}
-	storeAppsDB( $gameslist );
+	storeAppsDB( $appslist );
 
 } else {
 
-	$gameslist = getSteamAppsDB( );
+	$appslist = getSteamAppsDB( );
 }
-print $date . ": " . count($gameslist) . " known games.\n<br>";
+print $date . ": " . count($appslist) . " known apps.\n<br>";
 
 
 $members = getGroupMembers();
 print $date . ": " . print count($members) . " members.\n<br>";
 
 /* pointless stats tracking GET! */
-$gamesmin = 2000;
-$gamesmax = 0;
+$appsmin = 2000;
+$appsmax = 0;
 $publicMembers = 0;
 
 foreach ( $members as $member ) {
@@ -70,31 +70,32 @@ foreach ( $members as $member ) {
 	if ( count( $memberGames ) > 0 ) {
 
 		$publicMembers++;
-		/* print $member . " has " . $memberGames[ 'game_count' ] . " games.\n<br>"; */
+		/* print $member . " has " . $memberGames[ 'game_count' ] . " apps.\n<br>"; */
 
 		if ( ($memberGames[ 'game_count' ] > 0) and array_key_exists( 'games', $memberGames ) ) {
 
-			if ( $memberGames[ 'game_count' ] > $gamesmax )
-				$gamesmax = $memberGames[ 'game_count' ];
-			if ( $memberGames[ 'game_count' ] < $gamesmin )
-				$gamesmin = $memberGames[ 'game_count' ];
+			if ( $memberGames[ 'game_count' ] > $appsmax )
+				$appsmax = $memberGames[ 'game_count' ];
+			if ( $memberGames[ 'game_count' ] < $appsmin )
+				$appsmin = $memberGames[ 'game_count' ];
 
-			foreach ( $memberGames[ 'games' ] as $game ) {
+			foreach ( $memberGames[ 'games' ] as $app ) {
 
-				if ( array_key_exists( $game[ 'appid' ], $gameslist ) ) {
+				if ( array_key_exists( $app[ 'appid' ], $appslist ) ) {
 
-					$gameslist[ $game[ 'appid' ] ][ 'owners' ]++;
-					$gameslist[ $game[ 'appid' ] ][ 'playtime' ] += $game[ 'playtime_forever' ];
-					if ( array_key_exists( "playtime_2weeks", $game ) ) {
-						$gameslist[ $game[ 'appid' ] ][ 'fortnight' ] += $game[ 'playtime_2weeks' ];
+					$appslist[ $app[ 'appid' ] ][ 'owners' ]++;
+					$appslist[ $app[ 'appid' ] ][ 'playtime' ] += $app[ 'playtime_forever' ];
+					if ( array_key_exists( "playtime_2weeks", $app ) ) {
+						$appslist[ $app[ 'appid' ] ][ 'fortnight' ] += $app[ 'playtime_2weeks' ];
+						$appslist[ $app[ 'appid' ] ][ 'playersfortnight' ]++;
 					}
 				} else {
 					// panic?
-					print "Game " . $game[ 'appid' ] . " doesn’t exist in Valve’s game output? lol.\n<br>";
+					print "Game " . $app[ 'appid' ] . " doesn’t exist in Valve’s app output? lol.\n<br>";
 				}
 			}
 		} else {
-			$gamesmin = 0;
+			$appsmin = 0;
 			// eh? Faulty data from Steam?
 			print $member . " has zero games on their profile.\n<br>";
 		}
@@ -110,45 +111,46 @@ print $date . ": Completed stats gathering: " . date("c") . "\n<br>";
 print $date . ": " . $publicMembers . " public member profiles of " . count($members ) . " members read on " . date( "c" ) . "\n<br>";
 flush( );
 
-$storestats = $database->prepare( "INSERT INTO gamestats (date, appid, owners, playtime, fortnight) VALUES (:date, :appid, :owners, :playtime, :fortnight)" );
+$storestats = $database->prepare( "INSERT INTO appstats (date, appid, owners, playtime, fortnight, playersfortnight) VALUES (:date, :appid, :owners, :playtime, :fortnight, :playersfortnight)" );
 
 $storegroupstats = $database->prepare( "INSERT INTO memberstats (date, count, min, max) VALUES (:date, :count, :min, :max)" );
 
-$storegames = $database->prepare( "REPLACE INTO games (appid, name) VALUES (:appid, :name)" );
+$storeapps = $database->prepare( "REPLACE INTO apps (appid, name) VALUES (:appid, :name)" );
 
 try {
 	$database->beginTransaction( );
 
-	foreach ( $gameslist as $appid=>$game ) {
+	foreach ( $appslist as $appid=>$app ) {
 
-		if ( $game[ 'owners' ] == 0 )
+		if ( $app[ 'owners' ] == 0 )
 			continue;
 
 		$storestats->execute( array(
-			'data' => $date,
+			'date' => $date,
 			'appid' => $appid,
-			'owners' => $game[ 'owners' ],
-			'playtime' => $game[ 'playtime' ],
-			'fortnight' => $game[ 'fortnight' ] ) );
+			'owners' => $app[ 'owners' ],
+			'playtime' => $app[ 'playtime' ],
+			'fortnight' => $app[ 'fortnight' ],
+			'playersfortnight' => $app[ 'playersfortnight' ] ) );
 	}
 
-	foreach ( $gameslist as $appid=>$game ) {
+	foreach ( $appslist as $appid => $app ) {
 
-		$storegames->execute( array(
+		$storeapps->execute( array(
 			'appid' => $appid,
-			'name' => $game[ 'name' ] ) );
+			'name' => $app[ 'name' ] ) );
 	}
 
 	$storegroupstats->execute( array(
 		'date' => $date,
 		'count' => count($members),
-		'min' => $gamesmin,
-		'max' => $gamesmax ) );
+		'min' => $appsmin,
+		'max' => $appsmax ) );
 	$database->commit( );
 
 } catch ( Exception $e ) {
 
-	print $date . ": Oops, database failure";
+	print $date . ": Oops, database failure: " . $e;
 }
 
 /* XXX where to write this?

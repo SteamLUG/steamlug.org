@@ -56,7 +56,7 @@
 	* Small utility function to return JSON details about all games on Steam
 	* Only call this RARELY as it is 17000 items
 	*/
-	function getSteamGames() {
+	function getSteamApps() {
 
 		$params = array('key' => getSteamAPIKey(),
 						'format' => 'json' );
