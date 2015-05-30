@@ -100,8 +100,8 @@ CASTHEAD;
 			<guid>https://steamlug.org/cast/{$meta['SLUG']}</guid>
 			<enclosure url="{$archiveBase}.{$type}" length="{$episodeSize}" type="{$episodeMime}" />
 			<media:content url="{$archiveBase}.{$type}" fileSize="{$episodeSize}" type="{$episodeMime}" medium="audio" expression="full" />
-			<itunes:explicit>no</itunes:explicit>
-			<media:rating scheme="urn:simple">nonadult</media:rating>
+			<itunes:explicit>{$meta['ISEXPLICIT']}</itunes:explicit>
+			<media:rating scheme="urn:simple">{$meta['MEDIARATING']}</media:rating>
 			<description><![CDATA[<p>{$meta['DESCRIPTION']}</p>
 
 CASTENTRY;

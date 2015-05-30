@@ -22,7 +22,7 @@ function _castHeader( $header ) {
 
 	global $filePath;
 	$meta = array_fill_keys( array('RECORDED', 'PUBLISHED', 'TITLE',
-						'SEASON', 'EPISODE', 'DURATION', 'FILENAME',
+				'SEASON', 'EPISODE', 'DURATION', 'FILENAME', 'RATING',
 				'DESCRIPTION','HOSTS','GUESTS','ADDITIONAL', 'YOUTUBE' ), '');
 	foreach ( $header as $entry ) {
 		list($k, $v) = explode( ':', $entry, 2 );
@@ -32,6 +32,11 @@ function _castHeader( $header ) {
 	$meta['SEASON']		= str_pad($meta['SEASON'], 2, '0', STR_PAD_LEFT);
 	$meta['SLUG']		= 's' . $meta['SEASON'] . 'e' . $meta['EPISODE'];
 	$meta['ABSFILENAME']= $filePath . '/' . $meta['SLUG'] . '/' . $meta['FILENAME'];
+
+	// Explicit -> yes, Clean -> clean, * -> no
+	$meta[ 'ISEXPLICIT' ] = ( $meta[ 'RATING' ] == 'Explicit' ? 'yes' :
+		($meta[ 'RATING' ] == 'Clean' ? 'clean' : 'no' ) );
+	$meta[ 'MEDIARATING' ] = ( $meta[ 'RATING' ] == 'Explicit' ? 'adult' : 'nonadult' );
 
 	$meta['HOSTS']		= array_map('trim', explode(',', $meta['HOSTS']));
 	$meta['HOSTS2']		= array();
@@ -74,7 +79,7 @@ function getCastHeader( $castid = '' ) {
 		return false;
 
 	// TODO: s02e09 has longest pragma so far; suggest we pick a low cap and enforce it
-	$header = file_get_contents( $filename, false, NULL, 0, 950 );
+	$header = file_get_contents( $filename, false, NULL, 0, 1000 );
 	$header	= array_slice( explode( "\n", $header ), 0, 14 );
 	return _castHeader( $header );
 }
@@ -93,7 +98,7 @@ function getCastBody( $castid = '' ) {
 		return false;
 
 	$shownotes = file( $filename );
-	return array_slice( $shownotes, 15 );
+	return array_slice( $shownotes, 16 );
 }
 /**
  * Returns slugs for all the existing Casts, whether published or not
