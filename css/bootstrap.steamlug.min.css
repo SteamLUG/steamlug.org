@@ -34,14 +34,12 @@ table#casts tr.in-progress img{opacity:.5}
 .shownotes .highlighted time:hover{color:yellow}
 dt.highlighted, dt.highlighted time, dt.highlighted + dd{background-color:#06A;color:#EEE}
 .bb_link_host{display:none}
-.follow{float:right;margin:auto}
 .timeline{width:520px;margin:auto}
 #twitter-widget-1{max-width:1100px !important;min-width:200px !important;width:100% !important}
-article.tweets{background:inherit;border:none;box-shadow:none}
+article.tweets{background:inherit;border:none;box-shadow:none;margin-bottom:2px}
 article.tweets .panel-heading{background:inherit;border:none;padding-left:0;padding-right:0}
-article.tweets .tweets{background:white}
-div#twitter-here{padding:0}
-#twitter-here .follow{top:-29px;position:relative;height:0}
+div#twitter-here{padding:0;position:relative}
+#twitter-here .follow{top:-29px;position:relative;height:0;margin:auto;float:right}
 nav .nav > li > a{padding-right:13px;padding-left:13px}
 html dl{margin-bottom:8px}
 #mumble-list dl, #mumble-list ul{margin-left:25px;margin-bottom:0}
@@ -142,3 +140,20 @@ input[type=checkbox]{height:23px;}
 input[type=text].warn, label.warn{color:red}
 input[type=text].caution, label.caution{color:purple}
 article.twit label.control-label{text-align:left !important;border:3px solid transparent;padding:1px 15px}
+#twitter-here ul, #twitter-here ol {list-style:none;margin:0;padding:0}
+.follow-label {text-shadow:0px 1px 0px rgba(255, 255, 255, 0.5);color:#333;background-color:#EEE;border-radius:3px;border:1px solid #CCC;height:18px;display:inline-block;vertical-align:top;font-size:11px;padding:0px 3px 0px 19px;font-weight:700}
+.follow a i {display:inline-block;position:relative;left:1em;color:#55acee;text-shadow:none}
+.tweet {padding:6px 2px 4px 58px}
+.tweet a.profile {text-decoration:none}
+.tweet a.profile:hover .full-name {text-decoration:underline}
+.tweet .p-nickname {color:#a0a0a0;padding-left:.2em}
+.tweet .header {position:relative;padding-bottom:.2em}
+.tweet .header time {float:right;color:#a0a0a0}
+.tweet .header img {left:-57px;position:absolute;border-radius:4px}
+.tweet .header abbr {padding-left:.2em;border:none}
+.tweet .footer, .tweet .footer li {padding-top:.15em;height:1.7em}
+.tweet .footer i {width:2em;display:block;color:#a0a0a0;font-size:16px}
+.tweet .footer i:hover {color:white}
+.tweet .footer b {position:absolute;top:0px;left:0px;clip:rect(0px,0px,0px,0px)}
+.tweet .footer ul {display:block;position:absolute;right:0}
+.tweet .footer ul li {float:left;}

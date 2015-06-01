@@ -1,8 +1,44 @@
 <?php
-	$pageTitle = "News";
-	include_once('includes/header.php');
-	include_once('includes/lastRSS.php');
-?>
+$pageTitle = "News";
+$extraCrap = "		<link rel=\"stylesheet\" href=\"/css/font-awesome-trimmed.css\" />\n";
+include_once('includes/header.php');
+include_once('includes/lastRSS.php');
+
+if ( true /* $weareadmin pref this for more testing */ ) {
+
+	include_once('includes/functions_twitter.php');
+	$tweetblob = '<span class="follow"><a href="//twitter.com/intent/follow?screen_name=SteamLUG&amp;tw_p=followbutton"><i class="fa-twitter"></i><span id="l" class="follow-label">Follow <b>@SteamLUG</b></span></a></span>' . "\n";
+	$tweetblob .= '<ol>' . "\n";
+	foreach ( getRecentTweets( 3 ) as $tweet ) {
+
+		$time = humanTime ( $tweet[ 'created_at' ] );
+		$user = $tweet[ 'user' ];
+		if ( array_key_exists( 'retweeted_status', $tweet ) ) {
+			$user = $tweet[ 'retweeted_status' ][ 'user' ];
+			$tweet = $tweet[ 'retweeted_status' ];
+		}
+		$msg = populateTweet( $tweet );
+		$tweetblob .= "<li\n\tclass=\"tweet\">";
+		$tweetblob .= "<div\n\t\tclass=\"header\"><a class=\"permalink\" href=\"//twitter.com/{$user[ 'screen_name' ]}/status/{$tweet['id']}\">{$time}</a><div class=\"h-card p-author\"><a class=\"profile\" href=\"//twitter.com/{$user[ 'screen_name' ]}\"><img class=\"avatar\" alt=\"\" src=\"{$user[ 'profile_image_url_https' ]}\"><span class=\"full-name\"><span class=\"p-name\">{$user[ 'name' ]}</span></span><span class=\"p-nickname\">@<b>{$user[ 'screen_name' ]}</b></span></a></div></div>";
+		$tweetblob .= "<div\n\t\tclass=\"content\"><p class=\"e-entry-title\" lang=\"en\">{$msg}</p></div>";
+		$tweetblob .= "<div\n\t\tclass=\"footer\"><ul class=\"tweets\" role=\"menu\"><li><a href=\"//twitter.com/intent/tweet?in_reply_to={$tweet['id']}\" class=\"reply\" title=\"Reply\"><i class=\"fa-reply\"></i><b>Reply</b></a></li><li><a href=\"//twitter.com/intent/retweet?tweet_id={$tweet['id']}\" class=\"retweet\" title=\"Retweet\"><i class=\"fa-retweet\"></i><b>Retweet</b></a></li><li><a href=\"//twitter.com/intent/favorite?tweet_id={$tweet['id']}\" class=\"favourite\" title=\"Favorite\"><i class=\"fa-star\"></i><b>Favorite</b></a></li></ul></div>";
+		$tweetblob .= "</li>";
+	}
+	$tweetblob .= '</ol>';
+echo <<<TWITTERWIDGET
+		<h1 class="text-center">News</h1>
+		<article class="panel panel-default tweets col-sm-4 col-sm-push-8">
+			<header class="panel-heading">
+				<h3 class="panel-title">Tweets</h3>
+			</header>
+			<div class="panel-body" id="twitter-here">
+				{$tweetblob}
+			</div>
+		</article>
+TWITTERWIDGET;
+} else {
+
+echo <<<TWITTERWIDGET
 		<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 		<h1 class="text-center">News</h1>
 		<article class="panel panel-default tweets col-sm-4 col-sm-push-8">
@@ -14,7 +50,9 @@
 					<a class="twitter-timeline" href="https://twitter.com/SteamLUG" data-widget-id="558698447109636097" data-link-color="#ebebeb" data-chrome="nofooter noheader transparent noborders" data-tweet-limit="3" lang="EN">Tweets by @SteamLUG</a>
 			</div>
 		</article>
-<?php
+TWITTERWIDGET;
+}
+
 	$rss = new lastRSS;
 	$rss->cache_dir = $eventXMLPath . '/steamlug/temp';
 	$rss->cache_time = 1200;
