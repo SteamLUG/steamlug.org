@@ -8,6 +8,24 @@
 	// TODO move this into our variables
 	$screenname	= 'SteamLUG';
 
+
+	/**
+	* This produces a lovely HTML5 <time> output with human^WEnglish-readable output as well
+	* probably needs moving to another library
+	* @param string $timestamp Twitter's idea of a joke, a time stamp of the format EEE MMM dd HH:mm:ss ZZZZZ yyyy
+	* @return string a lovely <time> reply, with some human (read, localisation nightmare) formatting
+	*/
+	function humanTime( $timestamp ) {
+
+		$time = strtotime( $timestamp );
+		$diff = ( time() - $time );
+		$today = ( $diff < 86400 ) ?
+				( ( $diff < 3600 ) ? ((int)($diff / 60) . ' <abbr title="minutes">m</abbr>' ) : ( (int)($diff / 3600) . ' <abbr title="hours">h</abbr>' ) ) : date( 'd M', $time );
+		return '<time datetime="' . date( DATE_ISO8601, $time ) . '" title="Time posted: ' . date ( 'd M y H:i:s' , $time ) . ' (UTC)">' . $today . '</time>';
+
+	}
+
+
 	/**
 	* Twitter hands use a text version of the tweet, and a massive JSON to represent their
 	* tweaks to it. We have to parse most of these (TODO this function lacks support for $symbols, other entities)
