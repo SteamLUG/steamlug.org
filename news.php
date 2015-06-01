@@ -1,6 +1,5 @@
 <?php
 $pageTitle = "News";
-$extraCrap = "		<link rel=\"stylesheet\" href=\"/css/font-awesome-trimmed.css\" />\n";
 include_once('includes/header.php');
 include_once('includes/lastRSS.php');
 
