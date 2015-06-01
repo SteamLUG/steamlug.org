@@ -80,10 +80,12 @@
 	}
 
 
-	/*
-		Expose recent tweets so our admins can delete a mistake
+	/**
+	* Fetch recent tweets from our main account (currently hard-coded)
+	* @param integer $limit limit the requested tweets to this amount (use this! saves lots of b/w)
+	* @return array hash of content from the Twitter API.
 	*/
-	function getRecentTweets( $count = 8 ) {
+	function getRecentTweets( $limit = 8 ) {
 
 		global $screenname, $twitterKeys;
 		$twit = new TwitterAPIExchange( $twitterKeys );
@@ -91,7 +93,7 @@
 
 		$fields = array(
 			'screen_name' => $screenname,
-			'count' => $count,
+			'count' => $limit,
 			'trim_user' => false,
 			'include_entities' => true,
 		);
@@ -103,17 +105,21 @@
 		return json_decode( $result, true );
 	}
 
-	/*
-		Expose recent mentions so our admins can reply to users easily
+
+	/**
+	* Fetch recent mentions from our main account (currently hard-coded)
+	* Included so our backend could offer ability to reply to users
+	* @param integer $limit limit the requested tweets to this amount (use this! saves lots of b/w)
+	* @return array hash of content from the Twitter API.
 	*/
-	function getRecentMentions( $count = 8 ) {
+	function getRecentMentions( $limit = 8 ) {
 
 		global $twitterKeys;
 		$twit = new TwitterAPIExchange( $twitterKeys );
 		$resource = 'https://api.twitter.com/1.1/statuses/mentions_timeline.json';
 
 		$fields = array(
-			'count' => $count,
+			'count' => $limit,
 			'trim_user' => true,
 		);
 
@@ -125,9 +131,10 @@
 	}
 
 
-
-	/*
-		Accept any text, push to Twitter?
+	/**
+	* Sends a tweet from our main account (currently hard-coded)
+	* @param string $message your lovely status update to our audience
+	* @return array hash blog back from the Twitter API
 	*/
 	function postTweet( $message ) {
 
@@ -156,9 +163,12 @@
 
 	}
 
-	/*
-		Take ID to tweet, pass it to twitter
-		deleteTweet( '577505080074756097' )
+
+	/**
+	* Deletes a tweet from our main account (currently hard-coded)
+	* use as: deleteTweet( '577505080074756097' )
+	* @param string $tweetId Twitter-namespaced ID of the status to delete
+	* @return array hash blog back from the Twitter API
 	*/
 	function deleteTweet( $tweetId ) {
 
