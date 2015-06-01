@@ -8,6 +8,60 @@
 	// TODO move this into our variables
 	$screenname	= 'SteamLUG';
 
+	/**
+	* Twitter hands use a text version of the tweet, and a massive JSON to represent their
+	* tweaks to it. We have to parse most of these (TODO this function lacks support for $symbols, other entities)
+	* @param array $tweet a json blob of a tweet, from Twitter API
+	* @return string a mixed-down fully HTMLed version of the tweet with linked users, hashtags, URLs
+	*/
+	function populateTweet( $tweet ) {
+
+		$hashtagP	= '<a href="//twitter.com/search?q=%%23%s&amp;src=hash" class="hashtag" rel="nofollow" target="_blank">#%s</a>';
+		$urlP		= '<a href="%s" class="url" el="nofollow" target="_blank" title="%s">%s</a>';
+		$userP		= '<a href="//twitter.com/%s" class="twatter" rel="nofollow" target="_blank" title="%s">@%s</a>';
+		$mediaP		= '<a href="%s" class="media" rel="nofollow" target="_blank" title="%s">%s</a>';
+
+		$entities = array();
+		foreach ( $tweet[ 'entities' ][ 'hashtags' ] as $e ) {
+
+			$entities[ ] = array(
+				'start' => $e[ 'indices' ][ 0 ], 'length' => $e[ 'indices' ][ 1 ] - $e[ 'indices' ][ 0 ],
+				'replace' => sprintf( $hashtagP, strtolower($e[ 'text' ]), $e[ 'text' ]) );
+		}
+
+		foreach ( $tweet[ 'entities' ][ 'urls' ] as $e ) {
+
+			$entities[ ] = array(
+				'start' => $e[ 'indices' ][ 0 ], 'length' => $e[ 'indices' ][ 1 ] - $e[ 'indices' ][ 0 ],
+				'replace' => sprintf( $urlP, $e[ 'expanded_url' ], $e[ 'expanded_url' ], $e[ 'display_url' ]) );
+		}
+
+		foreach ( $tweet[ 'entities' ][ 'user_mentions' ] as $e ) {
+
+			$entities[ ] = array(
+				'start' => $e[ 'indices' ][ 0 ], 'length' => $e[ 'indices' ][ 1 ] - $e[ 'indices' ][ 0 ],
+				'replace' => sprintf( $userP, strtolower($e[ 'screen_name' ]), $e[ 'name' ], $e[ 'screen_name' ]) );
+		}
+
+		if ( array_key_exists( 'media', $tweet[ 'entities' ]) ) {
+			foreach ( $tweet[ 'entities' ][ 'media' ] as $e ) {
+
+				$entities[ ] = array(
+					'start' => $e[ 'indices' ][ 0 ], 'length' => $e[ 'indices' ][ 1 ] - $e[ 'indices' ][ 0 ],
+					'replace' => sprintf( $mediaP, $e[ 'url' ], $e[ 'expanded_url' ], $e[ 'display_url' ]) );
+			}
+		}
+
+		usort( $entities, function($a, $b) { return $b[ 'start' ] - $a[ 'start' ]; } );
+		$replacement = $tweet[ 'text' ];
+		foreach( $entities as $e ) {
+			$replacement = mb_substr( $replacement, 0, $e[ 'start' ], 'UTF-8' ) . $e[ 'replace' ] .
+				mb_substr( $replacement, $e[ 'start' ] + $e[ 'length' ], null, 'UTF-8' );
+		}
+		return $replacement;
+	}
+
+
 	/*
 		Expose recent tweets so our admins can delete a mistake
 	*/
@@ -20,7 +74,8 @@
 		$fields = array(
 			'screen_name' => $screenname,
 			'count' => $count,
-			'trim_user' => true,
+			'trim_user' => false,
+			'include_entities' => true,
 		);
 
 		$result = $twit->setGetfields( $fields )
