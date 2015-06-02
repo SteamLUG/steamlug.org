@@ -113,7 +113,7 @@ if ( $season !== "00" && $episode !== "00" && ($meta = getCastHeader( $slug ) ) 
 		<meta name="twitter:image:src" content="https://steamlug.org/images/steamlugcast.png">
 		<meta name="twitter:image:width" content="300">
 		<meta name="twitter:image:height" content="300">
-		<meta name="twitter:player" content="https://www.youtube.com/embed/{$meta[ 'YOUTUBE' ]}">
+		<meta name="twitter:player" content="https://www.youtube-nocookie.com/embed/{$meta[ 'YOUTUBE' ]}?rel=0">
 		<meta name="twitter:player:width" content="480">
 		<meta name="twitter:player:height" content="360">
 
