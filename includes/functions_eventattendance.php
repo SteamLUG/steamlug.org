@@ -4,15 +4,17 @@ include_once( 'functions_db.php' );
 if ( !isset( $database ) )
 	$database = connectDB( );
 
-	function getRecentAttendance( $steamid ) {
+	function getRecentAttendance( $steamid, $limit = 6 ) {
 
 		global $database;
 		try {
 			// $database->beginTransaction( );
 			/* TODO: safe-ify $id */
 			$statement = $database->prepare( "SELECT eventattendance.eventid, utctime, appid, title, clanid FROM steamlug.eventattendance
-				LEFT JOIN events ON eventattendance.eventid = events.eventid WHERE eventattendance.steamid = :steamid ORDER BY utctime desc limit 10;" );
-			$statement->execute( array( 'steamid' => $steamid ) );
+				LEFT JOIN events ON eventattendance.eventid = events.eventid WHERE eventattendance.steamid = :steamid ORDER BY utctime desc limit :limit;" );
+			$statement->execute( array(
+				'steamid' => $steamid,
+				'limit' => $limit ) );
 			$events = $statement->fetchAll( PDO::FETCH_ASSOC );
 			// $database->commit( );
 			return $events;
