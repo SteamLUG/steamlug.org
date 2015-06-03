@@ -71,9 +71,6 @@ if ( $season !== "00" && $episode !== "00" && ($meta = getCastHeader( $slug ) ) 
 
 	$shownotes			= getCastBody( $slug );
 
-	if ( ( $meta == false ) or ( $shownotes == false ) )
-		continue;
-
 	$archiveBase		= $publicURL . '/' . $meta['SLUG'] . '/' . $meta['FILENAME'];
 	$episodeBase		= $filePath  . '/' . $meta['SLUG'] . '/' . $meta['FILENAME'];
 
