@@ -56,6 +56,7 @@ function generateVideo( $season, $episode ) {
 	*/
 
 	$filename = $notesPath . "/s" . $season . "e" . $episode . "/episode.txt";
+	$slug = 's' . $season . 'e' . $episode;
 	$shownotes = file( $filename );
 	$meta = castHeader( array_slice( $shownotes, 0, 14 ) );
 	// TODO check that filename is set, audio file exists
