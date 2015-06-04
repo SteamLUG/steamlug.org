@@ -1,9 +1,25 @@
 <?php
+/**
+* Function collection for fetching and storing details for Event attendance in our db.
+*/
+
+
+/**
+*/
+
+
 include_once( 'functions_db.php' );
 
 if ( !isset( $database ) )
 	$database = connectDB( );
 
+
+	/**
+	* Returns a list of most recently attended events for the SteamID given, along with some details for the event
+	* @param string $steamid SteamID of the user we want the details for
+	* @param integer $limit How many events to return, defaulting to 6
+	* @return array hash of attended events, with details, ordered by time the events were
+	*/
 	function getRecentAttendance( $steamid, $limit = 6 ) {
 
 		global $database;
@@ -24,6 +40,12 @@ if ( !isset( $database ) )
 		}
 	}
 
+
+	/**
+	* Returns a list of SteamIDs along with any member details they may have shared with us for the event requested
+	* @param string $eventid Steam's reference number for the event
+	* @return array hash of attending SteamIDs, with details, ordered by SteamID
+	*/
 	function getEventAttendance( $eventid ) {
 
 		global $database;
@@ -43,7 +65,12 @@ if ( !isset( $database ) )
 	}
 
 
-	// add player to event
+	/**
+	* Adds supplied SteamID to Event
+	* @param string $eventid Steam's reference number for the event
+	* @param string $steamid SteamID of the user we want to add
+	* @return boolean whether the action completed or not
+	*/
 	function addPlayerEventAttendance( $eventid, $steamid ) {
 
 		global $database;
@@ -64,7 +91,13 @@ if ( !isset( $database ) )
 		}
 	}
 
-	// remove player from event (shouldnt be used often)
+
+	/**
+	* Removes supplied SteamID from Event
+	* @param string $eventid Steam's reference number for the event
+	* @param string $steamid SteamID of the user we want to remove
+	* @return boolean whether the action completed or not
+	*/
 	function removePlayerEventAttendance( $eventid, $steamid ) {
 
 		global $database;

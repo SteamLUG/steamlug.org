@@ -219,11 +219,7 @@ if ( extension_loaded('curl') ) {
 
 
 	/**
-	* Saves the URL given, to the location given, possibly overwriting the file if requested
-	* @param string $url location of the file to fetch
-	* @param string $fileLocation relative file path for the file to be written to
-	* @param boolean $overwrite Whether we want to overwrite a pre-existing file
-	* @return boolean whether the action succeeded
+	* @ignore this is defined above, in case libcurl is not available, no need for duplication
 	*/
 	function writeURLToLocation( $url, $fileLocation, $overwrite = false ) {
 		return false;
