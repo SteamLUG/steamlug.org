@@ -33,6 +33,14 @@
 					<p>At any time, you can delete your account.</p>
 				</div>
 			</article>
+			<article class="panel panel-default">
+				<header class="panel-heading">
+					<h3 class="panel-title">What if I appear on the Cast?</h3>
+				</header>
+				<div class="panel-body">
+					<p>For the sake of presentation, we will ask you to provide an Avatar, and a website URL or Twitter handle that we can point users to. These then becomes part of the show. If at any time you wish to update or remove these details, contact us.</p>
+				</div>
+			</article>
 		<section>
 DOCUMENT;
 
