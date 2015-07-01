@@ -57,3 +57,29 @@ if ( !isset( $database ) )
 			return false;
 		}
 	}
+
+	// add member to clan (default to member)
+	/*
+	XXX role default currently _hard coded_, needs to match db roleid for ‘Member’
+	*/
+	function addClanPlayerDB( $clanid, $steamid, $role = 8 ) {
+	}
+	// set member role in clan
+	function setClanPlayerRoleDB( $clanid, $steamid, $role ) {
+	}
+	// remove member from clan
+	function removeClanPlayerDB( $clanid, $steamid ) {
+	}
+	// invite to clan (subs to add member?)
+	function inviteClanPlayerDB( $clanid, $steamid ) {
+	}
+	// request invite to clan (subs to add member?)
+	function requestInviteClanPlayerDB( $clanid, $steamid ) {
+	}
+
+	// delete clan
+	function removeClanDB( $clanid ) {
+		/* XXX hardcode clanids to avoid removing (1-10) */
+		/* should this just control visibility, in case of accidents? clan is autoassigned, so… repairing is harder */
+		/* needs to remove all player ←→ clan relationships too */
+	}
