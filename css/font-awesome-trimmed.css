@@ -1,10 +1,11 @@
-@font-face {
+@charset "UTF-8";
+ @font-face {
   font-family: 'font-awesome-trimmed';
-  src: url('../fonts/font-awesome-trimmed.eot?39222033');
-  src: url('../fonts/font-awesome-trimmed.eot?39222033#iefix') format('embedded-opentype'),
-       url('../fonts/font-awesome-trimmed.woff?39222033') format('woff'),
-       url('../fonts/font-awesome-trimmed.ttf?39222033') format('truetype'),
-       url('../fonts/font-awesome-trimmed.svg?39222033#font-awesome-trimmed') format('svg');
+  src: url('../fonts/font-awesome-trimmed.eot?76187341');
+  src: url('../fonts/font-awesome-trimmed.eot?76187341#iefix') format('embedded-opentype'),
+       url('../fonts/font-awesome-trimmed.woff?76187341') format('woff'),
+       url('../fonts/font-awesome-trimmed.ttf?76187341') format('truetype'),
+       url('../fonts/font-awesome-trimmed.svg?76187341#font-awesome-trimmed') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -26,46 +27,48 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.fa-unsorted:before { content: '\e800' }
-.fa-sort-down:before { content: '\e801' }
-.fa-sort-up:before { content: '\e802' }
-.fa-circle:before { content: '\e803' }
-.fa-lock:before { content: '\e804' }
-.fa-lock-open-alt:before { content: '\e805' }
-.fa-clock:before { content: '\e806' }
-.fa-shield:before { content: '\e807' }
-.fa-circle-o:before { content: '\e808' }
-.fa-emo-grin:before { content: '\e809' }
-.fa-users:before { content: '\e80a' }
-.fa-user:before { content: '\e80b' }
-.fa-star:before { content: '\e80c' }
-.fa-star-empty:before { content: '\e80d' }
-.fa-heart:before { content: '\e80e' }
-.fa-heart-empty:before { content: '\e80f' }
-.fa-eye:before { content: '\e810' }
-.fa-eye-off:before { content: '\e811' }
-.fa-bookmark:before { content: '\e812' }
-.fa-bookmark-empty:before { content: '\e813' }
-.fa-thumbs-up:before { content: '\e814' }
-.fa-thumbs-down:before { content: '\e815' }
-.fa-thumbs-up-alt:before { content: '\e816' }
-.fa-thumbs-down-alt:before { content: '\e817' }
-.fa-comment:before { content: '\e818' }
-.fa-chat:before { content: '\e819' }
-.fa-gamepad:before { content: '\e81a' }
-.fa-cog:before { content: '\e81b' }
-.fa-calendar:before { content: '\e81c' }
-.fa-calendar-empty:before { content: '\e81d' }
-.fa-link:before { content: '\e81e' }
-.fa-cancel-circled:before { content: '\e81f' }
-.fa-smile:before { content: '\e820' }
-.fa-frown:before { content: '\e821' }
-.fa-meh:before { content: '\e822' }
-.fa-file-image:before { content: '\e823' }
-.fa-file-video:before { content: '\e824' }
-.fa-file-audio:before { content: '\e825' }
-.fa-linux:before { content: '\e826' }
-.fa-globe:before { content: '\e827' }
-.fa-retweet:before { content: '\e828' }
-.fa-reply:before { content: '\e829' }
-.fa-twitter:before { content: '\e82a' }
+.fa-unsorted:before { content: '⇕'; }
+.fa-users:before { content: '⊲'; }
+.fa-sort-up:before { content: '⌃'; }
+.fa-sort-down:before { content: '⌄'; }
+.fa-circle:before { content: '●'; }
+.fa-star:before { content: '★'; }
+.fa-star-empty:before { content: '☆'; }
+.fa-frown:before { content: '☹'; }
+.fa-smile:before { content: '☺'; }
+.fa-heart-empty:before { content: '♡'; }
+.fa-heart:before { content: '♥'; }
+.fa-cog:before { content: '⚙'; }
+.fa-bookmark-empty:before { content: '⛉'; }
+.fa-bookmark:before { content: '⛊'; }
+.fa-shield:before { content: '⛨'; }
+.fa-reply:before { content: '⮪'; }
+.fa-cancel-circled:before { content: '⮿'; }
+.fa-globe:before { content: '🌐'; }
+.fa-gamepad:before { content: '🎮'; }
+.fa-award:before { content: '🏅'; }
+.fa-trophy:before { content: '🏆'; }
+.fa-twitter:before { content: '🐦'; }
+.fa-linux:before { content: '🐧'; }
+.fa-eye:before { content: '👁'; }
+.fa-thumbs-up:before { content: '👍'; }
+.fa-thumbs-down:before { content: '👎'; }
+.fa-user:before { content: '👱'; }
+.fa-calendar:before { content: '📅'; }
+.fa-calendar-empty:before { content: '📆'; }
+.fa-file-audio:before { content: '📣'; }
+.fa-file-video:before { content: '📹'; }
+.fa-retweet:before { content: '🔁'; }
+.fa-lock:before { content: '🔒'; }
+.fa-lock-open-alt:before { content: '🔓'; }
+.fa-link:before { content: '🔗'; }
+.fa-clock:before { content: '🕘'; }
+.fa-eye-off:before { content: '🕶'; }
+.fa-thumbs-up-alt:before { content: '🖒'; }
+.fa-thumbs-down-alt:before { content: '🖓'; }
+.fa-file-image:before { content: '🖻'; }
+.fa-comment:before { content: '🗩'; }
+.fa-chat:before { content: '🗪'; }
+.fa-emo-grin:before { content: '😀'; }
+.fa-meh:before { content: '😐'; }
+.fa-circle-o:before { content: '🞅'; }
