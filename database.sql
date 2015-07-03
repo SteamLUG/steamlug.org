@@ -78,13 +78,14 @@ CREATE TABLE `events` (
   `host` bigint(20) DEFAULT '0' COMMENT 'Should be the steamlug member ‘hosting’ the event; can be empty; set via backend',
   `server` varchar(75) COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT 'Server deets from the event description; so event queries can work?; set via backend',
   `serverport` varchar(5) COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT 'Server deets from the event description; so event queries can work?; set via backend',
-  PRIMARY KEY (`eventid`,`appid`,`utctime`),
+  `clanid` int(8) unsigned NOT NULL COMMENT 'To allow clans to generate their own events, we need to tag their ownership…\nand this means, XML-sourced events need to have our steamlug clanid set…',
+  PRIMARY KEY (`eventid`,`appid`,`utctime`,`clanid`),
   UNIQUE KEY `eventid_UNIQUE` (`eventid`)
 ) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE `happenings` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `when` timestamp NULL DEFAULT NULL,
+  `when` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `what` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT '',
   PRIMARY KEY (`id`),
   UNIQUE KEY `log` (`id`)
