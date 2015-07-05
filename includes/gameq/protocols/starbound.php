@@ -30,8 +30,13 @@ class GameQ_Protocols_Starbound extends GameQ_Protocols_Source
 	protected $name_long = "Starbound";
 
 	protected $port = 21025;
-        
-        /**
+
+	protected function process_details() {
+		$result = parent::process_details();
+		$result['steamappid'] = 211820;
+		return $result;
+	}
+	/**
 	 * Array of packets we want to look up. (Modified from A2S default.)
 	 * Each key should correspond to a defined method in this or a parent class
 	 *
