@@ -1,23 +1,6 @@
 CREATE DATABASE IF NOT EXISTS `steamlug`;
 USE `steamlug`;
 
-DROP TABLE IF EXISTS `apps`;
-DROP TABLE IF EXISTS `appstats`;
-DROP TABLE IF EXISTS `badges`;
-DROP TABLE IF EXISTS `clans`;
-DROP TABLE IF EXISTS `clanroles`;
-DROP TABLE IF EXISTS `events`;
-DROP TABLE IF EXISTS `eventattendance`;
-DROP TABLE IF EXISTS `happenings`;
-DROP TABLE IF EXISTS `members`;
-DROP TABLE IF EXISTS `memberbadges`;
-DROP TABLE IF EXISTS `memberstats`;
-DROP TABLE IF EXISTS `memberclans`;
-DROP TABLE IF EXISTS `youtubestats`;
-DROP TABLE IF EXISTS `poll`;
-DROP TABLE IF EXISTS `poll_option`;
-DROP TABLE IF EXISTS `poll_respondent`;
-
 CREATE TABLE `apps` (
   `appid` int(11) unsigned NOT NULL,
   `name` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
