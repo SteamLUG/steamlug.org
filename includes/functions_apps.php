@@ -83,8 +83,12 @@ function getApp( $appid ) {
 	try {
 
 		$statement->execute( array( 'appid' => $appid ) );
-		$app = $statement->fetch( PDO::FETCH_ASSOC );
-		return array ( "name" => $app[ 'name' ], "appid" => $appid, "owners" => 0, "playtime" => 0, "fortnight" => 0, "playersfortnight" => 0 );
+		if ( $statement->rowCount( ) > 0 ) {
+			$app = $statement->fetch( PDO::FETCH_ASSOC );
+			return array ( "name" => $app[ 'name' ], "appid" => $appid, "owners" => 0, "playtime" => 0, "fortnight" => 0, "playersfortnight" => 0 );
+		} else {
+			return false;
+		}
 
 	} catch ( Exception $e ) {
 
