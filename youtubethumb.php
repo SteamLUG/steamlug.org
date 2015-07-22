@@ -157,8 +157,8 @@ GAMESINTRO;
 		<stop style="stop-opacity:1" offset="0" />
 		<stop style="stop-opacity:0" offset="1" />
 	</linearGradient>
-	<style type="text/css"><![CDATA[ @font-face { font-family: 'OrbitronMedium'; src: url('/fonts/orbitron-medium-webfont.woff') format('woff'); font-weight: normal; font-style: normal } ]]></style>
 	<!-- A /very/ minimised version of Cheese’s avatar border clips and strokes -->
+	<style type="text/css"> @font-face { font-family: 'Orbitron'; src: local('Orbitron'), url('/fonts/orbitron-medium-webfont.woff') format('woff'); font-weight: normal; font-style: normal; } </style>
 	<filter x="-0.06" y="-0.06" width="1.12" height="1.12" color-interpolation-filters="sRGB" id="blur">
 		<feGaussianBlur id="feGaussianBlur15022-7" stdDeviation="1.6111817" />
 	</filter>
@@ -190,7 +190,7 @@ GAMESINTRO;
 		<rect width="1280" height="90"	y="630" style="fill:#323232;overflow:visible;" />
 	</g>
 
-	<g id="episode" style="font-style:normal;font-size: 50px; line-height:125%;text-anchor:middle;fill:#8dc9fa;stroke:none;font-family:OrbitronMedium">
+	<g id="episode" style="font-style:normal;font-size: 50px; line-height:125%;text-anchor:middle;fill:#8dc9fa;stroke:none;font-family:Orbitron">
 		<g transform="translate(640,{$titleOffset})" >
 			<text y="-30" id="title">SteamLUG Cast s{$meta['SEASON']} e{$meta['EPISODE']}</text>
 			<text y="30" id="subtitle" style="font-size:36px;"><tspan>‘ </tspan>{$meta['TITLE']}<tspan> ’</tspan></text>
@@ -200,7 +200,7 @@ GAMESINTRO;
 		</g>
 	</g>
 
-	<g id="peeps" style="color:#000000;fill:#8dc9fa;stroke:none;font-family:OrbitronMedium;font-size:20px;font-weight:400;overflow:visible;line-height:125%;text-anchor:middle;">
+	<g id="peeps" style="color:#000000;fill:#8dc9fa;stroke:none;font-family:Orbitron;font-size:20px;font-weight:400;overflow:visible;line-height:125%;text-anchor:middle;">
 		<g id="hosts" transform="translate({$hostsBlockOffset},10)">
 {$hostsIncludeString}		</g>
 		<g id="guests" transform="translate({$guestsBlockOffset},640)">
@@ -217,7 +217,7 @@ THUMB;
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="1280" height="720">
 	<defs>
-		<style type="text/css"><![CDATA[ @font-face { font-family: 'OrbitronMedium'; src: url('/fonts/orbitron-medium-webfont.woff') format('woff'); font-weight: normal; font-style: normal } ]]></style>
+		<style type="text/css"> @font-face { font-family: 'Orbitron'; src: local('Orbitron'), url('/fonts/orbitron-medium-webfont.woff') format('woff'); font-weight: normal; font-style: normal; } </style>
 	</defs>
 	<g id="background">
 		<image xlink:href="/images/youtubebg.png" width="1280" height="720" />
