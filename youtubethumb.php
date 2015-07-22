@@ -134,7 +134,7 @@ if ( $season !== "00" && $episode !== "00" && ($meta = getCastHeader( $slug ) ) 
 
 		$plural = count($meta['GUESTS']) > 1 ? "s" : "";
 		$gamesString = <<<GAMESINTRO
-			<text id="game-name" style="font-size:23px;">With Special Guest{$plural} and Developer{$plural} of</text>
+			<text id="game-name" style="font-size:23px">With Special Guest{$plural} and Developer{$plural} of</text>
 			<g transform="translate({$gamesBlockOffset},26)">
 
 GAMESINTRO;
@@ -146,9 +146,8 @@ GAMESINTRO;
 
 	$castEntry = <<<THUMB
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="1280" height="720">
+<svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="1280" height="720">
 	<defs>
-	<!-- Cheese’s gutters, minimised like fook -->
 	<linearGradient x1="640" y1="0" x2="640" y2="127" id="shade-top" gradientUnits="userSpaceOnUse" >
 		<stop style="stop-opacity:1" offset="0" />
 		<stop style="stop-opacity:0" offset="1" />
@@ -157,7 +156,6 @@ GAMESINTRO;
 		<stop style="stop-opacity:1" offset="0" />
 		<stop style="stop-opacity:0" offset="1" />
 	</linearGradient>
-	<!-- A /very/ minimised version of Cheese’s avatar border clips and strokes -->
 	<style type="text/css"> @font-face { font-family: 'Orbitron'; src: local('Orbitron'), url('/fonts/orbitron-medium-webfont.woff') format('woff'); font-weight: normal; font-style: normal; } </style>
 	<filter x="-0.06" y="-0.06" width="1.12" height="1.12" color-interpolation-filters="sRGB" id="blur">
 		<feGaussianBlur id="feGaussianBlur15022-7" stdDeviation="1.6111817" />
@@ -166,45 +164,45 @@ GAMESINTRO;
 		<rect width="184" height="69" rx="8" ry="8" />
 	</clipPath>
 	<clipPath id="avatar-clip">
-		<rect width="66" height="66" rx="3" ry="3" x="2" y="2" style="color:#000000;fill:none;stroke:none;visibility:visible;display:inline;overflow:visible" />
+		<rect width="66" height="66" rx="3" ry="3" x="2" y="2" style="color:#000000;fill:none" />
 	</clipPath>
 	<linearGradient x1="1940" y1="-262" x2="1940" y2="-76" id="border-stroke" gradientUnits="userSpaceOnUse" gradientTransform="matrix(0.32851643,0,0,0.32851646,-413.47663,427.76239)">
 		<stop style="stop-color:#8ecafc;stop-opacity:1" offset="0" />
 		<stop style="stop-color:#73a0c7;stop-opacity:1" offset="1" />
 	</linearGradient>
-
-	<!-- Cheese’s Steam emulation avatar border -->
 	<g id="person-holder">
 		<rect width="78" height="78" rx="5.5" ry="5.5" x="-4" y="-4" id="bg" style="opacity:0.3;fill:#000000;filter:url(#blur)" />
-		<rect width="70" height="70" rx="5.5" ry="5.5" id="image-bg" style="fill:#000000;" />
-		<rect width="70" height="70" rx="5.5" ry="5.5" id="border" style="fill:none;stroke:url(#border-stroke);stroke-width:4;" />
+		<rect width="70" height="70" rx="5.5" ry="5.5" id="image-bg" fill="#000" />
+		<rect width="70" height="70" rx="5.5" ry="5.5" id="border" fill="none" style="stroke:url(#border-stroke);stroke-width:4" />
 	</g>
 	</defs>
+	<g font-family="Orbitron" font-size="20px" fill="#8dc9fa">
 	<g id="background">
 		<image xlink:href="/images/youtubebg.png" width="1280" height="720" />
 	</g>
 	<g id="gutters">
-		<rect width="1280" height="130" style="fill:url(#shade-top);overflow:visible;" />
-		<rect width="1280" height="90"	style="fill:#323232;overflow:visible;" />
-		<rect width="1280" height="130" y="590" style="fill:url(#shade-bot);overflow:visible;" />
-		<rect width="1280" height="90"	y="630" style="fill:#323232;overflow:visible;" />
+		<rect width="1280" height="130" fill="url(#shade-top)" />
+		<rect width="1280" height="90"	fill="#323232" />
+		<rect width="1280" height="130" y="590" fill="url(#shade-bot)" />
+		<rect width="1280" height="90"	y="630" fill="#323232" />
 	</g>
 
-	<g id="episode" style="font-style:normal;font-size: 50px; line-height:125%;text-anchor:middle;fill:#8dc9fa;stroke:none;font-family:Orbitron">
+	<g id="episode" style="font-size:50px;line-height:125%;text-anchor:middle">
 		<g transform="translate(640,{$titleOffset})" >
 			<text y="-30" id="title">SteamLUG Cast s{$meta['SEASON']} e{$meta['EPISODE']}</text>
-			<text y="30" id="subtitle" style="font-size:36px;"><tspan>‘ </tspan>{$meta['TITLE']}<tspan> ’</tspan></text>
+			<text y="30" id="subtitle" style="font-size:36px"><tspan>‘ </tspan>{$meta['TITLE']}<tspan> ’</tspan></text>
 		</g>
 		<g transform="translate(640,460)">
 {$gamesString}
 		</g>
 	</g>
 
-	<g id="peeps" style="color:#000000;fill:#8dc9fa;stroke:none;font-family:Orbitron;font-size:20px;font-weight:400;overflow:visible;line-height:125%;text-anchor:middle;">
+	<g id="peeps" style="color:#000000;font-weight:400;line-height:125%;text-anchor:middle">
 		<g id="hosts" transform="translate({$hostsBlockOffset},10)">
 {$hostsIncludeString}		</g>
 		<g id="guests" transform="translate({$guestsBlockOffset},640)">
 {$guestsIncludeString}		</g>
+	</g>
 	</g>
 </svg>
 THUMB;
@@ -215,18 +213,20 @@ THUMB;
 
 	echo <<<FAILURE
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="1280" height="720">
+<svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="1280" height="720">
 	<defs>
 		<style type="text/css"> @font-face { font-family: 'Orbitron'; src: local('Orbitron'), url('/fonts/orbitron-medium-webfont.woff') format('woff'); font-weight: normal; font-style: normal; } </style>
 	</defs>
+	<g font-family="Orbitron" font-size="50px" fill="#8dc9fa">
 	<g id="background">
 		<image xlink:href="/images/youtubebg.png" width="1280" height="720" />
 	</g>
-	<g id="episode" style="font-style:normal;font-size: 50px; line-height:125%;text-anchor:middle;fill:#8dc9fa;stroke:none;font-family:OrbitronMedium">
+	<g id="episode" style="line-height:125%;text-anchor:middle">
 		<g transform="translate(640,360)" style="fill:red" >
 			<text y="-30" id="title">SteamLUG Cast s{$season} e{$episode}</text>
-			<text y="30" id="subtitle" style="font-size:36px;"><tspan>‘ </tspan>Unmade or Unloved<tspan> ’</tspan></text>
+			<text y="30" id="subtitle" style="font-size:36px"><tspan>‘ </tspan>Unmade or Unloved<tspan> ’</tspan></text>
 		</g>
+	</g>
 	</g>
 </svg>
 FAILURE;
