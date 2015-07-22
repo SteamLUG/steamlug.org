@@ -19,7 +19,7 @@ if ( in_array( $me, getAdmins() ) ) {
 }
 
 include_once('includes/functions_cast.php');
-include_once('includes/functions_youtube.php');
+include_once('includes/functions_castvideo.php');
 include_once('includes/header.php');
 
 ob_flush();
