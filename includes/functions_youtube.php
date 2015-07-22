@@ -83,7 +83,7 @@ function generateVideo( $season, $episode ) {
 
 	// convert SVG into PNG
 	$pngfile = $avatarKeyPath  . '/' . $meta['FILENAME'] . '.png';
-	$commandthumbnail = "convert -size 1280x720 -type optimize -strip svg:{$svgfile} png:{$pngfile}";
+	$commandthumbnail = "rsvg-convert {$svgfile} > {$pngfile}";
 	print "Running: ". $commandthumbnail . "\n";
 	echo shell_exec( $commandthumbnail . ' 2>&1' );
 	// TODO test file got created, or bail
