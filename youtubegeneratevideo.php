@@ -31,14 +31,18 @@ $style	= " panel-success";
 /* User wanting to see a specific cast, and shownotes file exists */
 if ( $season !== "00" && $episode !== "00" && ($meta = getCastHeader( $slug ) ) ) {
 
-	// TODO test we have audio?
+	if ( file_exists( $meta[ 'ABSFILENAME' ] . '.ogg' ) ) {
 
-	flush(); /* visitor should get better indication that the page is actually loading now */
+		flush(); /* visitor should get better indication that the page is actually loading now */
 
-	// TODO verify we dont have an existing youtube hash?
-	ob_start();
-	$reply = generateVideo( $season, $episode );
-	$debugoutput = ob_get_clean();
+		/* TODO verify we dont have an existing youtube hash? */
+		ob_start();
+		$reply = generateVideo( $season, $episode );
+		$debugoutput = ob_get_clean();
+	} else {
+		$reply = false;
+		$debugoutput = "Audio file missing on server?";
+	}
 
 	if ( $reply === false ) {
 		$style = "panel-danger";

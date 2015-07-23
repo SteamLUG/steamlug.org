@@ -20,6 +20,7 @@ $slug = 's' . $season . 'e' . $episode;
  */
 function _castHeader( $header ) {
 
+	global $filePath;
 	$meta = array_fill_keys( array('RECORDED', 'PUBLISHED', 'TITLE',
 						'SEASON', 'EPISODE', 'DURATION', 'FILENAME',
 				'DESCRIPTION','HOSTS','GUESTS','ADDITIONAL', 'YOUTUBE' ), '');
@@ -30,6 +31,7 @@ function _castHeader( $header ) {
 	$meta['EPISODE']	= str_pad($meta['EPISODE'], 2, '0', STR_PAD_LEFT);
 	$meta['SEASON']		= str_pad($meta['SEASON'], 2, '0', STR_PAD_LEFT);
 	$meta['SLUG']		= 's' . $meta['SEASON'] . 'e' . $meta['EPISODE'];
+	$meta['ABSFILENAME']= $filePath . '/' . $meta['SLUG'] . '/' . $meta['FILENAME'];
 
 	$meta['HOSTS']		= array_map('trim', explode(',', $meta['HOSTS']));
 	$meta['HOSTS2']		= array();

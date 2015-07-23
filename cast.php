@@ -72,7 +72,6 @@ if ( $season !== "00" && $episode !== "00" && ($meta = getCastHeader( $slug ) ) 
 	$shownotes			= getCastBody( $slug );
 
 	$archiveBase		= $publicURL . '/' . $meta['SLUG'] . '/' . $meta['FILENAME'];
-	$episodeBase		= $filePath  . '/' . $meta['SLUG'] . '/' . $meta['FILENAME'];
 
 	$meta['RECORDED']	= ( $meta['RECORDED'] === "" ? 'N/A' :	'<time datetime="' . $meta['RECORDED'] . '">' . $meta['RECORDED'] . '</time>' );
 	$meta['PUBLIC']		= ( $meta['PUBLISHED'] );
@@ -125,10 +124,10 @@ TWITCARD;
 	if ( $meta['PUBLIC'] === "" and $weareadmin === false ) {
 		$episodeMP3DS = $siteListen = $episodeOddDS = $episodeYoutube = "";
 	} else {
-		$episodeOggFS	= ( file_exists( $episodeBase . '.ogg' )  ? round( filesize( $episodeBase . '.ogg' ) /1024/1024, 2 ) : 0 );
+		$episodeOggFS	= ( file_exists( $meta[ 'ABSFILENAME' ] . '.ogg' )  ? round( filesize( $meta[ 'ABSFILENAME' ] . '.ogg' ) /1024/1024, 2 ) : 0 );
 		$siteListen		= ($episodeOggFS > 0 ? '<audio id="castplayer" preload="none" src="' . $archiveBase . '.ogg" controls="controls">Your browser does not support the &lt;audio&gt; tag.</audio>' : '');
 		$episodeOddDS	= '<span class="ogg">' . ( $episodeOggFS > 0 ? $episodeOggFS . ' MB <a download href="' . $archiveBase . '.ogg">Ogg</a>' : 'N/A Ogg' ) . '</span>';
-		$episodeMp3FS	= ( file_exists( $episodeBase . '.mp3' )  ? round( filesize( $episodeBase . '.mp3' ) /1024/1024, 2 ) : 0 );
+		$episodeMp3FS	= ( file_exists( $meta[ 'ABSFILENAME' ] . '.mp3' )  ? round( filesize( $meta[ 'ABSFILENAME' ] . '.mp3' ) /1024/1024, 2 ) : 0 );
 		$episodeMP3DS	= '<span class="mp3">' . ( $episodeMp3FS > 0 ? $episodeMp3FS . ' MB <a download href="' .$archiveBase . '.mp3">MP3</a>' : 'N/A MP3' ) . '</span>';
 
 		$episodeYoutube = ( empty( $meta['YOUTUBE'] ) ? '' : '<span class="youtube"><a href="//youtu.be/' . $meta['YOUTUBE'] . '">YOUTUBE</a></span>' );
