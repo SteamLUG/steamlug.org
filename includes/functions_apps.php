@@ -77,15 +77,15 @@ function storeAppsDB( $apps ) {
 function getApp( $appid ) {
 
 	global $database;
-	$statement = $database->prepare( "SELECT appid, name FROM apps WHERE appid = :appid LIMIT 1;" );
+	$statement = $database->prepare( "SELECT apps.appid as appid, name, owners, fortnight, playersfortnight, onlinux, date FROM apps
+					LEFT JOIN appstats ON apps.appid = appstats.appid WHERE apps.appid = :appid ORDER BY date desc LIMIT 1;" );
 
-	// TODO we want to expand this to expose our "for Linux" knowledge from steamdb linux list
 	try {
 
 		$statement->execute( array( 'appid' => $appid ) );
 		if ( $statement->rowCount( ) > 0 ) {
 			$app = $statement->fetch( PDO::FETCH_ASSOC );
-			return array ( "name" => $app[ 'name' ], "appid" => $appid, "owners" => 0, "playtime" => 0, "fortnight" => 0, "playersfortnight" => 0 );
+			return $app;
 		} else {
 			return false;
 		}
