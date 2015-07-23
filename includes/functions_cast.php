@@ -7,16 +7,18 @@ $episode = isset($_GET["e"]) ? intval($_GET["e"]) : "0";
 $episode = str_pad($episode, 2, '0', STR_PAD_LEFT);
 $slug = 's' . $season . 'e' . $episode;
 
+/* TODO retire function( slug ) for function( season, episode ) */
+
 // TODO: what other functions do we want in here?
 // our shownotes parsing? listing all casts?
 // validate File Headers?
 
-function castHeaderFromString( $filecontents ) {
-
-	return castHeader( array_slice( explode( "\n", $filecontents ), 0, 14 ) );
-}
-
-function castHeader( $header ) {
+/** 
+ * Private function, returns header metadata prepared for use
+ * @param array $header slice of length 14, taken from current cast file
+ * @return array
+ */
+function _castHeader( $header ) {
 
 	$meta = array_fill_keys( array('RECORDED', 'PUBLISHED', 'TITLE',
 						'SEASON', 'EPISODE', 'DURATION', 'FILENAME',
@@ -66,7 +68,8 @@ function getCastHeader( $castid = '' ) {
 
 	// TODO: s02e09 has longest pragma so far; suggest we pick a low cap and enforce it
 	$header = file_get_contents( $filename, false, NULL, 0, 950 );
-	return castHeaderFromString( $header );
+	$header	= array_slice( explode( "\n", $header ), 0, 14 );
+	return _castHeader( $header );
 }
 
 /* returns body shownotes for a cast, already prepared for use
