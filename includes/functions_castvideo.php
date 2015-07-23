@@ -226,7 +226,6 @@ FAILURE;
 /* call a longist running avconv, returns tempfile name? */
 function generateVideo( $season, $episode ) {
 
-	global $notesPath;
 	global $filePath;
 	global $avatarKeyPath; /* TODO find a better location to write to! */
 
@@ -255,12 +254,9 @@ function generateVideo( $season, $episode ) {
 	file path; and we cannot use absolute paths to avoid doing all that.
 	*/
 
-	$filename = $notesPath . "/s" . $season . "e" . $episode . "/episode.txt";
 	$slug = 's' . $season . 'e' . $episode;
-	$shownotes = file( $filename );
-	$meta = castHeader( array_slice( $shownotes, 0, 14 ) );
-	// TODO check that filename is set, audio file exists
-
+	$meta = getCastHeader( $slug );
+	/* TODO check that filename is set, audio file exists */
 	$audiofile = $filePath  . '/' . $meta['SLUG'] . '/' . $meta['FILENAME'] . '.ogg';
 
 	$svgcontents = generateImage( $season, $episode );
