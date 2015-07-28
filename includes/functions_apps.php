@@ -96,3 +96,32 @@ function getApp( $appid ) {
 	}
 	return false;
 }
+
+
+/**
+* Returns a list of most recent events for the AppID given, along with some details for the event,
+* and attendance too.
+* @param string $appid AppID of the Game we want the details for
+* @param integer $limit How many events to return, defaulting to 6
+* @return array hash of attended events, with details, ordered by time the events were
+*/
+function getRecentEventsForApp( $appid, $limit = 6 ) {
+
+	/* TODO: should this be only dates in past, include dates in future, what? */
+	global $database;
+	try {
+		// $database->beginTransaction( );
+		/* TODO: safe-ify $id */
+		$statement = $database->prepare( "SELECT appid, events.eventid, count(events.eventid) as players, title, utctime, clanid FROM steamlug.events
+			LEFT JOIN eventattendance ON eventattendance.eventid = events.eventid WHERE events.appid = :appid ORDER BY utctime desc limit :limit;" );
+		$statement->execute( array(
+			'appid' => $appid,
+			'limit' => $limit ) );
+		$events = $statement->fetchAll( PDO::FETCH_ASSOC );
+		// $database->commit( );
+		return $events;
+	} catch ( Exception $e ) {
+
+		return false;
+	}
+}
