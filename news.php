@@ -26,7 +26,7 @@ if ( true /* $weareadmin pref this for more testing */ ) {
 	$tweetblob .= '</ol>';
 echo <<<TWITTERWIDGET
 		<h1 class="text-center">News</h1>
-		<article class="panel panel-default tweets col-sm-4 col-sm-push-8">
+		<article class="panel panel-default tweets col-md-4 col-md-push-8">
 			<header class="panel-heading">
 				<h3 class="panel-title">Tweets</h3>
 			</header>
@@ -40,7 +40,7 @@ TWITTERWIDGET;
 echo <<<TWITTERWIDGET
 		<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 		<h1 class="text-center">News</h1>
-		<article class="panel panel-default tweets col-sm-4 col-sm-push-8">
+		<article class="panel panel-default tweets col-md-4 col-md-push-8">
 			<header class="panel-heading">
 				<h3 class="panel-title">Tweets</h3>
 			</header>
@@ -90,7 +90,7 @@ TWITTERWIDGET;
 				}
 				$addclass = "ourclearfix";
 				if ($firstItem == true) {
-					$addclass="col-sm-8 col-sm-pull-4 fixupbootstrap";
+					$addclass="col-md-8 col-md-pull-4 fixupbootstrap";
 					$firstItem = false;
 				}
 				?>
