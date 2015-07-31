@@ -65,6 +65,7 @@ TWITTERWIDGET;
 		{
 			if (!preg_match("/steamlug\/events\//", $item['link']))
 			{
+				$item['description'] = htmlspecialchars_decode($item['description'] );
 
 				$item['description'] = str_replace(array("\r", "\r\n"), "\n", $item['description']);
 				$item['description'] = str_replace(" onclick=\"return AlertNonSteamSite( this );\"", "", $item['description']);
@@ -76,7 +77,7 @@ TWITTERWIDGET;
 				$item['description'] = str_replace("<b>", "<strong>", $item['description']);
 				$item['description'] = str_replace("</b>", "</strong>", $item['description']);
 				$item['description'] = str_replace("<br>-----", "-----", $item['description']);
-				$item['description'] = str_replace("<br>\n<br>", "</p><p>", $item['description']);
+				$item['description'] = str_replace("<br>\n<br>", "</p>\n<p>", $item['description']);
 				$item['description'] = str_replace("</ul>\n\n<br>", "</ul>\n<p>", $item['description']);
 				$item['description'] = str_replace("<ul>", "</p>\n<ul>", $item['description']);
 				$item['description'] = str_replace("<blockquote>", "</p>\n<blockquote>", $item['description']);
