@@ -61,6 +61,25 @@ TWITTERWIDGET;
 	$firstItem = true;
 	if ($rs = $rss->get($eventXMLPath . '/steamlug/rss.xml'))
 	{
+
+		if ( true /* false if we dislike this */ ) {
+
+			include_once('includes/functions_youtube.php');
+			$youtubeIDs = array();
+			foreach($rs['items'] as $item) {
+				// preview content to grab youtube data?
+				// XXX this will be replaced once our db stuff is in
+
+				if (!preg_match("/steamlug\/events\//", $item['link'])) {
+					if ( preg_match( "/youtube.com\/watch\?v=([0-9A-Za-z_]*)/", $item['description'], $vid ) or
+						preg_match( "/youtu.be\/([0-9A-Za-z_]*)/", $item['description'], $vid ) ) {
+						array_push( $youtubeIDs, $vid[1] );
+					}
+				}
+			}
+			$videoDetails = getVideoDetails( $youtubeIDs );
+		}
+
 		foreach($rs['items'] as $item)
 		{
 			if (!preg_match("/steamlug\/events\//", $item['link']))
@@ -84,6 +103,28 @@ TWITTERWIDGET;
 				$item['description'] = str_replace("</blockquote>", "</blockquote>\n<p>", $item['description']);
 				$item['description'] = str_replace("<br>", "<br />", $item['description']);
 				$item['description'] = str_replace("https://steamcommunity.com/linkfilter/?url=", "", $item['description']);
+
+				if ( true /* false if we dislike */ ) {
+					if ( preg_match( "/youtube.com\/watch\?v=([0-9A-Za-z_]*)/", $item['description'], $vid ) ) {
+						$v = $videoDetails[ $vid[1] ];
+						$t = $v['thumbnails']; $t = $t['default'];
+						$d = substr( $v['description'],0,158 );
+						$pattern = "/<a target=\"_blank\" href=\"https:\/\/www.youtube.com\/watch\?v=" . $vid[1] . "\"  id=\"dynamiclink_[0-9]\">https:\/\/www.youtube.com\/watch\?v=" . $vid[1] . "<\/a>/";
+						$embed = <<<YOUTUBE
+					<div><img src="{$t['url']}"/><h4><a href="">{$v['title']}</a></h4><p>$d</p></div>
+YOUTUBE;
+						$item['description'] = preg_replace( $pattern, $embed, $item['description'] );
+					} elseif ( preg_match( "/youtu.be\/([0-9A-Za-z_]*)/", $item['description'], $vid ) ) {
+						$v = $videoDetails[ $vid[1] ];
+						$t = $v['thumbnails']; $t = $t['default'];
+						$d = substr( $v['description'],0,158 );
+						$embed = <<<YOUTUBE
+					<div><img src="{$t['url']}"/><h4><a href="">{$v['title']}</a></h4><p>$d</p></div>
+YOUTUBE;
+						$pattern = "/<a target=\"_blank\" href=\"https:\/\/youtu.be\/" . $vid[1] . "\"  id=\"dynamiclink_[0-9]\">https:\/\/youtu.be\/" . $vid[1] . "<\/a>/";
+						$item['description'] = preg_replace( $pattern, $embed, $item['description'] );
+					}
+				}
 
 				if (!isset($item['author']))
 				{

@@ -189,3 +189,36 @@ function getVideoViews( $resourceIds ) {
 	return $viewCounts;
 }
 
+/* helper function, because */
+function getVideoDetails( $resourceIds ) {
+
+	include_once( 'functions_geturl.php' );
+	$googleKeys = getGoogleKeys( );
+	if ( $resourceIds == '' )
+		return;
+
+	$details = array();
+	$remainingVideos = $resourceIds;
+
+	while ( count( $remainingVideos ) > 0 ) {
+
+		$currentVideos = array_slice( $remainingVideos, 0, 30 );
+		$remainingVideos = array_slice( $remainingVideos, 30 );
+
+		$queryURL = "https://www.googleapis.com/youtube/v3/videos";
+		$params = array( 'key' => $googleKeys[ 'api_key' ], 'part' => 'snippet', 'id' => join( ',', $currentVideos ) );
+
+		$reply = geturl( $queryURL, $params );
+
+		if ( is_numeric( $reply ) )
+			return false;
+
+		$data = json_decode( $reply, true );
+		$data = $data[ 'items' ];
+		foreach ( $data as $item ) {
+			$details[ $item[ 'id' ] ] = $item[ 'snippet' ];
+		}
+	}
+	return $details;
+}
+ 
