@@ -35,7 +35,7 @@
 	function populateTweet( $tweet ) {
 
 		$hashtagP	= '<a href="//twitter.com/search?q=%%23%s&amp;src=hash" class="hashtag" rel="nofollow" target="_blank">#%s</a>';
-		$urlP		= '<a href="%s" class="url" el="nofollow" target="_blank" title="%s">%s</a>';
+		$urlP		= '<a href="%s" class="url" rel="nofollow" target="_blank" title="%s">%s</a>';
 		$userP		= '<a href="//twitter.com/%s" class="twatter" rel="nofollow" target="_blank" title="%s">@%s</a>';
 		$mediaP		= '<a href="%s" class="media" rel="nofollow" target="_blank" title="%s">%s</a>';
 
