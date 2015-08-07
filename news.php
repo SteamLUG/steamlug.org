@@ -108,18 +108,18 @@ TWITTERWIDGET;
 					if ( preg_match( "/youtube.com\/watch\?v=([0-9A-Za-z_]*)/", $item['description'], $vid ) ) {
 						$v = $videoDetails[ $vid[1] ];
 						$t = $v['thumbnails']; $t = $t['default'];
-						$d = substr( $v['description'],0,158 );
+						$d = substr( $v['description'],0,158 ) . '…';
 						$pattern = "/<a target=\"_blank\" href=\"https:\/\/www.youtube.com\/watch\?v=" . $vid[1] . "\"  id=\"dynamiclink_[0-9]\">https:\/\/www.youtube.com\/watch\?v=" . $vid[1] . "<\/a>/";
 						$embed = <<<YOUTUBE
-					<div><img src="{$t['url']}"/><h4><a href="">{$v['title']}</a></h4><p>$d</p></div>
+					</p><div class="dynamiclink"><img src="{$t['url']}" alt="A thumbnail of the video for {$v['title']}"/><h4><a href="https://youtu.be/{$vid[1]}">{$v['title']}</a></h4><p>$d</p></div><p>
 YOUTUBE;
 						$item['description'] = preg_replace( $pattern, $embed, $item['description'] );
 					} elseif ( preg_match( "/youtu.be\/([0-9A-Za-z_]*)/", $item['description'], $vid ) ) {
 						$v = $videoDetails[ $vid[1] ];
 						$t = $v['thumbnails']; $t = $t['default'];
-						$d = substr( $v['description'],0,158 );
+						$d = substr( $v['description'],0,158 ) . '…';
 						$embed = <<<YOUTUBE
-					<div><img src="{$t['url']}"/><h4><a href="">{$v['title']}</a></h4><p>$d</p></div>
+					</p><div class="dynamiclink"><img src="{$t['url']}" alt="A thumbnail of the video for {$v['title']}"/><h4><a href="https://youtu.be/{$vid[1]}">{$v['title']}</a></h4><p>$d</p></div><p>
 YOUTUBE;
 						$pattern = "/<a target=\"_blank\" href=\"https:\/\/youtu.be\/" . $vid[1] . "\"  id=\"dynamiclink_[0-9]\">https:\/\/youtu.be\/" . $vid[1] . "<\/a>/";
 						$item['description'] = preg_replace( $pattern, $embed, $item['description'] );
