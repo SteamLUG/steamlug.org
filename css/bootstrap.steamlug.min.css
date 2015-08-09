@@ -39,7 +39,7 @@ article.tweets{background:inherit;border:none;box-shadow:none;margin-bottom:2px}
 article.tweets .panel-heading{background:inherit;border:none;padding-left:0;padding-right:0}
 div#twitter-here{padding:0;position:relative}
 #twitter-here .follow{top:-29px;position:relative;height:0;margin:auto;float:right}
-nav .nav > li > a{padding-right:13px;padding-left:13px}
+nav .nav > li > a{padding-right:12px;padding-left:11px}
 html dl{margin-bottom:8px}
 #mumble-list dl, #mumble-list ul{margin-left:25px;margin-bottom:0}
 #mumble-list ul{list-style-type:none;padding-left:0}
@@ -93,6 +93,7 @@ p a.group-join{font-size:100%}
 div#navbar{position:relative}
 div .navbar-brand{position:relative;z-index:15}
 div .navbar-nav{margin-bottom:0}
+div .navbar-header > a.navbar-brand{display:block;border:0;padding:3px 5px 4px 3px}
 #steamAvatar{border:3px solid green;height:38px;width:38px;border-radius:4px}
 .eventimage{display:block;margin:1em auto}
 .centred{text-align:center}
