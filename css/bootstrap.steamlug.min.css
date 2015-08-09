@@ -122,7 +122,7 @@ article.steam-parsed br{content:" ";display:block;line-height:.5em;height:.5em;m
 #hitbox-viewer iframe{position:absolute;width:100%;height:100%;left:0;top:0}
 #twitch-viewer{position:relative;width:100%;height:0;padding-bottom:59%}
 #twitch-viewer object{position:absolute;width:100%;height:100%;left:0;top:0}
-:target::before{content:"シ";display:block;visibility:hidden;padding-top:60px;margin-top:-60px;height:1px;width:1px}
+time:target::before{content:"シ";display:block;visibility:hidden;padding-top:70px;margin-top:-70px;height:1px;width:1px}
 time:target{padding-top:160px}
 section#peeps img{border-radius:4px;height:80px;width:80px;background-image:url(/avatars/default.png)}
 section#peeps article:nth-child(odd) img{margin-right:1em;float:left}
