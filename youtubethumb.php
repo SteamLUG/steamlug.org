@@ -25,5 +25,7 @@ if ( in_array( $me, getAdmins() ) ) {
 /* User wanting to see a specific cast, and shownotes file exists */
 if ( $season !== "00" && $episode !== "00" ) {
 
+	// We do no testing here, as this function will return an image even if
+	// this episode does not exist (it will test the user, though!)
 	print generateImage( $season, $episode );
 }
