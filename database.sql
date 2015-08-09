@@ -105,9 +105,10 @@ CREATE TABLE `members` (
 
 CREATE TABLE `memberstats` (
   `date` date NOT NULL,
-  `count` int(11) DEFAULT NULL,
-  `min` int(11) DEFAULT NULL,
-  `max` int(11) DEFAULT NULL,
+  `countpublic` int(11) DEFAULT '0',
+  `count` int(11) DEFAULT '0',
+  `min` int(11) DEFAULT '0',
+  `max` int(11) DEFAULT '0',
   PRIMARY KEY (`date`),
   UNIQUE KEY `date` (`date`)
 ) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -134,7 +135,7 @@ CREATE TABLE `poll_option` (
   `url` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT '',
   `responseCount` int(8) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`optionid`),
-  UNIQUE KEY `optionid_UNIQUE` (`optionid`)
+  UNIQUE KEY `optionid` (`optionid`)
 ) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE `poll_respondent` (
