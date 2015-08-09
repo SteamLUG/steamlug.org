@@ -115,7 +115,8 @@ $storestats = $database->prepare( "INSERT INTO appstats (date, appid, owners, pl
 
 $storegroupstats = $database->prepare( "INSERT INTO memberstats (date, count, min, max) VALUES (:date, :count, :min, :max)" );
 
-$storeapps = $database->prepare( "REPLACE INTO apps (appid, name) VALUES (:appid, :name)" );
+$storeapps = $database->prepare( "INSERT INTO apps (appid, name) VALUES (:appid, :name)
+		ON DUPLICATE KEY UPDATE appid=VALUES(appid), name=VALUES(name);" );
 
 try {
 	$database->beginTransaction( );
