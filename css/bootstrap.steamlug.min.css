@@ -3,12 +3,12 @@ html{overflow-y:scroll}
 @font-face{font-family:'OrbitronMedium';src:url('../fonts/orbitron-medium-webfont.woff') format('woff');font-weight:normal;font-style:normal}
 hr{border:0;border-top:1px solid #35465E;width:80%}
 dd > a img, dd > img{height:48px}
-blockquote{font-size:14px !important}
+blockquote{font-size:14px}
 .license{height:16px;margin-top:-1px}
 .container > h1{margin-bottom:20px}
 .download-links span{padding-right:1em}
 #history li, #main li{margin:0 10px;height:46px;width:100%}
-#admins tr.you td{background-color:blue !important}
+#admins tr.you td{background-color:blue}
 .tablesorter-icon{cursor:pointer}
 .tablesorter .sorter-false .tablesorter-icon{display:none}
 .tablesorter td:last-child i.fa-circle, .tablesorter td:last-child i.fa-circle-o, .tablesorter th:last-child i.fa-circle{float:right}
@@ -19,7 +19,7 @@ blockquote{font-size:14px !important}
 .tablesorter th i.fa-globe{float:none;display:inline-block;margin-left:0.2em;width:0.7em;}
 audio{width:100%}
 #casts img{height:22px;vertical-align:middle}
-#casts tr.in-progress td, table#casts tr.in-progress a{color:grey !important}
+#casts tr.in-progress td, table#casts tr.in-progress a{color:grey}
 #casts tr.in-progress img{opacity:.5}
 .shownotes{text-align:left}
 .shownotes h4{margin-top:5px;font-weight:bold;font-size:14px;line-height:18px}
