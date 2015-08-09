@@ -13,7 +13,7 @@ $slug = 's' . $season . 'e' . $episode;
 // our shownotes parsing? listing all casts?
 // validate File Headers?
 
-/** 
+/**
  * Private function, returns header metadata prepared for use
  * @param array $header slice of length 14, taken from current cast file
  * @return array
@@ -46,8 +46,11 @@ function _castHeader( $header ) {
 	return $meta;
 }
 
-/* like getCastHeader(), this will return the metadata about an episode, rather than the episode slub
-	if you want that, it is returned in the array as [ 'SLUG' ] */
+/**
+ * Returns data similar to getCastHeader(), metadata about an episode, rather than the episode slug
+ * if you need that reference, it is returned in the array as [ 'SLUG' ]
+ * @return array a dictionary of metadata for this file, with all keys in uppercase
+ */
 function getLatestCast( ) {
 
 	$latest = getCasts( true );
@@ -57,8 +60,10 @@ function getLatestCast( ) {
 	return getCastHeader( $latest );
 }
 
-/* returns header metadata for a cast, already prepared for use
- * $castid needs to be 's00e00' formatted
+/**
+ * Returns header metadata for a cast, already prepared for use
+ * @param string $castid needs to be 's00e00' formatted
+ * @return array a dictionary of metadata for this file, with all keys in uppercase
  */
 function getCastHeader( $castid = '' ) {
 
@@ -74,8 +79,10 @@ function getCastHeader( $castid = '' ) {
 	return _castHeader( $header );
 }
 
-/* returns body shownotes for a cast, already prepared for use
- * $castid needs to be 's00e00' formatted
+/**
+ * Returns shownotes for a cast, already prepared for use
+ * @param string $castid needs to be 's00e00' formatted
+ * @return array each line of the cast notes
  */
 function getCastBody( $castid = '' ) {
 
@@ -88,10 +95,10 @@ function getCastBody( $castid = '' ) {
 	$shownotes = file( $filename );
 	return array_slice( $shownotes, 15 );
 }
-/*
- * returns slugs for all the existing Casts, whether published or not
- * shallow being set to true bails at the first result (a lazy way to avoid load for getLatestCast()
- * returns: false (no matches), string (1 match, only when shallow==true), array(1 or more matches)
+/**
+ * Returns slugs for all the existing Casts, whether published or not
+ * @param boolean $shallow being set to true bails at the first result (a lazy way to avoid load for getLatestCast()
+ * @return boolean|string|array false (no matches), string (1 match, only when shallow==true), array (1 or more matches)
  */
 function getCasts( $shallow = false ) {
 
