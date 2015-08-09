@@ -28,7 +28,7 @@ if ( extension_loaded('curl') ) {
 } else {
 
 	/* Curl isn’t on the server. */
-	function geturl( $url, $get, $header ) {
+	function geturl( $url, $get = array(), $header = array() ) {
 		return 0;
 	}
 }
