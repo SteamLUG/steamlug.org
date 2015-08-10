@@ -113,8 +113,8 @@ function getRecentEventsForApp( $appid, $limit = 6 ) {
 	try {
 		// $database->beginTransaction( );
 		/* TODO: safe-ify $id */
-		$statement = $database->prepare( "SELECT appid, events.eventid, count(events.eventid) as players, title, utctime, clanid FROM steamlug.events
-			LEFT JOIN eventattendance ON eventattendance.eventid = events.eventid WHERE events.appid = :appid ORDER BY utctime desc limit :limit;" );
+		$statement = $database->prepare( "SELECT appid, events.eventid, count(eventattendance.eventid) as players, title, utctime, clanid FROM steamlug.events
+			LEFT JOIN eventattendance ON eventattendance.eventid = events.eventid WHERE events.appid = :appid GROUP BY eventattendance.eventid ORDER BY utctime desc limit :limit;" );
 		$statement->execute( array(
 			'appid' => $appid,
 			'limit' => $limit ) );
