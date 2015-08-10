@@ -144,7 +144,7 @@ flush( );
 
 $storestats = $database->prepare( "INSERT INTO appstats (date, appid, owners, playtime, fortnight, playersfortnight) VALUES (:date, :appid, :owners, :playtime, :fortnight, :playersfortnight)" );
 
-$storegroupstats = $database->prepare( "INSERT INTO memberstats (date, count, min, max) VALUES (:date, :count, :min, :max)" );
+$storegroupstats = $database->prepare( "INSERT INTO memberstats (date, countpublic, count, min, max) VALUES (:date, :pubcount, :count, :min, :max)" );
 
 $storeapps = $database->prepare( "INSERT INTO apps (appid, name) VALUES (:appid, :name)
 		ON DUPLICATE KEY UPDATE appid=VALUES(appid), name=VALUES(name);" );
@@ -175,6 +175,7 @@ try {
 
 	$storegroupstats->execute( array(
 		'date' => $date,
+		'pubcount' => $publicMembers,
 		'count' => count($members),
 		'min' => $appsmin,
 		'max' => $appsmax ) );
