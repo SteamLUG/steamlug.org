@@ -27,6 +27,10 @@ print $date . ": Starting stats gathering: " . date("c") . "\n<br>";
 
 $database = connectDB();
 
+/* TODO: make this script look for the most recent date,
+	* compare to today → fail
+	* < 2 weeks since last check → fail
+	* == 2 weeks → gfi */
 foreach(  $database->query( "SELECT count(1) AS number FROM steamlug.memberstats WHERE `date`='" . $date . "' LIMIT 1" ) as $res ) {
 
 	if ( $res[ 'number' ] == "1" ) {
@@ -45,7 +49,35 @@ if ( true ) {
 	$appslist = array( );
 	foreach ( getSteamApps( ) as $app ) {
 
-		$appslist[ $app[ 'appid' ] ] = array ( "name" => $app[ 'name' ], "owners" => 0, "playtime" => 0, "fortnight" => 0, "playersfortnight" => 0 );
+		$appslist[ $app[ 'appid' ] ] = array ( "name" => $app[ 'name' ], "onlinux" => false, "owners" => 0, "playtime" => 0, "fortnight" => 0, "playersfortnight" => 0 );
+	}
+	// open our lovely SteamDB list, for a vague notion of what is on Linux
+	$jsonfile = $steamLinuxDB . '/GAMES.json';
+
+	if ( !file_exists( $jsonfile ) ) {
+		// TODO Do a better job to pass this error back
+		return false;
+	}
+	$json = file_get_contents( $jsonfile );
+	$data = json_decode( $json, true );
+	$onlinux = 0;
+	foreach ( $data as $appid => $app ) {
+
+		/* ’cause Steam sometimes does not expose known apps on Steam? */
+		if ( !array_key_exists( $appid, $appslist ) ) {
+			print $date . ": " . $appid . " is missing from the data back from Valve.\n<br>";
+			continue;
+		}
+		if ( is_array( $app ) ) {
+			if ( array_key_exists( 'Hidden', $app ) )
+				continue;
+			// apps that are here are either beta, or have a comment. But they are still Linux apps
+			$appslist[ $appid ][ 'onlinux' ] = true;
+			$onlinux++;
+		} else {
+			$appslist[ $appid ][ 'onlinux' ] = true;
+			$onlinux++;
+		}
 	}
 	storeAppsDB( $appslist );
 
@@ -53,8 +85,7 @@ if ( true ) {
 
 	$appslist = getSteamAppsDB( );
 }
-print $date . ": " . count($appslist) . " known apps.\n<br>";
-
+print $date . ": " . count($appslist) . " known apps, " . $onlinux . " marked for Linux.\n<br>";
 
 $members = getGroupMembers();
 print $date . ": " . print count($members) . " members.\n<br>";

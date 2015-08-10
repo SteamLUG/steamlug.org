@@ -47,8 +47,8 @@ function getSteamAppsDB( ) {
 function storeAppsDB( $apps ) {
 
 	global $database;
-	$statement = $database->prepare( "INSERT INTO apps (appid, name) VALUES (:appid, :name)
-		ON DUPLICATE KEY UPDATE appid=VALUES(appid), name=VALUES(name);" );
+	$statement = $database->prepare( "INSERT INTO apps (appid, name, onlinux) VALUES (:appid, :name, :onlinux)
+		ON DUPLICATE KEY UPDATE appid=VALUES(appid), name=VALUES(name), onlinux=VALUES(onlinux);" );
 
 	try {
 		$database->beginTransaction( );
@@ -57,6 +57,7 @@ function storeAppsDB( $apps ) {
 
 			$statement->execute( array(
 				'appid' => $appid,
+				'onlinux' => $app[ 'onlinux' ],
 				'name' => $app[ 'name' ] ) );
 		}
 
