@@ -216,7 +216,7 @@ header("Cache-Control: public, max-age=60");
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="/"><img src="/images/steamlug.png" alt="SteamLUG" width="130" height="44" /></a>
+				<a class="navbar-brand" href="/"><img src="/images/steamlug.png" alt="SteamLUG" id="steamLugLogo"/></a>
 			</div>
 			<div class="navbar-collapse collapse navbar-responsive-collapse" id="navbar">
 				<ul class="nav navbar-nav">
