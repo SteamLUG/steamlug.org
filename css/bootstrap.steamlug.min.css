@@ -53,7 +53,7 @@ html dl{margin-bottom:8px}
 li.dropdown:hover > .dropdown-menu, .dropdown-menu:hover{display:block}
 #countdown span:not(.label){font-family:'OrbitronMedium', Arial, sans-serif;color:#ffffff;background-color:#808080;display:inline-block;width:1.75em;text-align:center;line-height:1.25em;padding-top:4px;text-shadow:none;border-radius:3px;box-shadow:0 -10px 16px -10px #303030 inset}
 #countdown{width:25em;margin:0px auto;margin-bottom:.5em;line-height:2em}
-body{padding:60px 0 0 0;color:#cbcbcb;background:url('/images/noise.png');background-position:center top;text-shadow:1px 1px 1px #000}
+body{padding:60px 0 0 0;color:#cbcbcb;background:#1f1f1f url('/images/noise.png');background-position:center top;text-shadow:1px 1px 1px #000}
 div ul, div ol{margin-bottom:0px}
 div p{margin:0px}
 p + p{margin-top:.9em}
