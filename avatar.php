@@ -209,9 +209,15 @@ if ( isset( $_GET['delete'] ) and isset( $_GET['name'] ) ) {
 
 	$action = "Remove Avatar";
 	$requestedName = sanitiseName( $_GET['name'] );
+	$originalPath = $avatarFilePath . '/original/' . $requestedName . '.png';
 	$requestedPath = $avatarFilePath . '/' . $requestedName . '.png';
 
 	if ( file_exists( $requestedPath ) and !is_dir( $requestedPath ) ) {
+
+		if ( file_exists( $originalPath ) and !is_dir( $originalPath ) ) {
+			unlink( $originalPath );
+		}
+
 		writeAvatarLog( 0, $me, $requestedName, 'delete' );
 		$body = "<p>Removed avatar file for user {$requestedName}.</p>";
 		unlink( $requestedPath );
