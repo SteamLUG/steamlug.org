@@ -1235,3 +1235,5 @@ article.twit label.control-label{text-align:left;border:3px solid transparent;pa
 .dynamiclink h4{font-size:16px;margin-top:0}
 .dynamiclink p{font-size:11px;text-shadow:none}
 .dynamiclink img{float:left;margin-right:14px;max-height:88px}
+img.warning { box-shadow: 0 0 8px orange }
+img.replace { box-shadow: 0 0 8px red; border: 1px dashed red }

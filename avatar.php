@@ -323,8 +323,10 @@ ACTIONMSG;
 				<div class="panel-body">
 <?php
 	foreach ( listAvatars() as $avatar ) {
+		$size = @filesize( $avatarFilePath . "/" . $avatar . '.png' );
+		$warning = $size > 75000 ? ( $size > 100000 ? ' class="replace"' : ' class="warning"' ) : '';
 		$hostedURL = '/avatars/' . $avatar . '.png';
-		print "<img height=\"32\" title=\"$avatar\" src=\"{$hostedURL}\" />\n";
+		print "<img height=\"32\" title=\"$avatar\" {$warning} src=\"{$hostedURL}\" />\n";
 	}
 ?>
 				</div>
