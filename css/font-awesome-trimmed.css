@@ -10,7 +10,7 @@
   font-style: normal;
 }
 
- [class^="fa-"]:before, [class*=" fa-"]:before {
+ i[class^="fa-"]:before, i[class*=" fa-"]:before {
   font-family: "font-awesome-trimmed";
   font-style: normal;
   font-weight: normal;
