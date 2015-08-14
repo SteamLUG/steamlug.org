@@ -1217,7 +1217,7 @@ article.twit label.control-label{text-align:left;border:3px solid transparent;pa
 #twitter-here ul,#twitter-here ol{list-style:none;margin:0;padding:0}
 .follow-label{text-shadow:0 1px 0 rgba(255,255,255,.5);color:#333;background-color:#eee;border-radius:3px;border:1px solid #ccc;height:18px;display:inline-block;vertical-align:top;font-size:11px;padding:0 3px 0 19px;font-weight:700}
 .follow a i{display:inline-block;position:relative;left:1em;color:#55acee;text-shadow:none}
-.tweet{padding:6px 2px 4px 58px}
+.tweet{padding:6px 0 4px 52px}
 .tweet a.profile{text-decoration:none}
 .tweet a.profile:hover .full-name{text-decoration:underline}
 .tweet .p-nickname{color:#a0a0a0;padding-left:.2em}
@@ -1230,7 +1230,7 @@ article.twit label.control-label{text-align:left;border:3px solid transparent;pa
 .tweet .footer i{width:1.5em;display:block;color:#a0a0a0;font-size:16px}
 .tweet .footer i:hover{color:white}
 .tweet .footer a{position:relative}
-.tweet .footer b{position:absolute;top:0;left:0;clip:rect(0px,0px,0px,0px)}
+.tweet .footer b{display:none}
 .tweet .footer ul{position:absolute;right:0}
 .tweet .footer li{float:left;margin-left:1em}
 .dynamiclink{border:1px solid #5485b7;background-color:rgba(84,133,183,.5);padding:6px;height:88px;box-sizing:content-box;overflow:hidden;margin:.5em 0;max-width:509px;box-shadow:0 0 3px 0 #000}
