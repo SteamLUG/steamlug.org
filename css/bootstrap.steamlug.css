@@ -1222,16 +1222,17 @@ article.twit label.control-label{text-align:left;border:3px solid transparent;pa
 .tweet a.profile:hover .full-name{text-decoration:underline}
 .tweet .p-nickname{color:#a0a0a0;padding-left:.2em}
 .tweet .content { line-height:1.5}
-.tweet .header{position:relative;padding-bottom:.3em;margin-top:-.2em}
+.tweet .header{position:relative;padding-bottom:.4em;margin-top:-.2em}
 .tweet .header > a{float:right;color:#a0a0a0}
 .tweet .header img{left:-57px;top:3px;position:absolute;border-radius:4px}
 .tweet .header abbr{padding-left:.2em;border:0}
-.tweet .footer,.tweet .footer li{padding:.15em 0;margin-bottom:.1em;height:1.7em}
-.tweet .footer i{width:2em;display:block;color:#a0a0a0;font-size:16px}
+.tweet .footer,.tweet .footer li{padding:.1em 0;margin:.2em 0;height:1.9em}
+.tweet .footer i{width:1.5em;display:block;color:#a0a0a0;font-size:16px}
 .tweet .footer i:hover{color:white}
+.tweet .footer a{position:relative}
 .tweet .footer b{position:absolute;top:0;left:0;clip:rect(0px,0px,0px,0px)}
-.tweet .footer ul{display:block;position:absolute;right:0}
-.tweet .footer li{float:left}
+.tweet .footer ul{position:absolute;right:0}
+.tweet .footer li{float:left;margin-left:1em}
 .dynamiclink{border:1px solid #5485b7;background-color:rgba(84,133,183,.5);padding:6px;height:88px;box-sizing:content-box;overflow:hidden;margin:.5em 0;max-width:509px;box-shadow:0 0 3px 0 #000}
 .dynamiclink h4{font-size:16px;margin-top:0}
 .dynamiclink p{font-size:11px;text-shadow:none}
