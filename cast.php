@@ -287,6 +287,7 @@ CASTENTRY;
 				<span class="label">Days</span>
 				<span id="d1">{$ed[0]}</span>
 				<span id="d2">{$ed[1]}</span>
+				<span class="group">
 				<span class="label">&nbsp;</span>
 				<span id="h1">{$eh[0]}</span>
 				<span id="h2">{$eh[1]}</span>
@@ -296,6 +297,7 @@ CASTENTRY;
 				<span class="label">:</span>
 				<span id="s1">{$es[0]}</span>
 				<span id="s2">{$es[1]}</span>
+				</span>
 			</div>
 			<p>This episode will be recorded on {$dt}</p>
 			<p>Listen in live as our hosts and guests discuss Linux gaming on our <a href="mumble">Mumble server</a>.</p>

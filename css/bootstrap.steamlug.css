@@ -1039,8 +1039,10 @@ html dl{margin-bottom:8px}
 #mumble-list dl dl dl .empty,#mumble-list dl dl dl .empty+dd{display:none}
 #mumble-list dl dl .populated,#mumble-list dl dl .populated+dd{display:block}
 li.dropdown:hover>.dropdown-menu,.dropdown-menu:hover{display:block}
-#countdown span:not(.label){font-family:'OrbitronMedium',Arial,sans-serif;color:#fff;background-color:#808080;display:inline-block;width:1.75em;text-align:center;line-height:1.25em;padding-top:4px;text-shadow:none;border-radius:3px;box-shadow:0 -10px 16px -10px #303030 inset}
-#countdown{width:25em;margin:0 auto;margin-bottom:.5em;line-height:2em}
+#countdown span{font-family:'OrbitronMedium',Arial,sans-serif;color:#fff;display:inline-block;text-align:center;line-height:1.25em;padding-top:4px;text-shadow:none;}
+#countdown span:not(.label){background-color:#808080;width:1.75em;border-radius:3px;box-shadow:0 -10px 16px -10px #303030 inset}
+#countdown span.group {white-space:nowrap; width: auto;background:inherit;}
+#countdown{margin:0 auto;margin-bottom:.5em;line-height:2em;text-align:center}
 div ul,div ol{margin-bottom:0}
 div p{margin:0}
 p+p{margin-top:.9em}
