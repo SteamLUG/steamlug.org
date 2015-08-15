@@ -916,7 +916,9 @@ button.close{padding:0;cursor:pointer;background:transparent;border:0;-webkit-ap
 	.visible-lg-inline-block{display:inline-block!important}
 }
 @media(max-width:767px){.hidden-xs{display:none!important}}
-@media(max-width:500px){.hidden-xxs{display:none!important}}
+@media(max-width:600px){
+	i[class*="tablesorter-icon"],.hidden-xxs{display:none!important}
+}
 @media(min-width:768px) and (max-width:991px){.hidden-sm{display:none!important}}
 @media(min-width:992px) and (max-width:1199px){.hidden-md{display:none!important}}
 @media(min-width:1200px){.hidden-lg{display:none!important}}
@@ -1001,8 +1003,10 @@ blockquote{font-size:14px}
 .tablesorter-icon{cursor:pointer}
 .tablesorter .sorter-false .tablesorter-icon{display:none}
 .tablesorter td:last-child i.fa-circle,.tablesorter td:last-child i.fa-circle-o,.tablesorter th:last-child i.fa-circle{float:right}
+#servers th {padding:6px}
 #servers th:last-child .tablesorter-icon::before{float:left}
 #servers th:last-child{width:3.5em}
+#servers td img {margin:0 5px}
 .tablesorter th i,.tablesorter td i{line-height:20px}
 .tablesorter td i,.tablesorter th i[class*="fa-"]{width:1em}
 .tablesorter th i.fa-globe{float:none;display:inline-block;margin-left:.2em;width:.7em}

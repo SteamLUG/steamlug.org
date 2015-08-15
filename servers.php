@@ -33,7 +33,7 @@
 							<th><i class="fa-lock"></i>
 							<th>Game
 							<th>Servers
-							<th>Players
+							<th>№
 							<th class="hidden-xxs">Map
 							<th><i class="fa-circle"></i>
 						</tr>
@@ -85,7 +85,7 @@ SERVERSTRING;
 			$serverPass	= !empty($data['gq_password']) ? '<i class="fa-lock"></i>' : '';
 			$serverDesc	= !empty($data['gq_name']) ? $data['gq_name'] : '';
 			$serverDesc	= !empty($data['gq_steamappid']) ? '<a href="/app/' . $data['gq_steamappid'] . '">' . $data['gq_name'] . '</a>' : $data['gq_name'];
-			$serverNum	= (!empty($data['gq_numplayers']) ? $data['gq_numplayers'] : '0') . ' ⁄ ' . $data['gq_maxplayers'];
+			$serverNum	= (!empty($data['gq_numplayers']) ? $data['gq_numplayers'] : '0') . ' ⁄ ' . $data['gq_maxplayers'];
 			$serverMap	= substr( $data['gq_mapname'], 0, 18 );
 			$connectPort	= (!empty($data['port']) ? $data['port'] : (isset($data['gameport']) ? $data['gameport'] : $data['gq_port']));
 			$serverHost	= $data['gq_address'] . ":" . $connectPort;
