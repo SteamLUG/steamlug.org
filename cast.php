@@ -21,7 +21,8 @@ if ($cast != null) {
 if (isset($eTime)) {
 	$extraJS = "\t\t\tvar target = new Date(" . $eTime . ");";
 }
-$tailJS = array( '/scripts/castseek.js', '/scripts/events.js', '/scripts/jquery.tablesorter.min.js'/*, '/scripts/jquery.twbsPagination.min.js'*/ );
+$castList = true;
+$tailJS = array( '/scripts/events.js', '/scripts/jquery.tablesorter.min.js'/*, '/scripts/jquery.twbsPagination.min.js'*/ );
 $pageTitle = "Cast";
 
 $rssLinks = '<link rel="alternate" type="application/rss+xml" title="SteamLUG Cast (mp3) Feed" href="https://steamlug.org/feed/cast/mp3" /><link rel="alternate" type="application/rss+xml" title="SteamLUG Cast (Ogg) Feed" href="https://steamlug.org/feed/cast/ogg" />';
@@ -69,6 +70,7 @@ STARTPAGE;
 /* User wanting to see a specific cast, and shownotes file exists */
 if ( $season !== "00" && $episode !== "00" && ($meta = getCastHeader( $slug ) ) ) {
 
+	$castList = false;
 	$shownotes			= getCastBody( $slug );
 
 	$archiveBase		= $publicURL . '/' . $meta['SLUG'] . '/' . $meta['FILENAME'];
@@ -115,6 +117,7 @@ if ( $season !== "00" && $episode !== "00" && ($meta = getCastHeader( $slug ) ) 
 
 TWITCARD;
 
+	$tailJS = array( '/scripts/castseek.js' );
 	/* We start late to populate our Twitter player card */
 	include('includes/header.php');
 	echo $start;
@@ -422,5 +425,6 @@ $(document).ready(
 	})
 );
 CALLTHESEPLS;
-$tailScripts = array( $onload );
+if ($castList)
+	$tailScripts = array( $onload );
 include_once('includes/footer.php');
