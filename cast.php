@@ -354,7 +354,7 @@ ABOUTCAST;
 				<thead>
 					<tr>
 						<th class="col-sm-1">No.
-						<th>Recorded
+						<th>Reco​rded
 						<th class="col-sm-4">Title
 						<th class="col-sm-2">Hosts
 						<th>Guests
@@ -375,6 +375,8 @@ CASTTABLE;
 		}
 
 		$meta['TITLE'] = slenc($meta['TITLE']);
+		// we add a zero width space to allow this to wrap better on mobile
+		$meta['RECORDED'] = preg_replace('/-/', '-​', $meta['RECORDED'], 1);
 
 		$listHosts = ""; $listGuests = "";
 		foreach ($meta['HOSTS'] as $Host) {

@@ -1009,6 +1009,9 @@ audio{width:100%}
 #casts img{height:22px;vertical-align:middle}
 #casts tr.in-progress td,table#casts tr.in-progress a{color:grey}
 #casts tr.in-progress img{opacity:.5}
+@media(max-width:767px){
+	#casts td, #casts th {padding:6px 3px}
+}
 .shownotes{text-align:left}
 .shownotes h4{margin-top:5px;font-weight:bold;font-size:14px;line-height:18px}
 .shownotes .dl-horizontal dt{float:left;text-align:right}
