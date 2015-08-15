@@ -916,6 +916,7 @@ button.close{padding:0;cursor:pointer;background:transparent;border:0;-webkit-ap
 	.visible-lg-inline-block{display:inline-block!important}
 }
 @media(max-width:767px){.hidden-xs{display:none!important}}
+@media(max-width:500px){.hidden-xxs{display:none!important}}
 @media(min-width:768px) and (max-width:991px){.hidden-sm{display:none!important}}
 @media(min-width:992px) and (max-width:1199px){.hidden-md{display:none!important}}
 @media(min-width:1200px){.hidden-lg{display:none!important}}
@@ -1010,7 +1011,7 @@ audio{width:100%}
 #casts tr.in-progress td,table#casts tr.in-progress a{color:grey}
 #casts tr.in-progress img{opacity:.5}
 @media(max-width:767px){
-	#casts td, #casts th {padding:6px 3px}
+	#casts td, #casts th, #servers td, #servers th {padding:6px 3px}
 }
 .shownotes{text-align:left}
 .shownotes h4{margin-top:5px;font-weight:bold;font-size:14px;line-height:18px}

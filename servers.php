@@ -34,7 +34,7 @@
 							<th>Game
 							<th>Servers
 							<th>Players
-							<th>Map
+							<th class="hidden-xxs">Map
 							<th><i class="fa-circle"></i>
 						</tr>
 					</thead>
@@ -65,15 +65,16 @@
 	{
 		if (!$data['gq_online'])
 		{
+			$data['gq_address'] = preg_replace('/.steamlug.org/', '​.steamlug.org', $data['gq_address'], 1);
 			echo <<<SERVERSTRING
 			<tr class="unresponsive">
 				<td></td>
 				<td></td>
 				<td></td>
 				<td><em>Server Unresponsive</em></td>
-				<td><em>{$data['gq_address']}:{$data['gq_port']}</em></td>
+				<td><em>{$data['gq_address']}​:{$data['gq_port']}</em></td>
 				<td><em>0 ⁄ 0</em></td>
-				<td><em>N/A</em></td>
+				<td class="hidden-xxs"><em>N/A</em></td>
 				<td><i class="text-danger fa-circle-o"></i></span></td>
 			</tr>
 SERVERSTRING;
@@ -96,7 +97,7 @@ SERVERSTRING;
 				<td>{$serverDesc}</td>
 				<td><a href="steam://connect/{$serverHost}">{$data['gq_hostname']}</a>
 				<td>{$serverNum}</td>
-				<td>{$serverMap}</td>
+				<td class="hidden-xxs">{$serverMap}</td>
 				<td><i class="text-success fa-circle"></i></td>
 			</tr>
 SERVERSTRING;
