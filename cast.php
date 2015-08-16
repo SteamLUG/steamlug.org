@@ -299,8 +299,8 @@ CASTENTRY;
 				<span id="s2">{$es[1]}</span>
 				</span>
 			</div>
-			<p>This episode will be recorded on {$dt}</p>
-			<p>Listen in live as our hosts and guests discuss Linux gaming on our <a href="mumble">Mumble server</a>.</p>
+			<p>Episode to be recorded on {$dt}</p>
+			<p>Listen live as our hosts and guests record on our <a href="mumble">Mumble server</a>.</p>
 			<p><a href="{$u}" class="btn btn-primary btn-lg pull-right">Click for details</a></p>
 		</div>
 	</article>
