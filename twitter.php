@@ -30,8 +30,8 @@ $action	= "Failure";
 $body	= "";
 $style	= " panel-success";
 
-$nextGameEvent	= getNextEvent( false );
-$nextCastEvent	= getNextEvent( true );
+$nextGameEvent	= getNextEvent( false, 3600 );
+$nextCastEvent	= getNextEvent( true, 3600 );
 $latestCast		= getLatestCast( );
 $recentTweets	= getRecentTweets( );
 
@@ -104,6 +104,9 @@ ACTIONMSG;
 }
 
 function formatTimeDifference($diff) {
+	if ( $diff->invert == 0 ) {
+		return 'the past';
+	}
 	if ( $diff->y > 0 || $diff->m > 0 || $diff->d > 0 ) {
 		return 'the distant future';
 	}
