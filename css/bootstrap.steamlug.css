@@ -1029,6 +1029,7 @@ audio{width:100%}
 .shownotes .highlighted time:hover{color:yellow}
 dt.highlighted,dt.highlighted time,dt.highlighted+dd{background-color:#06A;color:#eee}
 .bb_link_host{display:none}
+.bb_h1{font-size:15px;color:#5aa9d6;margin-top:17px;margin-bottom:12px}
 .timeline{width:520px;margin:auto}
 #twitter-widget-1{max-width:1100px;min-width:200px;width:100%}
 article.tweets{background:inherit;border:0;box-shadow:none;margin-bottom:2px}
