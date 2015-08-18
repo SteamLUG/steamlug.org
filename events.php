@@ -2,7 +2,6 @@
 $pageTitle = "Events";
 include_once( 'includes/functions_events.php' );
 
-$event = getNextEvent( );
 $data = getRecentEvents( );
 
 if ( $eventID == "0" ) {
