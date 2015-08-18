@@ -78,6 +78,17 @@
 					<p>Never give up, never surrender!</p>
 				</div>
 			</article>
+			
+			<article class="panel panel-default person">
+				<header class="panel-heading">
+					<h3 class="panel-title"><a href="http://constexpr.org/">ds</a></h3>
+				</header>
+				<div class="panel-body">
+					<img src="/avatars/ds.png" />
+					<p>Me. Somtimes I code. Also, I think that Linux thing is kinda cool.</p>
+					<p>Also known as <em>dscharrer</em> when a unique name is required.</p>
+				</div>
+			</article>
 		<section>
 DOCUMENT;
 

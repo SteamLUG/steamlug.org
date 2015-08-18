@@ -30,8 +30,8 @@ $action	= "Failure";
 $body	= "";
 $style	= " panel-success";
 
-$nextGameEvent	= getNextEvent( false );
-$nextCastEvent	= getNextEvent( true );
+$nextGameEvent	= getNextEvent( false, 3600 );
+$nextCastEvent	= getNextEvent( true, 3600 );
 $latestCast		= getLatestCast( );
 $recentTweets	= getRecentTweets( );
 
@@ -103,6 +103,27 @@ print <<<ACTIONMSG
 ACTIONMSG;
 }
 
+function formatTimeDifference($diff) {
+	if ( $diff->invert == 0 ) {
+		return 'the past';
+	}
+	if ( $diff->y > 0 || $diff->m > 0 || $diff->d > 0 ) {
+		return 'the distant future';
+	}
+	$hours = $diff->h;
+	if ( $hours == 0 && $diff->i <= 45 ) {
+		return $diff->i . ' minutes';
+	}
+	if ( $diff->i > 45 ) {
+		// Round up if we just missed the hour mark
+		$hours += 1;
+	} else if ( $diff->i >= 15 ) {
+		// Indicate that the difference is not close to a whole hour
+		$hours .= '½';
+	}
+	return $hours . ($hours === 1 ? ' hour' : ' hours');
+}
+
 print "<!--\n";
 if ( $nextGameEvent != null ) {
 
@@ -110,7 +131,7 @@ if ( $nextGameEvent != null ) {
 	print_r ( $nextGameEvent );
 	$eventDate = new DateTime(); $eventDate->setTimestamp($nextGameEvent['utctime']);
 	$diff = date_diff($eventDate, new DateTime("now"));
-	$difference = $diff->format("%h hours");
+	$difference = formatTimeDifference($diff);
 	$laterMessage = 'Hey #Linux gamers, join us for some ' . $nextGameEvent['title'] . " in {$difference}! Everybody’s welcome " . $nextGameEvent['url'];
 	$typicalMessage = 'Hey #Linux gamers, join us for some ' . $nextGameEvent['title'] . ' fun! Everybody’s welcome ' . $nextGameEvent['url'];
 	$when = str_replace( 'T', ' ', str_replace( '+00:00', '', date("c", $nextGameEvent['utctime'] ) ) ) . '.';
@@ -150,7 +171,7 @@ if ( $nextCastEvent != null ) {
 	$eventDate = new DateTime(); $eventDate->setTimestamp($nextCastEvent['utctime']);
 	$diff = date_diff($eventDate, new DateTime("now"));
 	// TODO for ‘1 hours’, replace with ‘in an hour’. for < 2 days, turn days into hours and increment
-	$difference = $diff->format("%h hours");
+	$difference = formatTimeDifference($diff);
 	$laterMessage = "Join us for the live recording of SteamLUG Cast in {$difference}, where we will be talking about %stuff. " . $nextCastEvent['url'];
 	$typicalMessage = "Join us for the live recording of SteamLUG Cast, where we will be talking about %stuff. " . $nextCastEvent['url'];
 	$when = str_replace( 'T', ' ', str_replace( '+00:00', '', date("c", $nextCastEvent['utctime'] ) ) ) . '.';
