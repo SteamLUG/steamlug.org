@@ -6,7 +6,7 @@ $data = getRecentEvents( );
 
 if ( $eventID == "0" ) {
 
-	$event = getNextEvent( );
+	$event = getNextEvent( false, 3600 );
 	if ( $event != null ) {
 		$eTime = $event['utctime'];
 	}
@@ -59,12 +59,14 @@ if (isset($eTime)) {
 	$eventDate = new DateTime(); $eventDate->setTimestamp($eTime);
 	$diff = date_diff($eventDate, new DateTime("now"));
 	list($ed, $eh, $em, $es) = explode( ' ', $diff->format("%D %H %I %S") );
-}
-
-/* TODO make this match our stream page, optionally hiding this is $event is not set */
-/* TODO for dates in the past (now that we can link to specific events) change wording, remove ticker? */
-echo <<<EVENTSHEAD
-				{$eventTitle}
+	if ($diff->invert == 0) {
+		if ($diff->y > 0 || $diff->m > 0 || $diff->d > 0 || $diff->h > 1) {
+			$eventCountdown = '<div id="countdown">This event is in the past!</div>';
+		} else {
+			$eventCountdown = '<div id="countdown">This event is going on now!</div>';
+		}
+	} else {
+		$eventCountdown = <<<COUNTDOWN
 				<div id="countdown">
 					<span class="label">Days</span>
 					<span id="d1">{$ed[0]}</span>
@@ -79,6 +81,15 @@ echo <<<EVENTSHEAD
 					<span id="s1">{$es[0]}</span>
 					<span id="s2">{$es[1]}</span>
 				</div>
+COUNTDOWN;
+	}
+}
+
+/* TODO make this match our stream page, optionally hiding this is $event is not set */
+/* TODO for dates in the past (now that we can link to specific events) change wording, remove ticker? */
+echo <<<EVENTSHEAD
+				{$eventTitle}
+				{$eventCountdown}
 				<p>This event is held on {$dt}</p>
 				{$eventButton}
 			</div>
