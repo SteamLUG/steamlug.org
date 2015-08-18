@@ -21,22 +21,43 @@ $future		= $parser->genData($eventXMLPath, "steamlug", ( $month >= 12 ? 1 : ( $m
 	This function will load the current and next month (in case we near the end) XML
 	event files, parse and merge the fields, and then return the first match
 	if castOnly is set true, it will only return an event of appid 0
+	if gracePeriod is not null, return the last event if it is newer than $gracePeriod seconds
 */
-function getNextEvent( $castOnly = false ) {
+function getNextEvent( $castOnly = false, $gracePeriod = null ) {
 
 	global $present, $future;
-	$events = array_merge($present['events'], $future['events']);
-	foreach ($events as $event) {
+	$events = array();
+	$events = array_merge($events, $present['events'], $future['events']);
+	$filter = function ($event) use ($castOnly) {
 		if ( $castOnly and ($event["appid"] !== 0 || strpos($event["title"], "Cast") === false) ) {
-			continue;
+			return null;
 		}
 		if ( !$castOnly and ($event["appid"] === 0) ) {
-			continue;
+			return null;
 		}
 		$d = explode("-", $event['date']);
 		$t = explode(":", $event['time']);
 		$event['utctime'] = strtotime($d[0] . "-" . $d[1] . "-" . $d[2] . 'T' . $t[0] . ':' . $t[1] . 'Z');
 		return $event;
+	};
+	if ( $gracePeriod !== null) {
+		$now = time();
+		foreach ($present['pastevents'] as $event) {
+			$event = $filter($event);
+			if($event === null) {
+				continue;
+			}
+			if($now - $event['utctime'] > $gracePeriod) {
+				break;
+			}
+			return $event;
+		}
+	}
+	foreach ($events as $event) {
+		$event = $filter($event);
+		if($event !== null) {
+			return $event;
+		}
 	}
 	return null;
 }
