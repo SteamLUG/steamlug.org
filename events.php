@@ -71,6 +71,7 @@ if (isset($eTime)) {
 					<span class="label">Days</span>
 					<span id="d1">{$ed[0]}</span>
 					<span id="d2">{$ed[1]}</span>
+					<span class="group">
 					<span class="label">&nbsp;</span>
 					<span id="h1">{$eh[0]}</span>
 					<span id="h2">{$eh[1]}</span>
@@ -80,6 +81,7 @@ if (isset($eTime)) {
 					<span class="label">:</span>
 					<span id="s1">{$es[0]}</span>
 					<span id="s2">{$es[1]}</span>
+					</span>
 				</div>
 COUNTDOWN;
 	}
@@ -121,7 +123,7 @@ echo <<<EVENTSHEAD
 			<table class="table table-striped table-hover events">
 			<thead>
 				<tr>
-					<th class="col-sm-1">
+					<th class="col-sm-1 hidden-xxs">
 					<th>Event Name
 					<th class="col-sm-2">Comments
 					<th class="col-sm-2">Timestamp
@@ -139,7 +141,7 @@ EVENTSHEAD;
 		$comments = ($event['comments'] > "0" ? "<a href=\"{$event['url']}\">" . $event['comments'] . " " . ($event['comments'] == "1" ? "comment…" : "comments…") . "</a>	" : "");
 		echo <<<EVENTSTRING
 			<tr>
-				<td><img class="eventLogo" src="{$event['img_capsule']}" alt="{$event['title']}" ></td>
+				<td class="hidden-xxs"><img class="eventLogo" src="{$event['img_capsule']}" alt="{$event['title']}" ></td>
 				<td><a href="{$event['url']}">{$event['title']}</a></td>
 				<td>{$comments}</td>
 				<td>{$event['date']} {$event['time']} {$event['tz']}</td>
@@ -159,7 +161,7 @@ EVENTSTRING;
 			<table class="table table-striped table-hover events">
 			<thead>
 				<tr>
-					<th class="col-sm-1">
+					<th class="col-sm-1 hidden-xxs">
 					<th>Event Name
 					<th class="col-sm-2">Comments
 					<th class="col-sm-2">Timestamp
@@ -176,7 +178,7 @@ EVENTSTRING;
 		$comments = ($event['comments'] > "0" ? "<a href=\"{$event['url']}\">" . $event['comments'] . " " . ($event['comments'] == "1" ? "comment…" : "comments…") . "</a>" : "");
 		echo <<<EVENTSTRING
 			<tr>
-				<td><img class="eventLogo" src="{$event['img_capsule']}" alt="{$event['title']}" ></td>
+				<td class="hidden-xxs"><img class="eventLogo" src="{$event['img_capsule']}" alt="{$event['title']}" ></td>
 				<td><a href="{$event['url']}">{$event['title']}</a></td>
 				<td>{$comments}</td>
 				<td>{$event['date']} {$event['time']} {$event['tz']}</td>
