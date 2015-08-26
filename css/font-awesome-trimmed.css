@@ -1,11 +1,11 @@
 @charset "UTF-8";
  @font-face {
   font-family: 'font-awesome-trimmed';
-  src: url('../fonts/font-awesome-trimmed.eot?76187341');
-  src: url('../fonts/font-awesome-trimmed.eot?76187341#iefix') format('embedded-opentype'),
-       url('../fonts/font-awesome-trimmed.woff?76187341') format('woff'),
-       url('../fonts/font-awesome-trimmed.ttf?76187341') format('truetype'),
-       url('../fonts/font-awesome-trimmed.svg?76187341#font-awesome-trimmed') format('svg');
+  src: url('../fonts/font-awesome-trimmed.eot?7864406');
+  src: url('../fonts/font-awesome-trimmed.eot?7864406#iefix') format('embedded-opentype'),
+       url('../fonts/font-awesome-trimmed.woff?7864406') format('woff'),
+       url('../fonts/font-awesome-trimmed.ttf?7864406') format('truetype'),
+       url('../fonts/font-awesome-trimmed.svg?7864406#font-awesome-trimmed') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -27,6 +27,17 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.fa-0:before { content: '0'; }
+.fa-1:before { content: '1'; }
+.fa-2:before { content: '2'; }
+.fa-3:before { content: '3'; }
+.fa-4:before { content: '4'; }
+.fa-5:before { content: '5'; }
+.fa-6:before { content: '6'; }
+.fa-7:before { content: '7'; }
+.fa-8:before { content: '8'; }
+.fa-9:before { content: '9'; }
+.fa-colon:before { content: ':'; }
 .fa-unsorted:before { content: '⇕'; }
 .fa-users:before { content: '⊲'; }
 .fa-sort-up:before { content: '⌃'; }

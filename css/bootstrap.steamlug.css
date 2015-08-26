@@ -992,7 +992,6 @@ input,textarea{color:#272b30}
 a.thumbnail:hover,a.thumbnail:focus,a.thumbnail.active{border-color:#0c0d0e}
 .jumbotron{border:1px solid rgba(0,0,0,.6)}
 .panel-primary .panel-heading,.panel-success .panel-heading,.panel-danger .panel-heading,.panel-warning .panel-heading,.panel-info .panel-heading{border-color:#000}
-@font-face{font-family:'OrbitronMedium';src:url('../fonts/orbitron-medium-webfont.woff') format('woff');font-weight:normal;font-style:normal}
 dd>a img,dd>img{height:48px}
 blockquote{font-size:14px}
 .license{height:16px;margin-top:-1px}
@@ -1012,7 +1011,7 @@ blockquote{font-size:14px}
 .tablesorter th i.fa-globe{float:none;display:inline-block;margin-left:.2em;width:.7em}
 audio{width:100%}
 #casts img{height:22px;vertical-align:middle}
-#casts tr.in-progress td,table#casts tr.in-progress a{color:grey}
+#casts tr.in-progress td,#casts tr.in-progress a{color:grey}
 #casts tr.in-progress img{opacity:.5}
 @media(max-width:767px){
 	#casts td, #casts th, #servers td, #servers th {padding:6px 3px}
@@ -1048,7 +1047,7 @@ html dl{margin-bottom:8px}
 #mumble-list dl dl dl .empty,#mumble-list dl dl dl .empty+dd{display:none}
 #mumble-list dl dl .populated,#mumble-list dl dl .populated+dd{display:block}
 li.dropdown:hover>.dropdown-menu,.dropdown-menu:hover{display:block}
-#countdown span{font-family:'OrbitronMedium',Arial,sans-serif;color:#fff;display:inline-block;text-align:center;line-height:1.25em;padding-top:4px;text-shadow:none;}
+#countdown span{font-family:"font-awesome-trimmed",sans-serif;color:#fff;display:inline-block;text-align:center;line-height:1.25em;padding-top:4px;text-shadow:none;}
 #countdown span:not(.label){background-color:#808080;width:1.75em;border-radius:3px;box-shadow:0 -10px 16px -10px #303030 inset}
 #countdown span.group {white-space:nowrap; width: auto;background:inherit;}
 #countdown{margin:0 auto;margin-bottom:.5em;line-height:2em;text-align:center;color:#d00}
