@@ -150,7 +150,7 @@ include_once('paths.php');
 
 
 	/**
-	* Resizes the requested file to a 256x256 PNG, and strips the file as best we can
+	* Resizes the requested file to a 96x96 PNG, and strips the file as best we can
 	* @param string $incoming full path to the source file
 	* @param string $outgoing full path to the destination file
 	* @param boolean $overwrite Whether we want to overwrite a pre-existing file
@@ -166,7 +166,7 @@ include_once('paths.php');
 			return false;
 		}
 
-		$commandresize = "convert -resize 256x256 -type optimize -strip {$incoming} png:{$outgoing}";
+		$commandresize = "convert -resize 96x96 -type optimize -strip {$incoming} png:{$outgoing}";
 		ob_start( );
 		echo shell_exec( $commandresize . ' 2>&1' );
 		$debugoutput = ob_get_clean();
