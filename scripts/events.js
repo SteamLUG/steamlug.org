@@ -18,6 +18,9 @@ var updateTimer = function( )
 	var m2 = document.getElementById('m2');
 	var s1 = document.getElementById('s1');
 	var s2 = document.getElementById('s2');
+	var remainDays;
+	var remainHours;
+	var remainMinutes;
 	
 	function RefreshClock( )
 	{
@@ -35,17 +38,25 @@ var updateTimer = function( )
 			return;
 		}
 
-		var remainDays = zeroPad(Math.floor( secsRemaining / 86400 ));
-		var remainHours = zeroPad(Math.floor( (secsRemaining  % 86400) / 60 / 60));
-		var remainMinutes = zeroPad(Math.floor( ( secsRemaining % 3600 ) / 60 ));
-		var remainSeconds = zeroPad(secsRemaining % 60);
-
-		d1.innerHTML = remainDays.charAt(0);
-		d2.innerHTML = remainDays.charAt(1);
-		h1.innerHTML = remainHours.charAt(0);
-		h2.innerHTML = remainHours.charAt(1);
-		m1.innerHTML = remainMinutes.charAt(0);
-		m2.innerHTML = remainMinutes.charAt(1);
+		var days = zeroPad(Math.floor( secsRemaining / 86400 ));
+		if (days != remainDays) {
+			remainDays = days;
+			d1.innerHTML = remainDays.charAt(0);
+			d2.innerHTML = remainDays.charAt(1);
+ 		}
+		var hours = zeroPad(Math.floor( (secsRemaining  % 86400) / 60 / 60));
+		if (hours != remainHours) {
+			remainHours = hours;
+			h1.innerHTML = remainHours.charAt(0);
+			h2.innerHTML = remainHours.charAt(1);
+ 		}
+ 		var minutes = zeroPad(Math.floor( ( secsRemaining % 3600 ) / 60 ));
+		if (minutes != remainMinutes) {
+			remainMinutes = minutes;
+			m1.innerHTML = remainMinutes.charAt(0);
+			m2.innerHTML = remainMinutes.charAt(1);
+ 		}
+ 		var remainSeconds = zeroPad(secsRemaining % 60);
 		s1.innerHTML = remainSeconds.charAt(0);
 		s2.innerHTML = remainSeconds.charAt(1);
 	}
