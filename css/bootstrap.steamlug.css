@@ -1063,7 +1063,7 @@ html .panel-info>.panel-heading{background:#297cc2}
 .events.table tbody tr>td{vertical-align:middle}
 article ul{list-style-type:square}
 #casts a,#cast-description a,#admins a{text-decoration:none;outline:0}
-.panel-title .author{font-size:small;vertical-align:middle;float:right}
+.panel-title .author{font-size:small;font-style:italic;vertical-align:middle;float:right;display:inline-block}
 .panel-title .author a{padding-left:6px}
 .panel-title .author img{position:relative;top:-2px}
 .subscribe-here p{display:inline-block;margin-right:1em}
@@ -1106,6 +1106,7 @@ article.steam-parsed br{content:" ";display:block;line-height:.5em;height:.5em;m
 #cast-description{position:sticky;top:-145px;z-index:2;opacity:.95;position:-webkit-sticky}
 @media(max-width:767px){
 	#cast-description{position: unset}
+	.panel-title span.author{float:unset}
 }
 #play-box{padding:15px;margin:-15px;position:relative}
 #cast-description p.licence{margin-top:0;right:15px;position:absolute}
