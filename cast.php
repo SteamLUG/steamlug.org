@@ -354,7 +354,7 @@ ABOUTCAST;
 				<thead>
 					<tr>
 						<th class="col-sm-1">No.
-						<th>Reco​rded
+						<th class="hidden-xxs">Reco​rded
 						<th class="col-sm-4">Title
 						<th class="col-sm-2">Hosts
 						<th>Guests
@@ -388,7 +388,7 @@ CASTTABLE;
 		echo <<<CASTENTRY
 			<tr {$wip}>
 				<td><a href="/cast/{$meta['SLUG']}">{$meta['SLUG']}</a></td>
-				<td><time datetime="{$meta['RECORDED']}">{$meta['RECORDED']}</time></td>
+				<td class="hidden-xxs"><time datetime="{$meta['RECORDED']}">{$meta['RECORDED']}</time></td>
 				<td><a href="/cast/{$meta['SLUG']}">{$meta[ 'TITLE' ]}</a></td>
 				<td>$listHosts</td>
 				<td>$listGuests</td>
