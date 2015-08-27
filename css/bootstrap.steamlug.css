@@ -1104,6 +1104,9 @@ article.steam-parsed br{content:" ";display:block;line-height:.5em;height:.5em;m
 #cast-description h4{margin-top:0}
 #castplayer{margin-top:7px}
 #cast-description{position:sticky;top:-145px;z-index:2;opacity:.95;position:-webkit-sticky}
+@media(max-width:767px){
+	#cast-description{position: unset}
+}
 #play-box{padding:15px;margin:-15px;position:relative}
 #cast-description p.licence{margin-top:0;right:15px;position:absolute}
 #cast-description p{display:inline-block}
