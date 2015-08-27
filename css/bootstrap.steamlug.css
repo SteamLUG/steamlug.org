@@ -1033,7 +1033,7 @@ dt.highlighted,dt.highlighted time,dt.highlighted+dd{background-color:#06A;color
 #twitter-widget-1{max-width:1100px;min-width:200px;width:100%}
 article.tweets{background:inherit;border:0;box-shadow:none;margin-bottom:2px}
 article.tweets .panel-heading{background:inherit;border:0;padding-left:0;padding-right:0}
-div#twitter-here{padding:0;position:relative}
+#twitter-here{padding:0;position:relative}
 #twitter-here .follow{top:-29px;position:relative;height:0;margin:auto;float:right}
 nav .nav>li>a{padding-right:11px;padding-left:10px}
 html dl{margin-bottom:8px}
@@ -1088,7 +1088,7 @@ p a.group-join{font-size:100%}
 .navbar-nav>li.steamLogin{right:0}
 .navbar-nav>li.steamLogin>a{display:block;border:0;padding:3px 5px 4px 3px}
 .navbar-nav>li.navbar-avatar>a{padding:6px}
-div#navbar{position:relative}
+#navbar{position:relative}
 div .navbar-brand{position:relative;z-index:15;margin-left:15px}
 div .navbar-nav{margin-bottom:0}
 div .navbar-header>a.navbar-brand{display:block;border:0;padding:3px 5px 4px 3px}
@@ -1108,13 +1108,12 @@ article.steam-parsed br{content:" ";display:block;line-height:.5em;height:.5em;m
 #cast-description p.licence{margin-top:0;right:15px;position:absolute}
 #cast-description p{display:inline-block}
 .no-content article{border-bottom:0}
-.streamers-list{list-style:none;width:353px;margin-left:0;padding:0}
+.streamers-list{list-style:none;margin-left:0;padding:0}
 .streamers-list li{height:61px;border-bottom:1px solid #444}
-.streamers-list a:hover{text-decoration:none}
 .streamers-list li:last-child{border:0}
 .streamers-list img{height:45px;width:45px;margin:8px 15px 8px 0}
-#hitbox.streamers-list a:hover{color:#ace600}
-#hitbox.streamers-list img{border-radius:50%}
+#hitbox a:hover{color:#ace600}
+#hitbox img{border-radius:50%}
 .streamers-list li.live img{box-shadow:0 0 10px lime}
 .streamers-list li.live a{text-shadow:0 0 10px lime;outline:0}
 #hitbox-viewer{position:relative;width:100%;height:0;padding-bottom:51%}
@@ -1123,9 +1122,9 @@ article.steam-parsed br{content:" ";display:block;line-height:.5em;height:.5em;m
 #twitch-viewer object{position:absolute;width:100%;height:100%;left:0;top:0}
 time:target::before{content:"シ";display:block;visibility:hidden;padding-top:70px;margin-top:-70px;height:1px;width:1px}
 time:target{padding-top:160px}
-section#peeps img{border-radius:4px;height:80px;width:80px;background-image:url(/avatars/default.png)}
-section#peeps article:nth-child(odd) img{margin-right:1em;float:left}
-section#peeps article:nth-child(even) img{margin-left:1em;float:right}
+#peeps img{border-radius:4px;height:80px;width:80px;background-image:url(/avatars/default.png)}
+#peeps article:nth-child(odd) img{margin-right:1em;float:left}
+#peeps article:nth-child(even) img{margin-left:1em;float:right}
 div.irc iframe{width:100%;height:600px}
 article.twit input[type=submit]{height:27px;padding-top:2px}
 #delete-tweets input[type=submit]{height:21px;padding-top:0}
