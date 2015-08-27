@@ -258,7 +258,7 @@ function generateVideo( $season, $episode ) {
 	echo shell_exec( $commandthumbnail . ' 2>&1' );
 	/* TODO test file got created, or bail */
 
-	$commandvideo = "avconv -y -loglevel warning -loop 1 -framerate 1 -i {$pngfile} -i {$audiofile} -c:v libx264 -tune stillimage -pix_fmt yuv420p -c:a aac -strict experimental -b:a 192k -shortest {$mp4filetmp}";
+	$commandvideo = "ffmpeg -y -loglevel warning -loop 1 -framerate 1 -i {$pngfile} -i {$audiofile} -c:v libx264 -tune stillimage -pix_fmt yuv420p -c:a aac -strict experimental -b:a 192k -shortest {$mp4filetmp}";
 	print "Running: ". $commandvideo . "\n";
 	echo shell_exec( $commandvideo . ' 2>&1' );
 	/* TODO test file got created, or bail */
