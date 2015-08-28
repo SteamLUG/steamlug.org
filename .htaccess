@@ -22,7 +22,10 @@ RewriteRule ^feed/cast/(\w+)$ /feed/cast.php?t=$1 [NC,L]
 RewriteRule ^youtubethumb/s(\d+)e(\d+)$ /youtubethumb/?s=$1&e=$2 [NC,L]
 RewriteRule ^youtubedescription/s(\d+)e(\d+)$ /youtubedescription/?s=$1&e=$2 [NC,L]
 RewriteRule ^app/(\d+)$ /app.php?appid=$1 [NC,L]
-RewriteRule ^events/(\d+)$ /events.php?eventid=$1 [NC,L]
+RewriteRule ^events/(\w+)$ /events.php?eventid=$1 [NC,L]
+RewriteRule ^polls/(\d+)$ /polls.php?pollid=$1 [NC,L]
+RewriteRule ^member/(\w+)$ /member.php?uid=$1 [NC,L]
+RewriteRule ^clan/(\w+)$ /clan.php?clanid=$1 [NC,L]
 
 RewriteRule ^apple-touch-icon(.*).png$ mobile-favicon.png [L]
 
