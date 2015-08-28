@@ -56,6 +56,7 @@ TWITTERWIDGET;
 	$rss->cache_dir = $eventXMLPath . '/steamlug/temp';
 	$rss->cache_time = 1200;
 	$rss->CDATA = 'content';
+	$rss->date_format = 'd M o H:i:s e';
 	$rss->items_limit = 6;
 	$rssString = "";
 	$firstItem = true;
@@ -135,6 +136,8 @@ YOUTUBE;
 					$addclass="col-md-8 col-md-pull-4 fixupbootstrap";
 					$firstItem = false;
 				}
+				// XXX messy
+				$item['pubDate'] = preg_replace("/([0-9]{4}) /", "\\1 <span class=\"hidden-xxs\">", $item['pubDate']) . "</span>";
 				?>
 			<article class="panel panel-default steam-parsed <?=$addclass?>">
 				<header class="panel-heading">
@@ -144,7 +147,7 @@ YOUTUBE;
 					<p><?=htmlspecialchars_decode($item['description']);?></p>
 				</div>
 				<footer class="panel-footer">
-					<p class="pull-left">By <?=$item['author'];?> on <?=str_replace("+0000", "UTC", $item['pubDate']);?></p>
+					<p class="pull-left">By <?=$item['author'];?> on <?=$item['pubDate'];?></p>
 					<p class="pull-right"><a href ="<?=$item['link'];?>"><span class="hidden-xs">View and </span>comment<span class="hidden-sm hidden-xs"> on our Steam group</span></a></p>
 					<div class="clearfix"></div>
 				</footer>
