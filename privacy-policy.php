@@ -8,7 +8,7 @@
 
 			<article class="panel panel-default">
 				<header class="panel-heading">
-					<h3 class="panel-title">Data from group members</h3>
+					<h3 class="panel-title">Data from being a group member</h3>
 				</header>
 				<div class="panel-body">
 					<p>We are keenly aware of the importance of your data in our hands. We take a considered approach to any use or storage of it, such that we err on the side of caution before doing things. If at any point you wish your data to no longer be captured, you can leave our Steam group or set your profile privacy to Private.</p>
@@ -42,7 +42,15 @@
 				</div>
 			</article>
 			<!-- Have the friendly group of SteamLUG admins say something pleasant, and link to about-peeps http://www.wired.com/wp-content/uploads/nextgen/underwire/wp-content/gallery/fake-ads/gb660.jpg -->
-		<section>
+			<article class="panel panel-default">
+				<header class="panel-heading">
+					<h3 class="panel-title">What if you delete your account?</h3>
+				</header>
+				<div class="panel-body">
+					<p>We remove your personal details from the server. Event attendance is still retained, but you will be referred to by just your SteamID.</p>
+				</div>
+			</article>
+		</section>
 DOCUMENT;
 
 	include_once('includes/footer.php');
