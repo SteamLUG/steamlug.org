@@ -1,9 +1,21 @@
 <?php
+/**
+* Simple wrapper around CURL, to avoid all the cruft in other scripts
+*/
+
+/**
+*/
 
 if ( extension_loaded('curl') ) {
 
-	/* Our simple replacement for file_get_contents, with added bonus of param & header config
+
+	/**
+	* Our simple replacement for file_get_contents, with added bonus of param & header config
 	* If it fails, it will return a number. Currently naïvely tests for only a few errors.
+	* @param string $url the intended URL, avoid baking query params into this
+	* @param array $get query parameters for the fetched resource
+	* @param array $header Accept headers and the like, each entry should be a full Header: Line string
+	* @return mixed|integer the contents of the requested resource, or the status code if it fails
 	*/
 	function geturl( $url, $get = array(), $header = array() ) {
 
@@ -27,7 +39,9 @@ if ( extension_loaded('curl') ) {
 	}
 } else {
 
-	/* Curl isn’t on the server. */
+	/**
+	* @ignore this is defined above, in case libcurl is not available, no need for duplication
+	*/
 	function geturl( $url, $get = array(), $header = array() ) {
 		return 0;
 	}
