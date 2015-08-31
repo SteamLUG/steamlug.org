@@ -103,6 +103,10 @@ if ( $season !== "00" && $episode !== "00" && ($meta = getCastHeader( $slug ) ) 
 	}
 	$listGuests			= ( empty($listGuests) ? 'No Guests' : $listGuests );
 
+	$rating = ( $meta[ 'RATING' ] == 'Explicit' ? '<i class="text-danger fa-circle"> Explicit language use</i>' :
+		($meta[ 'RATING' ] == 'Clean' ? '<i class="text-success fa-circle"> Clean language</i>' :
+		'<i class="fa-circle"></i>' ) );
+
 	$extraCrap = <<<TWITCARD
 		<meta name="twitter:card" content="player">
 		<meta name="twitter:site" content="@SteamLUG">
@@ -172,6 +176,7 @@ echo <<<CASTENTRY
 			<div class="col-md-5">
 			<h4>Description</h4>
 			<p>{$meta['DESCRIPTION']}</p>
+			<p>{$rating}</p>
 			</div>
 			</div>
 			<div id="play-box">
@@ -356,6 +361,7 @@ ABOUTCAST;
 						<th class="col-sm-1">No.
 						<th class="hidden-xxs">Reco​rded
 						<th class="col-sm-4">Title
+						<th class="col-xs-1"><i class="fa-circle-o"></i>
 						<th class="col-sm-2">Hosts
 						<th>Guests
 					</tr>
@@ -375,8 +381,13 @@ CASTTABLE;
 		}
 
 		$meta['TITLE'] = slenc($meta['TITLE']);
+
 		// we add a zero width space to allow this to wrap better on mobile
 		$meta['RECORDED'] = preg_replace('/-/', '-​', $meta['RECORDED'], 1);
+
+		$rating = ( $meta[ 'RATING' ] == 'Explicit' ? '<i class="text-danger fa-circle"> <abbr title="Explicit" class="hidden-xxs">E</abbr></i>' :
+			($meta[ 'RATING' ] == 'Clean' ? '<i class="text-success fa-circle"> <abbr title="Clean" class="hidden-xxs">C</abbr></i>' :
+			'<i class="fa-circle"></i>' ) );
 
 		$listHosts = ""; $listGuests = "";
 		foreach ($meta['HOSTS'] as $Host) {
@@ -390,6 +401,7 @@ CASTTABLE;
 				<td><a href="/cast/{$meta['SLUG']}">{$meta['SLUG']}</a></td>
 				<td class="hidden-xxs"><time datetime="{$meta['RECORDED']}">{$meta['RECORDED']}</time></td>
 				<td><a href="/cast/{$meta['SLUG']}">{$meta[ 'TITLE' ]}</a></td>
+				<td>$rating</td>
 				<td>$listHosts</td>
 				<td>$listGuests</td>
 			</tr>
