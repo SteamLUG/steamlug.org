@@ -1110,7 +1110,7 @@ article.steam-parsed br{content:" ";display:block;line-height:.5em;height:.5em;m
 }
 #play-box{padding:15px;margin:-15px;position:relative}
 #cast-description p.licence{margin-top:0;right:15px;position:absolute}
-#cast-description p{display:inline-block}
+#cast-description p.download-links,#cast-description p.licence{display:inline-block}
 .no-content article{border-bottom:0}
 .streamers-list{list-style:none;margin-left:0;padding:0}
 .streamers-list li{height:61px;border-bottom:1px solid #444}
