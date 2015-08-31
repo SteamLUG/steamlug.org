@@ -367,12 +367,18 @@ class GameQ
 		// Create the class so we can reference it properly later
 		$protocol_class = 'GameQ_Protocols_'.ucfirst($server_info[self::SERVER_TYPE]);
 
-		// Create the new instance and add it to the servers list
-		$this->servers[$server_id] = new $protocol_class(
-			$server_ip,
-			$server_port,
-			array_merge($this->options, $server_info[self::SERVER_OPTIONS])
-		);
+		if ( class_exists( $protocol_class ) ) {
+
+			// Create the new instance and add it to the servers list
+			$this->servers[$server_id] = new $protocol_class(
+				$server_ip,
+				$server_port,
+				array_merge($this->options, $server_info[self::SERVER_OPTIONS])
+			);
+
+		} else {
+			@error_log( "GameQ Protocol '{$server_info[self::SERVER_TYPE]}' does not exist." );
+		}
 
 		return $this; // Make calls chainable
 	}
