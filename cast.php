@@ -105,7 +105,7 @@ if ( $season !== "00" && $episode !== "00" && ($meta = getCastHeader( $slug ) ) 
 
 	$rating = ( $meta[ 'RATING' ] == 'Explicit' ? '<i class="text-danger fa-circle"> Explicit language use</i>' :
 		($meta[ 'RATING' ] == 'Clean' ? '<i class="text-success fa-circle"> Clean language</i>' :
-		'<i class="fa-circle"></i>' ) );
+		'<i class="fa-circle"> Tolerable language</i>' ) );
 
 	$extraCrap = <<<TWITCARD
 		<meta name="twitter:card" content="player">
@@ -361,7 +361,7 @@ ABOUTCAST;
 						<th class="col-sm-1">No.
 						<th class="hidden-xxs">Reco​rded
 						<th class="col-sm-4">Title
-						<th class="col-xs-1"><i class="fa-circle-o"></i>
+						<th class="col-xs-1">Rating
 						<th class="col-sm-2">Hosts
 						<th>Guests
 					</tr>
@@ -385,9 +385,9 @@ CASTTABLE;
 		// we add a zero width space to allow this to wrap better on mobile
 		$meta['RECORDED'] = preg_replace('/-/', '-​', $meta['RECORDED'], 1);
 
-		$rating = ( $meta[ 'RATING' ] == 'Explicit' ? '<i class="text-danger fa-circle"> <abbr title="Explicit" class="hidden-xxs">E</abbr></i>' :
-			($meta[ 'RATING' ] == 'Clean' ? '<i class="text-success fa-circle"> <abbr title="Clean" class="hidden-xxs">C</abbr></i>' :
-			'<i class="fa-circle"></i>' ) );
+		$rating = ( $meta[ 'RATING' ] == 'Explicit' ? '<i class="text-danger"> <abbr title="Explicit">E</abbr></i>' :
+			($meta[ 'RATING' ] == 'Clean' ? '<i class="text-success"> <abbr title="Clean">C</abbr></i>' :
+			'<i><abbr title="Tolerable">T</abbr></i>' ) );
 
 		$listHosts = ""; $listGuests = "";
 		foreach ($meta['HOSTS'] as $Host) {
