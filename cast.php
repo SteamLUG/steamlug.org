@@ -105,7 +105,7 @@ if ( $season !== "00" && $episode !== "00" && ($meta = getCastHeader( $slug ) ) 
 
 	$rating = ( $meta[ 'RATING' ] == 'Explicit' ? '<i class="text-danger fa-circle"> Explicit language use</i>' :
 		($meta[ 'RATING' ] == 'Clean' ? '<i class="text-success fa-circle"> Clean language</i>' :
-		'<i class="fa-circle"> Tolerable language</i>' ) );
+		($meta[ 'RATING' ] != '' ? '<i class="fa-circle"> Tolerable language</i>' : '' ) ) );
 
 	$extraCrap = <<<TWITCARD
 		<meta name="twitter:card" content="player">
@@ -387,7 +387,7 @@ CASTTABLE;
 
 		$rating = ( $meta[ 'RATING' ] == 'Explicit' ? '<i class="text-danger"> <abbr title="Explicit">E</abbr></i>' :
 			($meta[ 'RATING' ] == 'Clean' ? '<i class="text-success"> <abbr title="Clean">C</abbr></i>' :
-			'<i><abbr title="Tolerable">T</abbr></i>' ) );
+			($meta[ 'RATING' ] != '' ? '<i><abbr title="Tolerable">T</abbr></i>' : '' ) ) );
 
 		$listHosts = ""; $listGuests = "";
 		foreach ($meta['HOSTS'] as $Host) {
