@@ -8,8 +8,8 @@
 		getGroupID()
 		getGroupID32()
 		getSteamAPIKey()
+		getGoogleKeys()
 		getTwitterKeys()
 	*/
 	include( "paths.php" );
 	include( $creds );
-?>

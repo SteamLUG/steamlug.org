@@ -304,4 +304,3 @@
     ini_set("user_agent", $original_ua);
     return $state;
   }
-?>

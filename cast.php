@@ -3,22 +3,26 @@
 include_once('includes/functions_cast.php');
 include_once('includes/functions_events.php');
 include_once('includes/functions_avatars.php');
+include_once('includes/functions_stats.php');
 
 $cast = getNextEvent( true );
 if ($cast != null) {
 	$eTime = $cast['utctime'];
 	$dt = $cast['date'] . " " . $cast['time'] . " " . $cast['tz'];
 	$u = $cast['url'];
-	$c = preg_replace("#(.*)(S[0-9][0-9])(E[0-9][0-9])(.*)#", "\$3", $cast["title"]);
-	$s = preg_replace("#(.*)(S[0-9][0-9])(E[0-9][0-9])(.*)#", "\$2", $cast["title"]);
+	if ( preg_match("#.*S([0-9]+)E([0-9]+).*#", $cast["title"], $matches) == 1 ) {
+		$c = 'e' . str_pad( $matches[2], 2, '0', STR_PAD_LEFT);
+		$s = 's' . str_pad( $matches[1], 2, '0', STR_PAD_LEFT);
+	} else {
+		unset( $eTime );
+	}
 }
 
 if (isset($eTime)) {
 	$extraJS = "\t\t\tvar target = new Date(" . $eTime . ");";
 }
-$externalJS = array( '/scripts/events.js' );
-$deferJS = array( '/scripts/castseek.js' );
-$syncexternalJS = array( '/scripts/jquery.tablesorter.min.js', '/scripts/jquery.tablesorter.widgets.min.js'/*, '/scripts/jquery.twbsPagination.min.js'*/ );
+$castList = true;
+$tailJS = array( '/scripts/events.js', '/scripts/jquery.tablesorter.min.js'/*, '/scripts/jquery.twbsPagination.min.js'*/ );
 $pageTitle = "Cast";
 
 $rssLinks = '<link rel="alternate" type="application/rss+xml" title="SteamLUG Cast (mp3) Feed" href="https://steamlug.org/feed/cast/mp3" /><link rel="alternate" type="application/rss+xml" title="SteamLUG Cast (Ogg) Feed" href="https://steamlug.org/feed/cast/ogg" />';
@@ -63,22 +67,19 @@ $start = <<<STARTPAGE
 		<h1 class="text-center">SteamLUG Cast</h1>
 STARTPAGE;
 
-$filename = $notesPath . '/s' . $season . 'e' . $episode . '/episode.txt';
-
 /* User wanting to see a specific cast, and shownotes file exists */
-if ( $season !== "00" && $episode !== "00" && file_exists( $filename ) ) {
+if ( $season !== "00" && $episode !== "00" && ($meta = getCastHeader( $slug ) ) ) {
 
-	$shownotes			= file( $filename );
-	$meta				= castHeader( array_slice( $shownotes, 0, 14 ) );
+	$castList = false;
+	$shownotes			= getCastBody( $slug );
 
 	$archiveBase		= $publicURL . '/' . $meta['SLUG'] . '/' . $meta['FILENAME'];
-	$episodeBase		= $filePath  . '/' . $meta['SLUG'] . '/' . $meta['FILENAME'];
 
 	$meta['RECORDED']	= ( $meta['RECORDED'] === "" ? 'N/A' :	'<time datetime="' . $meta['RECORDED'] . '">' . $meta['RECORDED'] . '</time>' );
 	$meta['PUBLIC']		= ( $meta['PUBLISHED'] );
 	$meta['PUBLISHED']	= ( $meta['PUBLISHED'] === "" ? '<span class="warning">In Progress</span>' : '<time datetime="' . $meta['PUBLISHED'] . '">' . $meta['PUBLISHED'] . '</time>');
 	$episodeTitle		= $meta['SLUG'] . ' – ' . ( ($meta['PUBLIC'] === "") ? 'Edit In Progress' : slenc( $meta['TITLE'] ) );
-	$pageTitle		   .= ' ' . $episodeTitle;
+	$pageTitle			.= ' ' . $episodeTitle;
 	$meta['SHORTDESC']	= slenc( substr( $meta['DESCRIPTION'], 0, 132 ) );
 	$noteEditor			= ( $meta['NOTESCREATOR'] === "" ? "" :	'<span class="author">written by ' . nameplate( $meta['NOTESCREATOR'], 22 ) . '</span>' );
 	$castEditor			= ( $meta['EDITOR'] === "" ? "" :		'<span class="author">edited by ' . nameplate( $meta['EDITOR'], 22 ) . '</span>' );
@@ -102,6 +103,10 @@ if ( $season !== "00" && $episode !== "00" && file_exists( $filename ) ) {
 	}
 	$listGuests			= ( empty($listGuests) ? 'No Guests' : $listGuests );
 
+	$rating = ( $meta[ 'RATING' ] == 'Explicit' ? '<i class="text-danger fa-circle"> Explicit language use</i>' :
+		($meta[ 'RATING' ] == 'Clean' ? '<i class="text-success fa-circle"> Clean language</i>' :
+		'<i class="fa-circle"></i>' ) );
+
 	$extraCrap = <<<TWITCARD
 		<meta name="twitter:card" content="player">
 		<meta name="twitter:site" content="@SteamLUG">
@@ -110,12 +115,13 @@ if ( $season !== "00" && $episode !== "00" && file_exists( $filename ) ) {
 		<meta name="twitter:image:src" content="https://steamlug.org/images/steamlugcast.png">
 		<meta name="twitter:image:width" content="300">
 		<meta name="twitter:image:height" content="300">
-		<meta name="twitter:player" content="https://www.youtube.com/embed/{$meta[ 'YOUTUBE' ]}">
+		<meta name="twitter:player" content="https://www.youtube-nocookie.com/embed/{$meta[ 'YOUTUBE' ]}?rel=0">
 		<meta name="twitter:player:width" content="480">
 		<meta name="twitter:player:height" content="360">
 
 TWITCARD;
 
+	$tailJS = array( '/scripts/castseek.js' );
 	/* We start late to populate our Twitter player card */
 	include('includes/header.php');
 	echo $start;
@@ -125,10 +131,10 @@ TWITCARD;
 	if ( $meta['PUBLIC'] === "" and $weareadmin === false ) {
 		$episodeMP3DS = $siteListen = $episodeOddDS = $episodeYoutube = "";
 	} else {
-		$episodeOggFS	= ( file_exists( $episodeBase . '.ogg' )  ? round( filesize( $episodeBase . '.ogg' ) /1024/1024, 2 ) : 0 );
+		$episodeOggFS	= ( file_exists( $meta[ 'ABSFILENAME' ] . '.ogg' )  ? round( filesize( $meta[ 'ABSFILENAME' ] . '.ogg' ) /1024/1024, 2 ) : 0 );
 		$siteListen		= ($episodeOggFS > 0 ? '<audio id="castplayer" preload="none" src="' . $archiveBase . '.ogg" controls="controls">Your browser does not support the &lt;audio&gt; tag.</audio>' : '');
 		$episodeOddDS	= '<span class="ogg">' . ( $episodeOggFS > 0 ? $episodeOggFS . ' MB <a download href="' . $archiveBase . '.ogg">Ogg</a>' : 'N/A Ogg' ) . '</span>';
-		$episodeMp3FS	= ( file_exists( $episodeBase . '.mp3' )  ? round( filesize( $episodeBase . '.mp3' ) /1024/1024, 2 ) : 0 );
+		$episodeMp3FS	= ( file_exists( $meta[ 'ABSFILENAME' ] . '.mp3' )  ? round( filesize( $meta[ 'ABSFILENAME' ] . '.mp3' ) /1024/1024, 2 ) : 0 );
 		$episodeMP3DS	= '<span class="mp3">' . ( $episodeMp3FS > 0 ? $episodeMp3FS . ' MB <a download href="' .$archiveBase . '.mp3">MP3</a>' : 'N/A MP3' ) . '</span>';
 
 		$episodeYoutube = ( empty( $meta['YOUTUBE'] ) ? '' : '<span class="youtube"><a href="//youtu.be/' . $meta['YOUTUBE'] . '">YOUTUBE</a></span>' );
@@ -144,8 +150,9 @@ FOOTERBLOCK;
 	$shownotes = array_merge( $shownotes, explode( "\n", $footer ) );
 	$adminblock = "";
 	if ( $weareadmin === true ) {
+		$views = getYouTubeStat( $meta[ 'YOUTUBE' ] );
 		$adminblock = <<<HELPFULNESS
-<div><p>Admin helper pages:<br>YouTube <a href="/youtubethumb/{$meta['SLUG']}">video background</a> and <a href="/youtubedescription/{$meta['SLUG']}">description</a>. <a target="_blank" href="/transcriberer?audio={$archiveBase}.ogg">Note creation</a>.</p></div>
+<div><p>Admin helper pages:<br>YouTube <a href="/youtubethumb/{$meta['SLUG']}">video background</a> and <a href="/youtubedescription/{$meta['SLUG']}">description</a>. <a href="/youtubegeneratevideo/{$meta['SLUG']}">YouTube make video</a>. <a target="_blank" href="/transcriberer?audio={$archiveBase}.ogg">Note creation</a>.<br>{$views} Views on YouTube.</p></div>
 HELPFULNESS;
 	}
 
@@ -169,6 +176,7 @@ echo <<<CASTENTRY
 			<div class="col-md-5">
 			<h4>Description</h4>
 			<p>{$meta['DESCRIPTION']}</p>
+			<p>{$rating}</p>
 			</div>
 			</div>
 			<div id="play-box">
@@ -202,8 +210,8 @@ CASTENTRY;
 		echo "<p>The episode recording is currently in the works.</p>\n";
 	} else {
 
-		foreach ( array_slice( $shownotes, 15 ) as $note)
-		{
+		foreach ( $shownotes as $note ) {
+
 		$note = preg_replace_callback(
 			'/\d+:\d+:\d+\s+\*(.*)\*/',
 			function($matches) { return "\n<h4>" . slenc($matches[1]) . "</h4>\n<dl class=\"dl-horizontal\">"; },
@@ -284,6 +292,7 @@ CASTENTRY;
 				<span class="label">Days</span>
 				<span id="d1">{$ed[0]}</span>
 				<span id="d2">{$ed[1]}</span>
+				<span class="group">
 				<span class="label">&nbsp;</span>
 				<span id="h1">{$eh[0]}</span>
 				<span id="h2">{$eh[1]}</span>
@@ -293,9 +302,10 @@ CASTENTRY;
 				<span class="label">:</span>
 				<span id="s1">{$es[0]}</span>
 				<span id="s2">{$es[1]}</span>
+				</span>
 			</div>
-			<p>This episode will be recorded on {$dt}</p>
-			<p>Listen in live as our hosts and guests discuss Linux gaming on our <a href="mumble">Mumble server</a>.</p>
+			<p>Episode to be recorded on {$dt}</p>
+			<p>Listen live as our hosts and guests record on our <a href="mumble">Mumble server</a>.</p>
 			<p><a href="{$u}" class="btn btn-primary btn-lg pull-right">Click for details</a></p>
 		</div>
 	</article>
@@ -349,8 +359,9 @@ ABOUTCAST;
 				<thead>
 					<tr>
 						<th class="col-sm-1">No.
-						<th>Recorded
+						<th class="hidden-xxs">Reco​rded
 						<th class="col-sm-4">Title
+						<th class="col-xs-1"><i class="fa-circle-o"></i>
 						<th class="col-sm-2">Hosts
 						<th>Guests
 					</tr>
@@ -358,19 +369,9 @@ ABOUTCAST;
 				<tbody>
 CASTTABLE;
 
-	$casts = scandir($notesPath, 1);
-	foreach( $casts as $castdir )
+	foreach( getCasts( ) as $castdir )
 	{
-		if ($castdir === '.' or $castdir === '..' or $castdir === '.git' or $castdir === 'README')
-			continue;
-
-		$filename		= $notesPath .'/'. $castdir . "/episode.txt";
-
-		if (!file_exists($filename))
-			continue;
-
-		$header			= file_get_contents($filename, false, NULL, 0, 950);
-		$meta			= castHeaderFromString( $header );
+		$meta = getCastHeader( $castdir );
 
 		/* if published unset, skip this entry */
 		$wip = "";
@@ -380,6 +381,13 @@ CASTTABLE;
 		}
 
 		$meta['TITLE'] = slenc($meta['TITLE']);
+
+		// we add a zero width space to allow this to wrap better on mobile
+		$meta['RECORDED'] = preg_replace('/-/', '-​', $meta['RECORDED'], 1);
+
+		$rating = ( $meta[ 'RATING' ] == 'Explicit' ? '<i class="text-danger fa-circle"> <abbr title="Explicit" class="hidden-xxs">E</abbr></i>' :
+			($meta[ 'RATING' ] == 'Clean' ? '<i class="text-success fa-circle"> <abbr title="Clean" class="hidden-xxs">C</abbr></i>' :
+			'<i class="fa-circle"></i>' ) );
 
 		$listHosts = ""; $listGuests = "";
 		foreach ($meta['HOSTS'] as $Host) {
@@ -391,11 +399,13 @@ CASTTABLE;
 		echo <<<CASTENTRY
 			<tr {$wip}>
 				<td><a href="/cast/{$meta['SLUG']}">{$meta['SLUG']}</a></td>
-				<td><time datetime="{$meta['RECORDED']}">{$meta['RECORDED']}</time></td>
+				<td class="hidden-xxs"><time datetime="{$meta['RECORDED']}">{$meta['RECORDED']}</time></td>
 				<td><a href="/cast/{$meta['SLUG']}">{$meta[ 'TITLE' ]}</a></td>
+				<td>$rating</td>
 				<td>$listHosts</td>
 				<td>$listGuests</td>
 			</tr>
+
 CASTENTRY;
 	}
 ?>
@@ -415,33 +425,22 @@ CASTENTRY;
 ?>
 	</div>
 </article>
-
-<script>
-		$(document).ready
-		(
-$(function() {
-
-  $.extend($.tablesorter.themes.bootstrap, {
-	table		: '',
-    caption		: 'caption',
-    header		: 'bootstrap-header',	// give the header a gradient background
-    sortNone	: 'fa fa-unsorted',
-    sortAsc		: 'fa fa-sort-up',		// includes classes for Bootstrap v2 & v3
-    sortDesc	: 'fa fa-sort-down',	// includes classes for Bootstrap v2 & v3
-  });
-  $("#casts").tablesorter({
-    theme : "bootstrap",
-    headerTemplate : '{content} {icon}',
-    widgets : [ "uitheme" ],
-  })
-}));
-</script>
-<script>
-/*  $('#pagination').twbsPagination({
-	totalPages: 2,
-	visiblePages: 2,
-    href: '?season={{number}}'
-	})*/
-</script>
 <?php
+
+$onload = <<<CALLTHESEPLS
+$(document).ready(
+	$(function() {
+		$("#casts").tablesorter({
+			theme : "bootstrap",
+			headerTemplate : '{content} {icon}',
+			sortList: [[0,1]],
+			cssIconAsc: 'fa-sort-up',
+			cssIconDesc: 'fa-sort-down',
+			cssIconNone: 'fa-unsorted',
+		});
+	})
+);
+CALLTHESEPLS;
+if ($castList)
+	$tailScripts = array( $onload );
 include_once('includes/footer.php');

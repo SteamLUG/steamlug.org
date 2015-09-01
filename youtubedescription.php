@@ -8,20 +8,18 @@ function slenc($u)
 	return htmlentities($u,ENT_QUOTES, "UTF-8");
 }
 
-$filename = $notesPath . "/s" . $season . "e" . $episode . "/episode.txt";
-if ($season !== "00" && $episode !== "00" && file_exists($filename))
-{
-	$shownotes			= file( $filename );
-	$meta				= castHeader( array_slice( $shownotes, 0, 14 ) );
+/* User wanting to see a specific cast, and shownotes file exists */
+if ( $season !== "00" && $episode !== "00" && ($meta = getCastHeader( $slug ) ) ) {
 
+	$shownotes			= getCastBody( $slug );
 	$meta['RECORDED']	= ( $meta['RECORDED'] === '' ? "N/A" : $meta['RECORDED'] );
 
 	echo "{$meta['DESCRIPTION']}<br>\n<br>\n";
 	echo "Shownotes featuring full descriptions and links can be found at https://steamlug.org/cast/{$meta['SLUG']}<br>\n";
 	echo "This cast was recorded on {$meta['RECORDED']}<br>\n<br>\n";
 
-	foreach ( array_slice( $shownotes, 15 ) as $note)
-	{
+	foreach ( $shownotes as $note ) {
+
 		preg_replace_callback(
 			'/(\d+:\d+:\d+)\s+\*(.*)\*/',
 			function($matches) { print slenc($matches[1]) . " " . slenc($matches[2]) . "<br>"; },

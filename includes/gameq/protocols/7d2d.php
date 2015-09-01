@@ -41,4 +41,10 @@ class GameQ_Protocols_7d2d extends GameQ_Protocols_Source
 	    // Correct the client port since query_port = client_port + 1
 	    $this->port_client(($this->port_client() - 1));
 	}
+
+	protected function process_details() {
+		$result = parent::process_details();
+		$result['steamappid'] = 251570;
+		return $result;
+	}
 }

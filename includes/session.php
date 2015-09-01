@@ -4,8 +4,9 @@
 	ini_set( 'session.name', 'steamlug' );
 	ini_set( 'session.cookie_httponly', 1 );
 	// this setting breaks sessions for localhost, disable when testing locally
-	ini_set( 'session.cookie_secure', 1 );
+	// ini_set( 'session.cookie_secure', 1 );
 
+	include_once('functions_steam.php');
 	include_once('steam.php');
 	include_once('creds.php');
 
@@ -21,13 +22,12 @@
 		$_SESSION['g'] = group_check($uid);
 		store_user_details($uid);
 		$_SESSION['i'] = getenv("REMOTE_ADDR");
-		$_SESSION['t'] = time() + (12 * 60 * 60);
+		$_SESSION['t'] = time() + (2 * 24 * 60 * 60);
 		session_write_close();
 	}
 
 	function logout()
 	{
-		SteamSignIn::logout();
 		session_destroy();
 		header ("Location: /");
 	}
@@ -56,23 +56,18 @@
 
 	function group_check($uid)
 	{
-		$groups = file_get_contents('http://api.steampowered.com/ISteamUser/GetUserGroupList/v0001/?key=' . getSteamAPIKey() . '&steamid=' . $uid);
-		if ($groups === false)
-		{
+		$groups = getMemberGroups( $uid );
+		if ( $groups === false ) {
 			//Quick fix for Steam non-responsiveness and private user accounts
-			return false;
+			return;
 		}
-		$groups = (array) json_decode($groups, true);
-		if (is_array($groups))
-		{
-			if ($groups['response']['success'] == 1)
-			{
-				foreach ($groups['response']['groups'] as $g)
-				{
-					if ($g['gid'] == getGroupID32())
-					{
-						return true;
-					}
+		if ( is_array( $groups ) and $groups['success'] == 1 ) {
+
+			foreach ( $groups['groups'] as $g ) {
+
+				if ( $g['gid'] == getGroupID32() ) {
+
+					return true;
 				}
 			}
 		}
@@ -83,24 +78,20 @@
 	/* These calls can take time… async them somehow? */
 	function store_user_details($uid)
 	{
-		$details = file_get_contents('http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=' . getSteamAPIKey() . '&steamids=' . $uid);
-		if ($details === false)
-		{
-			//Quick fix for Steam non-responsiveness and private user accounts
+		$details = getPlayerSummary( $uid );
+		if ( $details === false ) {
+
+			// Quick fix for Steam non-responsiveness and private user accounts
 			// Cannot get user avatar
 			return;
 		}
-		$details = (array) json_decode($details, true);
-		if (is_array($details))
-		{
-			if ( isset( $details['response']['players'] ) )
-			{
-				$_SESSION['n'] = $details['response']['players'][0]['personaname'];
-				$_SESSION['a'] = $details['response']['players'][0]['avatarfull'];
-			}
+		if ( is_array( $details ) ) {
+
+			$_SESSION['n'] = $details[ 'personaname' ];
+			$_SESSION['a'] = $details[ 'avatarfull' ];
 		}
 		return;
 	}
 
 	sec_session_start();
-?>
+

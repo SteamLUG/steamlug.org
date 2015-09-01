@@ -33,6 +33,7 @@ class GameQ_Filters_Normalise extends GameQ_Filters
 		'general' => array(
 	    	// target       => source
 			'dedicated'     => array('listenserver', 'dedic', 'bf2dedicated', 'netserverdedicated', 'bf2142dedicated'),
+			'steamappid'	=> array('steamappid'),
 	        'gametype'      => array('ggametype', 'sigametype', 'matchtype'),
 	        'hostname'      => array('svhostname', 'servername', 'siname', 'name'),
 	        'mapname'       => array('map', 'simap'),

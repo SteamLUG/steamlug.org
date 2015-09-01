@@ -1,42 +1,58 @@
 <?php
 	include_once('creds.php');
 
-	function getPDODrv()
-	{
+	function getPDODrv( ) {
 		return "mysql";
 	}
 
-	function getPDODrvList()
-	{
-		$drivers = array();
-	
-		foreach(PDO::getAvailableDrivers() as $d)
-		{
+	function getPDODrvList( ) {
+
+		$drivers = array( );
+		foreach( PDO::getAvailableDrivers( ) as $d ) {
+
 			$drivers[] = $d;
 		}
-	
 		return $drivers;
 	}
 
-	function connectDB()
-	{
-		global $conn;
-		try
-		{
+	function connectDB( ) {
+
+		$conn = null;
+		try {
+
 			$conn = new PDO( getPDODrv() . ":dbname=" . getDBName() . ";host=" . getDBHost(), getDBUser(), getDBPass());
 			$conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 			$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			//echo "PDO connection object created";
-		}
-		catch(PDOException $e)
-		{
+			// We *always* enforce this
+			$conn->exec( 'SET NAMES utf8mb4;' );
+
+		} catch(PDOException $e) {
+
 			echo $e->getMessage();
+		}
+		return $conn;
+	}
+
+	function closeDB( $connection ) {
+
+		$connection = null;
+	}
+
+	function logDB( $message ) {
+
+		global $database;
+		try {
+			/* should this be called inside a transaction? or outside to record failed ones… */
+			/* TODO: safe-ify $id */
+			$statement = $database->prepare( "INSERT INTO steamlug.happenings (what) VALUES (:msg)" );
+			$statement->execute( array( 'msg' => $message ) );
+			$logmsg = $statement->fetch( PDO::FETCH_ASSOC );
+			return $logmsg;
+		} catch ( Exception $e ) {
+
+			return false;
 		}
 	}
 
-	function closeDB()
-	{
-		global $conn;
-		$conn = null;
-	}
-?>
+	/* TODO add a logging function here for the table happenings */

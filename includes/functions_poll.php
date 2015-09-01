@@ -1,42 +1,20 @@
 <?php
+include_once('functions_db.php');
 
-	function setupStuff()
-	{
-		global $conn;
-
-		include_once('creds.php');
-		include_once('functions_db.php');
-
-		if (!isset($conn))
-		{
-			$conn = null;
-			connectDB();
-		}
-
-		$loggedIn = login_check();
-		if ($loggedIn)
-		{
-			return $_SESSION['u'];
-		}
-		else
-		{
-			return False;
-		}
-
-	}
+if ( !isset( $database ) )
+	$database = connectDB( );
 
 	function showPollSelector($elementID = 'pollSelect', $default = -1, $new = False, $limit = 20)
 	{
-		global $conn;
-		$uid = setupStuff();
-		
+		global $database;
+
 		$query = "select date_format(expireDate, '%Y-%m-%d') as expireDate, title, id from poll order by title ";
 		if (is_numeric($limit) && $limit > 0 )
 		{
 			$query = $query . "limit " . $limit;
 		}
 
-		$stmt = $conn->prepare($query);
+		$stmt = $database->prepare($query);
 		$stmt->execute();
 		$poll = array();
 		if ($stmt)
@@ -57,15 +35,14 @@
 			}
 			echo "\t</select></div></div>\n";
 		}
-	
 	}
 
 	function showPastPolls($limit = -1)
 	{
-		global $conn;
-		$uid = setupStuff();
+		global $database;
+		$uid = ( array_key_exists( 'u', $_SESSION ) ? $_SESSION[ 'u' ] : False );
 
-		$stmt = $conn->prepare("select date_format(expireDate, '%Y-%m-%d') as expireDate, date_format(publishDate, '%Y-%m-%d') as publishDate, title, description, url, multipleChoice, poll.id as id, now() >= expireDate as expired, responseCount, hasVoted from poll left join (select count(uid) as responseCount, count(case when uid = :uid then 1 else NULL end) as hasVoted, pollID from poll_respondent group by pollID) as temp on pollID = poll.id where now() >= publishDate and now() >= expireDate");
+		$stmt = $database->prepare("select date_format(expireDate, '%Y-%m-%d') as expireDate, date_format(publishDate, '%Y-%m-%d') as publishDate, title, description, url, multipleChoice, poll.id as id, now() >= expireDate as expired, responseCount, hasVoted from poll left join (select count(uid) as responseCount, count(case when uid = :uid then 1 else NULL end) as hasVoted, pollID from poll_respondent group by pollID) as temp on pollID = poll.id where now() >= publishDate and now() >= expireDate");
 		$stmt->execute(array('uid' => $uid));
 		$poll = array();
 		if ($stmt)
@@ -86,17 +63,16 @@
 		else
 		{
 			echo "Oh noes ;_;";
-			print_r($conn->errorInfo());
+			print_r($database->errorInfo());
 		}
-		closeDB();
 	}
-	
+
 	function showCurrentPolls( $limit = -1)
 	{
-		global $conn;
-		$uid = setupStuff();
+		global $database;
+		$uid = ( array_key_exists( 'u', $_SESSION ) ? $_SESSION[ 'u' ] : False );
 
-		$stmt = $conn->prepare("select date_format(expireDate, '%Y-%m-%d') as expireDate, date_format(publishDate, '%Y-%m-%d') as publishDate, title, description, url, multipleChoice, poll.id as id, now() >= expireDate as expired, responseCount, hasVoted from poll left join (select count(uid) as responseCount, count(case when uid = :uid then 1 else NULL end) as hasVoted, pollID from poll_respondent group by pollID) as temp on pollID = poll.id where now() >= publishDate and now() < expireDate");
+		$stmt = $database->prepare("select date_format(expireDate, '%Y-%m-%d') as expireDate, date_format(publishDate, '%Y-%m-%d') as publishDate, title, description, url, multipleChoice, poll.id as id, now() >= expireDate as expired, responseCount, hasVoted from poll left join (select count(uid) as responseCount, count(case when uid = :uid then 1 else NULL end) as hasVoted, pollID from poll_respondent group by pollID) as temp on pollID = poll.id where now() >= publishDate and now() < expireDate");
 		$stmt->execute(array('uid' => $uid));
 		$poll = array();
 		if ($stmt)
@@ -117,24 +93,23 @@
 		else
 		{
 			echo "Oh noes ;_;";
-			print_r($conn->errorInfo());
+			print_r($database->errorInfo());
 		}
-		closeDB();
 	}
 
 	function showNextExpiringPoll()
 	{
-		global $conn;
-		$uid = setupStuff();
+		global $database;
+		$uid = ( array_key_exists( 'u', $_SESSION ) ? $_SESSION[ 'u' ] : False );
 
-		$stmt = $conn->prepare("select date_format(expireDate, '%Y-%m-%d') as expireDate, date_format(publishDate, '%Y-%m-%d') as publishDate, title, description, url, multipleChoice, poll.id as id, now() >= expireDate as expired, responseCount, hasVoted from poll left join (select count(uid) as responseCount, count(case when uid = :uid then 1 else NULL end) as hasVoted, pollID from poll_respondent group by pollID) as temp on pollID = poll.id where now() >= publishDate and now() >= expireDate order by expireDate asc limit 1");
+		$stmt = $database->prepare("select date_format(expireDate, '%Y-%m-%d') as expireDate, date_format(publishDate, '%Y-%m-%d') as publishDate, title, description, url, multipleChoice, poll.id as id, now() >= expireDate as expired, responseCount, hasVoted from poll left join (select count(uid) as responseCount, count(case when uid = :uid then 1 else NULL end) as hasVoted, pollID from poll_respondent group by pollID) as temp on pollID = poll.id where now() >= publishDate and now() >= expireDate order by expireDate asc limit 1");
 		$stmt->execute(array('uid' => $uid));
 		$poll = array();
 		if ($stmt)
 		{
 			$poll = $stmt->fetchAll(PDO::FETCH_ASSOC);
 			$stmt->closeCursor();
-			
+
 			foreach ($poll as $p)
 			{
 				$p['uid'] = $uid;
@@ -145,12 +120,11 @@
 				showPoll($p);
 			}
 		}
-		closeDB();
 	}
 
 	function showPoll($poll)
 	{
-		global $conn;
+		global $database;
 
 		$canVote = False;
 
@@ -163,9 +137,9 @@
 		}
 
 
-		$stmt = $conn->prepare("select id, name, description, url, responseCount, responseCount / ? * 100 as percentage from poll_option where pollID = ?");
-		$stmt->execute(array($poll['responseCount'], $poll['id']));
-	
+		$stmt = $database->prepare("select id, name, description, url, responseCount, responseCount / :count * 100 as percentage from poll_option where pollID = :pollid");
+		$stmt->execute(array( 'count' => $poll['responseCount'], 'pollid' => $poll['id']));
+
 		$options = array();
 		if ($stmt)
 		{
@@ -175,7 +149,7 @@
 		else
 		{
 			echo "Oh noes ;_;";
-			print_r($conn->errorInfo());
+			print_r($database->errorInfo());
 		}
 
 		//print_r($poll);
@@ -231,7 +205,7 @@
 			echo "\t<p class = 'pollVoteCount'>" . $poll['responseCount'] . " vote" . ($poll['responseCount'] != 1 ? "s" : "" ) . "</p>\n";
 			echo "\t<p>You must be logged in to vote.</p>\n";
 		}
-		
+
 		if ($canVote)
 		{
 			echo "\t<input type=\"hidden\" name=\"poll\" value=\"" . $poll['id'] . "\" />\n";
@@ -245,29 +219,22 @@
 
 	function deletePoll($id)
 	{
-	
-		include_once('creds.php');
 		if (in_array($_SESSION['u'], getAdmins()))
 		{
-			global $conn;
-			include_once('functions_db.php');
-			if (!isset($conn))
-			{
-				$conn = null;
-				connectDB();
-			}
+			global $database;
+			$uid = ( array_key_exists( 'u', $_SESSION ) ? $_SESSION[ 'u' ] : False );
 			$error = "";
-			
+
 			if (is_numeric($id))
 			{
 				echo "<p>";
-				$stmt = $conn->prepare("delete from poll_option where pollID = :pollID");
+				$stmt = $database->prepare("delete from poll_option where pollID = :pollID");
 				$stmt->execute(array('pollID' => $id));
 				echo "Deleted " . $stmt->rowCount() . " poll options with pollid " . $id . "<br />\n";
-				$stmt = $conn->prepare("delete from poll_respondent where pollID = :pollID");
+				$stmt = $database->prepare("delete from poll_respondent where pollID = :pollID");
 				$stmt->execute(array('pollID' => $id));
 				echo "Deleted " . $stmt->rowCount() . " poll responses with pollid " . $id . "<br />\n";
-				$stmt = $conn->prepare("delete from poll where id = :pollID");
+				$stmt = $database->prepare("delete from poll where id = :pollID");
 				$stmt->execute(array('pollID' => $id));
 				echo "Deleted " . $stmt->rowCount() . " polls with id " . $id . ".\n";
 				echo "</p>";
@@ -276,28 +243,22 @@
 			{
 				$error = "bad_poll";
 			}
-			
+
 			if ($error != "")
 			{
 				echo "ERRORS " . $error;
 			}
 		}
 	}
-	
-	
+
+
 	function savePoll()
 	{
-	
-		include_once('creds.php');
+
 		if (in_array($_SESSION['u'], getAdmins()))
 		{
-			global $conn;
-			include_once('functions_db.php');
-			if (!isset($conn))
-			{
-				$conn = null;
-				connectDB();
-			}
+			global $database;
+			$uid = ( array_key_exists( 'u', $_SESSION ) ? $_SESSION[ 'u' ] : False );
 			$error = "";
 			echo "<!--";
 			if (isset($_POST['poll_title']) && isset($_POST['poll_description']) && isset($_POST['poll_type']) && isset($_POST['poll_publishDate']) && isset($_POST['poll_expireDate']) && isset($_POST['poll_url']))
@@ -308,7 +269,7 @@
 					{
 						echo "UPDATING!!!";
 						$pollID = $_POST['poll_id'];
-						$stmt = $conn->prepare("update poll set title = :title, description = :description, url = :url, type = :type, multipleChoice = :multipleChoice, publishDate = :publishDate, expireDate = :expireDate where id = :pollID");
+						$stmt = $database->prepare("update poll set title = :title, description = :description, url = :url, type = :type, multipleChoice = :multipleChoice, publishDate = :publishDate, expireDate = :expireDate where id = :pollID");
 						$stmt->execute(array(
 							'title' => $_POST['poll_title'],
 							'description' => $_POST['poll_description'],
@@ -329,7 +290,7 @@
 				else
 				{
 					echo "INSERTING!!!";
-					$stmt = $conn->prepare("insert into poll (title, description, url, type, multipleChoice, publishDate, expireDate) values (:title, :description, :url, :type, :multipleChoice, :publishDate, :expireDate)");
+					$stmt = $database->prepare("insert into poll (title, description, url, type, multipleChoice, publishDate, expireDate) values (:title, :description, :url, :type, :multipleChoice, :publishDate, :expireDate)");
 					$stmt->execute(array(
 							'title' => $_POST['poll_title'],
 							'description' => $_POST['poll_description'],
@@ -339,20 +300,20 @@
 							'publishDate' => $_POST['poll_publishDate'],
 							'expireDate' => $_POST['poll_expireDate']
 							));
-					$pollID = $conn->lastInsertId();
+					$pollID = $database->lastInsertId();
 					if (!isset($_GET['poll']))
 					{
 						$_GET['poll'] = $pollID;
 					}
 				}
-				
+
 
 				if ($error != "")
 				{
 					echo "ERRORS " . $error;
 					$error = "";
 				}
-				
+
 				//so
 				if (isset($_POST['option_name']) && isset($_POST['option_description']) && isset($_POST['option_pollID']) && isset($_POST['option_id']) && isset($_POST['option_delete']) && isset($_POST['option_url']))
 				{
@@ -368,7 +329,7 @@
 								if (isset($_POST['option_delete'][$i]))
 								{
 									//delete
-									$stmt = $conn->prepare("delete from poll_option where id = :optionID");
+									$stmt = $database->prepare("delete from poll_option where id = :optionID");
 									$stmt->execute(array(
 											'optionID' => $id
 											));
@@ -377,7 +338,7 @@
 								else
 								{
 									//update
-									$stmt = $conn->prepare("update poll_option set name = :name, description = :description, url = :url, pollID = :pollID where id = :optionID");
+									$stmt = $database->prepare("update poll_option set name = :name, description = :description, url = :url, pollID = :pollID where id = :optionID");
 									$stmt->execute(array(
 											'name' => $_POST['option_name'][$i],
 											'description' => $_POST['option_description'][$i],
@@ -391,7 +352,7 @@
 							else if ($_POST['option_name'][$i] != "")
 							{
 								//insert
-								$stmt = $conn->prepare("insert into poll_option (name, description, url, pollID, responseCount) values (:name, :description, :url, :pollID, 0)");
+								$stmt = $database->prepare("insert into poll_option (name, description, url, pollID, responseCount) values (:name, :description, :url, :pollID, 0)");
 								$stmt->execute(array(
 										'name' => $_POST['option_name'][$i],
 										'description' => $_POST['option_description'][$i],
@@ -411,13 +372,13 @@
 				{
 					$error = 'bad_options';
 				}
-				
+
 			}
 			else
 			{
 				//$error = 'bad_post';
 			}
-			
+
 			if ($error != "")
 			{
 				echo "ERRORS " . $error;
@@ -426,30 +387,21 @@
 			echo "-->\n";
 		}
 	}
-	
+
 	function showPollAdmin()
 	{
-		include_once('creds.php');
-		echo "Logged in as " . $_SESSION['u'];
 		if (in_array($_SESSION['u'], getAdmins()))
 		{
-			global $conn;
+			global $database;
+			$uid = ( array_key_exists( 'u', $_SESSION ) ? $_SESSION[ 'u' ] : False );
 
-			include_once('functions_db.php');
-			if (!isset($conn))
-			{
-				$conn = null;
-				connectDB();
-			}
-
-			
 			$poll = array();
 			if (isset($_GET['poll']))
 			{
 				if (is_numeric($_GET['poll']))
 				{
-					$stmt = $conn->prepare("select date_format(expireDate, '%Y-%m-%d') as expireDate, date_format(publishDate, '%Y-%m-%d') as publishDate, title, description, url, type, multipleChoice, id from poll where id = ?");
-					$stmt->execute(array($_GET['poll']));
+					$stmt = $database->prepare("select date_format(expireDate, '%Y-%m-%d') as expireDate, date_format(publishDate, '%Y-%m-%d') as publishDate, title, description, url, type, multipleChoice, id from poll where id = :pollid");
+					$stmt->execute(array( 'pollid' => $_GET['poll'] ));
 					$poll = $stmt->fetchAll(PDO::FETCH_ASSOC);
 					//echo $_GET['poll'] . ": ".  print_r($poll);
 					if (count($poll) > 0)
@@ -531,8 +483,8 @@
 
 			<h3>Poll Options</h3>
 			<?php
-			$stmt = $conn->prepare("select id, name, description, url from poll_option where pollID = ?");
-			$stmt->execute(array( (isset($poll['id']) ? $poll['id'] : "") ));
+			$stmt = $database->prepare("select id, name, description, url from poll_option where pollID = :pollid");
+			$stmt->execute(array( 'pollid' => (isset($poll['id']) ? $poll['id'] : "") ));
 			$options = $stmt->fetchAll(PDO::FETCH_ASSOC);
 			$stmt->closeCursor();
 
@@ -563,12 +515,7 @@
 					<input class="form-control" type="text" id="option_url_<?php echo $i; ?>" name="option_url[<?php echo $i; ?>]" placeholder="An optional supporting URL." value="<?php echo (isset($o['url']) ? $o['url'] : "") ?>" />
 				</div>
 			</div>
-			<div class="form-group">
-				<label class="col-lg-2 control-label" for="option_pollID_<?php echo $i; ?>">Poll ID</label>
-				<div class="col-lg-10">
-					<input class="form-control" type="text" placeholder="Leave blank if this is for the current poll." id="option_pollID_<?php echo $i; ?>" name="option_pollID[<?php echo $i; ?>]" value="<?php echo (isset($poll['id']) ? $poll['id']: "") ?>"/>
-				</div>
-			</div>
+			<input type="hidden" id="option_pollID_<?php echo $i; ?>" name="option_pollID[<?php echo $i; ?>]" value="<?php echo (isset($poll['id']) ? $poll['id']: "") ?>"/>
 			<div class="form-group">
 				<label class="col-lg-2 control-label" for="option_delete_<?php echo $i; ?>">Delete Option</label>
 				<div class="col-lg-10">
@@ -581,7 +528,7 @@
 			?>
 			<!-- this is needed so that we can be confident that the array exists even if nothing is being deleted -->
 			<input type="hidden" name="option_delete[-1]" id="delete_option_placeholder" />
-			<input class="btn btn-success" type="submit" value="Save" />
+			<input class="btn btn-success col-xs-offset-2" type="submit" value="Save" />
 			</form>
 		<?php
 		}
@@ -590,4 +537,3 @@
 			echo "<p class=\"text-error\">You don't belong here.</p>";
 		}
 	}
-?>

@@ -127,7 +127,7 @@ class SteamEventParser {
 		$year = (empty($year)) ? gmstrftime("%Y") : $year;
 		// erk
 		$url = ($ssl ? str_replace( "http:", "https:", $url ) : $url );
-		$url.= $group . "/events_" . $month . "_" . $year . ".xml";
+		$url.= "/" . $group . "/events_" . $month . "_" . $year . ".xml";
 		// Setting the (upcoming) file handle to true for ultimate hackiness
 		$f = true;
 		// Checking robots.txt with rbt_prs (https://github.com/meklu/rbt_prs) if it's been included
@@ -163,4 +163,3 @@ class SteamEventParser {
 		return array("status" => true, "events" => $events, "pastevents" => $pastevents);
 	}
 }
-?>

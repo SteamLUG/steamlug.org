@@ -23,4 +23,10 @@ class GameQ_Protocols_Fof extends GameQ_Protocols_Source
 {
 	protected $name = "fof";
 	protected $name_long = "Fistful of Frags";
+
+	protected function process_details() {
+		$result = parent::process_details();
+		$result['steamappid'] = 265630;
+		return $result;
+	}
 }

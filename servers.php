@@ -3,7 +3,7 @@
 	// 60 second cache
 	ini_set('zlib.output_compression', 0);
 	ini_set('implicit_flush', 1);
-	$syncexternalJS = array( '/scripts/jquery.tablesorter.min.js', '/scripts/jquery.tablesorter.widgets.min.js' );
+	$tailJS = array( '/scripts/jquery.tablesorter.min.js' );
 	include_once('includes/header.php');
 	include_once('includes/GameQ.php');
 	include_once('includes/paths.php');
@@ -28,14 +28,14 @@
 				<table id="servers" class="table table-striped table-hover tablesorter">
 					<thead>
 						<tr>
-							<th>
-							<th><i class="fa fa-shield"></i>
-							<th><i class="fa fa-lock"></i>
+							<th><i class="fa-globe"></i>
+							<th><i class="fa-shield"></i>
+							<th><i class="fa-lock"></i>
 							<th>Game
 							<th>Servers
-							<th>Players
-							<th>Map
-							<th>
+							<th>№
+							<th class="hidden-xxs">Map
+							<th><i class="fa-circle"></i>
 						</tr>
 					</thead>
 					<tbody>
@@ -65,38 +65,41 @@
 	{
 		if (!$data['gq_online'])
 		{
+			$data['gq_address'] = preg_replace('/.steamlug.org/', '​.steamlug.org', $data['gq_address'], 1);
 			echo <<<SERVERSTRING
 			<tr class="unresponsive">
 				<td></td>
 				<td></td>
 				<td></td>
 				<td><em>Server Unresponsive</em></td>
-				<td><em>{$data['gq_address']}:{$data['gq_port']}</em></td>
+				<td><em>{$data['gq_address']}​:{$data['gq_port']}</em></td>
 				<td><em>0 ⁄ 0</em></td>
-				<td><em>N/A</em></td>
-				<td><span class="text-danger"><i class="fa fa-circle-o"></i></span></td>
+				<td class="hidden-xxs"><em>N/A</em></td>
+				<td><i class="text-danger fa-circle-o"></i></span></td>
 			</tr>
 SERVERSTRING;
 		} else {
 			/* this block of code should be better… TODO it please */
 			$serverLoc	= geoip_country_code_by_name($data['gq_address']);
-			$serverSec	= !empty($data['secure']) ? '<i class="fa fa-shield"></i>' : '';
-			$serverPass	= !empty($data['gq_password']) ? '<i class="fa fa-lock"></i>' : '';
+			$serverSec	= !empty($data['secure']) ? '<i class="fa-shield"></i>' : '';
+			$serverPass	= !empty($data['gq_password']) ? '<i class="fa-lock"></i>' : '';
 			$serverDesc	= !empty($data['gq_name']) ? $data['gq_name'] : '';
-			$serverNum	= (!empty($data['gq_numplayers']) ? $data['gq_numplayers'] : '0') . ' ⁄ ' . $data['gq_maxplayers'];
+			// TODO commented out until our new DB stuff is done
+			// $serverDesc	= !empty($data['gq_steamappid']) ? '<a href="/app/' . $data['gq_steamappid'] . '">' . $data['gq_name'] . '</a>' : $data['gq_name'];
+			$serverNum	= (!empty($data['gq_numplayers']) ? $data['gq_numplayers'] : '0') . ' ⁄ ' . $data['gq_maxplayers'];
 			$serverMap	= substr( $data['gq_mapname'], 0, 18 );
 			$connectPort	= (!empty($data['port']) ? $data['port'] : (isset($data['gameport']) ? $data['gameport'] : $data['gq_port']));
 			$serverHost	= $data['gq_address'] . ":" . $connectPort;
 			echo <<<SERVERSTRING
 			<tr>
-				<td><span style="display:none">{$serverLoc}</span><img src="/images/flags/{$serverLoc}.png" alt="Hosted in {$serverLoc}"></td>
+				<td><img src="/images/flags/{$serverLoc}.png" title="Hosted in {$serverLoc}" alt="{$serverLoc}" /></td>
 				<td>{$serverSec}</td>
 				<td>{$serverPass}</td>
 				<td>{$serverDesc}</td>
 				<td><a href="steam://connect/{$serverHost}">{$data['gq_hostname']}</a>
 				<td>{$serverNum}</td>
-				<td>{$serverMap}</td>
-				<td><span class="text-success"><i class="fa fa-circle"></i></span></td>
+				<td class="hidden-xxs">{$serverMap}</td>
+				<td><i class="text-success fa-circle"></i></td>
 			</tr>
 SERVERSTRING;
 		}
@@ -106,29 +109,24 @@ SERVERSTRING;
 				</table>
 			</div>
 		</article>
-<script>
-		$(document).ready
-		(
-$(function() {
-
-  $.extend($.tablesorter.themes.bootstrap, {
-	table		: '',
-    caption		: 'caption',
-    header		: 'bootstrap-header',	// give the header a gradient background
-    sortNone	: 'fa fa-unsorted',
-    sortAsc		: 'fa fa-sort-up',		// includes classes for Bootstrap v2 & v3
-    sortDesc	: 'fa fa-sort-down',	// includes classes for Bootstrap v2 & v3
-  });
-  $("#servers").tablesorter({
-    theme : "bootstrap",
-    headerTemplate : '{content} {icon}',
-    widgets : [ "uitheme" ],
-	headers: {
-		1: { sorter: false },
-		2: { sorter: false },
-	},
-	sortList: [[7,1],[5,1],[0,0],[4,0]]
-  })
-}));
-</script>
-<?php include_once('includes/footer.php'); ?>
+<?php
+$onload = <<<CALLTHESEPLS
+$(document).ready(
+	$(function() {
+		$("#servers").tablesorter({
+			theme : "bootstrap",
+			headerTemplate : '{content} {icon}',
+			headers: {
+				1: { sorter: false, parser: false },
+				2: { sorter: false, parser: false },
+			},
+			sortList: [[7,1],[5,1],[4,0],[0,0]],
+			cssIconAsc: 'fa-sort-up',
+			cssIconDesc: 'fa-sort-down',
+			cssIconNone: 'fa-unsorted'
+		});
+	})
+);
+CALLTHESEPLS;
+$tailScripts = array( $onload );
+include_once('includes/footer.php');

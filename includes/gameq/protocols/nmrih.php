@@ -23,4 +23,9 @@ class GameQ_Protocols_Nmrih extends GameQ_Protocols_Source
 {
 	protected $name = "nmrih";
 	protected $name_long = "No More Room in Hell";
+	protected function process_details() {
+		$result = parent::process_details();
+		$result['steamappid'] = 224260;
+		return $result;
+	}
 }

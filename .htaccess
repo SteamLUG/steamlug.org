@@ -3,9 +3,6 @@
 IndexIgnore *.php *.flac
 Options -Indexes
 
-# value for E_ALL in 5.4.x
-php_value error_reporting 32767
-
 ErrorDocument 403 /error-page/403.php
 ErrorDocument 404 /error-page/404.php
 ErrorDocument 500 /error-page/500.php
@@ -24,3 +21,24 @@ RewriteRule ^cast/s(\d+)e(\d+)$ /cast.php?s=$1&e=$2 [NC,L]
 RewriteRule ^feed/cast/(\w+)$ /feed/cast.php?t=$1 [NC,L]
 RewriteRule ^youtubethumb/s(\d+)e(\d+)$ /youtubethumb/?s=$1&e=$2 [NC,L]
 RewriteRule ^youtubedescription/s(\d+)e(\d+)$ /youtubedescription/?s=$1&e=$2 [NC,L]
+RewriteRule ^app/(\d+)$ /app.php?appid=$1 [NC,L]
+RewriteRule ^events/(\w+)$ /events.php?eventid=$1 [NC,L]
+RewriteRule ^polls/(\d+)$ /polls.php?pollid=$1 [NC,L]
+RewriteRule ^member/(\w+)$ /member.php?uid=$1 [NC,L]
+RewriteRule ^clan/(\w+)$ /clan.php?clanid=$1 [NC,L]
+
+RewriteRule ^apple-touch-icon(.*).png$ mobile-favicon.png [L]
+
+<ifmodule mod_expires.c>
+<FilesMatch "\.(png|gif|jpg|jpeg|ico)$">
+	ExpiresActive On
+	ExpiresDefault "access plus 2 weeks"
+	Header append Cache-Control "public"
+</FilesMatch>
+<FilesMatch "\.(css|js|svg)$">
+	ExpiresActive On
+	ExpiresDefault "access plus 1 week"
+	Header append Cache-Control "public"
+</FilesMatch>
+</ifmodule>
+

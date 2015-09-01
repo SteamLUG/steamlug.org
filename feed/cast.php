@@ -18,7 +18,7 @@
 	}
 
 	/* gives us a list, like s02e03, s02e02, etc of all of our casts */
-	$casts = scandir($notesPath, 1);
+	$casts = getCasts( );
 	/* naïve as fook, but we know this. */
 	$latestCast = date("D, d M Y H:i:s O", filemtime( $notesPath . '/' . $casts[0] ));
 
@@ -52,7 +52,7 @@
 			<link>https://steamlug.org/cast</link>
 		</image>
 		<itunes:image href="http://steamlug.org/images/steamlugcast.png" />
-		<copyright>2013 © SteamLUG cast, CC-BY-SA http://creativecommons.org/licenses/by-sa/3.0/</copyright>
+		<copyright>2013 – 2015 © SteamLUG cast, CC-BY-SA http://creativecommons.org/licenses/by-sa/3.0/</copyright>
 		<cc:license rdf:resource="http://creativecommons.org/licenses/by-sa/3.0/" />
 		<pubDate>$latestCast</pubDate>
 		<itunes:category text="Games &amp; Hobbies">
@@ -63,18 +63,13 @@
 		<itunes:explicit>no</itunes:explicit><media:rating scheme="urn:simple">nonadult</media:rating>
 CASTHEAD;
 
-	foreach( $casts as $castdir )
-	{
-		if ($castdir === '.' or $castdir === '..' or $castdir === '.git' or $castdir === 'README')
+	foreach( $casts as $castdir ) {
+
+		$shownotes			= getCastBody( $castdir );
+		$meta				= getCastHeader( $castdir );
+
+		if ( ( $meta == false ) or ( $shownotes == false ) )
 			continue;
-
-		$filename		= $notesPath .'/'. $castdir . "/episode.txt";
-
-		if (!file_exists($filename))
-			continue;
-
-		$shownotes			= file($filename);
-		$meta				= castHeader( array_slice( $shownotes, 0, 14 ) );
 
 		/* if published unset, skip this entry */
 		if ( $meta['PUBLISHED'] === '' )
@@ -105,13 +100,13 @@ CASTHEAD;
 			<guid>https://steamlug.org/cast/{$meta['SLUG']}</guid>
 			<enclosure url="{$archiveBase}.{$type}" length="{$episodeSize}" type="{$episodeMime}" />
 			<media:content url="{$archiveBase}.{$type}" fileSize="{$episodeSize}" type="{$episodeMime}" medium="audio" expression="full" />
-			<itunes:explicit>no</itunes:explicit>
-			<media:rating scheme="urn:simple">nonadult</media:rating>
+			<itunes:explicit>{$meta['ISEXPLICIT']}</itunes:explicit>
+			<media:rating scheme="urn:simple">{$meta['MEDIARATING']}</media:rating>
 			<description><![CDATA[<p>{$meta['DESCRIPTION']}</p>
 
 CASTENTRY;
-		foreach ( array_slice( $shownotes, 15 ) as $note)
-		{
+		foreach ( $shownotes as $note ) {
+
 			$note = preg_replace_callback(
 				'/\d+:\d+:\d+\s+\*(.*)\*/',
 				function($matches){ return "<p>" . slenc($matches[1]) . "</p>\n<ul>"; },

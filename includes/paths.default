@@ -1,5 +1,5 @@
 <?php
-// These are locations pulled out from the rest of the repo, to give some flexiblity
+// These are locations pulled out from the rest of the repo, to give some flexibility
 // SteamLUG Cast
 $notesPath		= "/var/www/archive.steamlug.org/steamlugcast";		// replaces $path
 $filePath		= "/var/www/archive.steamlug.org/steamlugcast";		// replaces $path
@@ -13,6 +13,8 @@ $avatarFilePath	= "/var/www/www.steamlug.org/avatars";				// public-facing dir t
 $avatarKeyPath  = "/var/www/dev.steamlug.org/avatar-files";			// private-facing dir to write to
 // Event XML
 $eventXMLPath   = "http://cenobite.swordfischer.com/";				// Current XML source location
+$steamLinuxDB	= "/var/www/dev.steamlug.org/SteamLinux";			// Current GAMES.json location
 // Mumble Server
 $mumbleServer	= 'mumble.steamlug.org';							// Not really a path, but eh
 
+$steamcmdPath	= '/usr/bin/steamcmd';								// Location to our installed `steamcmd`

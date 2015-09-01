@@ -19,4 +19,4 @@
 				</div>
 		</article>
 					<?php	showCurrentPolls(); ?>
-<?php include_once('includes/footer.php'); ?>
+<?php include_once('includes/footer.php');

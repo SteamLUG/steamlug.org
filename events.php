@@ -2,15 +2,35 @@
 $pageTitle = "Events";
 include_once( 'includes/functions_events.php' );
 
-$event = getNextEvent( );
 $data = getRecentEvents( );
-if ($event != null) {
-	$eTime = $event['utctime'];
-	if (isset($eTime)) {
-		$extraJS = "\t\t\tvar target = new Date(" . $eTime . ");";
-		$externalJS = array('/scripts/events.js');
+
+if ( $eventID == "0" ) {
+
+	$event = getNextEvent( false, 3600 );
+	if ( $event != null ) {
+		$eTime = $event['utctime'];
+	}
+} else {
+
+	$event = findEvent( $eventID );
+	if ( $event != null ) {
+		$eTime = $event['utctime'];
+		$extraCrap = <<<TWITCARD
+		<meta name="twitter:card" content="summary_large_image">
+		<meta name="twitter:site" content="@SteamLUG">
+		<meta name="twitter:title" content="{$event['title']}">
+		<meta name="twitter:description" content="Join our community playing ‘{$event['title']}’ at {$event['time']} UTC. Everyone is welcome!&lt;br&gt;{$event['url']}">
+		<meta name="twitter:image:src" content="https:{$event['img_header']}">
+
+TWITCARD;
 	}
 }
+
+if ( isset( $eTime ) ) {
+	$extraJS = "\t\t\tvar target = new Date(" . $eTime . ");";
+	$tailJS = array('/scripts/events.js');
+}
+
 include_once( 'includes/header.php' );
 ?>
 		<h1 class="text-center">SteamLUG Events</h1>
@@ -39,14 +59,19 @@ if (isset($eTime)) {
 	$eventDate = new DateTime(); $eventDate->setTimestamp($eTime);
 	$diff = date_diff($eventDate, new DateTime("now"));
 	list($ed, $eh, $em, $es) = explode( ' ', $diff->format("%D %H %I %S") );
-}
-
-echo <<<EVENTSHEAD
-				{$eventTitle}
+	if ($diff->invert == 0) {
+		if ($diff->y > 0 || $diff->m > 0 || $diff->d > 0 || $diff->h > 1) {
+			$eventCountdown = '<div id="countdown">This event is in the past!</div>';
+		} else {
+			$eventCountdown = '<div id="countdown">This event is going on now!</div>';
+		}
+	} else {
+		$eventCountdown = <<<COUNTDOWN
 				<div id="countdown">
 					<span class="label">Days</span>
 					<span id="d1">{$ed[0]}</span>
 					<span id="d2">{$ed[1]}</span>
+					<span class="group">
 					<span class="label">&nbsp;</span>
 					<span id="h1">{$eh[0]}</span>
 					<span id="h2">{$eh[1]}</span>
@@ -56,7 +81,17 @@ echo <<<EVENTSHEAD
 					<span class="label">:</span>
 					<span id="s1">{$es[0]}</span>
 					<span id="s2">{$es[1]}</span>
+					</span>
 				</div>
+COUNTDOWN;
+	}
+}
+
+/* TODO make this match our stream page, optionally hiding this is $event is not set */
+/* TODO for dates in the past (now that we can link to specific events) change wording, remove ticker? */
+echo <<<EVENTSHEAD
+				{$eventTitle}
+				{$eventCountdown}
 				<p>This event is held on {$dt}</p>
 				{$eventButton}
 			</div>
@@ -88,7 +123,7 @@ echo <<<EVENTSHEAD
 			<table class="table table-striped table-hover events">
 			<thead>
 				<tr>
-					<th class="col-sm-1">
+					<th class="col-sm-1 hidden-xxs">
 					<th>Event Name
 					<th class="col-sm-2">Comments
 					<th class="col-sm-2">Timestamp
@@ -106,7 +141,7 @@ EVENTSHEAD;
 		$comments = ($event['comments'] > "0" ? "<a href=\"{$event['url']}\">" . $event['comments'] . " " . ($event['comments'] == "1" ? "comment…" : "comments…") . "</a>	" : "");
 		echo <<<EVENTSTRING
 			<tr>
-				<td><img class="eventLogo" src="{$event['img_capsule']}" alt="{$event['title']}" ></td>
+				<td class="hidden-xxs"><img class="eventLogo" src="{$event['img_capsule']}" alt="{$event['title']}" ></td>
 				<td><a href="{$event['url']}">{$event['title']}</a></td>
 				<td>{$comments}</td>
 				<td>{$event['date']} {$event['time']} {$event['tz']}</td>
@@ -126,7 +161,7 @@ EVENTSTRING;
 			<table class="table table-striped table-hover events">
 			<thead>
 				<tr>
-					<th class="col-sm-1">
+					<th class="col-sm-1 hidden-xxs">
 					<th>Event Name
 					<th class="col-sm-2">Comments
 					<th class="col-sm-2">Timestamp
@@ -143,7 +178,7 @@ EVENTSTRING;
 		$comments = ($event['comments'] > "0" ? "<a href=\"{$event['url']}\">" . $event['comments'] . " " . ($event['comments'] == "1" ? "comment…" : "comments…") . "</a>" : "");
 		echo <<<EVENTSTRING
 			<tr>
-				<td><img class="eventLogo" src="{$event['img_capsule']}" alt="{$event['title']}" ></td>
+				<td class="hidden-xxs"><img class="eventLogo" src="{$event['img_capsule']}" alt="{$event['title']}" ></td>
 				<td><a href="{$event['url']}">{$event['title']}</a></td>
 				<td>{$comments}</td>
 				<td>{$event['date']} {$event['time']} {$event['tz']}</td>
@@ -158,5 +193,4 @@ EVENTSTRING;
 			</table>
 			</div>
 		</article>
-<?php include_once('includes/footer.php'); ?>
-
+<?php include_once('includes/footer.php');

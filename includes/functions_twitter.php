@@ -8,10 +8,84 @@
 	// TODO move this into our variables
 	$screenname	= 'SteamLUG';
 
-	/*
-		Expose recent tweets so our admins can delete a mistake
+
+	/**
+	* This produces a lovely HTML5 <time> output with human^WEnglish-readable output as well
+	* probably needs moving to another library
+	* @param string $timestamp Twitter's idea of a joke, a time stamp of the format EEE MMM dd HH:mm:ss ZZZZZ yyyy
+	* @return string a lovely <time> reply, with some human (read, localisation nightmare) formatting
 	*/
-	function getRecentTweets( $count = 8 ) {
+	function humanTime( $timestamp ) {
+
+		$time = strtotime( $timestamp );
+		$diff = ( time() - $time );
+		$today = ( $diff < 86400 ) ?
+				( ( $diff < 3600 ) ? ((int)($diff / 60) . ' <abbr title="minutes">m</abbr>' ) : ( (int)($diff / 3600) . ' <abbr title="hours">h</abbr>' ) ) : date( 'd M', $time );
+		return '<time datetime="' . date( DATE_ISO8601, $time ) . '" title="Time posted: ' . date ( 'd M y H:i:s' , $time ) . ' (UTC)">' . $today . '</time>';
+
+	}
+
+
+	/**
+	* Twitter hands use a text version of the tweet, and a massive JSON to represent their
+	* tweaks to it. We have to parse most of these (TODO this function lacks support for $symbols, other entities)
+	* @param array $tweet a json blob of a tweet, from Twitter API
+	* @return string a mixed-down fully HTMLed version of the tweet with linked users, hashtags, URLs
+	*/
+	function populateTweet( $tweet ) {
+
+		$hashtagP	= '<a href="//twitter.com/search?q=%%23%s&amp;src=hash" class="hashtag" rel="nofollow" target="_blank">#%s</a>';
+		$urlP		= '<a href="%s" class="url" rel="nofollow" target="_blank" title="%s">%s</a>';
+		$userP		= '<a href="//twitter.com/%s" class="twatter" rel="nofollow" target="_blank" title="%s">@%s</a>';
+		$mediaP		= '<a href="%s" class="media" rel="nofollow" target="_blank" title="%s">%s</a>';
+
+		$entities = array();
+		foreach ( $tweet[ 'entities' ][ 'hashtags' ] as $e ) {
+
+			$entities[ ] = array(
+				'start' => $e[ 'indices' ][ 0 ], 'length' => $e[ 'indices' ][ 1 ] - $e[ 'indices' ][ 0 ],
+				'replace' => sprintf( $hashtagP, strtolower($e[ 'text' ]), $e[ 'text' ]) );
+		}
+
+		foreach ( $tweet[ 'entities' ][ 'urls' ] as $e ) {
+
+			$entities[ ] = array(
+				'start' => $e[ 'indices' ][ 0 ], 'length' => $e[ 'indices' ][ 1 ] - $e[ 'indices' ][ 0 ],
+				'replace' => sprintf( $urlP, $e[ 'expanded_url' ], $e[ 'expanded_url' ], $e[ 'display_url' ]) );
+		}
+
+		foreach ( $tweet[ 'entities' ][ 'user_mentions' ] as $e ) {
+
+			$entities[ ] = array(
+				'start' => $e[ 'indices' ][ 0 ], 'length' => $e[ 'indices' ][ 1 ] - $e[ 'indices' ][ 0 ],
+				'replace' => sprintf( $userP, strtolower($e[ 'screen_name' ]), $e[ 'name' ], $e[ 'screen_name' ]) );
+		}
+
+		if ( array_key_exists( 'media', $tweet[ 'entities' ]) ) {
+			foreach ( $tweet[ 'entities' ][ 'media' ] as $e ) {
+
+				$entities[ ] = array(
+					'start' => $e[ 'indices' ][ 0 ], 'length' => $e[ 'indices' ][ 1 ] - $e[ 'indices' ][ 0 ],
+					'replace' => sprintf( $mediaP, $e[ 'url' ], $e[ 'expanded_url' ], $e[ 'display_url' ]) );
+			}
+		}
+
+		usort( $entities, function($a, $b) { return $b[ 'start' ] - $a[ 'start' ]; } );
+		$replacement = $tweet[ 'text' ];
+		foreach( $entities as $e ) {
+			$replacement = mb_substr( $replacement, 0, $e[ 'start' ], 'UTF-8' ) . $e[ 'replace' ] .
+				mb_substr( $replacement, $e[ 'start' ] + $e[ 'length' ], null, 'UTF-8' );
+		}
+		return $replacement;
+	}
+
+
+	/**
+	* Fetch recent tweets from our main account (currently hard-coded)
+	* @param integer $limit limit the requested tweets to this amount (use this! saves lots of b/w)
+	* @return array hash of content from the Twitter API.
+	*/
+	function getRecentTweets( $limit = 8 ) {
 
 		global $screenname, $twitterKeys;
 		$twit = new TwitterAPIExchange( $twitterKeys );
@@ -19,8 +93,9 @@
 
 		$fields = array(
 			'screen_name' => $screenname,
-			'count' => $count,
-			'trim_user' => true,
+			'count' => $limit,
+			'trim_user' => false,
+			'include_entities' => true,
 		);
 
 		$result = $twit->setGetfields( $fields )
@@ -30,17 +105,21 @@
 		return json_decode( $result, true );
 	}
 
-	/*
-		Expose recent mentions so our admins can reply to users easily
+
+	/**
+	* Fetch recent mentions from our main account (currently hard-coded)
+	* Included so our backend could offer ability to reply to users
+	* @param integer $limit limit the requested tweets to this amount (use this! saves lots of b/w)
+	* @return array hash of content from the Twitter API.
 	*/
-	function getRecentMentions( $count = 8 ) {
+	function getRecentMentions( $limit = 8 ) {
 
 		global $twitterKeys;
 		$twit = new TwitterAPIExchange( $twitterKeys );
 		$resource = 'https://api.twitter.com/1.1/statuses/mentions_timeline.json';
 
 		$fields = array(
-			'count' => $count,
+			'count' => $limit,
 			'trim_user' => true,
 		);
 
@@ -52,9 +131,10 @@
 	}
 
 
-
-	/*
-		Accept any text, push to Twitter?
+	/**
+	* Sends a tweet from our main account (currently hard-coded)
+	* @param string $message your lovely status update to our audience
+	* @return array hash blog back from the Twitter API
 	*/
 	function postTweet( $message ) {
 
@@ -83,9 +163,12 @@
 
 	}
 
-	/*
-		Take ID to tweet, pass it to twitter
-		deleteTweet( '577505080074756097' )
+
+	/**
+	* Deletes a tweet from our main account (currently hard-coded)
+	* use as: deleteTweet( '577505080074756097' )
+	* @param string $tweetId Twitter-namespaced ID of the status to delete
+	* @return array hash blog back from the Twitter API
 	*/
 	function deleteTweet( $tweetId ) {
 

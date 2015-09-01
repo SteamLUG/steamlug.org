@@ -13,4 +13,4 @@
 		</div>
 	</article>
 					<?php showPastPolls(); ?>
-<?php include_once('includes/footer.php'); ?>
+<?php include_once('includes/footer.php');
