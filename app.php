@@ -34,7 +34,7 @@ echo <<<DOCUMENT
 					<h3 class="panel-title">{$gameProfile[ 'name' ]}</h3>
 				</header>
 				<div class="panel-body">
-					<img src="{$gameImages[ 'header' ]}" />
+					<img class="eventimage" src="{$gameImages[ 'header' ]}" />
 					<dl class="dl-horizontal">
 					<dt>Group owners</dt><dd>{$gameProfile[ 'owners' ]}</dd>
 					<dt>On Linux?</dt><dd>{$onlinux}</dd>
