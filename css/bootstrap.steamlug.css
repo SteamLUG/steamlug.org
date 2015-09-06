@@ -15,7 +15,6 @@ audio:not([controls]){display:none;height:0}
 [hidden],template{display:none}
 a{background:transparent}
 a:active,a:hover{outline:0}
-abbr[title]{border-bottom:1px dotted}
 b,strong{font-weight:bold}
 dfn{font-style:italic}
 h1{font-size:2em;margin:.67em 0}
@@ -127,7 +126,7 @@ dl{margin-top:0;margin-bottom:20px}
 dt,dd{line-height:1.42857143}
 dt{font-weight:bold}
 dd{margin-left:0}
-abbr[title],abbr[data-original-title]{cursor:help;border-bottom:1px dotted #7a8288}
+abbr[title],abbr[data-original-title]{cursor:help;border-bottom:1px dotted #7a8288;text-decoration:none}
 .initialism{font-size:90%;text-transform:uppercase}
 blockquote{padding:10px 20px;margin:0 0 20px;font-size:17.5px;border-left:5px solid #7a8288}
 blockquote p:last-child,blockquote ul:last-child,blockquote ol:last-child{margin-bottom:0}
