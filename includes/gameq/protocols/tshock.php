@@ -38,7 +38,7 @@ abstract class GameQ_Protocols_Tshock extends GameQ_Protocols_Http
      * @var array
      */
     protected $packets = array(
-            self::PACKET_STATUS => "GET /status HTTP/1.0\r\nAccept: */*\r\n\r\n",
+            self::PACKET_STATUS => "GET /v2/server/status?players=true&rules=true HTTP/1.0\r\nAccept: */*\r\n\r\n",
     );
 
     /**
@@ -115,7 +115,9 @@ abstract class GameQ_Protocols_Tshock extends GameQ_Protocols_Http
         $result->add('hostname', $json->name);
         $result->add('game_port', $json->port);
         $result->add('numplayers', $json->playercount);
-        $result->add('maxplayers', 0);
+        $result->add('maxplayers', $json->maxplayers);
+        $result->add('map', $json->world);
+        $result->add('gameport', $json->port);
 
         // Players are a comma(space) seperated list
         $players = explode(', ', $json->players);
