@@ -42,3 +42,7 @@ RewriteRule ^apple-touch-icon(.*).png$ mobile-favicon.png [L]
 </FilesMatch>
 </ifmodule>
 
+<ifmodule mod_mime.c>
+	AddType application/x-font-ttf .ttf
+</ifmodule>
+
