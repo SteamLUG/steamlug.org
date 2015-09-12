@@ -3,8 +3,8 @@
 <svg xmlns="http://www.w3.org/2000/svg">
 <metadata>Copyright (C) 2015 by original authors @ fontello.com</metadata>
 <defs>
-<font id="font-awesome-trimmed" horiz-adv-x="1000" >
-<font-face font-family="font-awesome-trimmed" font-weight="400" font-stretch="normal" units-per-em="1000" ascent="850" descent="-150" />
+<font id="steamlugfont" horiz-adv-x="1000" >
+<font-face font-family="steamlugfont" font-weight="400" font-stretch="normal" units-per-em="1000" ascent="850" descent="-150" />
 <missing-glyph horiz-adv-x="1000" />
 <glyph glyph-name="0" unicode="&#x30;" d="m57 230v460q0 54 38 92t92 38h460q54 0 92-38t38-92v-460q0-54-38-92t-92-38h-460q-54 0-92 38t-38 92z m108 89l468 393h-446q-9 0-15-6t-7-16v-371z m36-111h446q9 0 15 7t7 15v371z" horiz-adv-x="834" />
 <glyph glyph-name="1" unicode="&#x31;" d="m1 577l203 243h129v-720h-108v576l-83-99h-141z" horiz-adv-x="390.6" />
