@@ -80,7 +80,7 @@ function getCastHeader( $castid = '' ) {
 
 	// TODO: s02e09 has longest pragma so far; suggest we pick a low cap and enforce it
 	$header = file_get_contents( $filename, false, NULL, 0, 1000 );
-	$header	= array_slice( explode( "\n", $header ), 0, 16 );
+	$header	= array_slice( explode( "\n", $header ), 0, 15 );
 	return _castHeader( $header );
 }
 
