@@ -1053,7 +1053,7 @@ div .navbar-brand{position:relative;z-index:15;margin-left:15px}
 div .navbar-nav{margin-bottom:0}
 div .navbar-header>a.navbar-brand{display:block;border:0;padding:3px 5px 4px 3px}
 #steamLugLogo{width:130px;height:44px}
-#steamAvatar{border:3px solid green;height:38px;width:38px;border-radius:4px}
+#steamAvatar{border:3px solid #415C78;height:38px;width:38px;border-radius:4px}
 .eventimage{display:block;margin:1em auto; max-width:100%}
 .centred{text-align:center}
 .ourclearfix{clear:both}
