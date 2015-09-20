@@ -28,17 +28,23 @@ $action	= "Failure";
 $body	= "";
 $style	= " panel-success";
 
+/* Force rebuilding video, even if we have already uploaded one. */
+$force = isset( $_GET[ "force" ] ) ? true : false;
+
 /* User wanting to see a specific cast, and shownotes file exists */
 if ( $season !== "00" && $episode !== "00" && ($meta = getCastHeader( $slug ) ) ) {
 
 	if ( file_exists( $meta[ 'ABSFILENAME' ] . '.ogg' ) ) {
 
-		flush(); /* visitor should get better indication that the page is actually loading now */
-
-		/* TODO verify we dont have an existing youtube hash? */
-		ob_start();
-		$reply = generateVideo( $season, $episode );
-		$debugoutput = ob_get_clean();
+		if ( empty( $meta[ 'YOUTUBE' ] ) or $force ) {
+			flush(); /* visitor should get better indication that the page is actually loading now */
+			ob_start();
+			$reply = generateVideo( $season, $episode );
+			$debugoutput = ob_get_clean();
+		} else {
+			$reply = false;
+			$debugoutput = "This cast already has a YouTube Video";
+		}
 	} else {
 		$reply = false;
 		$debugoutput = "Audio file missing on server?";
