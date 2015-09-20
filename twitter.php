@@ -205,7 +205,6 @@ print "-->\n";
 <?php
 if ( $latestCast != false ) {
 	// fetch latest episode and get deets
-	// TODO this is waiting on a new functions_cast(?) to have some easy-to-use data calls
 	print "<!--\n";
 	print_r ( $latestCast );
 	print "-->\n";
