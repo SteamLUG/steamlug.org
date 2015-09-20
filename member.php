@@ -17,9 +17,9 @@ if ( login_check() ) {
 // are we supplying data via POST? → write to log, create DB duplicate, Location: /member?
 if ( isset( $_POST['store'] ) ) {
 
-	// TODO log this action
 	$profile = getPlayerSummary( $me );
 	$profile[ 'isgroupmember' ] = $_SESSION[ 'g' ];
+	logDB( "User requested profile storage: {$me}" );
 	storePlayerSummaryDB( $profile );
 	/* if this ever fails, ignore it :] */
 
@@ -35,7 +35,7 @@ if ( isset( $_POST['store'] ) ) {
 // are we supplying data via POST? → write to log, remove DB duplicate, Location: /member?
 if ( isset( $_POST['unstore'] ) ) {
 
-	// TODO log this action
+	logDB( "User requested profile removal: {$me}" );
 	$removed = removePlayerSummaryDB( $me );
 
 	if ( $removed ) {
