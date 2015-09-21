@@ -14,10 +14,10 @@ if ( !isset( $database ) )
 	function inflatePlayerSummary( $profile ) {
 
 		if ($profile[ 'profileurl' ] != '' ) {
-			$profile[ 'memberurl' ] = '//steamlug.org/member/' . $profile[ 'profileurl' ] . '/';
+			$profile[ 'memberurl' ] = '//steamlug.org/member/' . $profile[ 'profileurl' ];
 			$profile[ 'profileurl' ] = 'https://steamcommunity.com/id/' . $profile[ 'profileurl' ] . '/';
 		} else {
-			$profile[ 'memberurl' ] = '//steamlug.org/member/' . $profile[ 'steamid' ] . '/';
+			$profile[ 'memberurl' ] = '//steamlug.org/member/' . $profile[ 'steamid' ];
 			$profile[ 'profileurl' ] = 'https://steamcommunity.com/profiles/' . $profile[ 'steamid' ] . '/';
 		}
 		$profile[ 'avatarfull' ] = '//steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/' . str_replace( '.jpg', '_full.jpg', $profile[ 'avatar' ]);
