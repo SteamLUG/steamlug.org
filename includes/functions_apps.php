@@ -72,7 +72,7 @@ function storeAppsDB( $apps ) {
 
 /**
 * Get details about this app from our database, retrieving additional information
-* @param int $appid Steam's ID for the app
+* @param integer $appid Steam's ID for the app
 * @return array a hash of the details for this app, with members for name, appid, owners, playtime, fortnight, playersfortnight
 */
 function getApp( $appid ) {
