@@ -1,6 +1,13 @@
 <?php
 include_once('paths.php');
 
+/**
+ * Private function, returns SVG-formatted person plate for our thumbnail
+ * @param string $string of the form: ‘johndrinkwater’ / ‘@johndrinkwater’ / ‘John Drinkwater (@twitter)’ / ‘John Drinkwater {URL}’
+ * @param integer $offset translate this nameplate by this value horizontally
+ * @param boolean $guest translate this nameplate to the guest slot if true
+ * @return string a rendered version of $string
+ */
 function _nameplate( $string, $offset = 0, $guest = false ) {
 
 	$person = parsePersonString( $string );
@@ -29,7 +36,12 @@ function _nameplate( $string, $offset = 0, $guest = false ) {
 SVGPLATE;
 }
 
-/* we take a ‘######’ / //example.com/imageofgame.png and split out SVG */
+/**
+ * Private function, returns SVG-formatted game plate for our thumbnail
+ * @param string $string of the form: ‘000000’ (Steam appid) / ‘//example.com/image.png’ (URL)
+ * @param integer $offset translate this nameplate by this value horizontally
+ * @return string a rendered version of $string
+ */
 function _gameplate( $string, $offset ) {
 
 	$url = "";
@@ -69,8 +81,12 @@ function _gameplate( $string, $offset ) {
 GAMEPLATE;
 }
 
-// TODO convert to php-ffmpeg? in the future
-
+/**
+ * Generates an SVG image used to render the YouTube video
+ * @param integer $season the season
+ * @param integer $episode and episode for this specific cast episode
+ * @return string an SVG rendered version of this episode
+ */
 function generateImage( $season, $episode ) {
 
 	global $avatarKeyPath; /* TODO find a better location to write to! */
@@ -221,7 +237,13 @@ FAILURE;
 	return $svgcontents;
 }
 
-/* call a longist running avconv, returns tempfile name? */
+/**
+ * Generates a video that we can upload to YouTube. This calls generateImage( ) directly.
+ * Note this is long-running, and as such needs to call set_time_limit( )
+ * @param integer $season the season
+ * @param integer $episode and episode for this specific cast episode
+ * @return string location of the rendered file on the server
+ */
 function generateVideo( $season, $episode ) {
 
 	global $filePath;
