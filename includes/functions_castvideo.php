@@ -1,7 +1,7 @@
 <?php
 include_once('paths.php');
 
-function _nameplate( $string, $offset = 0, $guest = 0 ) {
+function _nameplate( $string, $offset = 0, $guest = false ) {
 
 	$person = parsePersonString( $string );
 	$name = $person['name'];
@@ -18,7 +18,7 @@ function _nameplate( $string, $offset = 0, $guest = 0 ) {
 	if ( strlen( $avatar ) == 0 )
 		$avatar = "unknown-host-" . md5( $string );
 
-	$flip = ( $guest == 1 ? -23 : 107 );
+	$flip = ( $guest == true ? -23 : 107 );
 	return <<<SVGPLATE
 			<g transform="translate({$offset},0)">
 				<use xlink:href="#person-holder" />
@@ -101,7 +101,7 @@ function generateImage( $season, $episode ) {
 		foreach ($meta['GUESTS'] as $Guest) {
 
 			if ($Guest == "") break;
-			$guestsIncludeString .= _nameplate( $Guest, $startIndex, 1 );
+			$guestsIncludeString .= _nameplate( $Guest, $startIndex, true );
 			$startIndex += 180;
 		}
 		$gamesString = "";
