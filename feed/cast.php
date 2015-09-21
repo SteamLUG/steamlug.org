@@ -6,9 +6,11 @@
 	if (!isset($_GET['t'])|| $_GET['t'] == "ogg" ) {
 
 		$type = "ogg";
+		$mime = "audio/ogg";
 	} else {
 
 		$type = "mp3";
+		$mime = "audio/mpeg";
 	}
 	include_once('../includes/functions_cast.php');
 
@@ -76,10 +78,9 @@ CASTHEAD;
 			continue;
 
 		$archiveBase		= 'http:' . $publicURL . '/' . $meta['SLUG'] . '/' . $meta['FILENAME'];
-		$episodeBase		= $filePath . '/' . $castdir . '/' . $meta['FILENAME'];
 
 		/* if file missing, skip this entry */
-		if (!file_exists( $episodeBase . "." . $type))
+		if ( !file_exists( $meta[ 'ABSFILENAME' ] . '.' . $type ) )
 			continue;
 
 		$meta['PUBLISHED']	= date( DATE_RFC2822, strtotime( $meta['PUBLISHED'] ) );
@@ -87,8 +88,7 @@ CASTHEAD;
 		$meta['SHORTDESC']	= slenc( substr( $meta['DESCRIPTION'],0,158 ) );
 		$meta['DESCRIPTION']= slenc( $meta['DESCRIPTION'] );
 
-		$episodeSize		= filesize($episodeBase . '.' . $type );
-		$episodeMime		= $type == "ogg" ? "audio/ogg" : "audio/mpeg";
+		$episodeSize		= filesize( $meta[ 'ABSFILENAME' ] . '.' . $type );
 
 		echo <<<CASTENTRY
 
@@ -98,8 +98,8 @@ CASTHEAD;
 			<itunes:duration>{$meta['DURATION']}</itunes:duration>
 			<link>https://steamlug.org/cast/{$meta['SLUG']}</link>
 			<guid>https://steamlug.org/cast/{$meta['SLUG']}</guid>
-			<enclosure url="{$archiveBase}.{$type}" length="{$episodeSize}" type="{$episodeMime}" />
-			<media:content url="{$archiveBase}.{$type}" fileSize="{$episodeSize}" type="{$episodeMime}" medium="audio" expression="full" />
+			<enclosure url="{$archiveBase}.{$type}" length="{$episodeSize}" type="{$mime}" />
+			<media:content url="{$archiveBase}.{$type}" fileSize="{$episodeSize}" type="{$mime}" medium="audio" expression="full" />
 			<itunes:explicit>{$meta['ISEXPLICIT']}</itunes:explicit>
 			<media:rating scheme="urn:simple">{$meta['MEDIARATING']}</media:rating>
 			<description><![CDATA[<p>{$meta['DESCRIPTION']}</p>
