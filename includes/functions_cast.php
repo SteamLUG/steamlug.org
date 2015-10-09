@@ -21,6 +21,8 @@ $slug = 's' . $season . 'e' . $episode;
 function _castHeader( $header ) {
 
 	global $filePath;
+	global $publicURL;
+
 	$meta = array_fill_keys( array('RECORDED', 'PUBLISHED', 'TITLE',
 				'SEASON', 'EPISODE', 'DURATION', 'FILENAME', 'RATING',
 				'DESCRIPTION','HOSTS','GUESTS','ADDITIONAL', 'YOUTUBE' ), '');
@@ -32,6 +34,7 @@ function _castHeader( $header ) {
 	$meta['SEASON']		= str_pad($meta['SEASON'], 2, '0', STR_PAD_LEFT);
 	$meta['SLUG']		= 's' . $meta['SEASON'] . 'e' . $meta['EPISODE'];
 	$meta['ABSFILENAME']= $filePath . '/' . $meta['SLUG'] . '/' . $meta['FILENAME'];
+	$meta['ARCHIVE']	= $publicURL . '/' . $meta['SLUG'] . '/' . $meta['FILENAME'];
 
 	// Explicit -> yes, Clean -> clean, * -> no
 	$meta[ 'ISEXPLICIT' ] = ( $meta[ 'RATING' ] == 'Explicit' ? 'yes' :

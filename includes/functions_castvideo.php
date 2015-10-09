@@ -246,7 +246,6 @@ FAILURE;
  */
 function generateVideo( $season, $episode ) {
 
-	global $filePath;
 	global $avatarKeyPath; /* TODO find a better location to write to! */
 
 	set_time_limit( 360 );

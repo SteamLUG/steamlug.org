@@ -77,8 +77,6 @@ CASTHEAD;
 		if ( $meta['PUBLISHED'] === '' )
 			continue;
 
-		$archiveBase		= 'http:' . $publicURL . '/' . $meta['SLUG'] . '/' . $meta['FILENAME'];
-
 		/* if file missing, skip this entry */
 		if ( !file_exists( $meta[ 'ABSFILENAME' ] . '.' . $type ) )
 			continue;
@@ -98,8 +96,8 @@ CASTHEAD;
 			<itunes:duration>{$meta['DURATION']}</itunes:duration>
 			<link>https://steamlug.org/cast/{$meta['SLUG']}</link>
 			<guid>https://steamlug.org/cast/{$meta['SLUG']}</guid>
-			<enclosure url="{$archiveBase}.{$type}" length="{$episodeSize}" type="{$mime}" />
-			<media:content url="{$archiveBase}.{$type}" fileSize="{$episodeSize}" type="{$mime}" medium="audio" expression="full" />
+			<enclosure url="http:{$meta['ARCHIVE']}.{$type}" length="{$episodeSize}" type="{$mime}" />
+			<media:content url="http:{$meta['ARCHIVE']}.{$type}" fileSize="{$episodeSize}" type="{$mime}" medium="audio" expression="full" />
 			<itunes:explicit>{$meta['ISEXPLICIT']}</itunes:explicit>
 			<media:rating scheme="urn:simple">{$meta['MEDIARATING']}</media:rating>
 			<description><![CDATA[<p>{$meta['DESCRIPTION']}</p>
