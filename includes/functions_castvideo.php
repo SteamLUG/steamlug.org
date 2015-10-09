@@ -249,15 +249,14 @@ function generateVideo( $season, $episode ) {
 	global $filePath;
 	global $avatarKeyPath; /* TODO find a better location to write to! */
 
-	/* TODO find a reasonable max generation time */
-	set_time_limit( 240 );
-
-	/* TODO use tmp files */
+	set_time_limit( 360 );
 
 	$slug = 's' . $season . 'e' . $episode;
 	$meta = getCastHeader( $slug );
-	/* TODO check that filename is set, audio file exists */
-	$audiofile = $filePath  . '/' . $meta['SLUG'] . '/' . $meta['FILENAME'] . '.ogg';
+	$audiofile = $meta[ 'ABSFILENAME' ] . '.ogg';
+
+	if ( !file_exists( $audiofile ) )
+		return false;
 
 	$svgcontents = generateImage( $season, $episode );
 	$svgcontents = str_replace( '/avatars', './avatars', $svgcontents );
@@ -273,24 +272,31 @@ function generateVideo( $season, $episode ) {
 	$svgfileref = fopen( $svgfile, 'w' );
 	fwrite( $svgfileref, $svgcontents );
 	fclose( $svgfileref );
-	/* TODO test file? */
+
+	if ( !file_exists( $svgfile ) )
+		return false;
 
 	$commandthumbnail = "rsvg-convert {$svgfile} > {$pngfile}";
 	print "Running: ". $commandthumbnail . "\n";
 	echo shell_exec( $commandthumbnail . ' 2>&1' );
-	/* TODO test file got created, or bail */
+
+	if ( !file_exists( $pngfile ) )
+		return false;
 
 	$commandvideo = "ffmpeg -y -loglevel warning -loop 1 -framerate 1 -i {$pngfile} -i {$audiofile} -c:v libx264 -tune stillimage -pix_fmt yuv420p -c:a aac -strict experimental -b:a 192k -shortest {$mp4filetmp}";
 	print "Running: ". $commandvideo . "\n";
 	echo shell_exec( $commandvideo . ' 2>&1' );
-	/* TODO test file got created, or bail */
+
+	if ( !file_exists( $mp4filetmp ) )
+		return false;
 
 	$commandfaststart = "qt-faststart {$mp4filetmp} {$mp4file}";
 	print "Running: ". $commandfaststart . "\n";
 	echo shell_exec( $commandfaststart . ' 2>&1' );
-	/* TODO test file got created, otherwise rename $mp4filetmp $mp4file */
 
-	/* TODO test file exists, is not empty, otherwise return false */
+	if ( !file_exists( $mp4file ) )
+		return false;
+
 	return $mp4file;
 }
 
