@@ -62,8 +62,8 @@
 				<p>Here are some helpful URLs and don't be afraid to reach out and ask
 				questions if you have any!</p>
 
-				<p><a href="//steamlug.org/cast">SteamLUG Cast Countdown and
-				Episode Archive</a><br><a href="//steamlug.org/mumble">SteamLUG
+				<p><a href="/cast">SteamLUG Cast Countdown and
+				Episode Archive</a><br><a href="/mumble">SteamLUG
 				Mumble Server Details</a><br>Email contact: <a
 				href="mailto:cast@steamlug.org">cast@steamlug.org</a></p>
 
