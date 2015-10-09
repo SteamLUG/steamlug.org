@@ -1,20 +1,31 @@
 <?php
-// These are locations pulled out from the rest of the repo, to give some flexibility
-// SteamLUG Cast
-$notesPath		= "/var/www/archive.steamlug.org/steamlugcast";		// replaces $path
-$filePath		= "/var/www/archive.steamlug.org/steamlugcast";		// replaces $path
-$publicURL		= "//archive.steamlug.org/steamlugcast";			// replaces $url
-// Servers
-$serversList	= "/var/www/dev.steamlug.org/serverlist.txt";		// replaces $Servers
-// Polls, Session
-$creds			= "/var/www/dev.steamlug.org/creds.php";			// replaces hardcoded string
-// Avatars
-$avatarFilePath	= "/var/www/www.steamlug.org/avatars";				// public-facing dir to write to
-$avatarKeyPath  = "/var/www/dev.steamlug.org/avatar-files";			// private-facing dir to write to
-// Event XML
-$eventXMLPath   = "http://cenobite.swordfischer.com/";				// Current XML source location
-$steamLinuxDB	= "/var/www/dev.steamlug.org/SteamLinux";			// Current GAMES.json location
-// Mumble Server
-$mumbleServer	= 'mumble.steamlug.org';							// Not really a path, but eh
+/* Copy this file to paths.php, and edit the variables. */
+/* Secret creds, like DB, Steam API, you know */
+$creds			= "/var/www/private/creds.php";
 
-$steamcmdPath	= '/usr/bin/steamcmd';								// Location to our installed `steamcmd`
+/* Cast notes repo location */
+$notesPath		= "/var/www/repo/steamlug-castnotes";
+/* Cast audio files location */
+$filePath		= "/var/www/archive.steamlug.org/steamlugcast";
+/* Cast audio files, public reference */
+$publicURL		= "//archive.steamlug.org/steamlugcast";
+
+/* Server repo location (includes file name) */
+$serversList	= "/var/www/repo/steamlug-servers/serverlist";
+
+/* SteamDB Linux repo location */
+$steamLinuxDB	= "/var/www/repo/steamdb-steamlinux";
+
+/* steamcmd bin location */
+$steamcmdPath	= '/usr/bin/steamcmd';
+
+/* Avatar files, where PHP can write to */
+$avatarFilePath	= "/var/www/www.steamlug.org/avatars";
+/* Avatar token upload files */
+$avatarKeyPath	= "/var/www/private/avatar-files";
+
+/* Event XML location */
+$eventXMLPath	= "/var/www/private/event-xml";
+
+/* Mumble server */
+$mumbleServer	= 'mumble.steamlug.org';
