@@ -20,8 +20,8 @@ $slug = 's' . $season . 'e' . $episode;
  */
 function _castHeader( $header ) {
 
-	global $filePath;
-	global $publicURL;
+	global $castFilePath;
+	global $castPublicURL;
 
 	$meta = array_fill_keys( array('RECORDED', 'PUBLISHED', 'TITLE',
 				'SEASON', 'EPISODE', 'DURATION', 'FILENAME', 'RATING',
@@ -33,8 +33,8 @@ function _castHeader( $header ) {
 	$meta['EPISODE']	= str_pad($meta['EPISODE'], 2, '0', STR_PAD_LEFT);
 	$meta['SEASON']		= str_pad($meta['SEASON'], 2, '0', STR_PAD_LEFT);
 	$meta['SLUG']		= 's' . $meta['SEASON'] . 'e' . $meta['EPISODE'];
-	$meta['ABSFILENAME']= $filePath . '/' . $meta['SLUG'] . '/' . $meta['FILENAME'];
-	$meta['ARCHIVE']	= $publicURL . '/' . $meta['SLUG'] . '/' . $meta['FILENAME'];
+	$meta['ABSFILENAME']= $castFilePath . '/' . $meta['SLUG'] . '/' . $meta['FILENAME'];
+	$meta['ARCHIVE']	= $castPublicURL . '/' . $meta['SLUG'] . '/' . $meta['FILENAME'];
 
 	// Explicit -> yes, Clean -> clean, * -> no
 	$meta[ 'ISEXPLICIT' ] = ( $meta[ 'RATING' ] == 'Explicit' ? 'yes' :
@@ -119,9 +119,9 @@ function getLatestCast( ) {
  */
 function getCastHeader( $castid = '' ) {
 
-	global $notesPath;
+	global $castNotesRepo;
 
-	$filename = $notesPath .'/'. $castid . "/episode.txt";
+	$filename = $castNotesRepo .'/'. $castid . "/episode.txt";
 	if ( !file_exists( $filename ) )
 		return false;
 
@@ -138,9 +138,9 @@ function getCastHeader( $castid = '' ) {
  */
 function getCastBody( $castid = '' ) {
 
-	global $notesPath;
+	global $castNotesRepo;
 
-	$filename = $notesPath .'/'. $castid . "/episode.txt";
+	$filename = $castNotesRepo .'/'. $castid . "/episode.txt";
 	if ( !file_exists( $filename ) )
 		return false;
 
@@ -154,15 +154,15 @@ function getCastBody( $castid = '' ) {
  */
 function getCasts( $shallow = false ) {
 
-	global $notesPath;
+	global $castNotesRepo;
 	$casts = array( );
-	$notes = scandir($notesPath, 1);
+	$notes = scandir($castNotesRepo, 1);
 	foreach( $notes as $castdir ) {
 
 		if ($castdir === '.' or $castdir === '..' or $castdir === '.git' or $castdir === 'README')
 			continue;
 
-		$filename = $notesPath .'/'. $castdir . "/episode.txt";
+		$filename = $castNotesRepo .'/'. $castdir . "/episode.txt";
 
 		if ( !file_exists( $filename ) )
 			continue;

@@ -7,7 +7,7 @@
 	include_once('includes/header.php');
 	include_once('includes/GameQ.php');
 	include_once('includes/paths.php');
-	$Servers = file( $serversList );
+	$Servers = file( $serversRepo . '/serverslist' );
 
 ?>
 		<h1 class="text-center">Game Servers</h1>

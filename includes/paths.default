@@ -4,20 +4,20 @@
 $creds			= "/var/www/private/creds.php";
 
 /* Cast notes repo location */
-$notesPath		= "/var/www/repo/steamlug-castnotes";
+$castNotesRepo	= "/var/www/repo/steamlug-castnotes";
 /* Cast audio files location */
-$filePath		= "/var/www/archive.steamlug.org/steamlugcast";
+$castFilePath	= "/var/www/archive.steamlug.org/steamlugcast";
 /* Cast audio files, public reference */
-$publicURL		= "//archive.steamlug.org/steamlugcast";
+$castPublicURL	= "//archive.steamlug.org/steamlugcast";
 
-/* Server repo location (includes file name) */
-$serversList	= "/var/www/repo/steamlug-servers/serverlist";
+/* Server repo location */
+$serversRepo	= "/var/www/repo/steamlug-servers";
 
 /* SteamDB Linux repo location */
-$steamLinuxDB	= "/var/www/repo/steamdb-steamlinux";
+$steamDBRepo	= "/var/www/repo/steamdb-steamlinux";
 
 /* steamcmd bin location */
-$steamcmdPath	= '/usr/bin/steamcmd';
+$steamcmdPath	= "/usr/bin/steamcmd";
 
 /* Avatar files, where PHP can write to */
 $avatarFilePath	= "/var/www/www.steamlug.org/avatars";
@@ -28,4 +28,4 @@ $avatarKeyPath	= "/var/www/private/avatar-files";
 $eventXMLPath	= "/var/www/private/event-xml";
 
 /* Mumble server */
-$mumbleServer	= 'mumble.steamlug.org';
+$mumbleServer	= "mumble.steamlug.org";

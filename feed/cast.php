@@ -22,7 +22,7 @@
 	/* gives us a list, like s02e03, s02e02, etc of all of our casts */
 	$casts = getCasts( );
 	/* naïve as fook, but we know this. */
-	$latestCast = date("D, d M Y H:i:s O", filemtime( $notesPath . '/' . $casts[0] ));
+	$latestCast = date("D, d M Y H:i:s O", filemtime( $castNotesRepo . '/' . $casts[0] ));
 
 	// it is important that the atom:link self reference is truly referencial, do our best to provide that
 	// note: this can leaky and/or broken on some server configs;
