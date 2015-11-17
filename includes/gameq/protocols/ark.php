@@ -7,7 +7,7 @@ class GameQ_Protocols_Ark extends GameQ_Protocols_Source
 
 	protected function process_status() {
 		$result = parent::process_status();
-		$result['steamappid'] = 376030;
+		$result['steamappid'] = 346110;
 		return $result;
 	}
 }
