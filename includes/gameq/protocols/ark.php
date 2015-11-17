@@ -1,6 +1,6 @@
 <?php
 
-class GameQ_Protocols_Steelstorm extends GameQ_Protocols_Quake3
+class GameQ_Protocols_Ark extends GameQ_Protocols_Source
 {
 	protected $name = "ark";
 	protected $name_long = "ARK: Survival Evolved";
