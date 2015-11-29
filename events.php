@@ -44,6 +44,8 @@ include_once( 'includes/header.php' );
 $eventButton = "";
 $eventImage = "";
 $eventTitle = "";
+$eventCountdown = "";
+$dt = "";
 if ($event != null) {
 	// TODO: tidy this mess, the next block, and the HEREDOC into one clean thing
 	$eventTitle = '<h3 class="centred"><a href="' . $event['url'] . '">' .  str_replace( 'SteamLUG ','',$event['title'] ) . '</a></h3>';
