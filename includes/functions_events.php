@@ -100,5 +100,6 @@ function findEvent( $id ) {
 			return $event;
 		}
 	}
+	return null;
 	/* TODO if we get here, we are likely a legacy event and need to dig into the older files… */
 }
