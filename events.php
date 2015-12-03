@@ -15,7 +15,12 @@ if ( $eventID == "0" ) {
 	$event = findEvent( $eventID );
 	if ( $event != null ) {
 		$eTime = $event['utctime'];
-		$extraCrap = <<<TWITCARD
+	}
+}
+
+if ( isset( $eTime ) ) {
+
+	$extraCrap = <<<TWITCARD
 		<meta name="twitter:card" content="summary_large_image">
 		<meta name="twitter:site" content="@SteamLUG">
 		<meta name="twitter:title" content="{$event['title']}">
@@ -23,10 +28,6 @@ if ( $eventID == "0" ) {
 		<meta name="twitter:image:src" content="https:{$event['img_header']}">
 
 TWITCARD;
-	}
-}
-
-if ( isset( $eTime ) ) {
 	$extraJS = "\t\t\tvar target = new Date(" . $eTime . ");";
 	$tailJS = array('/scripts/events.js');
 }
@@ -34,19 +35,16 @@ if ( isset( $eTime ) ) {
 include_once( 'includes/header.php' );
 ?>
 		<h1 class="text-center">SteamLUG Events</h1>
-		<article class="panel panel-default">
-			<header class="panel-heading">
-				<h3 class="panel-title">Next Event</h3>
-			</header>
-			<div class="panel-body">
-			<div class="col-md-5 clearfix">
 <?php
 $eventButton = "";
 $eventImage = "";
 $eventTitle = "";
 $eventCountdown = "";
 $dt = "";
-if ($event != null) {
+$players = "";
+
+if ( isset( $eTime ) ) {
+
 	// TODO: tidy this mess, the next block, and the HEREDOC into one clean thing
 	$eventTitle = '<h3 class="centred"><a href="' . $event['url'] . '">' .  str_replace( 'SteamLUG ','',$event['title'] ) . '</a></h3>';
 	($event['appid'] !== 0 ?
@@ -55,7 +53,6 @@ if ($event != null) {
 	);
 	$eventButton = "<p><a class=\"btn btn-primary btn-lg pull-right\" href=\"" . $event['url'] . "\">Click for details</a></p>";
 	$dt = $event['date'] . " " . $event['time'] . " " . $event['tz'];
-}
 
 if (isset($eTime)) {
 	$eventDate = new DateTime(); $eventDate->setTimestamp($eTime);
@@ -87,11 +84,16 @@ if (isset($eTime)) {
 				</div>
 COUNTDOWN;
 	}
-}
 
 /* TODO make this match our stream page, optionally hiding this is $event is not set */
 /* TODO for dates in the past (now that we can link to specific events) change wording, remove ticker? */
 echo <<<EVENTSHEAD
+		<article class="panel panel-default">
+			<header class="panel-heading">
+				<h3 class="panel-title">Next Event</h3>
+			</header>
+			<div class="panel-body">
+			<div class="col-md-5 clearfix">
 				{$eventTitle}
 				{$eventCountdown}
 				<p>This event is held on {$dt}</p>
@@ -117,6 +119,10 @@ echo <<<EVENTSHEAD
 			<p>We encourage our users to use the Mumble server during the events, if there should be any important messages to be announced and to make team-based games easier to manage. You can just sit and listen.</p>
 			</div>
 		</article>
+EVENTSHEAD;
+}
+
+echo <<<EVENTSTABLE
 		<article class="panel panel-default">
 			<header class="panel-heading">
 				<h3 class="panel-title">Upcoming Events</h3>
@@ -132,7 +138,7 @@ echo <<<EVENTSHEAD
 				</tr>
 			</thead>
 			<tbody>
-EVENTSHEAD;
+EVENTSTABLE;
 
 	foreach ($data['events'] as $event)
 	{
