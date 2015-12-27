@@ -64,8 +64,8 @@ TWITTERWIDGET;
 	{
 
 		$youtubePatterns = array(
-			"/www.youtube.com\/watch\?v=([0-9A-Za-z_]*)/",
-			"/youtu.be\/([0-9A-Za-z_]*)/"
+			"/www.youtube.com\/watch\?v=([0-9A-Za-z_-]*)/",
+			"/youtu.be\/([0-9A-Za-z_-]*)/"
 		);
 		if ( true /* false if we dislike this */ ) {
 
