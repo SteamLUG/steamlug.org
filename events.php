@@ -54,7 +54,6 @@ if ( isset( $eTime ) ) {
 	$eventButton = "<p><a class=\"btn btn-primary btn-lg pull-right\" href=\"" . $event['url'] . "\">Click for details</a></p>";
 	$dt = $event['date'] . " " . $event['time'] . " " . $event['tz'];
 
-if (isset($eTime)) {
 	$eventDate = new DateTime(); $eventDate->setTimestamp($eTime);
 	$diff = date_diff($eventDate, new DateTime("now"));
 	list($ed, $eh, $em, $es) = explode( ' ', $diff->format("%D %H %I %S") );
