@@ -89,6 +89,16 @@
 					<p>Also known as <em>dscharrer</em> when a unique name is required.</p>
 				</div>
 			</article>
+			
+			<article class="panel panel-default person">
+				<header class="panel-heading">
+					<h3 class="panel-title"><a href="http://twitter.com/DoraCoder">Dora Coder</a></h3>
+				</header>
+				<div class="panel-body">
+					<img src="/avatars/doracoder.png" />
+					<p>Yep, that's my name. Linux user (obviously), broadcaster, and wine-gaming heathen. Loves many things.</p>
+				</div>
+			</article>
 		<section>
 DOCUMENT;
 
