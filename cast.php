@@ -208,62 +208,7 @@ CASTENTRY;
 		echo "<p>The episode recording is currently in the works.</p>\n";
 	} else {
 
-		foreach ( $shownotes as $note ) {
-
-		$note = preg_replace_callback(
-			'/\d+:\d+:\d+\s+\*(.*)\*/',
-			function($matches) { return "\n<h4>" . slenc($matches[1]) . "</h4>\n<dl class=\"dl-horizontal\">"; },
-			$note );
-		$note = preg_replace_callback(
-			'/(\d+:\d+:\d+)\s+(.*)$/',
-			function($matches) { return '<dt>' . slenc($matches[1]) . "</dt>\n\t<dd>" . slenc($matches[2]) . "</dd>"; },
-			$note );
-		$note = preg_replace_callback(
-			'/(\d+:\d+:\d{2})(?!])/',
-			function($matches) { return '<time id="ts-' . slenc($matches[1]) . '" datetime="' . slenc($matches[1]) . '">' . slenc($matches[1]) . '</time>'; },
-			$note );
-		$note = preg_replace_callback(
-			'/(?i)\b((?:(https?|irc):\/\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:\'".,<>?«]))/',
-			function($matches) { return "[<a href='" . slenc($matches[0]) . "' class='text-info'>source</a>]"; },
-			$note );
-		$note = preg_replace_callback(
-			'/(?i)\b((?:(steam):\/\/[^ \n<]*))/',
-			function($matches) { return "<a href='" . slenc($matches[0]) . "' class=\"steam-link\">" . slenc($matches[0]) . "</a>"; },
-			$note );
-		$note = preg_replace_callback(
-			'/\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}\b/',
-			function($matches) { return "<a href='mailto:". slenc($matches[0]) . "' class=\"mail-link\">" . slenc($matches[0]) . '</a>'; },
-			$note );
-		$note = preg_replace_callback(
-			'/((?<=^|\s|\(|>))@([A-Za-z0-9_]+)/i',
-			function($matches) { return $matches[1] . '<a href="https://twitter.com/' . slenc($matches[2]) . '" class="twitter-link">' . slenc($matches[2]) . '</a>'; },
-			$note );
-		$note = preg_replace_callback(
-			'/^\n$/',
-			function($matches) { return "</dl>\n"; },
-			$note );
-		$note = preg_replace_callback(
-			'/\t\[(\w+)\](.*)/',
-			function($matches) { return "\t<dd>&lt;<span class=\"nickname\">" . $matches[1] . "</span>&gt; " . $matches[2] . "</dd>";	},
-			$note );
-		$note = preg_replace_callback(
-			'/\t((?!<dd).*)$/',
-			function($matches) { return "\t<dd>" . $matches[1] . "</dd>"; },
-			$note );
-		$note = preg_replace_callback(
-			'/  (.*)/',
-			function($matches) { return '<p>' . $matches[1] . "</p>\n";	},
-			$note );
-		$note = preg_replace_callback(
-			'/\[(\w\d+\w\d+)#([0-9:]*)\]/',
-			function($matches) { return '<a href="/cast/' . $matches[1] . '#ts-' . $matches[2] . '">' . $matches[1] . " @ " . $matches[2] . "</a>"; },
-			$note );
-		$note = preg_replace_callback(
-			'/\[(\w\d+\w\d+)\]/',
-			function($matches) { return '<a href="/cast/' . $matches[1] . '">' . $matches[1] . "</a>"; },
-			$note );
-		echo $note;
-		}
+		echo _castBody( $shownotes );
 	}
 
 } else {

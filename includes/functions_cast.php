@@ -57,9 +57,10 @@ function _castHeader( $header ) {
 /**
  * Private function, returns parsed cast shownotes
  * @param array $lines shownote lines taken from current cast file
+ * @param bool $feed produce feed (XML) friendly markup
  * @return string HTML-formatted shownotes!
  */
-function _castBody( $lines ) {
+function _castBody( $lines, $feed = false ) {
 
 	if ( $lines === false )
 		return false;
@@ -69,14 +70,23 @@ function _castBody( $lines ) {
 
 		$line = preg_replace_callback( '/\d+:\d+:\d+\s+\*(.*)\*/', function($matches) {
 			return "\n<h4>" . slenc($matches[1]) . "</h4>\n<dl class=\"dl-horizontal\">"; }, $line );
-		$line = preg_replace_callback( '/(\d+:\d+:\d+)\s+(.*)$/', function($matches) {
-			return "<dt>" . slenc($matches[1]) . "</dt>\n\t<dd>" . slenc($matches[2]) . "</dd>"; }, $line );
+		if ( $feed ) {
+			$line = preg_replace_callback( '/(\d+:\d+:\d{2})(?!])/', function($matches){
+				return "<time datetime=\"" . slenc($matches[1]) . '">' . slenc($matches[1]) . "</time>"; }, $line);
+			$line = preg_replace_callback( '/^<time.*$/', function($matches) {
+				return "<li>" . $matches[0] . "</li>"; }, $line);
+			$line = preg_replace_callback( '/(?i)\b((?:(https?|irc):\/\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:\'".,<>?«]))/', function($matches) {
+				return "[<a href=\"" . slenc($matches[0]) . "\" class=\"text-info\">" . slenc($matches[0]) . "</a>]"; }, $line );
+		} else {
+			$line = preg_replace_callback( '/(\d+:\d+:\d+)\s+(.*)$/', function($matches) {
+				return "<dt>" . slenc($matches[1]) . "</dt>\n\t<dd>" . slenc($matches[2]) . "</dd>"; }, $line );
+			$line = preg_replace_callback( '/(\d+:\d+:\d{2})(?!])/', function($matches) {
+				return "<time id=\"ts-" . slenc($matches[1]) . "\" datetime=\"" . slenc($matches[1]) . "\">" . slenc($matches[1]) . "</time>"; }, $line );
+			$line = preg_replace_callback( '/(?i)\b((?:(https?|irc):\/\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:\'".,<>?«]))/', function($matches) {
+				return "[<a href=\"" . slenc($matches[0]) . "\" class=\"text-info\">source</a>]"; }, $line );
+		}
 		$line = preg_replace_callback( '/`([^`]*)`/', function($matches) {
 			return "<code>" . $matches[1] . "</code>"; }, $line );
-		$line = preg_replace_callback( '/(\d+:\d+:\d{2})(?!])/', function($matches) {
-			return "<time id=\"ts-" . slenc($matches[1]) . "\" datetime=\"" . slenc($matches[1]) . "\">" . slenc($matches[1]) . "</time>"; }, $line );
-		$line = preg_replace_callback( '/(?i)\b((?:(https?|irc):\/\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:\'".,<>?«]))/', function($matches) {
-			return "[<a href=\"" . slenc($matches[0]) . "\" class=\"text-info\">source</a>]"; }, $line );
 		$line = preg_replace_callback( '/(?i)\b((?:(steam):\/\/[^ \n<]*))/', function($matches) {
 			return "<a href=\"" . slenc($matches[0]) . "\" class=\"steam-link\">" . slenc($matches[0]) . "</a>"; }, $line );
 		$line = preg_replace_callback( '/\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}\b/', function($matches) {
@@ -95,6 +105,16 @@ function _castBody( $lines ) {
 			return "<a href=\"/cast/" . $matches[1] . "#ts-" . $matches[2] . "\">" . $matches[1] . " @ " . $matches[2] . "</a>"; }, $line );
 		$line = preg_replace_callback( '/\[(\w\d+\w\d+)\]/', function($matches) {
 			return "<a href=\"/cast/" . $matches[1] . "\">" . $matches[1] . "</a>"; }, $line );
+		if ( $feed ) {
+			/* Misc tidy up to match our current output (so we don’t trigger a bunch of new episode downloads */
+			$line = preg_replace( '/ter-link\">/', "ter-link\">@", $line);
+			$line = preg_replace( '/ class="[^"]*"/', "", $line);
+			$line = preg_replace( '/dl>/', "ul>", $line);
+			$line = preg_replace( '/dd>/', "li>", $line);
+			$line = preg_replace( '/h4>/', "p>", $line);
+			$line = preg_replace( '/"\/cast\//', "\"https://steamlug.org/cast/", $line);
+			$line = preg_replace( '/\t/', "", $line);
+		}
 		$text .= $line;
 	}
 	return $text;

@@ -103,66 +103,9 @@ CASTHEAD;
 			<description><![CDATA[<p>{$meta['DESCRIPTION']}</p>
 
 CASTENTRY;
-		foreach ( $shownotes as $note ) {
 
-			$note = preg_replace_callback(
-				'/\d+:\d+:\d+\s+\*(.*)\*/',
-				function($matches){ return "<p>" . slenc($matches[1]) . "</p>\n<ul>"; },
-				$note);
-			$note = preg_replace_callback(
-				'/(\d+:\d+:\d{2})(?!])/',
-				function($matches){ return "<time datetime=\"" . slenc($matches[1]) . '">' . slenc($matches[1]) . "</time>"; },
-				$note);
-			$note = preg_replace_callback(
-				'/`([^`]*)`/',
-				function($matches) { return "<code>" . $matches[1] . "</code>"; },
-				$note);
-			$note = preg_replace_callback(
-				'/^<time.*$/',
-				function($matches){ return "<li>" . $matches[0] . "</li>"; },
-				$note);
-			$note = preg_replace_callback(
-				'/(?i)\b((?:(https?|irc):\/\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:\'".,<>?«]))/',
-				function($matches){ return "[<a href=\"" . slenc($matches[0]) . '">' . slenc($matches[0]) . "</a>]"; },
-				$note);
-			$note = preg_replace_callback(
-				'/(?i)\b((?:(steam):\/\/[^ \n<]*))/',
-				function($matches) { return '<a href="' . slenc($matches[0]) . '">' . slenc($matches[0]) . "</a>"; },
-				$note );
-			$note = preg_replace_callback(
-				'/\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}\b/',
-				function($matches){ return "<a href=\"mailto:". slenc($matches[0]) . '">' . slenc($matches[0]) . "</a>"; },
-				$note);
-			$note = preg_replace_callback(
-				'/((?<=^|\s|\(|>))@([A-Za-z0-9_]+)/i',
-				function($matches) { return $matches[1] . '<a href="https://twitter.com/' . slenc($matches[2]) . '">@' . slenc($matches[2]) . '</a>'; },
-				$note);
-			$note = preg_replace_callback(
-				'/^\n$/',
-				function($matches){ return "</ul>\n"; },
-				$note);
-			$note = preg_replace_callback(
-				'/\t\[(\w+)\](.*)/',
-				function($matches){ return "<li>&lt;" . $matches[1] . "&gt; " . $matches[2] . "</li>"; },
-				$note);
-			$note = preg_replace_callback(
-				'/\t(.*)/',
-				function($matches){ return "<li>" . $matches[1] . "</li>"; },
-				$note);
-			$note = preg_replace_callback(
-				'/  (.*)/',
-				function($matches){ return "\t\t\t<p>" . $matches[1] . "</p>"; },
-				$note);
-			$note = preg_replace_callback(
-				'/\[(\w\d+\w\d+)#([0-9:]*)\]/',
-				function($matches) { return "\t\t\t<a href=\"https://steamlug.org/cast/" . $matches[1] . '#ts-' . $matches[2] . '">' . $matches[1] . " @ " . $matches[2] . "</a>"; },
-				$note );
-			$note = preg_replace_callback(
-				'/\[(\w\d+\w\d+)\]/',
-				function($matches){ return "\t\t\t<a href=\"https://steamlug.org/cast/" . $matches[1] . '">' . $matches[1] . "</a>"; },
-				$note);
-			echo $note;
-		}
+		echo _castBody( $shownotes, true );
+
 		echo <<<CASTENTRY
 			]]></description>
 			<itunes:subtitle>{$meta['SHORTDESC']}…</itunes:subtitle>
