@@ -7,6 +7,8 @@ ErrorDocument 403 /error-page/403.php
 ErrorDocument 404 /error-page/404.php
 ErrorDocument 500 /error-page/500.php
 
+ServerSignature Off
+
 RewriteBase /
 RewriteEngine on
 RewriteCond %{HTTP_HOST} ^www\.(.*)$
