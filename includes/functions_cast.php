@@ -64,23 +64,23 @@ function _castBody( $lines ) {
 	if ( $lines === false )
 		return false;
 
-	$text = '';
+	$text = "";
 	foreach ( $lines as $line ) {
 
 		$line = preg_replace_callback( '/\d+:\d+:\d+\s+\*(.*)\*/', function($matches) {
 			return "\n<h4>" . slenc($matches[1]) . "</h4>\n<dl class=\"dl-horizontal\">"; }, $line );
 		$line = preg_replace_callback( '/(\d+:\d+:\d+)\s+(.*)$/', function($matches) {
-			return '<dt>' . slenc($matches[1]) . "</dt>\n\t<dd>" . slenc($matches[2]) . "</dd>"; }, $line );
+			return "<dt>" . slenc($matches[1]) . "</dt>\n\t<dd>" . slenc($matches[2]) . "</dd>"; }, $line );
 		$line = preg_replace_callback( '/(\d+:\d+:\d{2})(?!])/', function($matches) {
-			return '<time id="ts-' . slenc($matches[1]) . '" datetime="' . slenc($matches[1]) . '">' . slenc($matches[1]) . '</time>'; }, $line );
+			return "<time id=\"ts-" . slenc($matches[1]) . "\" datetime=\"" . slenc($matches[1]) . "\">" . slenc($matches[1]) . "</time>"; }, $line );
 		$line = preg_replace_callback( '/(?i)\b((?:(https?|irc):\/\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:\'".,<>?«]))/', function($matches) {
-			return "[<a href='" . slenc($matches[0]) . "' class='text-info'>source</a>]"; }, $line );
-		$line = preg_replace_callback('/(?i)\b((?:(steam):\/\/[^ \n<]*))/', function($matches) {
-			return "<a href='" . slenc($matches[0]) . "' class=\"steam-link\">" . slenc($matches[0]) . "</a>"; }, $line );
+			return "[<a href=\"" . slenc($matches[0]) . "\" class=\"text-info\">source</a>]"; }, $line );
+		$line = preg_replace_callback( '/(?i)\b((?:(steam):\/\/[^ \n<]*))/', function($matches) {
+			return "<a href=\"" . slenc($matches[0]) . "\" class=\"steam-link\">" . slenc($matches[0]) . "</a>"; }, $line );
 		$line = preg_replace_callback( '/\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}\b/', function($matches) {
-			return "<a href='mailto:". slenc($matches[0]) . "' class=\"mail-link\">" . slenc($matches[0]) . '</a>'; }, $line );
+			return "<a href=\"mailto:". slenc($matches[0]) . "\" class=\"mail-link\">" . slenc($matches[0]) . "</a>"; }, $line );
 		$line = preg_replace_callback( '/((?<=^|\s|\(|>))@([A-Za-z0-9_]+)/i', function($matches) {
-			return $matches[1] . '<a href="https://twitter.com/' . slenc($matches[2]) . '" class="twitter-link">' . slenc($matches[2]) . '</a>'; }, $line );
+			return $matches[1] . "<a href=\"https://twitter.com/" . slenc($matches[2]) . "\" class=\"twitter-link\">" . slenc($matches[2]) . "</a>"; }, $line );
 		$line = preg_replace_callback( '/^\n$/', function($matches) {
 			return "</dl>\n"; }, $line );
 		$line = preg_replace_callback( '/\t\[(\w+)\](.*)/', function($matches) {
@@ -88,11 +88,11 @@ function _castBody( $lines ) {
 		$line = preg_replace_callback( '/\t((?!<dd).*)$/', function($matches) {
 			return "\t<dd>" . $matches[1] . "</dd>"; }, $line );
 		$line = preg_replace_callback( '/  (.*)/', function($matches) {
-			return '<p>' . $matches[1] . "</p>\n";	}, $line );
+			return "<p>" . $matches[1] . "</p>\n";	}, $line );
 		$line = preg_replace_callback( '/\[(\w\d+\w\d+)#([0-9:]*)\]/', function($matches) {
-			return '<a href="/cast/' . $matches[1] . '#ts-' . $matches[2] . '">' . $matches[1] . " @ " . $matches[2] . "</a>"; }, $line );
+			return "<a href=\"/cast/" . $matches[1] . "#ts-" . $matches[2] . "\">" . $matches[1] . " @ " . $matches[2] . "</a>"; }, $line );
 		$line = preg_replace_callback( '/\[(\w\d+\w\d+)\]/', function($matches) {
-			return '<a href="/cast/' . $matches[1] . '">' . $matches[1] . "</a>"; }, $line );
+			return "<a href=\"/cast/" . $matches[1] . "\">" . $matches[1] . "</a>"; }, $line );
 		$text .= $line;
 	}
 	return $text;

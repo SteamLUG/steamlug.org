@@ -185,8 +185,8 @@ echo <<<CASTENTRY
 					$episodeYoutube
 				</p>
 				<p class="licence">
-					<a href='http://creativecommons.org/licenses/by-sa/3.0/'>
-						<img class='license' src='/images/by-sa.png' alt='Creative Commons By-Share‐Alike license logo' title='Licensed under CC-BY-SA'>
+					<a href="http://creativecommons.org/licenses/by-sa/3.0/">
+						<img class="license" src="/images/by-sa.png" alt="Creative Commons By-Share‐Alike license logo" title="Licensed under CC-BY-SA">
 					</a>
 				</p>
 				{$adminblock}

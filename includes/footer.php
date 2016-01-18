@@ -53,7 +53,7 @@ if ( $weareadmin ) {
 <?php
 if (isset($tailJS)) {
 	foreach ($tailJS as $js) {
-		echo "\t\t<script src='" . $js . "' type=\"text/javascript\"></script>\n";
+		echo "\t\t<script src=\"" . $js . "\" type=\"text/javascript\"></script>\n";
 	}
 }
 
