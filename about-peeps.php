@@ -62,7 +62,7 @@
 				</header>
 				<div class="panel-body">
 					<img src="/avatars/HeroOhOne.png" />
-					<p>Hero. Player of games. Maker of things. Enthusiast of mine launchers.</p>
+					<p>Hero. Player of games. Maker of things. Enthusiast of mine launchers. Totally not a troll.</p>
 				</div>
 			</article>
 
