@@ -71,6 +71,8 @@ function _castBody( $lines ) {
 			return "\n<h4>" . slenc($matches[1]) . "</h4>\n<dl class=\"dl-horizontal\">"; }, $line );
 		$line = preg_replace_callback( '/(\d+:\d+:\d+)\s+(.*)$/', function($matches) {
 			return "<dt>" . slenc($matches[1]) . "</dt>\n\t<dd>" . slenc($matches[2]) . "</dd>"; }, $line );
+		$line = preg_replace_callback( '/`([^`]*)`/', function($matches) {
+			return "<code>" . $matches[1] . "</code>"; }, $line );
 		$line = preg_replace_callback( '/(\d+:\d+:\d{2})(?!])/', function($matches) {
 			return "<time id=\"ts-" . slenc($matches[1]) . "\" datetime=\"" . slenc($matches[1]) . "\">" . slenc($matches[1]) . "</time>"; }, $line );
 		$line = preg_replace_callback( '/(?i)\b((?:(https?|irc):\/\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:\'".,<>?«]))/', function($matches) {

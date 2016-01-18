@@ -114,6 +114,10 @@ CASTENTRY;
 				function($matches){ return "<time datetime=\"" . slenc($matches[1]) . '">' . slenc($matches[1]) . "</time>"; },
 				$note);
 			$note = preg_replace_callback(
+				'/`([^`]*)`/',
+				function($matches) { return "<code>" . $matches[1] . "</code>"; },
+				$note);
+			$note = preg_replace_callback(
 				'/^<time.*$/',
 				function($matches){ return "<li>" . $matches[0] . "</li>"; },
 				$note);
