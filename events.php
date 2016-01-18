@@ -15,7 +15,12 @@ if ( $eventID == "0" ) {
 	$event = findEvent( $eventID );
 	if ( $event != null ) {
 		$eTime = $event['utctime'];
-		$extraCrap = <<<TWITCARD
+	}
+}
+
+if ( isset( $eTime ) ) {
+
+	$extraCrap = <<<TWITCARD
 		<meta name="twitter:card" content="summary_large_image">
 		<meta name="twitter:site" content="@SteamLUG">
 		<meta name="twitter:title" content="{$event['title']}">
@@ -23,10 +28,6 @@ if ( $eventID == "0" ) {
 		<meta name="twitter:image:src" content="https:{$event['img_header']}">
 
 TWITCARD;
-	}
-}
-
-if ( isset( $eTime ) ) {
 	$extraJS = "\t\t\tvar target = new Date(" . $eTime . ");";
 	$tailJS = array('/scripts/events.js');
 }
@@ -34,28 +35,25 @@ if ( isset( $eTime ) ) {
 include_once( 'includes/header.php' );
 ?>
 		<h1 class="text-center">SteamLUG Events</h1>
-		<article class="panel panel-default">
-			<header class="panel-heading">
-				<h3 class="panel-title">Next Event</h3>
-			</header>
-			<div class="panel-body">
-			<div class="col-md-5 clearfix">
 <?php
 $eventButton = "";
 $eventImage = "";
 $eventTitle = "";
-if ($event != null) {
+$eventCountdown = "";
+$dt = "";
+$players = "";
+
+if ( isset( $eTime ) ) {
+
 	// TODO: tidy this mess, the next block, and the HEREDOC into one clean thing
 	$eventTitle = '<h3 class="centred"><a href="' . $event['url'] . '">' .  str_replace( 'SteamLUG ','',$event['title'] ) . '</a></h3>';
 	($event['appid'] !== 0 ?
-	$eventImage = "<a href='" . $event['url'] . "'><img class=\"img-rounded eventimage\" src='" . $event['img_header'] . "' alt='" . $event['title'] . "'/></a>" :
+	$eventImage = "<a href=\"" . $event['url'] . "\"><img class=\"img-rounded eventimage\" src=\"" . $event['img_header'] . "\" alt=\"" . $event['title'] . "\"/></a>" :
 	$eventImage = "<h1>?</h1>"
 	);
 	$eventButton = "<p><a class=\"btn btn-primary btn-lg pull-right\" href=\"" . $event['url'] . "\">Click for details</a></p>";
 	$dt = $event['date'] . " " . $event['time'] . " " . $event['tz'];
-}
 
-if (isset($eTime)) {
 	$eventDate = new DateTime(); $eventDate->setTimestamp($eTime);
 	$diff = date_diff($eventDate, new DateTime("now"));
 	list($ed, $eh, $em, $es) = explode( ' ', $diff->format("%D %H %I %S") );
@@ -85,11 +83,16 @@ if (isset($eTime)) {
 				</div>
 COUNTDOWN;
 	}
-}
 
 /* TODO make this match our stream page, optionally hiding this is $event is not set */
 /* TODO for dates in the past (now that we can link to specific events) change wording, remove ticker? */
 echo <<<EVENTSHEAD
+		<article class="panel panel-default">
+			<header class="panel-heading">
+				<h3 class="panel-title">Next Event</h3>
+			</header>
+			<div class="panel-body">
+			<div class="col-md-5 clearfix">
 				{$eventTitle}
 				{$eventCountdown}
 				<p>This event is held on {$dt}</p>
@@ -108,13 +111,17 @@ echo <<<EVENTSHEAD
 			<p>Here you can find a list of upcoming group gaming events hosted by the SteamLUG community. A countdown timer is shown for the next upcoming event. We also have a <a href = '/feed/events'>RSS feed</a> of event reminders available.</p>
 			<p>All times are listed in UTC, and are subject to change.</p>
 			<p>Click on an event title to post comments, find more information, and retrieve server passwords (for this, you will need to become a group member by selecting the Join Group button on the event page).</p>
-			<p>If you'd like to know more about our community, visit the <a href = 'about' >About page</a>, or hop into our <a href = 'irc'>IRC channel</a> and say hi. If you'd like to get involved with organising events, please contact <a href = 'http://twitter.com/steamlug' >steamlug</a>.</p>
+			<p>If you'd like to know more about our community, visit the <a href="/about">About page</a>, or hop into our <a href = 'irc'>IRC channel</a> and say hi. If you'd like to get involved with organising events, please contact <a href="http://twitter.com/steamlug">steamlug</a>.</p>
 
 			<h4>Mumble</h4>
-			<p>We also run a <a href = 'http://mumble.sourceforge.net/' >Mumble</a> voice chat server which we use in place of in-game voice chat. You can learn more about it on our <a href = 'mumble' >Mumble page</a>.</p>
+			<p>We also run a <a href="http://mumble.sourceforge.net/">Mumble</a> voice chat server which we use in place of in-game voice chat. You can learn more about it on our <a href="/mumble">Mumble page</a>.</p>
 			<p>We encourage our users to use the Mumble server during the events, if there should be any important messages to be announced and to make team-based games easier to manage. You can just sit and listen.</p>
 			</div>
 		</article>
+EVENTSHEAD;
+}
+
+echo <<<EVENTSTABLE
 		<article class="panel panel-default">
 			<header class="panel-heading">
 				<h3 class="panel-title">Upcoming Events</h3>
@@ -130,7 +137,7 @@ echo <<<EVENTSHEAD
 				</tr>
 			</thead>
 			<tbody>
-EVENTSHEAD;
+EVENTSTABLE;
 
 	foreach ($data['events'] as $event)
 	{

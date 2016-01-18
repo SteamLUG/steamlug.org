@@ -62,7 +62,7 @@
 				</header>
 				<div class="panel-body">
 					<img src="/avatars/HeroOhOne.png" />
-					<p>Hero. Player of games. Maker of things. Enthusiast of mine launchers.</p>
+					<p>Hero. Player of games. Maker of things. Enthusiast of mine launchers. Totally not a troll.</p>
 				</div>
 			</article>
 
@@ -87,6 +87,16 @@
 					<img src="/avatars/ds.png" />
 					<p>Me. Somtimes I code. Also, I think that Linux thing is kinda cool.</p>
 					<p>Also known as <em>dscharrer</em> when a unique name is required.</p>
+				</div>
+			</article>
+			
+			<article class="panel panel-default person">
+				<header class="panel-heading">
+					<h3 class="panel-title"><a href="http://twitter.com/DoraCoder">Dora Coder</a></h3>
+				</header>
+				<div class="panel-body">
+					<img src="/avatars/doracoder.png" />
+					<p>Yep, that's my name. Linux user (obviously), broadcaster, and wine-gaming heathen. Loves many things.</p>
 				</div>
 			</article>
 		<section>

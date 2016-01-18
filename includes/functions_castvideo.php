@@ -1,7 +1,14 @@
 <?php
 include_once('paths.php');
 
-function _nameplate( $string, $offset = 0, $guest = 0 ) {
+/**
+ * Private function, returns SVG-formatted person plate for our thumbnail
+ * @param string $string of the form: ‘johndrinkwater’ / ‘@johndrinkwater’ / ‘John Drinkwater (@twitter)’ / ‘John Drinkwater {URL}’
+ * @param integer $offset translate this nameplate by this value horizontally
+ * @param boolean $guest translate this nameplate to the guest slot if true
+ * @return string a rendered version of $string
+ */
+function _nameplate( $string, $offset = 0, $guest = false ) {
 
 	$person = parsePersonString( $string );
 	$name = $person['name'];
@@ -18,7 +25,7 @@ function _nameplate( $string, $offset = 0, $guest = 0 ) {
 	if ( strlen( $avatar ) == 0 )
 		$avatar = "unknown-host-" . md5( $string );
 
-	$flip = ( $guest == 1 ? -23 : 107 );
+	$flip = ( $guest == true ? -23 : 107 );
 	return <<<SVGPLATE
 			<g transform="translate({$offset},0)">
 				<use xlink:href="#person-holder" />
@@ -29,7 +36,12 @@ function _nameplate( $string, $offset = 0, $guest = 0 ) {
 SVGPLATE;
 }
 
-/* we take a ‘######’ / //example.com/imageofgame.png and split out SVG */
+/**
+ * Private function, returns SVG-formatted game plate for our thumbnail
+ * @param string $string of the form: ‘000000’ (Steam appid) / ‘//example.com/image.png’ (URL)
+ * @param integer $offset translate this nameplate by this value horizontally
+ * @return string a rendered version of $string
+ */
 function _gameplate( $string, $offset ) {
 
 	$url = "";
@@ -69,8 +81,12 @@ function _gameplate( $string, $offset ) {
 GAMEPLATE;
 }
 
-// TODO convert to php-ffmpeg? in the future
-
+/**
+ * Generates an SVG image used to render the YouTube video
+ * @param integer $season the season
+ * @param integer $episode and episode for this specific cast episode
+ * @return string an SVG rendered version of this episode
+ */
 function generateImage( $season, $episode ) {
 
 	global $avatarKeyPath; /* TODO find a better location to write to! */
@@ -101,7 +117,7 @@ function generateImage( $season, $episode ) {
 		foreach ($meta['GUESTS'] as $Guest) {
 
 			if ($Guest == "") break;
-			$guestsIncludeString .= _nameplate( $Guest, $startIndex, 1 );
+			$guestsIncludeString .= _nameplate( $Guest, $startIndex, true );
 			$startIndex += 180;
 		}
 		$gamesString = "";
@@ -221,21 +237,25 @@ FAILURE;
 	return $svgcontents;
 }
 
-/* call a longist running avconv, returns tempfile name? */
+/**
+ * Generates a video that we can upload to YouTube. This calls generateImage( ) directly.
+ * Note this is long-running, and as such needs to call set_time_limit( )
+ * @param integer $season the season
+ * @param integer $episode and episode for this specific cast episode
+ * @return string location of the rendered file on the server
+ */
 function generateVideo( $season, $episode ) {
 
-	global $filePath;
 	global $avatarKeyPath; /* TODO find a better location to write to! */
 
-	/* TODO find a reasonable max generation time */
-	set_time_limit( 240 );
-
-	/* TODO use tmp files */
+	set_time_limit( 360 );
 
 	$slug = 's' . $season . 'e' . $episode;
 	$meta = getCastHeader( $slug );
-	/* TODO check that filename is set, audio file exists */
-	$audiofile = $filePath  . '/' . $meta['SLUG'] . '/' . $meta['FILENAME'] . '.ogg';
+	$audiofile = $meta[ 'ABSFILENAME' ] . '.ogg';
+
+	if ( !file_exists( $audiofile ) )
+		return false;
 
 	$svgcontents = generateImage( $season, $episode );
 	$svgcontents = str_replace( '/avatars', './avatars', $svgcontents );
@@ -251,24 +271,31 @@ function generateVideo( $season, $episode ) {
 	$svgfileref = fopen( $svgfile, 'w' );
 	fwrite( $svgfileref, $svgcontents );
 	fclose( $svgfileref );
-	/* TODO test file? */
+
+	if ( !file_exists( $svgfile ) )
+		return false;
 
 	$commandthumbnail = "rsvg-convert {$svgfile} > {$pngfile}";
 	print "Running: ". $commandthumbnail . "\n";
 	echo shell_exec( $commandthumbnail . ' 2>&1' );
-	/* TODO test file got created, or bail */
+
+	if ( !file_exists( $pngfile ) )
+		return false;
 
 	$commandvideo = "ffmpeg -y -loglevel warning -loop 1 -framerate 1 -i {$pngfile} -i {$audiofile} -c:v libx264 -tune stillimage -pix_fmt yuv420p -c:a aac -strict experimental -b:a 192k -shortest {$mp4filetmp}";
 	print "Running: ". $commandvideo . "\n";
 	echo shell_exec( $commandvideo . ' 2>&1' );
-	/* TODO test file got created, or bail */
+
+	if ( !file_exists( $mp4filetmp ) )
+		return false;
 
 	$commandfaststart = "qt-faststart {$mp4filetmp} {$mp4file}";
 	print "Running: ". $commandfaststart . "\n";
 	echo shell_exec( $commandfaststart . ' 2>&1' );
-	/* TODO test file got created, otherwise rename $mp4filetmp $mp4file */
 
-	/* TODO test file exists, is not empty, otherwise return false */
+	if ( !file_exists( $mp4file ) )
+		return false;
+
 	return $mp4file;
 }
 

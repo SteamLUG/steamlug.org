@@ -73,8 +73,6 @@ if ( $season !== "00" && $episode !== "00" && ($meta = getCastHeader( $slug ) ) 
 	$castList = false;
 	$shownotes			= getCastBody( $slug );
 
-	$archiveBase		= $publicURL . '/' . $meta['SLUG'] . '/' . $meta['FILENAME'];
-
 	$meta['RECORDED']	= ( $meta['RECORDED'] === "" ? 'N/A' :	'<time datetime="' . $meta['RECORDED'] . '">' . $meta['RECORDED'] . '</time>' );
 	$meta['PUBLIC']		= ( $meta['PUBLISHED'] );
 	$meta['PUBLISHED']	= ( $meta['PUBLISHED'] === "" ? '<span class="warning">In Progress</span>' : '<time datetime="' . $meta['PUBLISHED'] . '">' . $meta['PUBLISHED'] . '</time>');
@@ -132,10 +130,10 @@ TWITCARD;
 		$episodeMP3DS = $siteListen = $episodeOddDS = $episodeYoutube = "";
 	} else {
 		$episodeOggFS	= ( file_exists( $meta[ 'ABSFILENAME' ] . '.ogg' )  ? round( filesize( $meta[ 'ABSFILENAME' ] . '.ogg' ) /1024/1024, 2 ) : 0 );
-		$siteListen		= ($episodeOggFS > 0 ? '<audio id="castplayer" preload="none" src="' . $archiveBase . '.ogg" controls="controls">Your browser does not support the &lt;audio&gt; tag.</audio>' : '');
-		$episodeOddDS	= '<span class="ogg">' . ( $episodeOggFS > 0 ? $episodeOggFS . ' MB <a download href="' . $archiveBase . '.ogg">Ogg</a>' : 'N/A Ogg' ) . '</span>';
+		$siteListen		= ($episodeOggFS > 0 ? '<audio id="castplayer" preload="none" src="' . $meta[ 'ARCHIVE' ] . '.ogg" controls="controls">Your browser does not support the &lt;audio&gt; tag.</audio>' : '');
+		$episodeOddDS	= '<span class="ogg">' . ( $episodeOggFS > 0 ? $episodeOggFS . ' MB <a download href="' . $meta[ 'ARCHIVE' ] . '.ogg">Ogg</a>' : 'N/A Ogg' ) . '</span>';
 		$episodeMp3FS	= ( file_exists( $meta[ 'ABSFILENAME' ] . '.mp3' )  ? round( filesize( $meta[ 'ABSFILENAME' ] . '.mp3' ) /1024/1024, 2 ) : 0 );
-		$episodeMP3DS	= '<span class="mp3">' . ( $episodeMp3FS > 0 ? $episodeMp3FS . ' MB <a download href="' .$archiveBase . '.mp3">MP3</a>' : 'N/A MP3' ) . '</span>';
+		$episodeMP3DS	= '<span class="mp3">' . ( $episodeMp3FS > 0 ? $episodeMp3FS . ' MB <a download href="' . $meta[ 'ARCHIVE' ] . '.mp3">MP3</a>' : 'N/A MP3' ) . '</span>';
 
 		$episodeYoutube = ( empty( $meta['YOUTUBE'] ) ? '' : '<span class="youtube"><a href="//youtu.be/' . $meta['YOUTUBE'] . '">YOUTUBE</a></span>' );
 	}
@@ -152,7 +150,7 @@ FOOTERBLOCK;
 	if ( $weareadmin === true ) {
 		$views = getYouTubeStat( $meta[ 'YOUTUBE' ] );
 		$adminblock = <<<HELPFULNESS
-<div><p>Admin helper pages:<br>YouTube <a href="/youtubethumb/{$meta['SLUG']}">video background</a> and <a href="/youtubedescription/{$meta['SLUG']}">description</a>. <a href="/youtubegeneratevideo/{$meta['SLUG']}">YouTube make video</a>. <a target="_blank" href="/transcriberer?audio={$archiveBase}.ogg">Note creation</a>.<br>{$views} Views on YouTube.</p></div>
+<div><p>Admin helper pages:<br>YouTube <a href="/youtubethumb/{$meta['SLUG']}">video background</a> and <a href="/youtubedescription/{$meta['SLUG']}">description</a>. <a href="/youtubegeneratevideo/{$meta['SLUG']}">YouTube make video</a>. <a target="_blank" href="/transcriberer?audio={$meta['ARCHIVE']}.ogg">Note creation</a>.<br>{$views} Views on YouTube.</p></div>
 HELPFULNESS;
 	}
 
@@ -187,8 +185,8 @@ echo <<<CASTENTRY
 					$episodeYoutube
 				</p>
 				<p class="licence">
-					<a href='http://creativecommons.org/licenses/by-sa/3.0/'>
-						<img class='license' src='/images/by-sa.png' alt='Creative Commons By-Share‐Alike license logo' title='Licensed under CC-BY-SA'>
+					<a href="http://creativecommons.org/licenses/by-sa/3.0/">
+						<img class="license" src="/images/by-sa.png" alt="Creative Commons By-Share‐Alike license logo" title="Licensed under CC-BY-SA">
 					</a>
 				</p>
 				{$adminblock}
@@ -210,62 +208,7 @@ CASTENTRY;
 		echo "<p>The episode recording is currently in the works.</p>\n";
 	} else {
 
-		foreach ( $shownotes as $note ) {
-
-		$note = preg_replace_callback(
-			'/\d+:\d+:\d+\s+\*(.*)\*/',
-			function($matches) { return "\n<h4>" . slenc($matches[1]) . "</h4>\n<dl class=\"dl-horizontal\">"; },
-			$note );
-		$note = preg_replace_callback(
-			'/(\d+:\d+:\d+)\s+(.*)$/',
-			function($matches) { return '<dt>' . slenc($matches[1]) . "</dt>\n\t<dd>" . slenc($matches[2]) . "</dd>"; },
-			$note );
-		$note = preg_replace_callback(
-			'/(\d+:\d+:\d{2})(?!])/',
-			function($matches) { return '<time id="ts-' . slenc($matches[1]) . '" datetime="' . slenc($matches[1]) . '">' . slenc($matches[1]) . '</time>'; },
-			$note );
-		$note = preg_replace_callback(
-			'/(?i)\b((?:(https?|irc):\/\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:\'".,<>?«]))/',
-			function($matches) { return "[<a href='" . slenc($matches[0]) . "' class='text-info'>source</a>]"; },
-			$note );
-		$note = preg_replace_callback(
-			'/(?i)\b((?:(steam):\/\/[^ \n<]*))/',
-			function($matches) { return "<a href='" . slenc($matches[0]) . "' class=\"steam-link\">" . slenc($matches[0]) . "</a>"; },
-			$note );
-		$note = preg_replace_callback(
-			'/\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}\b/',
-			function($matches) { return "<a href='mailto:". slenc($matches[0]) . "' class=\"mail-link\">" . slenc($matches[0]) . '</a>'; },
-			$note );
-		$note = preg_replace_callback(
-			'/((?<=^|\s|\(|>))@([A-Za-z0-9_]+)/i',
-			function($matches) { return $matches[1] . '<a href="https://twitter.com/' . slenc($matches[2]) . '" class="twitter-link">' . slenc($matches[2]) . '</a>'; },
-			$note );
-		$note = preg_replace_callback(
-			'/^\n$/',
-			function($matches) { return "</dl>\n"; },
-			$note );
-		$note = preg_replace_callback(
-			'/\t\[(\w+)\](.*)/',
-			function($matches) { return "\t<dd>&lt;<span class=\"nickname\">" . $matches[1] . "</span>&gt; " . $matches[2] . "</dd>";	},
-			$note );
-		$note = preg_replace_callback(
-			'/\t((?!<dd).*)$/',
-			function($matches) { return "\t<dd>" . $matches[1] . "</dd>"; },
-			$note );
-		$note = preg_replace_callback(
-			'/  (.*)/',
-			function($matches) { return '<p>' . $matches[1] . "</p>\n";	},
-			$note );
-		$note = preg_replace_callback(
-			'/\[(\w\d+\w\d+)#([0-9:]*)\]/',
-			function($matches) { return '<a href="/cast/' . $matches[1] . '#ts-' . $matches[2] . '">' . $matches[1] . " @ " . $matches[2] . "</a>"; },
-			$note );
-		$note = preg_replace_callback(
-			'/\[(\w\d+\w\d+)\]/',
-			function($matches) { return '<a href="/cast/' . $matches[1] . '">' . $matches[1] . "</a>"; },
-			$note );
-		echo $note;
-		}
+		echo _castBody( $shownotes );
 	}
 
 } else {

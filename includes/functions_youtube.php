@@ -124,36 +124,40 @@ function getVideos( ) {
 function addVideoToPlaylist( $playlistId, $resourceId ) {
 }
 
-/* helper function, because */
+/**
+ * Returns YouTube playlist ID
+ * @param integer $season the requested playlist season number
+ * @return string|false the playlist ID if found, or false if not
+ */
 function getPlaylistId( $season ) {
 
-	/* GET https://www.googleapis.com/youtube/v3/playlists?part=snippet&maxResults=50&mine=true&key={YOUR_API_KEY}
+	include_once( 'functions_geturl.php' );
+	$googleKeys = getGoogleKeys( );
+	if ( $season == '' )
+		return;
 
-	We need to match on snippet.title (SteamLUG Cast s{$season}) and return snippet.channelId (UCdQCiWtqvmPwzizjmy_LkOg)
-	{
-	 "kind": "youtube#playlistListResponse",
-	 "etag": "\"IHLB7Mi__JPvvG2zLQWAg8l36UU/gzl8Sk03FOcqCAwDAcDwHro--iQ\"",
-	 "pageInfo": {
-	  "totalResults": 7,
-	  "resultsPerPage": 50
-	 },
-	 "items": [
-	  {
-	   "kind": "youtube#playlist",
-	   "etag": "\"IHLB7Mi__JPvvG2zLQWAg8l36UU/NAdOFAq3-7KimHGn9i75BKjjNRk\"",
-	   "id": "PL6S8WuxT3Rt_CmyTXnY8I0gHxnDzR7mC0",
-	   "snippet": {
-		"publishedAt": "2015-01-31T14:26:22.000Z",
-		"channelId": "UCdQCiWtqvmPwzizjmy_LkOg",
-		"title": "SteamLUG Cast s03",
-		"description": "",
-		"thumbnails": {
-		 "default": {
-		  "url": "https://i.ytimg.com/vi/jxYCYqAjRRw/default.jpg",
-		  "width": 120,
-		  "height": 90
-		 },
-	*/
+	$season	= str_pad($season, 2, '0', STR_PAD_LEFT);
+	$title	= 'SteamLUG Cast s' . $season;
+
+	$queryURL = "https://www.googleapis.com/youtube/v3/playlists";
+	/* Channel ID can be found at https://www.youtube.com/account_advanced, it can also be fetched via https://www.googleapis.com/youtube/v3/channels?key={YOUR_API_KEY}&forUsername={USER_NAME}&part=id but that is blergh */
+	// TODO move channelId to creds?
+	$params = array( 'key' => $googleKeys[ 'api_key' ], 'part' => 'snippet', 'maxResults' => '50', 'channelId' => 'UCdQCiWtqvmPwzizjmy_LkOg' );
+	$reply = geturl( $queryURL, $params );
+
+	if ( is_numeric( $reply ) )
+		return false;
+
+	$data = json_decode( $reply, true );
+	$data = $data[ 'items' ];
+
+	foreach ( $data as $playlist ) {
+
+		if ( $title == $playlist[ 'snippet' ][ 'title' ] ) {
+			return $playlist[ 'id' ];
+		}
+	}
+	return false;
 }
 
 /* helper function, because */

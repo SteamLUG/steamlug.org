@@ -144,7 +144,7 @@
 				array_push( $everyone, $member );
 			}
 		}
-		return $everyone;
+		return array_unique( $everyone );
 	}
 
 

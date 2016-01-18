@@ -15,7 +15,6 @@ audio:not([controls]){display:none;height:0}
 [hidden],template{display:none}
 a{background:transparent}
 a:active,a:hover{outline:0}
-abbr[title]{border-bottom:1px dotted}
 b,strong{font-weight:bold}
 dfn{font-style:italic}
 h1{font-size:2em;margin:.67em 0}
@@ -127,7 +126,7 @@ dl{margin-top:0;margin-bottom:20px}
 dt,dd{line-height:1.42857143}
 dt{font-weight:bold}
 dd{margin-left:0}
-abbr[title],abbr[data-original-title]{cursor:help;border-bottom:1px dotted #7a8288}
+abbr[title],abbr[data-original-title]{cursor:help;border-bottom:1px dotted #7a8288;text-decoration:none}
 .initialism{font-size:90%;text-transform:uppercase}
 blockquote{padding:10px 20px;margin:0 0 20px;font-size:17.5px;border-left:5px solid #7a8288}
 blockquote p:last-child,blockquote ul:last-child,blockquote ol:last-child{margin-bottom:0}
@@ -138,7 +137,7 @@ blockquote footer:before,blockquote small:before,blockquote .small:before{conten
 .blockquote-reverse footer:after,blockquote.pull-right footer:after,.blockquote-reverse small:after,blockquote.pull-right small:after,.blockquote-reverse .small:after,blockquote.pull-right .small:after{content:'\00A0 \2014'}
 blockquote:before,blockquote:after{content:""}
 address{margin-bottom:20px;font-style:normal;line-height:1.42857143}
-code{padding:2px 4px;font-size:90%;color:#c7254e;background-color:#f9f2f4;border-radius:4px}
+code{padding:2px 4px;font-size:90%;color:#ffffff;background-color:#1E1E1F;border-radius:2px;font-weight:bold;}
 kbd{padding:2px 4px;font-size:90%;color:#fff;background-color:#333;border-radius:3px;box-shadow:inset 0 -1px 0 rgba(0,0,0,.25)}
 kbd kbd{padding:0;font-size:100%;box-shadow:none}
 pre{display:block;padding:9.5px;margin:0 0 10px;font-size:13px;line-height:1.42857143;word-break:break-all;word-wrap:break-word;color:#3a3f44;background-color:#f5f5f5;border:1px solid #ccc;border-radius:4px}
@@ -1010,7 +1009,7 @@ html dl{margin-bottom:8px}
 #mumble-list dl dl dl .empty,#mumble-list dl dl dl .empty+dd{display:none}
 #mumble-list dl dl .populated,#mumble-list dl dl .populated+dd{display:block}
 li.dropdown:hover>.dropdown-menu,.dropdown-menu:hover{display:block}
-#countdown span{font-family:"font-awesome-trimmed",sans-serif;color:#fff;display:inline-block;text-align:center;line-height:1.25em;padding-top:4px;text-shadow:none;}
+#countdown span{font-family:"steamlugfont",sans-serif;color:#fff;display:inline-block;text-align:center;line-height:1.25em;padding-top:4px;text-shadow:none;}
 #countdown span:not(.label){background-color:#808080;width:1.75em;border-radius:3px;box-shadow:0 -10px 16px -10px #303030 inset}
 #countdown span.group {white-space:nowrap; width: auto;background:inherit;}
 #countdown{margin:0 auto;margin-bottom:.5em;line-height:2em;text-align:center;color:#d00}
@@ -1054,7 +1053,7 @@ div .navbar-brand{position:relative;z-index:15;margin-left:15px}
 div .navbar-nav{margin-bottom:0}
 div .navbar-header>a.navbar-brand{display:block;border:0;padding:3px 5px 4px 3px}
 #steamLugLogo{width:130px;height:44px}
-#steamAvatar{border:3px solid green;height:38px;width:38px;border-radius:4px}
+#steamAvatar{border:3px solid #415C78;height:38px;width:38px;border-radius:4px}
 .eventimage{display:block;margin:1em auto; max-width:100%}
 .centred{text-align:center}
 .ourclearfix{clear:both}

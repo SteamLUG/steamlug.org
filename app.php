@@ -23,6 +23,17 @@ $recentEvents = getRecentEventsForApp( $appID );
 $gameImages = getAppImages ( $appID );
 
 $pageTitle = " – ‘{$gameProfile[ 'name' ]}’ Page";
+$description = $gameProfile[ 'name' ] . ' is ' . ( $gameProfile[ 'onlinux' ] == 1 ? 'on Linux' : 'not yet on Linux' );
+
+	$extraCrap = <<<TWITCARD
+		<meta name="twitter:card" content="summary_large_image">
+		<meta name="twitter:site" content="@SteamLUG">
+		<meta name="twitter:title" content="{$gameProfile[ 'name' ]}">
+		<meta name="twitter:description" content="{$description}…">
+		<meta name="twitter:image:src" content="{$gameImages[ 'header' ]}">
+
+TWITCARD;
+
 include_once('includes/header.php');
 
 $onlinux = ($gameProfile[ 'onlinux' ]) ? '<i class="fa-linux"> Yes</i>' : '<i class=""> No</i>';

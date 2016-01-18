@@ -52,7 +52,7 @@ if ( true ) {
 		$appslist[ $app[ 'appid' ] ] = array ( "name" => $app[ 'name' ], "onlinux" => false, "owners" => 0, "playtime" => 0, "fortnight" => 0, "playersfortnight" => 0 );
 	}
 	// open our lovely SteamDB list, for a vague notion of what is on Linux
-	$jsonfile = $steamLinuxDB . '/GAMES.json';
+	$jsonfile = $steamDBRepo . '/GAMES.json';
 
 	if ( !file_exists( $jsonfile ) ) {
 		// TODO Do a better job to pass this error back

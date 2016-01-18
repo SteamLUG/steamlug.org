@@ -6,9 +6,11 @@
 	if (!isset($_GET['t'])|| $_GET['t'] == "ogg" ) {
 
 		$type = "ogg";
+		$mime = "audio/ogg";
 	} else {
 
 		$type = "mp3";
+		$mime = "audio/mpeg";
 	}
 	include_once('../includes/functions_cast.php');
 
@@ -20,7 +22,7 @@
 	/* gives us a list, like s02e03, s02e02, etc of all of our casts */
 	$casts = getCasts( );
 	/* naïve as fook, but we know this. */
-	$latestCast = date("D, d M Y H:i:s O", filemtime( $notesPath . '/' . $casts[0] ));
+	$latestCast = date("D, d M Y H:i:s O", filemtime( $castNotesRepo . '/' . $casts[0] ));
 
 	// it is important that the atom:link self reference is truly referencial, do our best to provide that
 	// note: this can leaky and/or broken on some server configs;
@@ -75,11 +77,8 @@ CASTHEAD;
 		if ( $meta['PUBLISHED'] === '' )
 			continue;
 
-		$archiveBase		= 'http:' . $publicURL . '/' . $meta['SLUG'] . '/' . $meta['FILENAME'];
-		$episodeBase		= $filePath . '/' . $castdir . '/' . $meta['FILENAME'];
-
 		/* if file missing, skip this entry */
-		if (!file_exists( $episodeBase . "." . $type))
+		if ( !file_exists( $meta[ 'ABSFILENAME' ] . '.' . $type ) )
 			continue;
 
 		$meta['PUBLISHED']	= date( DATE_RFC2822, strtotime( $meta['PUBLISHED'] ) );
@@ -87,8 +86,7 @@ CASTHEAD;
 		$meta['SHORTDESC']	= slenc( substr( $meta['DESCRIPTION'],0,158 ) );
 		$meta['DESCRIPTION']= slenc( $meta['DESCRIPTION'] );
 
-		$episodeSize		= filesize($episodeBase . '.' . $type );
-		$episodeMime		= $type == "ogg" ? "audio/ogg" : "audio/mpeg";
+		$episodeSize		= filesize( $meta[ 'ABSFILENAME' ] . '.' . $type );
 
 		echo <<<CASTENTRY
 
@@ -98,69 +96,16 @@ CASTHEAD;
 			<itunes:duration>{$meta['DURATION']}</itunes:duration>
 			<link>https://steamlug.org/cast/{$meta['SLUG']}</link>
 			<guid>https://steamlug.org/cast/{$meta['SLUG']}</guid>
-			<enclosure url="{$archiveBase}.{$type}" length="{$episodeSize}" type="{$episodeMime}" />
-			<media:content url="{$archiveBase}.{$type}" fileSize="{$episodeSize}" type="{$episodeMime}" medium="audio" expression="full" />
+			<enclosure url="http:{$meta['ARCHIVE']}.{$type}" length="{$episodeSize}" type="{$mime}" />
+			<media:content url="http:{$meta['ARCHIVE']}.{$type}" fileSize="{$episodeSize}" type="{$mime}" medium="audio" expression="full" />
 			<itunes:explicit>{$meta['ISEXPLICIT']}</itunes:explicit>
 			<media:rating scheme="urn:simple">{$meta['MEDIARATING']}</media:rating>
 			<description><![CDATA[<p>{$meta['DESCRIPTION']}</p>
 
 CASTENTRY;
-		foreach ( $shownotes as $note ) {
 
-			$note = preg_replace_callback(
-				'/\d+:\d+:\d+\s+\*(.*)\*/',
-				function($matches){ return "<p>" . slenc($matches[1]) . "</p>\n<ul>"; },
-				$note);
-			$note = preg_replace_callback(
-				'/(\d+:\d+:\d{2})(?!])/',
-				function($matches){ return "<time datetime=\"" . slenc($matches[1]) . '">' . slenc($matches[1]) . "</time>"; },
-				$note);
-			$note = preg_replace_callback(
-				'/^<time.*$/',
-				function($matches){ return "<li>" . $matches[0] . "</li>"; },
-				$note);
-			$note = preg_replace_callback(
-				'/(?i)\b((?:(https?|irc):\/\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:\'".,<>?«]))/',
-				function($matches){ return "[<a href=\"" . slenc($matches[0]) . '">' . slenc($matches[0]) . "</a>]"; },
-				$note);
-			$note = preg_replace_callback(
-				'/(?i)\b((?:(steam):\/\/[^ \n<]*))/',
-				function($matches) { return '<a href="' . slenc($matches[0]) . '">' . slenc($matches[0]) . "</a>"; },
-				$note );
-			$note = preg_replace_callback(
-				'/\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}\b/',
-				function($matches){ return "<a href=\"mailto:". slenc($matches[0]) . '">' . slenc($matches[0]) . "</a>"; },
-				$note);
-			$note = preg_replace_callback(
-				'/((?<=^|\s|\(|>))@([A-Za-z0-9_]+)/i',
-				function($matches) { return $matches[1] . '<a href="https://twitter.com/' . slenc($matches[2]) . '">@' . slenc($matches[2]) . '</a>'; },
-				$note);
-			$note = preg_replace_callback(
-				'/^\n$/',
-				function($matches){ return "</ul>\n"; },
-				$note);
-			$note = preg_replace_callback(
-				'/\t\[(\w+)\](.*)/',
-				function($matches){ return "<li>&lt;" . $matches[1] . "&gt; " . $matches[2] . "</li>"; },
-				$note);
-			$note = preg_replace_callback(
-				'/\t(.*)/',
-				function($matches){ return "<li>" . $matches[1] . "</li>"; },
-				$note);
-			$note = preg_replace_callback(
-				'/  (.*)/',
-				function($matches){ return "\t\t\t<p>" . $matches[1] . "</p>"; },
-				$note);
-			$note = preg_replace_callback(
-				'/\[(\w\d+\w\d+)#([0-9:]*)\]/',
-				function($matches) { return "\t\t\t<a href=\"https://steamlug.org/cast/" . $matches[1] . '#ts-' . $matches[2] . '">' . $matches[1] . " @ " . $matches[2] . "</a>"; },
-				$note );
-			$note = preg_replace_callback(
-				'/\[(\w\d+\w\d+)\]/',
-				function($matches){ return "\t\t\t<a href=\"https://steamlug.org/cast/" . $matches[1] . '">' . $matches[1] . "</a>"; },
-				$note);
-			echo $note;
-		}
+		echo _castBody( $shownotes, true );
+
 		echo <<<CASTENTRY
 			]]></description>
 			<itunes:subtitle>{$meta['SHORTDESC']}…</itunes:subtitle>
