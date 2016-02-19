@@ -26,7 +26,7 @@ echo <<<TWITTERWIDGET
 				<h3 class="panel-title">Tweets</h3>
 			</header>
 			<div class="panel-body" id="twitter-here">
-				<span class="follow"><a href="//twitter.com/intent/follow?screen_name=SteamLUG&amp;tw_p=followbutton"><i class="fa-twitter"></i><span id="l" class="follow-label">Follow <b>@SteamLUG</b></span></a></span>
+				<span class="follow"><a href="//twitter.com/intent/follow?screen_name=SteamLUG&amp;tw_p=followbutton"><i class="fa-twitter"></i><span id="l">Follow <b>@SteamLUG</b></span></a></span>
 				<ol>
 				{$tweetblob}
 				</ol>

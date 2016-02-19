@@ -1100,8 +1100,8 @@ input[type=text].warn,label.warn{color:red}
 input[type=text].caution,label.caution{color:purple}
 article.twit label.control-label{text-align:left;border:3px solid transparent;padding:1px 15px}
 #twitter-here ul,#twitter-here ol{list-style:none;margin:0;padding:0}
-.follow-label{text-shadow:0 1px 0 rgba(255,255,255,.5);color:#333;background-color:#eee;border-radius:3px;border:1px solid #ccc;height:18px;display:inline-block;vertical-align:top;font-size:11px;padding:0 3px 0 19px;font-weight:700}
-.follow a i{display:inline-block;position:relative;left:1em;color:#55acee;text-shadow:none}
+.follow a{background-color:#415C78;border-radius:3px;color:#fff;font-size:11px;font-weight:bold;padding:2px 6px;text-decoration:none;text-shadow:none}
+.follow a i{margin-right:6px;font-size:1.2em;}
 .tweet{padding:6px 0 4px 52px}
 .tweet a.profile{text-decoration:none}
 .tweet a.profile:hover .full-name{text-decoration:underline}
