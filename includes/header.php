@@ -239,6 +239,9 @@ header("Cache-Control: public, max-age=60");
 						</ul>
 					</li>
 					<li<?= $serversPage; ?>><a href="/servers">Servers</a></li>
+					<li<?= $aboutPage; ?>><a href="/about">About</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
 <?php
 	if ($weareadmin) {
 ?>
@@ -251,17 +254,14 @@ header("Cache-Control: public, max-age=60");
 							<li<?= $adminAdminPage; ?>><a href="/admins">Admins</a></li>
 							<li><a target="_blank" href="/transcriberer">Transcriberer</a></li>
 							<li><a target="_blank" href="//data.steamlug.org/updatesteamlug.php">Update events</a></li>
-							<li<?= $aboutPage; ?>><a href="/about">About</a></li>
 						</ul>
 					</li>
-<?php
-	} else {
+<?php 
+	}
 ?>
-					<li<?= $aboutPage; ?>><a href="/about">About</a></li>
-<?php } ?>
 					<?= $logIn; ?>
-					</ul>
-				</div>
+				</ul>
+			</div>
 		</div>
 	</nav>
 		<div class="container">
