@@ -17,17 +17,11 @@
  */
 
 /**
- * Tshock Protocol Class
+ * Windward Protocol Class
  *
- * Result from this call should be a header + JSON response
+ * Result from this call should be a text over HTTP
  *
- * References:
- * - https://tshock.atlassian.net/wiki/display/TSHOCKPLUGINS/REST+API+Endpoints#RESTAPIEndpoints-/status
- * - http://tshock.co/xf/index.php?threads/rest-tshock-server-status-image.430/
- *
- * Special thanks to intradox and Ruok2bu for game & protocol references
- *
- * @author Austin Bischoff <austin@codebeard.com>
+ * @author Jason Rivers <jason@jasonrivers.co.uk>
  */
 class GameQ_Protocols_Windward extends GameQ_Protocols_Http
 {
@@ -76,9 +70,7 @@ class GameQ_Protocols_Windward extends GameQ_Protocols_Http
      */
     protected function preProcess_status($packets=array())
     {
-        // Implode and rip out the JSON
-        #preg_match('/\{(.*)\}/ms', implode('', $packets), $m);
-        #preg_match('/$/ms', implode('', $packets), $m);
+	// Split on newline
 	$m = explode("\n", $packets[0]);
 
         return $m;
@@ -104,6 +96,7 @@ class GameQ_Protocols_Windward extends GameQ_Protocols_Http
 		}
 
 		// Server always shows clients even when there's no player connected.
+		// So we only do this after we've found the "Clients:" line
 		if (isset($hasClients) && $hasClients > 0) {
 			if ($v != "") {
 				$playerCount++;
