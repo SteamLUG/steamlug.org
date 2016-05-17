@@ -104,7 +104,7 @@ TWITTERWIDGET;
 					</p><div class="dynamiclink"><img src="{$t['url']}" alt="A thumbnail of the video for {$v['title']}"/><h4><a href="https://youtu.be/{$vid[1]}">{$v['title']}</a></h4><p>$d</p></div><p>
 YOUTUBE;
 							$url = preg_quote($vid[0], '/');
-							$pattern = "/<a target=\"_blank\" href=\"https:\/\/" . $url . "\"  id=\"dynamiclink_[0-9]\">https:\/\/" . $url . "<\/a>/";
+							$pattern = "/<a href=\"https:\/\/" . $url . "\" target=\"_blank\" rel=\"noreferrer\"  id=\"dynamiclink_[0-9]\">https:\/\/" . $url . "<\/a>/";
 							$item['description'] = preg_replace( $pattern, $embed, $item['description'] );
 						}
 					}
