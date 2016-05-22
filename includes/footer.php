@@ -39,11 +39,11 @@
 							</ul>
 					</div>
 				</div>
-				<p class="muted credit text-center">This site is not affiliated with or endorsed by Valve, Steam, or any of their partners.<br />
+				<p class="text-muted credit text-center">This site is not affiliated with or endorsed by Valve, Steam, or any of their partners.<br />
 All registered trademarks or copyrights are property of their respective owners.</p>
 <?php
 if ( $weareadmin ) {
-	print '<p class="muted credit text-center">Memory: ' . memory_get_usage( ) . '</p>';
+	print '<p class="text-muted credit text-center">Memory: ' . memory_get_usage( ) . '</p>';
 }
 ?>
 			</div>
