@@ -13,8 +13,15 @@
 	$status = $murmur->get_status();
 	$info = $status['original'];
 
+	function mumble_sort($a,$b) {
+		return strtolower( $a[ 'name' ] ) > strtolower( $b[ 'name' ] );
+	}
+
 	function MumbleTree($array) {
 		$statusString = "";
+
+		if ( is_array( $array) )
+			usort( $array, 'mumble_sort' );
 
 		foreach ($array as $value) {
 
