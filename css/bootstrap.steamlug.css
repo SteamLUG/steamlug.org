@@ -986,6 +986,7 @@ html dl{margin-bottom:8px}
 #mumble-list li img{width:14px;height:14px;background-image:url(/avatars/default.png);background-size:14px}
 #mumble-list dl{opacity:.85}
 #mumble-list dt.populated{opacity:1}
+#mumble-list dt.afk, #mumble-list .afk + dd {opacity:.6}
 #mumble-list dl dl dl .empty,#mumble-list dl dl dl .empty+dd{display:none}
 #mumble-list dl dl .populated,#mumble-list dl dl .populated+dd{display:block}
 li.dropdown:hover>.dropdown-menu,.dropdown-menu:hover{display:block}
