@@ -38,7 +38,7 @@ if ( !isset($skipAuth) ) {
 
 			$steam_sign_in_url = SteamSignIn::genUrl();
 			$logIn = <<<AUTHBUTTON
-<li class="steamLogin"><a href="{$steam_sign_in_url}"><img src="/images/sits_large_noborder.png" alt="Log into Steam" /></a></li>
+<li class="steamLogin"><a href="{$steam_sign_in_url}"><img src="/images/sits_01.png" alt="Log into Steam" /></a></li>
 AUTHBUTTON;
 		}
 	} else {
