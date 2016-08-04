@@ -28,6 +28,9 @@
 			ini_get("session.cookie_secure"),
 			ini_get("session.cookie_httponly")
 		);
+		foreach ($_SESSION as $k => $v) {
+			unset($_SESSION[$k]);
+		}
 	}
 
 	function login($uid)
