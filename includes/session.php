@@ -17,19 +17,23 @@
 	}
 
 	function sec_session_destroy() {
-		session_destroy();
-		// Remove the client's session cookie as well by expiring it
-		setcookie(
-			ini_get("session.name"),
-			"",
-			time() - 3600,
-			"/",
-			"",
-			ini_get("session.cookie_secure"),
-			ini_get("session.cookie_httponly")
-		);
-		foreach ($_SESSION as $k => $v) {
-			unset($_SESSION[$k]);
+		if (isset($_SESSION)) {
+			session_destroy();
+			unset($_SESSION);
+		}
+		$n = ini_get("session.name");
+		if (isset($_COOKIE[$n])) {
+			// Remove the client's session cookie as well by expiring it
+			setcookie(
+				$n,
+				"",
+				time() - 3600,
+				"/",
+				"",
+				ini_get("session.cookie_secure"),
+				ini_get("session.cookie_httponly")
+			);
+			unset($_COOKIE[$n]);
 		}
 	}
 
