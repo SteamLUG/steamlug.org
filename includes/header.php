@@ -36,6 +36,9 @@ if ( !isset($skipAuth) ) {
 			exit();
 		} else {
 
+			// If we had a session cookie, we can now eat it :>
+			sec_session_destroy();
+
 			$steam_sign_in_url = SteamSignIn::genUrl();
 			$logIn = <<<AUTHBUTTON
 <li class="steamLogin"><a href="{$steam_sign_in_url}"><img src="/images/sits_large_noborder.png" alt="Log into Steam" /></a></li>

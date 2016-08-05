@@ -16,8 +16,30 @@
 		session_regenerate_id(true); // regenerated the session, delete the old one
 	}
 
+	function sec_session_destroy() {
+		if (isset($_SESSION)) {
+			session_destroy();
+			unset($_SESSION);
+		}
+		$n = ini_get("session.name");
+		if (isset($_COOKIE[$n])) {
+			// Remove the client's session cookie as well by expiring it
+			setcookie(
+				$n,
+				"",
+				time() - 3600,
+				"/",
+				"",
+				ini_get("session.cookie_secure"),
+				ini_get("session.cookie_httponly")
+			);
+			unset($_COOKIE[$n]);
+		}
+	}
+
 	function login($uid)
 	{
+		sec_session_start();
 		$_SESSION['u'] = $uid;
 		$_SESSION['g'] = group_check($uid);
 		store_user_details($uid);
@@ -28,7 +50,7 @@
 
 	function logout()
 	{
-		session_destroy();
+		sec_session_destroy();
 		header ("Location: /");
 	}
 
@@ -93,5 +115,8 @@
 		return;
 	}
 
-	sec_session_start();
+	// Only start/resume a session if we potentially have one
+	if (isset($_COOKIE[ini_get("session.name")])) {
+		sec_session_start();
+	}
 
