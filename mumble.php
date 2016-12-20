@@ -13,8 +13,15 @@
 	$status = $murmur->get_status();
 	$info = $status['original'];
 
+	function mumble_sort($a,$b) {
+		return strtolower( $a[ 'name' ] ) > strtolower( $b[ 'name' ] );
+	}
+
 	function MumbleTree($array) {
 		$statusString = "";
+
+		if ( is_array( $array) )
+			usort( $array, 'mumble_sort' );
 
 		foreach ($array as $value) {
 
@@ -23,7 +30,9 @@
 				if (isset($value['name']) && isset($value['users'])) {
 					$peeps = count($value['users']);
 					$chans = count($value['channels']);
-					$statusString .= '<dt' . ($peeps > 0? ' class="populated"': ($chans > 0? '': ' class="empty"') ). '><i class="fa-users text-warning"></i>' . htmlspecialchars($value['name']) . "</dt>\n";
+					$statusString .= '<dt class="' . ($peeps > 0? 'populated': ($chans > 0? '': 'empty') ) .
+						( $value['name'] == 'Away From Keyboard' ? ' afk' : '' ) .
+						'"><i class="fa-users text-warning"></i>' . htmlspecialchars($value['name']) . "</dt>\n";
 					$statusString .= "<dd>";
 				}
 				if ( isset($value['channels'] ) && is_array($value['channels']) && (count($value['channels']) !== 0) ) {
