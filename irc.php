@@ -38,15 +38,17 @@ if ( isset( $_SESSION['n'] ) ) {
 					<li>be patient with and civil towards others (<em>if you're getting cranky, take a break</em>)</li>
 					<li>don't distribute inappropriate content (<em>porn, warez, etc.</em>).</li>
 					<li>keep your language in check (<em>we have kids around</em>)</li>
+					<li>no trades in channel (<em>take them elsewhere</em>)</li>
 				</ul>
 				<p>Wantonly ignoring these guidelines may get you kicked or banned.</p>
 				<p>If you need assistance or want to report something, one or more of the following channel operators should be nearby:</p>
 				<ul>
-					<li><a href="http://steamcommunity.com/id/cheeseness">Cheeseness</a></li>
-					<li><a href="http://steamcommunity.com/id/flibitijibibo">flibitijibibo</a></li>
-					<li><a href="http://steamcommunity.com/id/johndrinkwater">johndrinkwater</a></li>
-					<li><a href="http://steamcommunity.com/id/meklu">meklu</a></li>
-					<li><a href="http://steamcommunity.com/id/xpander69">xpander</a></li>
+					<li><a href="https://steamcommunity.com/id/cheeseness">Cheeseness</a></li>
+					<li><a href="https://steamcommunity.com/id/johndrinkwater">johndrinkwater</a></li>
+					<li><a href="https://steamcommunity.com/id/meklu">meklu</a></li>
+					<li><a href="https://steamcommunity.com/id/xpander69">xpander</a></li>
+					<li><a href="https://steamcommunity.com/id/beansmyname">bean</a></li>
+					<li><a href="https://steamcommunity.com/id/HER001">Her0_01</a></li>
 				</ul>
 				<p>Channel operators found to be abusing their status will have their op rights suspended.</p>
 			</div>
