@@ -14,8 +14,8 @@ RewriteEngine on
 
 # Strip www. from www.steamlug.org
 # shall not match any other subdomains (staging, archive, ...)
-RewriteCond %{HTTP_HOST} ^www\.steamlug\.org$
-RewriteRule ^(.*)$ steamlug.org/$1 [R=301,L]
+RewriteCond %{HTTP_HOST} ^www\.steamlug\.org$ [NC]
+RewriteRule ^(.*)$ http://steamlug.org/$1 [R=301,L]
 
 # Redirect every non https request to https, except feed/cast/mp3 or feed/cast.php?t=mp3 (for itunes)
 RewriteCond %{HTTPS} off
