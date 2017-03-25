@@ -25,4 +25,9 @@ class GameQ_Protocols_Hl2dm extends GameQ_Protocols_Source
 {
 	protected $name = "hl2dm";
 	protected $name_long = "Half Life 2: Deathmatch";
+	protected function process_details() {
+		$result = parent::process_details();
+		$result['steamappid'] = 320;
+		return $result;
+	}
 }

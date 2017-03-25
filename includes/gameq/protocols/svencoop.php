@@ -25,4 +25,9 @@ class GameQ_Protocols_Svencoop extends GameQ_Protocols_Source
 {
 	protected $name = "svencoop";
 	protected $name_long = "Sven Co-op";
+	protected function process_details() {
+		$result = parent::process_details();
+		$result['steamappid'] = 225840;
+		return $result;
+	}
 }

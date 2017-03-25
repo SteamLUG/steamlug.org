@@ -23,4 +23,9 @@ class GameQ_Protocols_Synergy extends GameQ_Protocols_Source
 {
 	protected $name = "synergy";
 	protected $name_long = "Synergy";
+	protected function process_details() {
+		$result = parent::process_details();
+		$result['steamappid'] = 17520;
+		return $result;
+	}
 }

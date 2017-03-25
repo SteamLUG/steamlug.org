@@ -25,6 +25,11 @@ class GameQ_Protocols_Sam3 extends GameQ_Protocols_Source
 {
 	protected $name = "sam3";
 	protected $name_long = "Serious Sam 3: BFE";
+	protected function process_details() {
+		$result = parent::process_details();
+		$result['steamappid'] = 41070;
+		return $result;
+	}
 
 	/**
 	 * Default port for this server type

@@ -25,7 +25,7 @@ class GameQ_Protocols_Dab extends GameQ_Protocols_Source
 	protected $name_long = "Double Action: Boogaloo";
 	protected function process_details() {
 		$result = parent::process_details();
-		$result['steamappid'] = 317260;
+		$result['steamappid'] = 317360;
 		return $result;
 	}
 }

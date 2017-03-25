@@ -23,4 +23,9 @@ class GameQ_Protocols_Nucleardawn extends GameQ_Protocols_Source
 {
 	protected $name = "nucleardawn";
 	protected $name_long = "Nuclear Dawn";
+	protected function process_details() {
+		$result = parent::process_details();
+		$result['steamappid'] = 17710;
+		return $result;
+	}
 }

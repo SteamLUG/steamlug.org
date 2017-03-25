@@ -18,6 +18,8 @@
 
 /**
  * Day of Infamy Protocol Class
+ *
+ * @author Austin Bischoff <austin@codebeard.com>
  */
 class GameQ_Protocols_Doi extends GameQ_Protocols_Source
 {
@@ -25,7 +27,7 @@ class GameQ_Protocols_Doi extends GameQ_Protocols_Source
 	protected $name_long = "Day of Infamy";
 	protected function process_details() {
 		$result = parent::process_details();
-		$result['steamappid'] = 564310;
+		$result['steamappid'] = 447820;
 		return $result;
 	}
 }
