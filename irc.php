@@ -34,9 +34,9 @@ if ( isset( $_SESSION['n'] ) ) {
 			<div class="panel-body">
 				<p>The only rules are:</p>
 				<ul>
-					<li>try to think before you speak (<em>it's not that hard ^_^ </em>).</li>
+					<li>try to think before you speak (<em>it's not that hard ^_^ </em>)</li>
 					<li>be patient with and civil towards others (<em>if you're getting cranky, take a break</em>)</li>
-					<li>don't distribute inappropriate content (<em>porn, warez, etc.</em>).</li>
+					<li>don't distribute inappropriate content (<em>porn, warez, etc.</em>)</li>
 					<li>keep your language in check (<em>we have kids around</em>)</li>
 					<li>no trades in channel (<em>take them elsewhere</em>)</li>
 				</ul>
