@@ -17,7 +17,7 @@
 								<li><a href="http://steamcommunity.com/groups/steamlug/">Steam Group</a></li>
 								<li><a href="/irc">IRC Chat</a></li>
 								<li><a href="/mumble">Mumble Server</a></li>
-								<li><a href="http://forums.steampowered.com/forums/showthread.php?t=1897204">SPUF Thread</a></li>
+								<li><a href="https://github.com/SteamLUG">GitHub Organization</a></li>
 							</ul>
 					</div>
 					<div class="col-xs-6 col-sm-3">
