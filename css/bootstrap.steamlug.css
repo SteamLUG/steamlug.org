@@ -1027,7 +1027,7 @@ p a.group-join{font-size:100%}
 	from{width:0}
 }
 .navbar-nav>li.steamLogin{right:0;padding-right:11px}
-.navbar-nav>li.steamLogin>a{display:block;border:0;padding:7px 5px 8px 5px}
+.navbar-nav>li.steamLogin>a{display:block;border:0;padding:7px 3px 8px 3px}
 .navbar-nav>li.navbar-avatar>a{padding:6px}
 #navbar{position:relative}
 div .navbar-brand{position:relative;z-index:15;margin-left:15px}
