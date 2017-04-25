@@ -13,7 +13,7 @@
 			<div class="panel-body">
 				<blockquote class="pull-left">
 				<p>Hi!</p>
-				<p>SteamLUG (<em>Steam Linux User Group</em>) is a community of Steam gamers who are also users (<em>old and new</em>) and fans of <a href="http://en.wikipedia.org/wiki/Linux">GNU/Linux</a> - GNU based Free Software operating systems which use the Linux kernel, which we sometimes refer to as just "<em>Linux</em>".</p>
+				<p>SteamLUG (<em>Steam Linux User Group</em>) is a community of Steam gamers who are also users (<em>old and new</em>) and fans of <a href="http://en.wikipedia.org/wiki/Linux">GNU/Linux</a> - GNU based Free Software operating systems which use the Linux kernel, which we almost always refer to as just "<em>Linux</em>".</p>
 				<p>We are a multilingual community which aims to be a fun, welcoming space for people of all backgrounds and aptitudes.</p>
 				<p>We also cover <a href = 'news'>Steam for Linux news</a> (<em>Valve news, Steam news, and native Linux games</em>), as well as host <a href = 'servers'>game servers</a> and regular <a href = 'events'>gaming events</a>.
 				<p>The SteamLUG community operates the <a href="/irc">#SteamLUG IRC channel</a> (<em>click for details and webchat</em>), runs a Mumble <a href="/mumble">voice chat server</a>, and a <a href="http://steamcommunity.com/groups/steamlug/">Steam group</a> with over 5,000 members.</p>
