@@ -5,7 +5,7 @@
 					<div class="col-xs-6 col-sm-3">
 						<h3>Feeds</h3>
 							<ul class="list-unstyled">
-								<li><a href="http://steamcommunity.com/groups/steamlug/rss/">News Feed</a></li>
+								<li><a href="https://steamcommunity.com/groups/steamlug/rss/">News Feed</a></li>
 								<li><a href="/feed/events">Events Feed</a></li>
 								<li><a href="/feed/calendar">Events iCal</a></li>
 								<li><a href="https://twitter.com/steamlug">Twitter</a></li>
@@ -14,7 +14,7 @@
 					<div class="col-xs-6 col-sm-3">
 						<h3>SteamLUG</h3>
 							<ul class="list-unstyled">
-								<li><a href="http://steamcommunity.com/groups/steamlug/">Steam Group</a></li>
+								<li><a href="https://steamcommunity.com/groups/steamlug/">Steam Group</a></li>
 								<li><a href="/irc">IRC Chat</a></li>
 								<li><a href="/mumble">Mumble Server</a></li>
 								<li><a href="https://github.com/SteamLUG">GitHub Organization</a></li>
@@ -25,17 +25,17 @@
 							<ul class="list-unstyled">
 								<li><a href="http://store.steampowered.com/linux">Steam Linux Store Page</a></li>
 								<li><a href="https://github.com/ValveSoftware/steam-for-linux/">Steam Linux GitHub</a></li>
-								<li><a href="http://steamcommunity.com/app/221410">Steam Linux Community</a></li>
+								<li><a href="https://steamcommunity.com/app/221410">Steam Linux Community</a></li>
 								<li><a href="http://blogs.valvesoftware.com/linux/">Valve Linux Blog</a></li>
 							</ul>
 					</div>
 					<div class="col-xs-6 col-sm-3">
 						<h3>Community</h3>
 							<ul class="list-unstyled">
-								<li><a href="http://www.reddit.com/r/linux_gaming/">Linux_Gaming Subreddit</a></li>
-								<li><a href="http://steamdb.info/">SteamDB.info</a></li>
-								<li><a href="http://steamdb.info/linux/">SteamDB Linux</a></li>
-								<li><a href="http://gamingonlinux.com/">Gaming On Linux</a></li>
+								<li><a href="https://www.reddit.com/r/linux_gaming/">Linux_Gaming Subreddit</a></li>
+								<li><a href="https://steamdb.info/">SteamDB.info</a></li>
+								<li><a href="https://steamdb.info/linux/">SteamDB Linux</a></li>
+								<li><a href="https://gamingonlinux.com/">Gaming On Linux</a></li>
 							</ul>
 					</div>
 				</div>

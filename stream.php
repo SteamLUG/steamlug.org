@@ -155,7 +155,7 @@ echo <<<TWITCH
 						<param name="movie" value="https://www-cdn.jtvnw.net/swflibs/TwitchPlayer.swf" />
 						<param name="flashvars" value="hostname=www.twitch.tv&channel=steamlug&auto_play=true&start_volume=25" />
 					</object></div>
-					<p><a href="http://www.twitch.tv/steamlug" class="btn btn-primary">Click for larger stream</a></p>
+					<p><a href="https://www.twitch.tv/steamlug" class="btn btn-primary">Click for larger stream</a></p>
 				</div>
 			</article>
 TWITCH;

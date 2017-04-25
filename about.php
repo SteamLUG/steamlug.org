@@ -13,10 +13,10 @@
 			<div class="panel-body">
 				<blockquote class="pull-left">
 				<p>Hi!</p>
-				<p>SteamLUG (<em>Steam Linux User Group</em>) is a community of Steam gamers who are also users (<em>old and new</em>) and fans of <a href="http://en.wikipedia.org/wiki/Linux">GNU/Linux</a> - GNU based Free Software operating systems which use the Linux kernel, which we sometimes refer to as just "<em>Linux</em>".</p>
+				<p>SteamLUG (<em>Steam Linux User Group</em>) is a community of Steam gamers who are also users (<em>old and new</em>) and fans of <a href="https://en.wikipedia.org/wiki/Linux">GNU/Linux</a> - GNU based Free Software operating systems which use the Linux kernel, which we sometimes refer to as just "<em>Linux</em>".</p>
 				<p>We are a multilingual community which aims to be a fun, welcoming space for people of all backgrounds and aptitudes.</p>
 				<p>We also cover <a href = 'news'>Steam for Linux news</a> (<em>Valve news, Steam news, and native Linux games</em>), as well as host <a href = 'servers'>game servers</a> and regular <a href = 'events'>gaming events</a>.
-				<p>The SteamLUG community operates the <a href="/irc">#SteamLUG IRC channel</a> (<em>click for details and webchat</em>), runs a Mumble <a href="/mumble">voice chat server</a>, and a <a href="http://steamcommunity.com/groups/steamlug/">Steam group</a> with over 5,000 members.</p>
+				<p>The SteamLUG community operates the <a href="/irc">#SteamLUG IRC channel</a> (<em>click for details and webchat</em>), runs a Mumble <a href="/mumble">voice chat server</a>, and a <a href="https://steamcommunity.com/groups/steamlug/">Steam group</a> with over 5,000 members.</p>
 				<p>Our rich and diverse community consists of people ranging from first-time Linux users through to developers, long-time gamers through to industry commentators. You may even see a Valve person hanging around from time to time (<em>if you do spot one, we ask that you respect their desire to be a normal part of our community and not bombard them with questions, complaints or bug reports - there are <a href="https://github.com/ValveSoftware/steam-for-linux/">other channels</a> for that</em>).</p>
 				<p>We always aim to be as welcoming of newcomers as possible, so please feel free to join us! :)</p>
 				<footer>Cheese</footer>
@@ -53,9 +53,9 @@
 				<dl class="dl-horizontal">
 					<dt>General</dt><dd>steamlug ( at ) gmail ( dot ) com</dd>
 					<dt>SteamLUG Cast</dt><dd>cast ( at ) steamlug ( dot ) org</dd>
-					<dt>Events</dt><dd><a href = 'http://twitter.com/steamlug'>@steamlug</a></dd>
-					<dt>Servers</dt><dd><a href = 'http://twitter.com/steamlug'>@steamlug</a></dd>
-					<dt>Projects</dt><dd><a href = 'http://steamcommunity.com/id/cheeseness'>Cheeseness</a> <em>(<a href = 'https://twitter.com/ValiantCheese'>@ValiantCheese</a> on twitter)</em></dd>
+					<dt>Events</dt><dd><a href = 'https://twitter.com/steamlug'>@steamlug</a></dd>
+					<dt>Servers</dt><dd><a href = 'https://twitter.com/steamlug'>@steamlug</a></dd>
+					<dt>Projects</dt><dd><a href = 'https://steamcommunity.com/id/cheeseness'>Cheeseness</a> <em>(<a href = 'https://twitter.com/ValiantCheese'>@ValiantCheese</a> on twitter)</em></dd>
 				</dl>
 			</div>
 		</article>
@@ -86,8 +86,8 @@
 			<div class="panel-body">
 <p>After long standing rumour and speculation, official news of Steam for Linux finally made an appearance in a <a href = 'http://www.sevendaycooldown.com/site/episode001/'>7 Day Cooldown interview</a> with Valve CEO Gabe Newell, who mentioned he had been personally working with Valve's Linux team.</p>
 <p>Valve later launched a <a href = 'http://blogs.valvesoftware.com/linux/steamd-penguins/'>Linux oriented blog</a> to cover their progress in developing Steam for Linux and porting their games.</p>
-<p>An <a href = 'http://steamcommunity.com/games/221410'>official Steam group</a> for the Steam for Linux beta was created in October 2012, accompanied by a <a href = 'http://steamcommunity.com/app/221410'>hub for the Linux client app</a>. Both rapidly gained popularity, with the group quickly reaching membership in the tens of thousands.</p>
-<p>A survey was also <a href = 'http://steamcommunity.com/games/221410/announcements/detail/1783684043532816475'>launched</a> in October to gather details of people interested in participating in the Steam for Linux beta (<em>with a recommendation that inexperienced Linux users be patient and wait for a later release</em>). According to a Valve <a href = 'http://store.steampowered.com/news/9289/'>press release</a>, over 60,000 people responded within the first week.</p>
+<p>An <a href = 'https://steamcommunity.com/games/221410'>official Steam group</a> for the Steam for Linux beta was created in October 2012, accompanied by a <a href = 'https://steamcommunity.com/app/221410'>hub for the Linux client app</a>. Both rapidly gained popularity, with the group quickly reaching membership in the tens of thousands.</p>
+<p>A survey was also <a href = 'https://steamcommunity.com/games/221410/announcements/detail/1783684043532816475'>launched</a> in October to gather details of people interested in participating in the Steam for Linux beta (<em>with a recommendation that inexperienced Linux users be patient and wait for a later release</em>). According to a Valve <a href = 'http://store.steampowered.com/news/9289/'>press release</a>, over 60,000 people responded within the first week.</p>
 <p>In November 2012, the closed Steam for Linux beta launched with 25 playable titles, expanding over the following weeks to allow further participants, until the open <a href = 'http://store.steampowered.com/news/9638/'>public beta release</a> late in December.</p>
 <p>At the same time that the Steam for Linux beta opened up to the public, Valve launched a <a href = 'https://github.com/ValveSoftware/steam-for-linux'>GitHub repository</a> to track bug/issue reports after the official Steam Community group discussions proved to be difficult to manage.</p>
 <p>Steam for Linux was fully released in February 2013 with over 60 titles (<em>more than the Steam for Mac launch</em>), accompanied by a Linux title sale and a <a href = 'http://teamfortress.com/linux'>promotional item</a> for anybody who played Team Fortress 2 during the following two weeks.</p>

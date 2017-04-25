@@ -16,7 +16,7 @@ if ( isset( $_SESSION['n'] ) ) {
 				<h3 class="panel-title">Chat with the SteamLUG Community</h3>
 			</header>
 			<div class="panel-body">
-				<p>This page contains a webchat widget that you can use to connect to our IRC channel. Simply enter a nickname, fill out the captcha and click connect. If you plan to join us regularly, we recommend using a dedicated IRC client such as <a href="http://www.irssi.org/">irssi</a>, <a href="http://www.weechat.org/">weechat</a> or <a href="https://hexchat.github.io/">HexChat</a>.</p>
+				<p>This page contains a webchat widget that you can use to connect to our IRC channel. Simply enter a nickname, fill out the captcha and click connect. If you plan to join us regularly, we recommend using a dedicated IRC client such as <a href="https://www.irssi.org/">irssi</a>, <a href="https://www.weechat.org/">weechat</a> or <a href="https://hexchat.github.io/">HexChat</a>.</p>
 				<p>If you are new to our community, please take the time to read our short <a href="#coc">Code of Conduct</a> :)</p>
 				<dl class="dl-horizontal">
 				<dt>IRC Server</dt><dd>irc.freenode.net</dd>

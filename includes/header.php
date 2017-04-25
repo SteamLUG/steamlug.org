@@ -20,7 +20,7 @@ if (!isset($pageTitle))
 
 if (!isset($rssLinks))
 {
-	$rssLinks = '<link rel="alternate" type="application/rss+xml" title="RSS" href="http://steamcommunity.com/groups/steamlug/rss/" />';
+	$rssLinks = '<link rel="alternate" type="application/rss+xml" title="RSS" href="https://steamcommunity.com/groups/steamlug/rss/" />';
 }
 
 $weareadmin = false;

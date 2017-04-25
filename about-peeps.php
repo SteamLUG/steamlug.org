@@ -8,7 +8,7 @@
 
 			<article class="panel panel-default person">
 				<header class="panel-heading">
-					<h3 class="panel-title"><a href="http://twitter.com/johndrinkwater">johndrinkwater</a></h3>
+					<h3 class="panel-title"><a href="https://twitter.com/johndrinkwater">johndrinkwater</a></h3>
 				</header>
 				<div class="panel-body">
 					<img src="/avatars/johndrinkwater.png" />
@@ -28,7 +28,7 @@
 
 			<article class="panel panel-default person">
 				<header class="panel-heading">
-					<h3 class="panel-title"><a href="http://twitter.com/beansmyname">bean{,s}</a></h3>
+					<h3 class="panel-title"><a href="https://twitter.com/beansmyname">bean{,s}</a></h3>
 				</header>
 				<div class="panel-body">
 					<img src="/avatars/beansmyname.png" />
@@ -58,7 +58,7 @@
 			
 			<article class="panel panel-default person">
 				<header class="panel-heading">
-					<h3 class="panel-title"><a href="http://twitter.com/HeroOhOne">HER0 01</a></h3>
+					<h3 class="panel-title"><a href="https://twitter.com/HeroOhOne">HER0 01</a></h3>
 				</header>
 				<div class="panel-body">
 					<img src="/avatars/HeroOhOne.png" />
@@ -68,13 +68,13 @@
 
 			<article class="panel panel-default person">
 				<header class="panel-heading">
-					<h3 class="panel-title"><a href="http://twitter.com/Corben78">Corben</a></h3>
+					<h3 class="panel-title"><a href="https://twitter.com/Corben78">Corben</a></h3>
 				</header>
 				<div class="panel-body">
 					<img src="/avatars/Corben78.png" />
 					<p>Gamer, Linux enthusiast, developer, administrator, SteamLUG cast editor.</p>
 					<p>My first contact with Linux has been at University, from there on the fascination grew. Now I'm using Linux as my primary OS where possible. Nevertheless I'm also using OS X and Windows, as my motto in this case is, to get the best of all worlds. So I'm also a big fan of platform independent software.</p>
-					<p>Here are some recommendations: <a href="http://sublimetext.com">Sublime Text</a>, <a href="https://justgetflux.com">F.Lux</a>, <a href="https://symless.com/synergy">Synergy</a></p>
+					<p>Here are some recommendations: <a href="https://sublimetext.com">Sublime Text</a>, <a href="https://justgetflux.com">F.Lux</a>, <a href="https://symless.com/synergy">Synergy</a></p>
 					<p>Never give up, never surrender!</p>
 				</div>
 			</article>
@@ -92,7 +92,7 @@
 			
 			<article class="panel panel-default person">
 				<header class="panel-heading">
-					<h3 class="panel-title"><a href="http://twitter.com/hmccio">Dora Coder</a></h3>
+					<h3 class="panel-title"><a href="https://twitter.com/hmccio">Dora Coder</a></h3>
 				</header>
 				<div class="panel-body">
 					<img src="/avatars/doracoder.png" />

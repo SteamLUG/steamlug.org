@@ -41,7 +41,7 @@
 					<p>For the sake of presentation, we will ask you to provide an Avatar, and a website URL or Twitter handle that we can point users to. These then becomes part of the show. If at any time you wish to update or remove these details, contact us.</p>
 				</div>
 			</article>
-			<!-- Have the friendly group of SteamLUG admins say something pleasant, and link to about-peeps http://www.wired.com/wp-content/uploads/nextgen/underwire/wp-content/gallery/fake-ads/gb660.jpg -->
+			<!-- Have the friendly group of SteamLUG admins say something pleasant, and link to about-peeps https://www.wired.com/wp-content/uploads/nextgen/underwire/wp-content/gallery/fake-ads/gb660.jpg -->
 			<article class="panel panel-default">
 				<header class="panel-heading">
 					<h3 class="panel-title">What if you delete your account?</h3>

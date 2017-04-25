@@ -163,9 +163,9 @@ if ( isset( $_GET['email'] ) and isset( $_GET['name'] ) ) {
 
 	$action = "Gravatar Upload";
 	$requestedName = sanitiseName( $_GET['name'] );
-	// http://en.gravatar.com/site/implement/hash/
+	// https://en.gravatar.com/site/implement/hash/
 	$gravatar		= md5( strtolower( trim( $_GET['email'] ) ) );
-	$requestedURL	= "http://www.gravatar.com/avatar/" . $gravatar;
+	$requestedURL	= "https://www.gravatar.com/avatar/" . $gravatar;
 	$hostedURL		= '/avatars/' . $requestedName . '.png';
 
 	$originalPath = $avatarFilePath . '/original/' . $requestedName . '.png';

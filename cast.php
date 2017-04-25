@@ -140,7 +140,7 @@ TWITCARD;
 
 	$footer = <<<FOOTERBLOCK
   SteamLUG Cast is a casual, fortnightly audiocast which aims to provide interesting news and discussion for the SteamLUG and broader Linux gaming communities.
-  Visit our site http://steamlug.org/ and the cast homepage http://steamlug.org/cast
+  Visit our site https://steamlug.org/ and the cast homepage https://steamlug.org/cast
   Email us feedback, questions, tips and suggestions to cast@steamlug.org
   We can be followed on Twitter as @SteamLUG{$twits}
 
@@ -185,7 +185,7 @@ echo <<<CASTENTRY
 					$episodeYoutube
 				</p>
 				<p class="licence">
-					<a href="http://creativecommons.org/licenses/by-sa/3.0/">
+					<a href="https://creativecommons.org/licenses/by-sa/3.0/">
 						<img class="license" src="/images/by-sa.png" alt="Creative Commons By-Share‐Alike license logo" title="Licensed under CC-BY-SA">
 					</a>
 				</p>
@@ -267,7 +267,7 @@ NEXTCAST;
 			<h3 class="panel-title">About</h3>
 		</header>
 		<div class="panel-body">
-			<p>SteamLUG Cast is a casual, fortnightly live audiocast held on our <a href="/mumble">Mumble server</a> which aims to provide interesting news and discussion for the SteamLUG and broader Linux gaming communities. The cast is licensed <a href = 'http://creativecommons.org/licenses/by-sa/3.0/'>CC BY-SA</a></p>
+			<p>SteamLUG Cast is a casual, fortnightly live audiocast held on our <a href="/mumble">Mumble server</a> which aims to provide interesting news and discussion for the SteamLUG and broader Linux gaming communities. The cast is licensed <a href = 'https://creativecommons.org/licenses/by-sa/3.0/'>CC BY-SA</a></p>
 			<p>From time to time, we also have guests joining to share their insights on Linux, the gaming industry and the SteamLUG community. Check back for recording archives, shownotes and further announcements!</p>
 			<p><a href="/cast-guests">Do you want to be a guest?</a></p>
 		</div>
