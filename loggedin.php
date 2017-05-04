@@ -18,6 +18,8 @@ JOINLINK;
 		$joinGroup = "";
 	}
 
+	$return = "<p><a href=\"/\">Return to home…</a></p>";
+
 	if ( isset( $_GET['returnto'] ) ) {
 
 		$return = "<p><a href=\"" . htmlspecialchars($_GET['returnto']) . "\">Return to what you were doing…</a></p>";
