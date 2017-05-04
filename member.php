@@ -39,7 +39,7 @@ if ( isset( $_POST['unstore'] ) ) {
 	$removed = removePlayerSummaryDB( $me );
 
 	if ( $removed ) {
-		header( "Location: /member/" );
+		header( "Location: /member" );
 		exit();
 	}
 }

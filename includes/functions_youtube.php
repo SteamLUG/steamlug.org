@@ -1,5 +1,5 @@
 <?php
-include_once('paths.php');
+include_once( 'paths.php' );
 require_once( 'Google/autoload.php' );
 require_once( 'Google/Client.php' );
 require_once( 'Google/Service/YouTube.php' );

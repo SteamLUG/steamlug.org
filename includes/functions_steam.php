@@ -1,4 +1,11 @@
 <?php
+/**
+* Function collection for talking to Steam API
+* @package Steam
+*/
+
+/**
+*/
 
 	include_once('functions_geturl.php');
 	include_once('steam.php');

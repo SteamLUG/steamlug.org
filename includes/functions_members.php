@@ -14,16 +14,17 @@ if ( !isset( $database ) )
 	function inflatePlayerSummary( $profile ) {
 
 		if ($profile[ 'profileurl' ] != '' ) {
-			$profile[ 'memberurl' ] = '//steamlug.org/member/' . $profile[ 'profileurl' ];
+			$profile[ 'memberurl' ] = '/member/' . $profile[ 'profileurl' ];
 			$profile[ 'profileurl' ] = 'https://steamcommunity.com/id/' . $profile[ 'profileurl' ] . '/';
 		} else {
-			$profile[ 'memberurl' ] = '//steamlug.org/member/' . $profile[ 'steamid' ];
+			$profile[ 'memberurl' ] = '/member/' . $profile[ 'steamid' ];
 			$profile[ 'profileurl' ] = 'https://steamcommunity.com/profiles/' . $profile[ 'steamid' ] . '/';
 		}
 		$profile[ 'avatarfull' ] = '//steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/' . str_replace( '.jpg', '_full.jpg', $profile[ 'avatar' ]);
 		$profile[ 'avatarmedium' ] = '//steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/' . str_replace( '.jpg', '_medium.jpg', $profile[ 'avatar' ]);
 		$profile[ 'avatar' ] = '//steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/' . $profile[ 'avatar' ];
 		// TODO populate other fields here
+		// XXX if no personaname, convert to their steamid?
 		$profile[ 'personaname' ] = htmlspecialchars( $profile[ 'personaname' ] );
 		return $profile;
 	}

@@ -6,7 +6,7 @@ include_once('includes/functions_db.php');
 include_once('includes/functions_apps.php');
 
 /* this can run for a good few minutes… about 80 users per minute ?! */
-set_time_limit( 5400 );
+set_time_limit( 10000 );
 
 // are we logged in? no → leave
 if ( !login_check() ) {
