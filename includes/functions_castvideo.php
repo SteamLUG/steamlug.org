@@ -1,5 +1,5 @@
 <?php
-include_once('paths.php');
+include_once( 'paths.php' );
 
 /**
  * Private function, returns SVG-formatted person plate for our thumbnail

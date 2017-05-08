@@ -1,10 +1,9 @@
 <?php
 $pageTitle = 'News';
-include_once('includes/header.php');
-include_once('includes/lastRSS.php');
+include_once( 'includes/header.php' );
+include_once( 'includes/lastRSS.php' );
+include_once( 'includes/functions_twitter.php' );
 
-
-include_once('includes/functions_twitter.php');
 $tweetblob = '';
 foreach ( getRecentTweets( 3 ) as $tweet ) {
 
@@ -52,7 +51,7 @@ TWITTERWIDGET;
 		);
 		if ( true /* false if we dislike this */ ) {
 
-			include_once('includes/functions_youtube.php');
+			include_once( 'includes/functions_youtube.php' );
 			$youtubeIDs = array();
 			foreach($rs['items'] as $item) {
 				// preview content to grab youtube data?
@@ -155,4 +154,4 @@ YOUTUBE;
 	}
 	echo $rssString;
 ?>
-<?php include_once('includes/footer.php');
+<?php include_once( 'includes/footer.php' );

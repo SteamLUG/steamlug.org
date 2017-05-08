@@ -4,9 +4,9 @@
 	ini_set('zlib.output_compression', 0);
 	ini_set('implicit_flush', 1);
 	$tailJS = array( '/scripts/jquery.tablesorter.min.js' );
-	include_once('includes/header.php');
-	include_once('includes/GameQ.php');
-	include_once('includes/paths.php');
+	include_once( 'includes/header.php' );
+	include_once( 'includes/GameQ.php' );
+	include_once( 'includes/paths.php' );
 	$Servers = file( $serversRepo . '/serverlist' );
 
 ?>
@@ -129,4 +129,4 @@ $(document).ready(
 );
 CALLTHESEPLS;
 $tailScripts = array( $onload );
-include_once('includes/footer.php');
+include_once( 'includes/footer.php' );

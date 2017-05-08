@@ -1,5 +1,5 @@
 <?php
-include_once('functions_db.php');
+include_once( 'functions_db.php' );
 
 if ( !isset( $database ) )
 	$database = connectDB( );

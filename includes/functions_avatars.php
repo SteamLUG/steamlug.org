@@ -8,7 +8,7 @@
 
 
 // we need access to $avatarFilePath, $avatarKeyPath
-include_once('paths.php');
+include_once( 'paths.php' );
 
 
 /**

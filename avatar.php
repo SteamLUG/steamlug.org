@@ -1,11 +1,11 @@
 <?php
 $pageTitle = 'Avatars';
-include_once('includes/session.php');
-include_once('includes/functions_avatars.php');
+include_once( 'includes/session.php' );
+include_once( 'includes/functions_avatars.php' );
 
 // are we logged in? no → leave
 if ( !login_check() ) {
-	header( "Location: /" );
+	header( 'Location: /' );
 	exit();
 } else {
 	$me = $_SESSION['u'];
@@ -44,10 +44,10 @@ if ( isset( $_GET['name'] ) and isset( $_GET['key'] ) ) {
 	if ( $continue and $result ) {
 		writeAvatarLog( $me, $givenAdmin, $requestedName, 'add' );
 		// unlink( $requestPermission );
-		header( "Location: /avatars/" . $requestedName . '.png' );
+		header( 'Location: /avatars/' . $requestedName . '.png' );
 		exit();
 	} else {
-		header( "Location: /" );
+		header( 'Location: /' );
 		exit();
 	}
 }
@@ -55,7 +55,7 @@ if ( isset( $_GET['name'] ) and isset( $_GET['key'] ) ) {
 // are we admin? no → leave
 if ( in_array( $me, getAdmins() ) ) {
 } else {
-	header( "Location: /" );
+	header( 'Location: /' );
 	exit();
 }
 
@@ -228,9 +228,9 @@ if ( isset( $_GET['delete'] ) and isset( $_GET['name'] ) ) {
 	}
 }
 
-include_once('includes/header.php');
+include_once( 'includes/header.php' );
 
-print "<h1 class=\"text-center\">Admin‐only Avatar Management</h1>";
+print '<h1 class="text-center">Admin‐only Avatar Management</h1>';
 
 if ( $body !== "" ) {
 print <<<ACTIONMSG
@@ -350,7 +350,7 @@ ACTIONMSG;
 					<textarea class="form-control" rows="10"><?=readAvatarLog(); ?></textarea>
 				</div>
 			</article>
-<?php include_once('includes/footer.php');
+<?php include_once( 'includes/footer.php' );
 
 // TODO improve log, convert into a table?
 // TODO add functions_steam support to the admin log

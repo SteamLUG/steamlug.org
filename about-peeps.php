@@ -1,6 +1,6 @@
 <?php
 	$pageTitle = 'About Peeps';
-	include_once('includes/header.php');
+	include_once( 'includes/header.php' );
 
 	echo <<<DOCUMENT
 		<h1 class="text-center">SteamLUG Admins</h1>
@@ -35,7 +35,7 @@
 					<p>I'm bean or beans or both at the same time. I'm the pink one. Best traits: looking cute, tasting sweet and having a creamy inside.</p>
 				</div>
 			</article>
-			
+
 			<article class="panel panel-default person">
 				<header class="panel-heading">
 					<h3 class="panel-title">Nemoder</h3>
@@ -45,7 +45,7 @@
 					<p>I'm being eaten by zombies as I write this.</p>
 				</div>
 			</article>
-			
+
 			<article class="panel panel-default person">
 				<header class="panel-heading">
 					<h3 class="panel-title">Tele42</h3>
@@ -55,7 +55,7 @@
 					<p>"Here's an interesting little notion. Did you realize that most people's lives are governed by telephone numbers?"</p>
 				</div>
 			</article>
-			
+
 			<article class="panel panel-default person">
 				<header class="panel-heading">
 					<h3 class="panel-title"><a href="https://twitter.com/HeroOhOne">HER0 01</a></h3>
@@ -78,7 +78,7 @@
 					<p>Never give up, never surrender!</p>
 				</div>
 			</article>
-			
+
 			<article class="panel panel-default person">
 				<header class="panel-heading">
 					<h3 class="panel-title"><a href="http://constexpr.org/">ds</a></h3>
@@ -89,7 +89,7 @@
 					<p>Also known as <em>dscharrer</em> when a unique name is required.</p>
 				</div>
 			</article>
-			
+
 			<article class="panel panel-default person">
 				<header class="panel-heading">
 					<h3 class="panel-title"><a href="https://twitter.com/hmccio">Dora Coder</a></h3>
@@ -102,6 +102,6 @@
 		<section>
 DOCUMENT;
 
-	include_once('includes/footer.php');
+	include_once( 'includes/footer.php' );
 
 

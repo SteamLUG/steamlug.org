@@ -6,9 +6,9 @@
 	// this setting breaks sessions for localhost, disable when testing locally
 	// ini_set( 'session.cookie_secure', 1 );
 
-	include_once('functions_steam.php');
-	include_once('steam.php');
-	include_once('creds.php');
+	include_once( 'functions_steam.php' );
+	include_once( 'steam.php' );
+	include_once( 'creds.php' );
 
 	function sec_session_start() {
 

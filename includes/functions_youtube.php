@@ -225,4 +225,4 @@ function getVideoDetails( $resourceIds ) {
 	}
 	return $details;
 }
- 
+

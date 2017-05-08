@@ -1,16 +1,16 @@
 <?php
-date_default_timezone_set('UTC');
-include_once('includes/session.php');
-include_once('includes/functions_steam.php');
-include_once('includes/functions_db.php');
-include_once('includes/functions_apps.php');
+date_default_timezone_set( 'UTC' );
+include_once( 'includes/session.php' );
+include_once( 'includes/functions_steam.php' );
+include_once( 'includes/functions_db.php' );
+include_once( 'includes/functions_apps.php' );
 
 /* this can run for a good few minutes… about 80 users per minute ?! */
 set_time_limit( 10000 );
 
 // are we logged in? no → leave
 if ( !login_check() ) {
-	header( "Location: /" );
+	header( 'Location: /' );
 	exit();
 } else {
 	$me = $_SESSION['u'];
@@ -18,7 +18,7 @@ if ( !login_check() ) {
 // are we admin? no → leave
 if ( in_array( $me, getAdmins() ) ) {
 } else {
-	header( "Location: /" );
+	header( 'Location: /' );
 	exit();
 }
 

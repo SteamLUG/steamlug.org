@@ -1,8 +1,8 @@
 <?php
 	$pageTitle = 'Mumble';
 
-	include_once('includes/header.php');
-	include_once('includes/functions_mumble.php');
+	include_once( 'includes/header.php' );
+	include_once( 'includes/functions_mumble.php' );
 
 	$murmur = getMumble( );
 
@@ -121,4 +121,4 @@
 <?php
 	}
 ?>
-<?php	include_once('includes/footer.php');
+<?php	include_once( 'includes/footer.php' );

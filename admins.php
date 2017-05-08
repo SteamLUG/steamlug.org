@@ -1,17 +1,17 @@
 <?php
 	$pageTitle = 'Admins';
 	date_default_timezone_set('UTC');
-	include_once('includes/session.php');
+	include_once( 'includes/session.php' );
 	// are we logged in? no → leave
 	if ( !login_check() ) {
-		header( "Location: /" );
+		header( 'Location: /' );
 		exit();
 	} else {
 		$me = $_SESSION['u'];
 	}
 
-	include_once('includes/header.php');
-	include_once('includes/functions_steam.php');
+	include_once( 'includes/header.php' );
+	include_once( 'includes/functions_steam.php' );
 
 	$groupcount = getGroupCount();
 
@@ -90,6 +90,6 @@ ADMINUSER;
 			</div>
 		</article>
 DOCUMENT;
-	include_once('includes/footer.php');
+	include_once( 'includes/footer.php' );
 
 

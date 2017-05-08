@@ -1,6 +1,6 @@
 <?php
 $pageTitle = 'Chat';
-include_once('includes/header.php');
+include_once( 'includes/header.php' );
 
 $preferredNick = "";
 if ( isset( $_SESSION['n'] ) ) {
@@ -65,4 +65,4 @@ if ( isset( $_SESSION['n'] ) ) {
 				</iframe>
 			</div>
 		</article>
-<?php include_once('includes/footer.php');
+<?php include_once( 'includes/footer.php' );

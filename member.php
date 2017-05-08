@@ -2,10 +2,10 @@
 $pageTitle = 'Member';
 $memberID = isset( $_GET[ 'uid' ] ) ? ($_GET[ 'uid' ] != '' ? $_GET[ 'uid' ]: 'me' ) : 'me';
 
-include_once('includes/session.php');
-include_once('includes/functions_steam.php');
-include_once('includes/functions_members.php');
-include_once('includes/functions_eventattendance.php');
+include_once( 'includes/session.php' );
+include_once( 'includes/functions_steam.php' );
+include_once( 'includes/functions_members.php' );
+include_once( 'includes/functions_eventattendance.php' );
 
 if ( login_check() ) {
 	$me = $_SESSION['u'];
@@ -27,7 +27,7 @@ if ( isset( $_POST['store'] ) ) {
 	$profile = inflatePlayerSummary( deflatePlayerSummary( $profile ) );
 
 	if ( true ) {
-		header( "Location: " . str_replace( '//steamlug.org', '', $profile[ 'memberurl' ] ) );
+		header( 'Location: ' . str_replace( '//steamlug.org', '', $profile[ 'memberurl' ] ) );
 		exit();
 	}
 }
@@ -39,7 +39,7 @@ if ( isset( $_POST['unstore'] ) ) {
 	$removed = removePlayerSummaryDB( $me );
 
 	if ( $removed ) {
-		header( "Location: /member" );
+		header( 'Location: /member' );
 		exit();
 	}
 }
@@ -113,13 +113,13 @@ GAMEOVERMAN;
 if ( !isset( $profile ) or $profile == false ) {
 
 	// oh right, we should not 404 because logging in on a page like this will break. fml.
-	// header("HTTP/1.0 404 Not Found");
-	header( "Location: /" );
+	// header( 'HTTP/1.0 404 Not Found' );
+	header( 'Location: /' );
 	exit;
 }
 
 $pageTitle = " – {$profile[ 'personaname' ]} –  Member Page";
-include_once('includes/header.php');
+include_once( 'includes/header.php' );
 
 $memberClans = getPlayerClansDB( $profile[ 'steamid' ] );
 $clans = "";
@@ -193,5 +193,5 @@ echo <<<DOCUMENT
 			{$events}
 DOCUMENT;
 
-include_once('includes/footer.php');
+include_once( 'includes/footer.php' );
 

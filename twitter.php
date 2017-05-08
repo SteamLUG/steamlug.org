@@ -1,7 +1,7 @@
 <?php
 $pageTitle = 'Twitter';
 date_default_timezone_set('UTC');
-include_once('includes/session.php');
+include_once( 'includes/session.php' );
 
 // TODO, verify what happens if we post over the tweet length limit
 // TODO, verify what happens if our tweet exceeds length limit yet contains a URL that will be shortened
@@ -9,7 +9,7 @@ include_once('includes/session.php');
 
 // are we logged in? no → leave
 if ( !login_check() ) {
-	header( "Location: /" );
+	header( 'Location: /' );
 	exit();
 } else {
 	$me = $_SESSION['u'];
@@ -18,13 +18,13 @@ if ( !login_check() ) {
 // are we admin? no → leave
 if ( in_array( $me, getAdmins() ) ) {
 } else {
-	header( "Location: /" );
+	header( 'Location: /' );
 	exit();
 }
 
-include_once('includes/functions_events.php');
-include_once('includes/functions_cast.php');
-include_once('includes/functions_twitter.php');
+include_once( 'includes/functions_events.php' );
+include_once( 'includes/functions_cast.php' );
+include_once( 'includes/functions_twitter.php' );
 
 $action	= "Failure";
 $body	= "";
@@ -86,7 +86,7 @@ if ( isset( $_POST['delete'] ) and isset( $_POST['key'] ) ) {
 
 }
 $tailJS = array( '/scripts/twitter.js' );
-include_once('includes/header.php');
+include_once( 'includes/header.php' );
 
 print "<h1 class=\"text-center\">Tweet‐me‐stuff</h1>";
 
@@ -281,5 +281,5 @@ TWEET;
 				</table>
 			</div>
 		</article>
-<?php include_once('includes/footer.php');
+<?php include_once( 'includes/footer.php' );
 

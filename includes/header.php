@@ -1,7 +1,7 @@
 <?php
 // our error pages probably don’t want to touch this
 if ( !isset($skipAuth) ) {
-	include_once('session.php');
+	include_once( 'session.php' );
 }
 
 if (!isset($description))
@@ -259,7 +259,7 @@ header("Cache-Control: public, max-age=60");
 							<li><a target="_blank" href="//data.steamlug.org/updatesteamlug.php">Update events</a></li>
 						</ul>
 					</li>
-<?php 
+<?php
 	}
 ?>
 					<?= $logIn; ?>

@@ -1,11 +1,11 @@
 <?php
 $pageTitle = 'Generating YouTube Video';
 ini_set('implicit_flush', 1);
-include_once('includes/session.php');
+include_once( 'includes/session.php' );
 
 // are we logged in? no → leave
 if ( !login_check() ) {
-	header( "Location: /" );
+	header( 'Location: /' );
 	exit();
 } else {
 	$me = $_SESSION['u'];
@@ -14,13 +14,13 @@ if ( !login_check() ) {
 // are we admin? no → leave
 if ( in_array( $me, getAdmins() ) ) {
 } else {
-	header( "Location: /" );
+	header( 'Location: /' );
 	exit();
 }
 
-include_once('includes/functions_cast.php');
-include_once('includes/functions_castvideo.php');
-include_once('includes/header.php');
+include_once( 'includes/functions_cast.php' );
+include_once( 'includes/functions_castvideo.php' );
+include_once( 'includes/header.php' );
 
 ob_flush();
 
@@ -76,4 +76,4 @@ print <<<ACTIONMSG
 ACTIONMSG;
 }
 
-include_once('includes/footer.php');
+include_once( 'includes/footer.php' );

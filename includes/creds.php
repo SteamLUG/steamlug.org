@@ -11,5 +11,5 @@
 		getGoogleKeys()
 		getTwitterKeys()
 	*/
-	include( "paths.php" );
+	include( 'paths.php' );
 	include( $creds );

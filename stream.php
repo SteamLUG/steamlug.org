@@ -2,14 +2,13 @@
 $pageTitle = 'Live Stream';
 
 // because we hate cache
-header("Cache-Control: no-cache, must-revalidate");
-// HTTP 1.0ld header("Pragma: no-cache");
+header( 'Cache-Control: no-cache, must-revalidate' );
+// HTTP 1.0ld header( 'Pragma: no-cache' );
 
-include_once('includes/header.php');
-
-include_once('includes/functions_events.php');
-include_once('includes/functions_geturl.php');
-include_once('includes/functions_mumble.php');
+include_once( 'includes/header.php' );
+include_once( 'includes/functions_events.php' );
+include_once( 'includes/functions_geturl.php' );
+include_once(  'includes/functions_mumble.php' );
 
 $murmur = getMumble( );
 $maxUsers = $murmur->get_status( )['original']['x_gtmurmur_max_users'];
@@ -176,4 +175,4 @@ WHELP;
 	print $streamers;
 }
 
-include_once('includes/footer.php');
+include_once( 'includes/footer.php' );

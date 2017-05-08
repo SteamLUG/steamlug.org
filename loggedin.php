@@ -1,15 +1,15 @@
 <?php
 	$pageTitle = 'Welcome!';
-	include_once('includes/session.php');
+	include_once( 'includes/session.php' );
 	if (!login_check()) {
 		/* people not logged in should not visit here */
-		header("Location: /" );
+		header( 'Location: /' );
 		exit();
 	}
 	// TODO add timed meta redirect to last known location after 15?
 	// TODO consider if this is sensible, considering we want people to read our privacy info
 
-	include_once('includes/header.php');
+	include_once( 'includes/header.php' );
 
 	$joinGroup = <<<JOINLINK
 <p>We noticed you’re not a part of SteamLUG, would you kindly <a class="label label-success group-join" href="http://steamcommunity.com/groups/steamlug/">join our Steam Group</a></p>
@@ -43,5 +43,5 @@ JOINLINK;
 		</article>
 DOCUMENT;
 
-	include_once('includes/footer.php');
+	include_once( 'includes/footer.php' );
 

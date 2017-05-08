@@ -1,21 +1,21 @@
 <?php
-	$pageTitle = 'App';
-	$appID = isset( $_GET[ 'appid' ] ) ? ($_GET[ 'appid' ] != '' ? $_GET[ 'appid' ]: '0' ) : '0';
+$pageTitle = 'App';
+$appID = isset( $_GET[ 'appid' ] ) ? ($_GET[ 'appid' ] != '' ? $_GET[ 'appid' ] : '0' ) : '0';
 
-include_once('includes/session.php');
-include_once('includes/functions_steam.php');
-include_once('includes/functions_apps.php');
+include_once( 'includes/session.php' );
+include_once( 'includes/functions_steam.php' );
+include_once( 'includes/functions_apps.php' );
 
 // are we supplying data via GET? → show app?
 if ( $appID == '0' and !is_numeric( $appID ) ) {
-	header("HTTP/1.0 404 Not Found");
+	header( 'HTTP/1.0 404 Not Found' );
 	exit();
 }
 
 $gameProfile = getApp( $appID );
 
 if ( $gameProfile == false ) {
-	header("HTTP/1.0 404 Not Found");
+	header( 'HTTP/1.0 404 Not Found' );
 	exit();
 }
 
@@ -34,7 +34,7 @@ $description = $gameProfile[ 'name' ] . ' is ' . ( $gameProfile[ 'onlinux' ] == 
 
 TWITCARD;
 
-include_once('includes/header.php');
+include_once( 'includes/header.php' );
 
 $onlinux = ($gameProfile[ 'onlinux' ]) ? '<i class="fa-linux"> Yes</i>' : '<i class=""> No</i>';
 
@@ -76,5 +76,5 @@ FOOTER;
 // TODO list related clans
 // TODO list related servers
 // TODO Optionally? list people that love playing this at events
-include_once('includes/footer.php');
+include_once( 'includes/footer.php' );
 

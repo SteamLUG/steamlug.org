@@ -1,6 +1,8 @@
 <?php
 $pageTitle = 'Events';
 include_once( 'includes/functions_events.php' );
+//include_once( 'includes/functions_eventattendance.php' );
+//include_once( 'includes/functions_members.php' );
 
 $data = getRecentEvents( );
 
@@ -200,4 +202,4 @@ EVENTSTRING;
 			</table>
 			</div>
 		</article>
-<?php include_once('includes/footer.php');
+<?php include_once( 'includes/footer.php' );

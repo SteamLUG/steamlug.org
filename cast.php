@@ -1,9 +1,9 @@
 <?php
 
-include_once('includes/functions_cast.php');
-include_once('includes/functions_events.php');
-include_once('includes/functions_avatars.php');
-include_once('includes/functions_stats.php');
+include_once( 'includes/functions_cast.php' );
+include_once( 'includes/functions_events.php' );
+include_once( 'includes/functions_avatars.php' );
+include_once( 'includes/functions_stats.php' );
 
 $cast = getNextEvent( true );
 if ($cast != null) {
@@ -121,7 +121,7 @@ TWITCARD;
 
 	$tailJS = array( '/scripts/castseek.js' );
 	/* We start late to populate our Twitter player card */
-	include('includes/header.php');
+	include( 'includes/header.php' );
 	echo $start;
 
 	$meta['TITLE'] = ( ( ($meta['PUBLIC'] === "" ) and ( $weareadmin === false ) ) ? 'Edit In Progress' : slenc($meta['TITLE']) );
@@ -213,7 +213,7 @@ CASTENTRY;
 
 } else {
 
-	include('includes/header.php');
+	include( 'includes/header.php' );
 	echo $start;
 
 	echo "		<div class=\"row\">";
@@ -386,4 +386,4 @@ $(document).ready(
 CALLTHESEPLS;
 if ($castList)
 	$tailScripts = array( $onload );
-include_once('includes/footer.php');
+include_once( 'includes/footer.php' );

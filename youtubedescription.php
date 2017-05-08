@@ -1,7 +1,7 @@
 <?php
-header('Content-Type: text/html; charset=UTF-8');
+header( 'Content-Type: text/html; charset=UTF-8' );
 
-include_once('includes/functions_cast.php');
+include_once( 'includes/functions_cast.php' );
 
 function slenc($u)
 {

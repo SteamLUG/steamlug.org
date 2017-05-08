@@ -1,16 +1,16 @@
 <?php
-header('Content-Encoding: UTF-8');
-header('Content-Type: image/svg+xml');
+header( 'Content-Encoding: UTF-8' );
+header( 'Content-Type: image/svg+xml' );
 
-include_once('includes/session.php');
-include_once('includes/functions_avatars.php');
-include_once('includes/functions_steam.php');
-include_once('includes/functions_cast.php');
-include_once('includes/functions_castvideo.php');
+include_once( 'includes/session.php' );
+include_once( 'includes/functions_avatars.php' );
+include_once( 'includes/functions_steam.php' );
+include_once( 'includes/functions_cast.php' );
+include_once( 'includes/functions_castvideo.php' );
 
 // are we logged in? no → leave
 if ( !login_check() ) {
-	header( "Location: /" );
+	header( 'Location: /' );
 	exit();
 } else {
 	$me = $_SESSION['u'];
@@ -18,7 +18,7 @@ if ( !login_check() ) {
 // are we admin? no → leave
 if ( in_array( $me, getAdmins() ) ) {
 } else {
-	header( "Location: /" );
+	header( 'Location: /' );
 	exit();
 }
 

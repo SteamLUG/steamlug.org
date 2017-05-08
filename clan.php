@@ -2,10 +2,10 @@
 $pageTitle = 'Clan';
 $clanID = ( isset( $_GET[ 'clanid' ] ) && ( $_GET[ 'clanid' ] != '' ) ) ? $_GET[ 'clanid' ]: false;
 
-include_once('includes/session.php');
-include_once('includes/functions_steam.php');
-include_once('includes/functions_clans.php');
-include_once('includes/functions_members.php');
+include_once( 'includes/session.php' );
+include_once( 'includes/functions_steam.php' );
+include_once( 'includes/functions_clans.php' );
+include_once( 'includes/functions_members.php' );
 
 if ( login_check() ) {
 	$me = $_SESSION['u'];
@@ -40,7 +40,7 @@ if ( $clanID == false and isset( $me ) ) {
 } else {
 
 	// assume we’re not logged in + no requested clan
-	header("HTTP/1.0 404 Not Found");
+	header( 'HTTP/1.0 404 Not Found' );
 	exit;
 }
 
@@ -57,12 +57,12 @@ if ( $clanID == false and isset( $me ) ) {
 } else {
 
 	// render nothing?
-    header( "Location: /" );
+    header( 'Location: /' );
     exit( );
 }
 
 $pageTitle = " – {$clan[ 'name' ]} –  Clan Page";
-include_once('includes/header.php');
+include_once( 'includes/header.php' );
 
 $listMembers = '';
 if ( isset( $players ) ) {
@@ -70,7 +70,7 @@ if ( isset( $players ) ) {
 		$listMembers .= $member[ 'clanrole' ] . ':  '.  $member[ 'steamid' ] . "<br>\n";
 	}
 }
-// header( "Location: " . str_replace( '//steamlug.org', '', $profile[ 'memberurl' ] ) );
+// header( 'Location: ' . str_replace( '//steamlug.org', '', $profile[ 'memberurl' ] ) );
 /*
 This is WIP, no idea how we want to present it atm…
 */
@@ -88,5 +88,5 @@ echo <<<DOCUMENT
 			</article>
 DOCUMENT;
 
-include_once('includes/footer.php');
+include_once( 'includes/footer.php' );
 

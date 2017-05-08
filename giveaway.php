@@ -1,7 +1,7 @@
 <?php
 $pageTitle = 'Giveaways';
 // TODO whole page, backend for keys, requiring sign‐in, take donations, etc?
-include_once('includes/header.php');
+include_once( 'includes/header.php' );
 ?>
         <header>
                 <h1>Giveaway</h1>
@@ -36,4 +36,4 @@ include_once('includes/header.php');
             </div>
         </article>
         </section>!-->
-<?php include_once('includes/footer.php');
+<?php include_once( 'includes/footer.php' );

@@ -1,14 +1,14 @@
 <?php
 $pageTitle = 'Poll Vote';
-include_once('includes/session.php');
-include_once('includes/functions_poll.php');
+include_once( 'includes/session.php' );
+include_once( 'includes/functions_poll.php' );
 
 if ( !array_key_exists( 'page', $_POST ) )
 	$_POST['page'] = "/";
 
 // are we logged in? no → leave
 if ( !login_check() ) {
-	header( "Location: " . $_POST['page'] );
+	header( 'Location: ' . $_POST['page'] );
 	exit();
 } else {
 	$me = $_SESSION['u'];

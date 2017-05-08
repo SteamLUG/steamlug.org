@@ -1,5 +1,5 @@
 <?php
-	include_once('paths.php');
+	include_once( 'paths.php' );
 
 	/* Small utility function, add creative description
 		Fetch and return icon from steamcmd

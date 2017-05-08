@@ -1,5 +1,5 @@
 <?php
-	include_once('creds.php');
+	include_once( 'creds.php' );
 
 	function getPDODrv( ) {
 		return "mysql";
