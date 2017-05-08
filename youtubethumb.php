@@ -9,7 +9,7 @@ include_once( 'includes/functions_cast.php' );
 include_once( 'includes/functions_castvideo.php' );
 
 // are we logged in? no → leave
-if ( !login_check() ) {
+if ( ! login_check() ) {
 	header( 'Location: /' );
 	exit();
 } else {
@@ -27,5 +27,5 @@ if ( $season !== "00" && $episode !== "00" ) {
 
 	// We do no testing here, as this function will return an image even if
 	// this episode does not exist (it will test the user, though!)
-	print generateImage( $season, $episode );
+	echo generateImage( $season, $episode );
 }

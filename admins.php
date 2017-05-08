@@ -1,23 +1,23 @@
 <?php
-	$pageTitle = 'Admins';
-	date_default_timezone_set('UTC');
-	include_once( 'includes/session.php' );
-	// are we logged in? no → leave
-	if ( !login_check() ) {
-		header( 'Location: /' );
-		exit();
-	} else {
-		$me = $_SESSION['u'];
-	}
+$pageTitle = 'Admins';
+date_default_timezone_set( 'UTC' );
+include_once( 'includes/session.php' );
+// are we logged in? no → leave
+if ( ! login_check() ) {
+	header( 'Location: /' );
+	exit();
+} else {
+	$me = $_SESSION['u'];
+}
 
-	include_once( 'includes/header.php' );
-	include_once( 'includes/functions_steam.php' );
+include_once( 'includes/header.php' );
+include_once( 'includes/functions_steam.php' );
 
-	$groupcount = getGroupCount();
+$groupcount = getGroupCount();
 
-	// TODO this document needs more than just a list of members
-	// TODO link to useful resources like github wiki references?
-	echo <<<DOCUMENT
+// TODO this document needs more than just a list of members
+// TODO link to useful resources like github wiki references?
+echo <<<DOCUMENT
 		<h1 class="text-center">Admin Page</h1>
 		<article class="panel panel-default">
 			<header class="panel-heading">
@@ -53,27 +53,27 @@
 					<tbody>
 DOCUMENT;
 
-	$approvedUsers = getAdminNames();
-	$memaybe = '';
-	// TODO should this pull Steam Group admins, to show if we have any differences?
-	foreach ($approvedUsers as $admin) {
-		print "\n<!-- ";
-		print_r( $admin );
-		print " -->\n";
-		if ($admin['personastate'] != 0) {
-			$thenDate = new DateTime(); $thenDate->setTimestamp($admin['lastlogoff']);
-			$diff = date_diff( $thenDate, new DateTime( 'now' ) );
-			$admin['lastlogoffdate'] = '<time datetime="' . date( 'c', $admin['lastlogoff'] ) .
-										'">' . $diff->format( '%a days, %H hours' ) . '</time>';
-		} else {
-			$admin['lastlogoffdate'] = 'Offline';
-		}
-		if ( $admin['steamid'] == $me ) {
-			$memaybe = ' class="you"';
-		} else {
-			$memaybe = '';
-		}
-		echo <<<ADMINUSER
+$approvedUsers = getAdminNames();
+$memaybe = '';
+// TODO should this pull Steam Group admins, to show if we have any differences?
+foreach ($approvedUsers as $admin) {
+	echo "\n<!-- ";
+	print_r( $admin );
+	echo " -->\n";
+	if ($admin['personastate'] != 0) {
+		$thenDate = new DateTime(); $thenDate->setTimestamp($admin['lastlogoff']);
+		$diff = date_diff( $thenDate, new DateTime( 'now' ) );
+		$admin['lastlogoffdate'] = '<time datetime="' . date( 'c', $admin['lastlogoff'] ) .
+									'">' . $diff->format( '%a days, %H hours' ) . '</time>';
+	} else {
+		$admin['lastlogoffdate'] = 'Offline';
+	}
+	if ( $admin['steamid'] == $me ) {
+		$memaybe = ' class="you"';
+	} else {
+		$memaybe = '';
+	}
+	echo <<<ADMINUSER
 				<tr{$memaybe}>
 					<td><img src="{$admin['avatar']}" /></td>
 					<td>{$admin['steamid']}</td>
@@ -81,15 +81,12 @@ DOCUMENT;
 					<td>{$admin['lastlogoffdate']}</td>
 				</tr>
 ADMINUSER;
+}
 
-	}
-
-	echo <<<DOCUMENT
-					</tbody>
-				</table>
-			</div>
-		</article>
+echo <<<DOCUMENT
+				</tbody>
+			</table>
+		</div>
+	</article>
 DOCUMENT;
-	include_once( 'includes/footer.php' );
-
-
+include_once( 'includes/footer.php' );

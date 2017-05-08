@@ -7,8 +7,8 @@ if ( !array_key_exists( 'page', $_POST ) )
 	$_POST['page'] = "/";
 
 // are we logged in? no → leave
-if ( !login_check() ) {
-	header( 'Location: ' . $_POST['page'] );
+if ( ! login_check() ) {
+	header( 'Location: /' );
 	exit();
 } else {
 	$me = $_SESSION['u'];

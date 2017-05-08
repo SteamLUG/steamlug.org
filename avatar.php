@@ -4,7 +4,7 @@ include_once( 'includes/session.php' );
 include_once( 'includes/functions_avatars.php' );
 
 // are we logged in? no → leave
-if ( !login_check() ) {
+if ( ! login_check() ) {
 	header( 'Location: /' );
 	exit();
 } else {
@@ -230,10 +230,10 @@ if ( isset( $_GET['delete'] ) and isset( $_GET['name'] ) ) {
 
 include_once( 'includes/header.php' );
 
-print '<h1 class="text-center">Admin‐only Avatar Management</h1>';
+echo '<h1 class="text-center">Admin‐only Avatar Management</h1>';
 
 if ( $body !== "" ) {
-print <<<ACTIONMSG
+echo <<<ACTIONMSG
 			<article class="panel panel-default {$style}">
 				<header class="panel-heading">
 					<h3 class="panel-title">{$action}</h3>
@@ -332,7 +332,7 @@ ACTIONMSG;
 		$size = @filesize( $avatarFilePath . "/" . $avatar . '.png' );
 		$warning = $size > 75000 ? ( $size > 100000 ? ' class="replace"' : ' class="warning"' ) : '';
 		$hostedURL = '/avatars/' . $avatar . '.png';
-		print "<img height=\"32\" title=\"$avatar\" {$warning} src=\"{$hostedURL}\" />\n";
+		echo "<img height=\"32\" title=\"$avatar\" {$warning} src=\"{$hostedURL}\" />\n";
 	}
 ?>
 				</div>
@@ -350,10 +350,9 @@ ACTIONMSG;
 					<textarea class="form-control" rows="10"><?=readAvatarLog(); ?></textarea>
 				</div>
 			</article>
-<?php include_once( 'includes/footer.php' );
-
+<?php
+include_once( 'includes/footer.php' );
 // TODO improve log, convert into a table?
 // TODO add functions_steam support to the admin log
 // TODO List active permission slips.
 // TODO allow users with valid permission slip to overwrite their current avatar
-

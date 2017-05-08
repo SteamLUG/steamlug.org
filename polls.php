@@ -19,4 +19,5 @@ include_once( 'includes/functions_poll.php' );
 				</div>
 		</article>
 					<?php	showCurrentPolls(); ?>
-<?php include_once( 'includes/footer.php' );
+<?php
+include_once( 'includes/footer.php' );

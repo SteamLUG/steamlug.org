@@ -23,7 +23,7 @@ if ( in_array( $me, getAdmins() ) ) {
 }
 
 $date = date( 'Y-m-d' );
-print $date . ': Starting stats gathering: ' . date( 'c' ) . "\n<br>";
+echo $date . ': Starting stats gathering: ' . date( 'c' ) . "\n<br>";
 
 $database = connectDB();
 
@@ -34,7 +34,7 @@ $database = connectDB();
 foreach( $database->query( "SELECT count(1) AS number FROM steamlug.memberstats WHERE `date`='" . $date . "' LIMIT 1" ) as $res ) {
 
 	if ( $res[ 'number' ] == '1' ) {
-		print $date . ': We have already captured stats for today! Ending script.';
+		echo $date . ': We have already captured stats for today! Ending script.';
 		exit;
 	}
 }
@@ -65,7 +65,7 @@ if ( true ) {
 
 		/* ’cause Steam sometimes does not expose known apps on Steam? */
 		if ( ! array_key_exists( $appid, $appslist ) ) {
-			print $date . ': ' . $appid . " is missing from the data back from Valve.\n<br>";
+			echo $date . ': ' . $appid . " is missing from the data back from Valve.\n<br>";
 			continue;
 		}
 		if ( is_array( $app ) ) {
@@ -85,10 +85,10 @@ if ( true ) {
 
 	$appslist = getSteamAppsDB( );
 }
-print $date . ': ' . count($appslist) . ' known apps, ' . $onlinux . " marked for Linux.\n<br>";
+echo $date . ': ' . count($appslist) . ' known apps, ' . $onlinux . " marked for Linux.\n<br>";
 
 $members = getGroupMembers();
-print $date . ': ' . print count($members) . " members.\n<br>";
+echo $date . ': ' . echo count($members) . " members.\n<br>";
 
 /* pointless stats tracking GET! */
 $appsmin = 2000;
@@ -101,7 +101,7 @@ foreach ( $members as $member ) {
 	if ( count( $memberGames ) > 0 ) {
 
 		$publicMembers++;
-		/* print $member . " has " . $memberGames[ 'game_count' ] . " apps.\n<br>"; */
+		/* echo $member . " has " . $memberGames[ 'game_count' ] . " apps.\n<br>"; */
 
 		if ( ($memberGames[ 'game_count' ] > 0) and array_key_exists( 'games', $memberGames ) ) {
 
@@ -122,24 +122,24 @@ foreach ( $members as $member ) {
 					}
 				} else {
 					// panic?
-					print 'Game ' . $app[ 'appid' ] . " doesn’t exist in Valve’s app output? lol.\n<br>";
+					echo 'Game ' . $app[ 'appid' ] . " doesn’t exist in Valve’s app output? lol.\n<br>";
 				}
 			}
 		} else {
 			$appsmin = 0;
 			// eh? Faulty data from Steam?
-			print $member . ' has zero games on their profile.\n<br>';
+			echo $member . ' has zero games on their profile.\n<br>';
 		}
 
 	} else {
 		// User has a private profile. Do something with this knowledge?
-		print $member . " has a private profile.\n<br>";
+		echo $member . " has a private profile.\n<br>";
 	}
 	flush( );
 }
 
-print $date . ': Completed stats gathering: ' . date( 'c' ) . "\n<br>";
-print $date . ': ' . $publicMembers . ' public member profiles of ' . count($members ) . ' members read on ' . date( 'c' ) . "\n<br>";
+echo $date . ': Completed stats gathering: ' . date( 'c' ) . "\n<br>";
+echo $date . ': ' . $publicMembers . ' public member profiles of ' . count($members ) . ' members read on ' . date( 'c' ) . "\n<br>";
 flush( );
 
 $storestats = $database->prepare( 'INSERT INTO appstats (date, appid, owners, playtime, fortnight, playersfortnight) VALUES (:date, :appid, :owners, :playtime, :fortnight, :playersfortnight)' );
@@ -183,7 +183,7 @@ try {
 
 } catch ( Exception $e ) {
 
-	print $date . ': Oops, database failure: ' . $e;
+	echo $date . ': Oops, database failure: ' . $e;
 }
 
 /* XXX where to write this?
@@ -192,7 +192,7 @@ fwrite( $logger, $date . ' Stored ' . count($members) . ' member profiles.' );
 fclose( $logger );
 */
 
-print $date . ': Completed stats storing: ' . date( 'c' ) . "\n<br>";
+echo $date . ': Completed stats storing: ' . date( 'c' ) . "\n<br>";
 $completion = microtime(true) - $_SERVER[ 'REQUEST_TIME_FLOAT' ];
-print $date . ": Process Time: {$completion}.";
-print $date . ': Memory: ' . memory_get_usage( ) . "\n<br>";
+echo $date . ": Process Time: {$completion}.";
+echo $date . ': Memory: ' . memory_get_usage( ) . "\n<br>";

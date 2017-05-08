@@ -100,7 +100,7 @@ $streamers .= '</div>';
 /* If Streaming, we should: hide <h1> title, remove Next Event: */
 /* If not-streaming, show current hitbox team roster? */
 if (!$someoneStreaming) {
-	print '<h1 class="text-center">Live Stream</h1>';
+	echo '<h1 class="text-center">Live Stream</h1>';
 }
 ?>
 					<div class="row no-content">
@@ -160,7 +160,7 @@ echo <<<TWITCH
 TWITCH;
 }
 if ( $someoneStreaming == false ) {
-	print <<<WHELP
+	echo <<<WHELP
 			<div class="panel panel-default">
 				<header class="panel-heading">
 					<h3 class="panel-title">Stream Offline</h3>
@@ -172,7 +172,7 @@ if ( $someoneStreaming == false ) {
 			</div>
 WHELP;
 
-	print $streamers;
+	echo $streamers;
 }
 
 include_once( 'includes/footer.php' );

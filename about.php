@@ -1,10 +1,11 @@
 <?php
-	$pageTitle = 'About';
-	// TODO link to about-peeps
-	// TODO refactor now that we’re into our 3rd year of Steam Linux gaming
-	// TODO up-date history and site references
+$pageTitle = 'About';
+include_once( 'includes/header.php' );
+// TODO link to about-peeps
+// TODO refactor now that we’re into our 3rd year of Steam Linux gaming
+// TODO up-date history and site references
+
 ?>
-<?php include_once( 'includes/header.php' ); ?>
 <h1 class="text-center">About SteamLUG</h1>
 		<article class="panel panel-default">
 			<header class="panel-heading">
@@ -95,4 +96,5 @@
 			</div>
 		</article>
 
-<?php include_once( 'includes/footer.php' );
+<?php
+include_once( 'includes/footer.php' );

@@ -1,10 +1,8 @@
 <?php
 header( 'Content-Type: text/html; charset=UTF-8' );
-
 include_once( 'includes/functions_cast.php' );
 
-function slenc($u)
-{
+function slenc($u) {
 	return htmlentities( $u, ENT_QUOTES, 'UTF-8' );
 }
 
@@ -19,14 +17,12 @@ if ( $season !== '00' && $episode !== '00' && ($meta = getCastHeader( $slug ) ) 
 	echo "This cast was recorded on {$meta['RECORDED']}<br>\n<br>\n";
 
 	foreach ( $shownotes as $note ) {
-
-		preg_replace_callback(
-			'/(\d+:\d+:\d+)\s+\*(.*)\*/',
+		preg_replace_callback( '/(\d+:\d+:\d+)\s+\*(.*)\*/',
 			function($matches) {
-				print slenc($matches[1]) . ' ' . slenc($matches[2]) . '<br>';
+				echo slenc($matches[1]) . ' ' . slenc($matches[2]) . '<br>';
 			}, $note );
 	}
-	print <<<FOOTERMSG
+	echo <<<FOOTERMSG
 <br>
 SteamLUG Cast is a casual, fortnightly audiocast which aims to provide interesting news and discussion for the SteamLUG and broader Linux gaming communities.<br>
 Visit our site https://steamlug.org/ and the cast homepage https://steamlug.org/cast<br>

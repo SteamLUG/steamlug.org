@@ -8,7 +8,7 @@ include_once( 'includes/session.php' );
 // TODO, verify CURL doesn’t have issues (apparently it will)
 
 // are we logged in? no → leave
-if ( !login_check() ) {
+if ( ! login_check() ) {
 	header( 'Location: /' );
 	exit();
 } else {
@@ -77,10 +77,10 @@ if ( isset( $_POST['delete'] ) and isset( $_POST['key'] ) ) {
 $tailJS = array( '/scripts/twitter.js' );
 include_once( 'includes/header.php' );
 
-print '<h1 class="text-center">Tweet‐me‐stuff</h1>';
+echo '<h1 class="text-center">Tweet‐me‐stuff</h1>';
 
 if ( $body !== '' ) {
-	print <<<ACTIONMSG
+	echo <<<ACTIONMSG
 			<article class="panel panel-default {$style}">
 				<header class="panel-heading">
 					<h3 class="panel-title">{$action}</h3>
@@ -126,7 +126,7 @@ if ( $nextGameEvent != null ) {
 	$when = 'a future date when someone creates the event!';
 	$laterMessage = $typicalMessage = 'Hey #Linux gamers, join us for some gaming fun! Everybody’s welcome';
 }
-print <<<EVENTMSG
+echo <<<EVENTMSG
 			<article class="panel panel-default twit">
 				<header class="panel-heading">
 					<h3 class="panel-title">Event, gaming!</h3>
@@ -165,7 +165,7 @@ if ( $nextCastEvent != null ) {
 	$when = 'a future date when someone creates the event!';
 	$laterMessage = $typicalMessage = 'Join us for the live recording of SteamLUG Cast';
 }
-print <<<CASTRECORDINGMSG
+echo <<<CASTRECORDINGMSG
 			<article class="panel panel-default twit">
 				<header class="panel-heading">
 					<h3 class="panel-title">Cast, recording</h3>
@@ -214,7 +214,7 @@ if ( $latestCast != false ) {
 	$warning = ( $latestCast['PUBLISHED'] === '' ? '<span class="warning">In Progress</span>' : "<time datetime=\"{$latestCast['PUBLISHED']}\">{$latestCast['PUBLISHED']}</time>" );
 	$typicalMessage = "SteamLUG Cast {$latestCast['SLUG']} ‘{$latestCast['TITLE']}’ with {$hosts}{$guests} is now available to listen to https://steamlug.org/cast/{$latestCast['SLUG']}";
 
-	print <<<CASTPUBLISHEDMSG
+	echo <<<CASTPUBLISHEDMSG
 			<article class="panel panel-default twit">
 				<header class="panel-heading">
 					<h3 class="panel-title">Cast, publishing</h3>
@@ -234,7 +234,7 @@ if ( $latestCast != false ) {
 CASTPUBLISHEDMSG;
 };
 
-print <<<DELETETABLEHEAD
+echo <<<DELETETABLEHEAD
 			<article class="panel panel-default twit">
 				<header class="panel-heading">
 					<h3 class="panel-title">Delete Tweet?</h3>
@@ -265,7 +265,7 @@ DELETETABLEHEAD;
 TWEET;
 	}
 
-print <<<DELETETABLEFOOTER
+echo <<<DELETETABLEFOOTER
 					</tbody>
 				</table>
 			</div>

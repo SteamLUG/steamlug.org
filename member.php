@@ -7,6 +7,7 @@ include_once( 'includes/functions_steam.php' );
 include_once( 'includes/functions_members.php' );
 include_once( 'includes/functions_eventattendance.php' );
 
+// are we logged in? → grab session
 if ( login_check() ) {
 	$me = $_SESSION['u'];
 	if ( $me == $memberID )

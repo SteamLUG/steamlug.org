@@ -64,7 +64,7 @@ if ( $season !== '00' && $episode !== '00' && ($meta = getCastHeader( $slug ) ) 
 }
 
 if ( $body !== '' ) {
-	print <<<ACTIONMSG
+	echo <<<ACTIONMSG
 			<article class="panel panel-default {$style}">
 				<header class="panel-heading">
 					<h3 class="panel-title">{$action}</h3>

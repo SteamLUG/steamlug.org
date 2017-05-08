@@ -4,7 +4,7 @@ include_once( 'includes/header.php' );
 include_once( 'includes/functions_poll.php' );
 
 // are we logged in? no → leave
-if ( !login_check() ) {
+if ( ! login_check() ) {
 	header( 'Location: /' );
 	exit();
 } else {
@@ -49,4 +49,5 @@ FORMGROUP;
 					?>
 				</div>
 			</article>
-<?php include_once( 'includes/footer.php' );
+<?php
+include_once( 'includes/footer.php' );

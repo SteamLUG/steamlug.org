@@ -1,31 +1,32 @@
 <?php
-	$pageTitle = 'Welcome!';
-	include_once( 'includes/session.php' );
-	if (!login_check()) {
-		/* people not logged in should not visit here */
-		header( 'Location: /' );
-		exit();
-	}
-	// TODO add timed meta redirect to last known location after 15?
-	// TODO consider if this is sensible, considering we want people to read our privacy info
+$pageTitle = 'Welcome!';
+include_once( 'includes/session.php' );
+// are we logged in? no → leave
+if ( ! login_check() ) {
+	header( 'Location: /' );
+	exit();
+}
+// TODO add timed meta redirect to last known location after 15?
+// TODO consider if this is sensible, considering we want people to read our privacy info
 
-	include_once( 'includes/header.php' );
+include_once( 'includes/header.php' );
 
-	$joinGroup = <<<JOINLINK
+$joinGroup = <<<JOINLINK
 <p>We noticed you’re not a part of SteamLUG, would you kindly <a class="label label-success group-join" href="http://steamcommunity.com/groups/steamlug/">join our Steam Group</a></p>
 JOINLINK;
-	if ( isset( $_SESSION['g'] ) and ( $_SESSION['g'] == true ) ) {
-		$joinGroup = '';
-	}
 
-	$return = '<p><a href="/">Return to home…</a></p>';
+if ( isset( $_SESSION['g'] ) and ( $_SESSION['g'] == true ) ) {
+	$joinGroup = '';
+}
 
-	if ( isset( $_GET['returnto'] ) ) {
+$return = '<p><a href="/">Return to home…</a></p>';
 
-		$return = '<p><a href="' . htmlspecialchars($_GET['returnto']) . '">Return to what you were doing…</a></p>';
-	}
-	$you = htmlspecialchars($_SESSION['n'], ENT_NOQUOTES);
-	echo <<<DOCUMENT
+if ( isset( $_GET['returnto'] ) ) {
+
+	$return = '<p><a href="' . htmlspecialchars($_GET['returnto']) . '">Return to what you were doing…</a></p>';
+}
+$you = htmlspecialchars($_SESSION['n'], ENT_NOQUOTES);
+echo <<<DOCUMENT
 		<h1 class="text-center">Welcome, {$you}</h1>
 		<article class="panel panel-default">
 			<header class="panel-heading">
@@ -43,5 +44,4 @@ JOINLINK;
 		</article>
 DOCUMENT;
 
-	include_once( 'includes/footer.php' );
-
+include_once( 'includes/footer.php' );

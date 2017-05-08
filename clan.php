@@ -7,6 +7,7 @@ include_once( 'includes/functions_steam.php' );
 include_once( 'includes/functions_clans.php' );
 include_once( 'includes/functions_members.php' );
 
+// are we logged in? → grab session
 if ( login_check() ) {
 	$me = $_SESSION['u'];
 }
@@ -18,7 +19,7 @@ if ( $clanID == false and isset( $me ) ) {
 	// clans = getClanList
 	$yourClans = getPlayerClansDB( $me );
 	foreach ( $yourClans as $clan ) {
-		print $clan[ 'name' ];
+		echo $clan[ 'name' ];
 	}
 	// if clans
 	//		list

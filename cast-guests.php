@@ -1,8 +1,8 @@
 <?php
-	$pageTitle = 'Cast Guests';
-	include_once( 'includes/header.php' );
+$pageTitle = 'Cast Guests';
+include_once( 'includes/header.php' );
 
-	echo <<<DOCUMENT
+echo <<<DOCUMENT
 		<h1 class="text-center">SteamLUG Cast Guest Information <!-- And
 		thirdly, the phrase is more what you'd call ‘advice’ than actual guidelines.
 		--></h1>
@@ -70,7 +70,7 @@
 				<p>We look forward to chatting with you on the show!</p>
 			</div>
 		</article>
+
 DOCUMENT;
 
-	include_once( 'includes/footer.php' );
-
+include_once( 'includes/footer.php' );
