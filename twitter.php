@@ -46,14 +46,12 @@ if ( isset( $_POST['tweet'] ) and isset( $_POST['message'] ) ) {
 
 		$style = 'panel-danger';
 		// TODO, do additional checks in the future. Ask admins to copy/paste the error
-		$body = 'Error code ' . $reply['errors'][0]['code'] . ', with message: ' . $reply['errors'][0]['message'] . '<br>';
-		$body .= print_r( $reply, true );
-		$body .= '<br>Please copy/paste the above error, put it in a gist and share with webmaster.';
+		$body = "Error code {$reply['errors'][0]['code']}, with message: {$reply['errors'][0]['message']}<br>\n";
+		$body .= '<!--' . print_r( $reply, true ) . '<br>Please copy/paste the above error, put it in a gist and share with webmaster. -->';
 
 	} else {
 
-		$body = 'Sent ‘' . $_POST['message'] . "’<br>\n";
-		$body .= print_r( $reply, true );
+		$body = "Sent ‘{$_POST['message']}’<br>\n";
 	}
 }
 
@@ -66,18 +64,14 @@ if ( isset( $_POST['delete'] ) and isset( $_POST['key'] ) ) {
 	$reply = deleteTweet( $tweet );
 
 	if ( array_key_exists( 'errors', $reply ) ) {
-
 		$style = 'panel-danger';
 		// TODO, do additional checks in the future. Ask admins to copy/paste the error
-		$body = 'Error code ' . $reply['errors'][0]['code'] . ', with message: ' . $reply['errors'][0]['message'] . '<br>';
-		$body .= print_r( $reply, true );
-		$body .= '<br>Please copy/paste the above error, put it in a gist and share with webmaster.';
+		$body = "Error code {$reply['errors'][0]['code']}, with message: {$reply['errors'][0]['message']}<br>\n";
+		$body .= '<!--' . print_r( $reply, true ) . '<br>Please copy/paste the above error, put it in a gist and share with webmaster. -->';
 
 	} else {
-
 		// atm, assume it was all good?
-		$body = 'Deleted ' . $tweet . ".<br>\n";
-		$body .= print_r( $reply, true );
+		$body = "Deleted ‘{$tweet}’<br>\n";
 	}
 }
 $tailJS = array( '/scripts/twitter.js' );
@@ -86,7 +80,7 @@ include_once( 'includes/header.php' );
 print '<h1 class="text-center">Tweet‐me‐stuff</h1>';
 
 if ( $body !== '' ) {
-print <<<ACTIONMSG
+	print <<<ACTIONMSG
 			<article class="panel panel-default {$style}">
 				<header class="panel-heading">
 					<h3 class="panel-title">{$action}</h3>
@@ -119,11 +113,9 @@ function formatTimeDifference($diff) {
 	return $hours . ($hours === 1 ? ' hour' : ' hours');
 }
 
-print "<!--\n";
 if ( $nextGameEvent != null ) {
 
 	// TODO check current time vs now; this is heavily reliant on XML information
-	print_r ( $nextGameEvent );
 	$eventDate = new DateTime(); $eventDate->setTimestamp($nextGameEvent['utctime']);
 	$diff = date_diff( $eventDate, new DateTime( 'now' ) );
 	$difference = formatTimeDifference($diff);
@@ -134,35 +126,35 @@ if ( $nextGameEvent != null ) {
 	$when = 'a future date when someone creates the event!';
 	$laterMessage = $typicalMessage = 'Hey #Linux gamers, join us for some gaming fun! Everybody’s welcome';
 }
-print "-->\n";
-?>
+print <<<EVENTMSG
 			<article class="panel panel-default twit">
 				<header class="panel-heading">
 					<h3 class="panel-title">Event, gaming!</h3>
 				</header>
 				<div class="panel-body">
-					<p>This takes place on <?=$when;?></p>
+					<p>This takes place on {$when}</p>
 					<form method="post" class="form-horizontal" action="/twitter/">
 						<fieldset>
 						<input type="hidden" name="tweet">
-						<div class="form-group"><input type="submit" class="col-xs-1 btn btn-primary" value="Tweet"><input class="control-input col-xs-11" type="text" name="message" size="70" placeholder="<?=$laterMessage;?>" value="<?=$laterMessage;?>"></div>
+						<div class="form-group"><input type="submit" class="col-xs-1 btn btn-primary" value="Tweet">
+						<input class="control-input col-xs-11" type="text" name="message" size="70" placeholder="{$laterMessage}" value="{$laterMessage}"></div>
 						<p>Best posted a few hours before event</p>
 						</fieldset>
 					</form>
 					<form method="post" class="form-horizontal" action="/twitter/">
 						<fieldset>
 						<input type="hidden" name="tweet">
-						<div class="form-group"><input type="submit" class="col-xs-1 btn btn-primary" value="Tweet"><input class="control-input col-xs-11" type="text" name="message" size="70" placeholder="<?=$typicalMessage;?>" value="<?=$typicalMessage;?>"></div>
+						<div class="form-group"><input type="submit" class="col-xs-1 btn btn-primary" value="Tweet">
+						<input class="control-input col-xs-11" type="text" name="message" size="70" placeholder="{$typicalMessage}" value="{$typicalMessage}"></div>
 						<p>Best posted as we start gaming / when Steam event fires</p>
 						</fieldset>
 					</form>
 				</div>
 			</article>
-<?php
-print "<!--\n";
+EVENTMSG;
+
 if ( $nextCastEvent != null ) {
 
-	print_r ( $nextCastEvent );
 	$eventDate = new DateTime(); $eventDate->setTimestamp($nextCastEvent['utctime']);
 	$diff = date_diff( $eventDate, new DateTime( 'now' ) );
 	$difference = formatTimeDifference($diff);
@@ -173,36 +165,35 @@ if ( $nextCastEvent != null ) {
 	$when = 'a future date when someone creates the event!';
 	$laterMessage = $typicalMessage = 'Join us for the live recording of SteamLUG Cast';
 }
-print "-->\n";
-?>
+print <<<CASTRECORDINGMSG
 			<article class="panel panel-default twit">
 				<header class="panel-heading">
 					<h3 class="panel-title">Cast, recording</h3>
 				</header>
 				<div class="panel-body">
-					<p>This takes place on <?=$when;?></p>
+					<p>This takes place on {$when}</p>
 					<form method="post" class="form-horizontal" action="/twitter/">
 						<fieldset>
 						<input type="hidden" name="tweet">
-						<div class="form-group"><input type="submit" class="col-xs-1 btn btn-primary" value="Tweet"><input class="control-input col-xs-11" type="text" name="message" size="70" placeholder="<?=$laterMessage;?>" value="<?=$laterMessage;?>"></div>
+						<div class="form-group"><input type="submit" class="col-xs-1 btn btn-primary" value="Tweet">
+						<input class="control-input col-xs-11" type="text" name="message" size="70" placeholder="{$laterMessage}" value="{$laterMessage}"></div>
 						<p>Best posted a few hours before recording</p>
 						</fieldset>
 					</form>
 					<form method="post" class="form-horizontal" action="/twitter/">
 						<fieldset>
 						<input type="hidden" name="tweet">
-						<div class="form-group"><input type="submit" class="col-xs-1 btn btn-primary" value="Tweet"><input class="control-input col-xs-11" type="text" name="message" size="70" placeholder="<?=$typicalMessage;?>" value="<?=$typicalMessage;?>"></div>
+						<div class="form-group"><input type="submit" class="col-xs-1 btn btn-primary" value="Tweet">
+						<input class="control-input col-xs-11" type="text" name="message" size="70" placeholder="{$typicalMessage}" value="{$typicalMessage}"></div>
 						<p>Best posted as we start recording / when Steam event fires, to encourage more people to get onto mumble</p>
 						</fieldset>
 					</form>
 				</div>
 			</article>
-<?php
+CASTRECORDINGMSG;
+
 if ( $latestCast != false ) {
 	// fetch latest episode and get deets
-	print "<!--\n";
-	print_r ( $latestCast );
-	print "-->\n";
 
 	$listHostsTwits = array(); $listGuestsTwits = array();
 	foreach ($latestCast['HOSTS2'] as $Host) {
@@ -220,25 +211,30 @@ if ( $latestCast != false ) {
 	}
 	$hosts = ( empty($listHostsTwits) ? '' : implode( ', ', $listHostsTwits) );
 	$guests = ( empty($listGuestsTwits) ? '' : ' speaking with ' . implode( ', ', $listGuestsTwits) );
-	$warning = ( $latestCast['PUBLISHED'] === '' ? '<span class="warning">In Progress</span>' : '<time datetime="' . $latestCast['PUBLISHED'] . '">' . $latestCast['PUBLISHED'] . '</time>' );
+	$warning = ( $latestCast['PUBLISHED'] === '' ? '<span class="warning">In Progress</span>' : "<time datetime=\"{$latestCast['PUBLISHED']}\">{$latestCast['PUBLISHED']}</time>" );
 	$typicalMessage = "SteamLUG Cast {$latestCast['SLUG']} ‘{$latestCast['TITLE']}’ with {$hosts}{$guests} is now available to listen to https://steamlug.org/cast/{$latestCast['SLUG']}";
-?>
+
+	print <<<CASTPUBLISHEDMSG
 			<article class="panel panel-default twit">
 				<header class="panel-heading">
 					<h3 class="panel-title">Cast, publishing</h3>
 				</header>
 				<div class="panel-body">
-					<p><?=$warning;?></p>
+					<p>{$warning}</p>
 					<form method="post" class="form-horizontal" action="/twitter/">
 						<fieldset>
 						<input type="hidden" name="tweet">
-						<div class="form-group"><input type="submit" class="col-xs-1 btn btn-primary" value="Tweet"><input class="control-input col-xs-11" type="text" name="message" size="70" placeholder="<?=$typicalMessage;?>" value="<?=$typicalMessage;?>"></div>
+						<div class="form-group"><input type="submit" class="col-xs-1 btn btn-primary" value="Tweet">
+						<input class="control-input col-xs-11" type="text" name="message" size="70" placeholder="{$typicalMessage}" value="{$typicalMessage}"></div>
 						<p>Once YouTube video is processed, notes complete, RSS feed live, post this and Steam announcement</p>
 						</fieldset>
 					</form>
 				</div>
-			</article><?php
-}; ?>
+			</article>
+CASTPUBLISHEDMSG;
+};
+
+print <<<DELETETABLEHEAD
 			<article class="panel panel-default twit">
 				<header class="panel-heading">
 					<h3 class="panel-title">Delete Tweet?</h3>
@@ -253,28 +249,27 @@ if ( $latestCast != false ) {
 							</tr>
 						</thead>
 						<tbody>
-<?php
+DELETETABLEHEAD;
 
 	// recent tweets, option to delete
 	foreach ($recentTweets as $tweet) {
-		print "\n<!-- ";
-		print_r( $tweet );
-		print " -->\n";
 		$tweet['created_at'] = str_replace( '+00:00', '', date( 'c', strtotime( $tweet['created_at'] ) ) );
 		$tweet['created_str'] = '<time datetime="' . $tweet['created_at'] . '">' . $tweet['created_at'] . '</time>';
 		echo <<<TWEET
-				<tr>
-					<td>{$tweet['created_str']}</td>
-					<td>{$tweet['text']}</td>
-					<td><form method="post" class="form-horizontal" action="/twitter/"><fieldset><input type="hidden" name="delete"><input type="hidden" name="key" value="{$tweet['id']}" /><input type="submit" value="x"/></fieldset></form></td>
-				</tr>
+							<tr>
+								<td>{$tweet['created_str']}</td>
+								<td>{$tweet['text']}</td>
+								<td><form method="post" class="form-horizontal" action="/twitter/"><fieldset><input type="hidden" name="delete">
+									<input type="hidden" name="key" value="{$tweet['id']}" /><input type="submit" value="x"/></fieldset></form></td>
+							</tr>
 TWEET;
-
 	}
-?>
+
+print <<<DELETETABLEFOOTER
 					</tbody>
 				</table>
 			</div>
 		</article>
-<?php include_once( 'includes/footer.php' );
+DELETETABLEFOOTER;
 
+include_once( 'includes/footer.php' );
