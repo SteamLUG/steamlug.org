@@ -1,5 +1,5 @@
 <?php
-$pageTitle = "Events";
+$pageTitle = 'Events';
 include_once( 'includes/functions_events.php' );
 
 $data = getRecentEvents( );

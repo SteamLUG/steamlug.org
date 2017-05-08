@@ -1,5 +1,5 @@
 <?php
-$pageTitle = "Poll Vote";
+$pageTitle = 'Poll Vote';
 include_once('includes/session.php');
 include_once('includes/functions_poll.php');
 

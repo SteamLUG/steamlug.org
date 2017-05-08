@@ -1,5 +1,5 @@
 <?php
-$pageTitle = "Chat";
+$pageTitle = 'Chat';
 include_once('includes/header.php');
 
 $preferredNick = "";

@@ -1,5 +1,5 @@
 <?php
-$pageTitle = "Clan";
+$pageTitle = 'Clan';
 $clanID = ( isset( $_GET[ 'clanid' ] ) && ( $_GET[ 'clanid' ] != '' ) ) ? $_GET[ 'clanid' ]: false;
 
 include_once('includes/session.php');

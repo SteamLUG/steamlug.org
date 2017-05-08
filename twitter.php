@@ -1,5 +1,5 @@
 <?php
-$pageTitle = "Twitter";
+$pageTitle = 'Twitter';
 date_default_timezone_set('UTC');
 include_once('includes/session.php');
 

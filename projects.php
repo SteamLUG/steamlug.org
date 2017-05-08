@@ -1,5 +1,5 @@
 <?php
-$pageTitle = "Projects";
+$pageTitle = 'Projects';
 // TODO Clan pages?
 include_once('includes/header.php');
 ?>

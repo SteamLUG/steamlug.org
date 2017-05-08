@@ -1,5 +1,5 @@
 <?php
-$pageTitle = "Live Stream";
+$pageTitle = 'Live Stream';
 
 // because we hate cache
 header("Cache-Control: no-cache, must-revalidate");

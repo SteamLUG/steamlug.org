@@ -1,5 +1,5 @@
 <?php
-	$pageTitle = "Privacy Policy";
+	$pageTitle = 'Privacy Policy';
 	include_once('includes/header.php');
 
 	echo <<<DOCUMENT

@@ -1,5 +1,5 @@
 <?php
-$pageTitle = "Member";
+$pageTitle = 'Member';
 $memberID = isset( $_GET[ 'uid' ] ) ? ($_GET[ 'uid' ] != '' ? $_GET[ 'uid' ]: 'me' ) : 'me';
 
 include_once('includes/session.php');
@@ -118,7 +118,7 @@ if ( !isset( $profile ) or $profile == false ) {
 	exit;
 }
 
-$pageTitle = " – {$profile[ 'personaname' ] } –  Member Page";
+$pageTitle = " – {$profile[ 'personaname' ]} –  Member Page";
 include_once('includes/header.php');
 
 $memberClans = getPlayerClansDB( $profile[ 'steamid' ] );

@@ -1,5 +1,5 @@
 <?php
-	$pageTitle = "Cast Guests";
+	$pageTitle = 'Cast Guests';
 	include_once('includes/header.php');
 
 	echo <<<DOCUMENT

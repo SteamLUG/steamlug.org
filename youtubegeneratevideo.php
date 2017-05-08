@@ -1,5 +1,5 @@
 <?php
-$pageTitle = "Generating YouTube Video";
+$pageTitle = 'Generating YouTube Video';
 ini_set('implicit_flush', 1);
 include_once('includes/session.php');
 

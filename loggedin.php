@@ -1,5 +1,5 @@
 <?php
-	$pageTitle = "Welcome!";
+	$pageTitle = 'Welcome!';
 	include_once('includes/session.php');
 	if (!login_check()) {
 		/* people not logged in should not visit here */

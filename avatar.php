@@ -1,5 +1,5 @@
 <?php
-$pageTitle = "Avatars";
+$pageTitle = 'Avatars';
 include_once('includes/session.php');
 include_once('includes/functions_avatars.php');
 

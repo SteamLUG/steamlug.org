@@ -1,5 +1,5 @@
 <?php
-	$pageTitle = "Polls";
+	$pageTitle = 'Polls';
 	include_once('includes/header.php');
 	include_once('includes/functions_poll.php');
 ?>

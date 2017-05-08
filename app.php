@@ -1,6 +1,6 @@
 <?php
-$pageTitle = "App";
-$appID = isset( $_GET[ 'appid' ] ) ? ($_GET[ 'appid' ] != '' ? $_GET[ 'appid' ]: '0' ) : '0';
+	$pageTitle = 'App';
+	$appID = isset( $_GET[ 'appid' ] ) ? ($_GET[ 'appid' ] != '' ? $_GET[ 'appid' ]: '0' ) : '0';
 
 include_once('includes/session.php');
 include_once('includes/functions_steam.php');

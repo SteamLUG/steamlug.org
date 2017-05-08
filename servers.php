@@ -1,5 +1,5 @@
 <?php
-	$pageTitle = "Servers";
+	$pageTitle = 'Servers';
 	// 60 second cache
 	ini_set('zlib.output_compression', 0);
 	ini_set('implicit_flush', 1);
