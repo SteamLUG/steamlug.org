@@ -6,10 +6,10 @@
 
 	$murmur = getMumble( );
 
-	$statusOnline = "Pending";
+	$statusOnline = 'Pending';
 	$statusChannels = 0;
 	$statusUsers = 0;
-	$statusString = "";
+	$statusString = '';
 	$status = $murmur->get_status();
 	$info = $status['original'];
 
@@ -18,7 +18,7 @@
 	}
 
 	function MumbleTree($array) {
-		$statusString = "";
+		$statusString = '';
 
 		if ( is_array( $array) )
 			usort( $array, 'mumble_sort' );
@@ -33,19 +33,19 @@
 					$statusString .= '<dt class="' . ($peeps > 0? 'populated': ($chans > 0? '': 'empty') ) .
 						( $value['name'] == 'Away From Keyboard' ? ' afk' : '' ) .
 						'"><i class="fa-users text-warning"></i>' . htmlspecialchars($value['name']) . "</dt>\n";
-					$statusString .= "<dd>";
+					$statusString .= '<dd>';
 				}
 				if ( isset($value['channels'] ) && is_array($value['channels']) && (count($value['channels']) !== 0) ) {
 					$statusString .= "<dl>\n" . MumbleTree( $value['channels'] ) . "</dl>\n";
 				}
 				if ( isset( $value['users'] ) && is_array($value['users']) && (count($value['users']) !== 0) ) {
-					$statusString .= "<ul>". MumbleTree( $value['users'] ) . "</ul>\n";
+					$statusString .= '<ul>'. MumbleTree( $value['users'] ) . "</ul>\n";
 				}
 				if (isset($value['name']) && !isset($value['users'])) {
-					$statusString .= "<li><img src=\"/avatars/" . htmlspecialchars($value['name']) . ".png\" onerror=\"this.src='/avatars/default.png'\" />" . htmlspecialchars($value['name']) . "</li>";
+					$statusString .= '<li><img src="/avatars/' . htmlspecialchars($value['name']) . '.png" onerror="this.src=\'/avatars/default.png\'" />' . htmlspecialchars($value['name']) . '</li>';
 				}
 				if (isset($value['name']) && isset($value['users'])) {
-					$statusString .= "</dd>";
+					$statusString .= '</dd>';
 				}
 			}
 		}
@@ -54,20 +54,20 @@
 
 	$users = $murmur->get_users();
 	$rootChannels = $info['root']['channels'];
-	$statusClass = "";
+	$statusClass = '';
 	if($murmur->is_online())
 	{
-		$statusOnline = "Online";
-		$statusChannels = count($murmur->get_channels());
-		$statusUsers = count($users);
-		$statusClass = "panel-default";
+		$statusOnline = 'Online';
+		$statusChannels = count( $murmur->get_channels() );
+		$statusUsers = count( $users );
+		$statusClass = 'panel-default';
 	}
 	else
 	{
-		$statusOnline = "Offline";
-		$statusChannels = "N/A";
-		$statusUsers = "N/A";
-		$statusClass = "panel-danger";
+		$statusOnline = 'Offline';
+		$statusChannels = 'N/A';
+		$statusUsers = 'N/A';
+		$statusClass = 'panel-danger';
 	}
 
 ?>
@@ -111,9 +111,9 @@
 		<div class="panel-body" id="mumble-list">
 <?php
 	if ( isset( $rootChannels ) ) {
-		print "<dl>";
+		print '<dl>';
 		print MumbleTree($rootChannels);
-		print "</dl>";
+		print '</dl>';
 	}
 ?>
 		</div>

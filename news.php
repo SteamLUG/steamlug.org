@@ -40,7 +40,7 @@ TWITTERWIDGET;
 	$rss->CDATA = 'content';
 	$rss->date_format = 'd M o H:i:s e';
 	$rss->items_limit = 6;
-	$rssString = "";
+	$rssString = '';
 	$firstItem = true;
 	if ($rs = $rss->get($eventXMLPath . '/steamlug/rss.xml'))
 	{
@@ -75,22 +75,22 @@ TWITTERWIDGET;
 				$item['description'] = htmlspecialchars_decode($item['description'] );
 
 				$item['description'] = str_replace(array("\r", "\r\n"), "\n", $item['description']);
-				$item['description'] = str_replace(" onclick=\"return AlertNonSteamSite( this );\"", "", $item['description']);
-				$item['description'] = str_replace(" class=\"bb_link\"", "", $item['description']);
-				$item['description'] = str_replace(" class=\"bb_ul\"", "", $item['description']);
-				$item['description'] = str_replace("<br><", "<", $item['description']);
-				$item['description'] = str_replace("<i>", "<em>", $item['description']);
-				$item['description'] = str_replace("</i>", "</em>", $item['description']);
-				$item['description'] = str_replace("<b>", "<strong>", $item['description']);
-				$item['description'] = str_replace("</b>", "</strong>", $item['description']);
-				$item['description'] = str_replace("<br>-----", "-----", $item['description']);
+				$item['description'] = str_replace(' onclick="return AlertNonSteamSite( this );"', '', $item['description']);
+				$item['description'] = str_replace(' class="bb_link"', '', $item['description']);
+				$item['description'] = str_replace(' class="bb_ul"', '', $item['description']);
+				$item['description'] = str_replace('<br><', '<', $item['description']);
+				$item['description'] = str_replace('<i>', '<em>', $item['description']);
+				$item['description'] = str_replace('</i>', '</em>', $item['description']);
+				$item['description'] = str_replace('<b>', '<strong>', $item['description']);
+				$item['description'] = str_replace('</b>', '</strong>', $item['description']);
+				$item['description'] = str_replace('<br>-----', '-----', $item['description']);
 				$item['description'] = str_replace("<br>\n<br>", "</p>\n<p>", $item['description']);
 				$item['description'] = str_replace("</ul>\n\n<br>", "</ul>\n<p>", $item['description']);
-				$item['description'] = str_replace("<ul>", "</p>\n<ul>", $item['description']);
-				$item['description'] = str_replace("<blockquote>", "</p>\n<blockquote>", $item['description']);
-				$item['description'] = str_replace("</blockquote>", "</blockquote>\n<p>", $item['description']);
-				$item['description'] = str_replace("<br>", "<br />", $item['description']);
-				$item['description'] = str_replace("https://steamcommunity.com/linkfilter/?url=", "", $item['description']);
+				$item['description'] = str_replace('<ul>', "</p>\n<ul>", $item['description']);
+				$item['description'] = str_replace('<blockquote>', "</p>\n<blockquote>", $item['description']);
+				$item['description'] = str_replace('</blockquote>', "</blockquote>\n<p>", $item['description']);
+				$item['description'] = str_replace('<br>', '<br />', $item['description']);
+				$item['description'] = str_replace('https://steamcommunity.com/linkfilter/?url=', '', $item['description']);
 
 				if ( true /* false if we dislike */ ) {
 					foreach($youtubePatterns as $pattern) {
@@ -111,15 +111,15 @@ YOUTUBE;
 
 				if (!isset($item['author']))
 				{
-					$item['author'] = "Author";
+					$item['author'] = 'Author';
 				}
-				$addclass = "ourclearfix";
+				$addclass = 'ourclearfix';
 				if ($firstItem == true) {
-					$addclass="col-md-8 col-md-pull-4 fixupbootstrap";
+					$addclass = 'col-md-8 col-md-pull-4 fixupbootstrap';
 					$firstItem = false;
 				}
 				// XXX messy
-				$item['pubDate'] = preg_replace("/([0-9]{4}) /", "\\1 <span class=\"hidden-xxs\">", $item['pubDate']) . "</span>";
+				$item['pubDate'] = preg_replace("/([0-9]{4}) /", '\\1 <span class="hidden-xxs">', $item['pubDate']) . "</span>";
 				?>
 			<article class="panel panel-default steam-parsed <?=$addclass?>">
 				<header class="panel-heading">

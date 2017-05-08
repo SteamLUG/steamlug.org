@@ -15,14 +15,14 @@
 <p>We noticed you’re not a part of SteamLUG, would you kindly <a class="label label-success group-join" href="http://steamcommunity.com/groups/steamlug/">join our Steam Group</a></p>
 JOINLINK;
 	if ( isset( $_SESSION['g'] ) and ( $_SESSION['g'] == true ) ) {
-		$joinGroup = "";
+		$joinGroup = '';
 	}
 
-	$return = "<p><a href=\"/\">Return to home…</a></p>";
+	$return = '<p><a href="/">Return to home…</a></p>';
 
 	if ( isset( $_GET['returnto'] ) ) {
 
-		$return = "<p><a href=\"" . htmlspecialchars($_GET['returnto']) . "\">Return to what you were doing…</a></p>";
+		$return = '<p><a href="' . htmlspecialchars($_GET['returnto']) . '">Return to what you were doing…</a></p>';
 	}
 	$you = htmlspecialchars($_SESSION['n'], ENT_NOQUOTES);
 	echo <<<DOCUMENT

@@ -26,9 +26,9 @@ include_once( 'includes/functions_events.php' );
 include_once( 'includes/functions_cast.php' );
 include_once( 'includes/functions_twitter.php' );
 
-$action	= "Failure";
-$body	= "";
-$style	= " panel-success";
+$action	= 'Failure';
+$body	= '';
+$style	= ' panel-success';
 
 $nextGameEvent	= getNextEvent( false, 3600 );
 $nextCastEvent	= getNextEvent( true, 3600 );
@@ -38,17 +38,17 @@ $recentTweets	= getRecentTweets( );
 // are we supplying tweet, message via POST? → send tweet
 if ( isset( $_POST['tweet'] ) and isset( $_POST['message'] ) ) {
 
-	$action = "Post Tweet";
+	$action = 'Post Tweet';
 	// set $body to a success or fail message
 	$reply = postTweet( $_POST['message'] );
 	// test reply here…
 	if ( array_key_exists( 'errors', $reply ) ) {
 
-		$style = "panel-danger";
+		$style = 'panel-danger';
 		// TODO, do additional checks in the future. Ask admins to copy/paste the error
 		$body = 'Error code ' . $reply['errors'][0]['code'] . ', with message: ' . $reply['errors'][0]['message'] . '<br>';
 		$body .= print_r( $reply, true );
-		$body .= "<br>Please copy/paste the above error, put it in a gist and share with webmaster.";
+		$body .= '<br>Please copy/paste the above error, put it in a gist and share with webmaster.';
 
 	} else {
 
@@ -60,18 +60,18 @@ if ( isset( $_POST['tweet'] ) and isset( $_POST['message'] ) ) {
 // are we supplying delete, key via POST? → delete tweet
 if ( isset( $_POST['delete'] ) and isset( $_POST['key'] ) ) {
 
-	$action = "Delete Tweet";
+	$action = 'Delete Tweet';
 	$tweet = $_POST['key'];
 	// set $body to a success or fail message
 	$reply = deleteTweet( $tweet );
 
 	if ( array_key_exists( 'errors', $reply ) ) {
 
-		$style = "panel-danger";
+		$style = 'panel-danger';
 		// TODO, do additional checks in the future. Ask admins to copy/paste the error
 		$body = 'Error code ' . $reply['errors'][0]['code'] . ', with message: ' . $reply['errors'][0]['message'] . '<br>';
 		$body .= print_r( $reply, true );
-		$body .= "<br>Please copy/paste the above error, put it in a gist and share with webmaster.";
+		$body .= '<br>Please copy/paste the above error, put it in a gist and share with webmaster.';
 
 	} else {
 
@@ -79,18 +79,13 @@ if ( isset( $_POST['delete'] ) and isset( $_POST['key'] ) ) {
 		$body = 'Deleted ' . $tweet . ".<br>\n";
 		$body .= print_r( $reply, true );
 	}
-	// Tweet does not exist:
-	// Array ( [errors] => Array ( [0] => Array ( [code] => 144 [message] => No status found with that ID. ) ) )
-	// Tweet delete ok:
-	// Deleted 576171168509624320 and got Array ( [created_at] => Fri Mar 13 00:01:25 +0000 2015 [id] => 576171168509624320 [id_str] => 576171168509624320 [text] => Hey #Linux gamers! Join us for some Guns of Icarus Online fun! Everybody's welcome! http://t.co/xylp8KEetF [source] => TweetDeck [truncated] => [in_reply_to_status_id] => [in_reply_to_status_id_str] => [in_reply_to_user_id] => [in_reply_to_user_id_str] => [in_reply_to_screen_name] => [user] => Array ( [id] => 1282779350 [id_str] => 1282779350 [name] => SteamLUG [screen_name] => SteamLUG [location] => [profile_location] => [description] => The Steam Linux User Group! A multilingual community of Linux gamers which aims to be a fun, welcoming space for people of all backgrounds and aptitudes [url] => http://t.co/UV563TiKNB [entities] => Array ( [url] => Array ( [urls] => Array ( [0] => Array ( [url] => http://t.co/UV563TiKNB [expanded_url] => http://steamlug.org [display_url] => steamlug.org [indices] => Array ( [0] => 0 [1] => 22 ) ) ) ) [description] => Array ( [urls] => Array ( ) ) ) [protected] => [followers_count] => 338 [friends_count] => 5 [listed_count] => 23 [created_at] => Wed Mar 20 09:10:33 +0000 2013 [favourites_count] => 30 [utc_offset] => [time_zone] => [geo_enabled] => [verified] => [statuses_count] => 851 [lang] => en [contributors_enabled] => [is_translator] => [is_translation_enabled] => [profile_background_color] => C0DEED [profile_background_image_url] => http://abs.twimg.com/images/themes/theme1/bg.png [profile_background_image_url_https] => https://abs.twimg.com/images/themes/theme1/bg.png [profile_background_tile] => [profile_image_url] => http://pbs.twimg.com/profile_images/3420706844/0169c9632f67b7928a84e723fb460380_normal.png [profile_image_url_https] => https://pbs.twimg.com/profile_images/3420706844/0169c9632f67b7928a84e723fb460380_normal.png [profile_link_color] => 0084B4 [profile_sidebar_border_color] => C0DEED [profile_sidebar_fill_color] => DDEEF6 [profile_text_color] => 333333 [profile_use_background_image] => 1 [default_profile] => 1 [default_profile_image] => [following] => [follow_request_sent] => [notifications] => ) [geo] => [coordinates] => [place] => [contributors] => [retweet_count] => 2 [favorite_count] => 2 [entities] => Array ( [hashtags] => Array ( [0] => Array ( [text] => Linux [indices] => Array ( [0] => 4 [1] => 10 ) ) ) [symbols] => Array ( ) [user_mentions] => Array ( ) [urls] => Array ( [0] => Array ( [url] => http://t.co/xylp8KEetF [expanded_url] => http://steamcommunity.com/groups/steamlug#events/116304948101305169 [display_url] => steamcommunity.com/groups/steamlu… [indices] => Array ( [0] => 84 [1] => 106 ) ) ) ) [favorited] => [retweeted] => [possibly_sensitive] => [lang] => en )
-
 }
 $tailJS = array( '/scripts/twitter.js' );
 include_once( 'includes/header.php' );
 
-print "<h1 class=\"text-center\">Tweet‐me‐stuff</h1>";
+print '<h1 class="text-center">Tweet‐me‐stuff</h1>';
 
-if ( $body !== "" ) {
+if ( $body !== '' ) {
 print <<<ACTIONMSG
 			<article class="panel panel-default {$style}">
 				<header class="panel-heading">
@@ -130,14 +125,14 @@ if ( $nextGameEvent != null ) {
 	// TODO check current time vs now; this is heavily reliant on XML information
 	print_r ( $nextGameEvent );
 	$eventDate = new DateTime(); $eventDate->setTimestamp($nextGameEvent['utctime']);
-	$diff = date_diff($eventDate, new DateTime("now"));
+	$diff = date_diff( $eventDate, new DateTime( 'now' ) );
 	$difference = formatTimeDifference($diff);
 	$laterMessage = 'Hey #Linux gamers, join us for some ' . $nextGameEvent['title'] . " in {$difference}! Everybody’s welcome " . $nextGameEvent['url'];
 	$typicalMessage = 'Hey #Linux gamers, join us for some ' . $nextGameEvent['title'] . ' fun! Everybody’s welcome ' . $nextGameEvent['url'];
-	$when = str_replace( 'T', ' ', str_replace( '+00:00', '', date("c", $nextGameEvent['utctime'] ) ) ) . '.';
+	$when = str_replace( 'T', ' ', str_replace( '+00:00', '', date( 'c', $nextGameEvent['utctime'] ) ) ) . '.';
 } else {
 	$when = 'a future date when someone creates the event!';
-	$laterMessage = $typicalMessage = "Hey #Linux gamers, join us for some gaming fun! Everybody’s welcome";
+	$laterMessage = $typicalMessage = 'Hey #Linux gamers, join us for some gaming fun! Everybody’s welcome';
 }
 print "-->\n";
 ?>
@@ -169,14 +164,14 @@ if ( $nextCastEvent != null ) {
 
 	print_r ( $nextCastEvent );
 	$eventDate = new DateTime(); $eventDate->setTimestamp($nextCastEvent['utctime']);
-	$diff = date_diff($eventDate, new DateTime("now"));
+	$diff = date_diff( $eventDate, new DateTime( 'now' ) );
 	$difference = formatTimeDifference($diff);
 	$laterMessage = "Join us for the live recording of SteamLUG Cast in {$difference}, where we will be talking about %stuff. " . $nextCastEvent['url'];
-	$typicalMessage = "Join us for the live recording of SteamLUG Cast, where we will be talking about %stuff. " . $nextCastEvent['url'];
-	$when = str_replace( 'T', ' ', str_replace( '+00:00', '', date("c", $nextCastEvent['utctime'] ) ) ) . '.';
+	$typicalMessage = 'Join us for the live recording of SteamLUG Cast, where we will be talking about %stuff. ' . $nextCastEvent['url'];
+	$when = str_replace( 'T', ' ', str_replace( '+00:00', '', date( 'c', $nextCastEvent['utctime'] ) ) ) . '.';
 } else {
 	$when = 'a future date when someone creates the event!';
-	$laterMessage = $typicalMessage = "Join us for the live recording of SteamLUG Cast";
+	$laterMessage = $typicalMessage = 'Join us for the live recording of SteamLUG Cast';
 }
 print "-->\n";
 ?>
@@ -225,7 +220,7 @@ if ( $latestCast != false ) {
 	}
 	$hosts = ( empty($listHostsTwits) ? '' : implode( ', ', $listHostsTwits) );
 	$guests = ( empty($listGuestsTwits) ? '' : ' speaking with ' . implode( ', ', $listGuestsTwits) );
-	$warning = ( $latestCast['PUBLISHED'] === "" ? '<span class="warning">In Progress</span>' : '<time datetime="' . $latestCast['PUBLISHED'] . '">' . $latestCast['PUBLISHED'] . '</time>' );
+	$warning = ( $latestCast['PUBLISHED'] === '' ? '<span class="warning">In Progress</span>' : '<time datetime="' . $latestCast['PUBLISHED'] . '">' . $latestCast['PUBLISHED'] . '</time>' );
 	$typicalMessage = "SteamLUG Cast {$latestCast['SLUG']} ‘{$latestCast['TITLE']}’ with {$hosts}{$guests} is now available to listen to https://steamlug.org/cast/{$latestCast['SLUG']}";
 ?>
 			<article class="panel panel-default twit">
@@ -265,7 +260,7 @@ if ( $latestCast != false ) {
 		print "\n<!-- ";
 		print_r( $tweet );
 		print " -->\n";
-		$tweet['created_at'] = str_replace( '+00:00', '', date("c", strtotime( $tweet['created_at'] ) ) );
+		$tweet['created_at'] = str_replace( '+00:00', '', date( 'c', strtotime( $tweet['created_at'] ) ) );
 		$tweet['created_str'] = '<time datetime="' . $tweet['created_at'] . '">' . $tweet['created_at'] . '</time>';
 		echo <<<TWEET
 				<tr>

@@ -54,7 +54,7 @@
 DOCUMENT;
 
 	$approvedUsers = getAdminNames();
-	$memaybe = "";
+	$memaybe = '';
 	// TODO should this pull Steam Group admins, to show if we have any differences?
 	foreach ($approvedUsers as $admin) {
 		print "\n<!-- ";
@@ -62,9 +62,9 @@ DOCUMENT;
 		print " -->\n";
 		if ($admin['personastate'] != 0) {
 			$thenDate = new DateTime(); $thenDate->setTimestamp($admin['lastlogoff']);
-			$diff = date_diff($thenDate, new DateTime("now"));
-			$admin['lastlogoffdate'] = '<time datetime="' . date("c",$admin['lastlogoff']) .
-										'">' . $diff->format("%a days, %H hours") . '</time>';
+			$diff = date_diff( $thenDate, new DateTime( 'now' ) );
+			$admin['lastlogoffdate'] = '<time datetime="' . date( 'c', $admin['lastlogoff'] ) .
+										'">' . $diff->format( '%a days, %H hours' ) . '</time>';
 		} else {
 			$admin['lastlogoffdate'] = 'Offline';
 		}

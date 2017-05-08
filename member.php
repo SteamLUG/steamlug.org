@@ -44,9 +44,9 @@ if ( isset( $_POST['unstore'] ) ) {
 	}
 }
 
-$accountUpdate = "";
+$accountUpdate = '';
 
-if ( $memberID == "me" and isset( $me ) ) {
+if ( $memberID == 'me' and isset( $me ) ) {
 
 	// XXX this currently fails to show the remove account if current user visits their public link. change?
 	$profile = getPlayerSummaryDB( $me );
@@ -104,7 +104,7 @@ GAMEOVERMAN;
 	// assume $memberID is SteamID64, fetch user, and …
 	$profile = getPlayerSummaryDB( $memberID );
 
-} elseif ( $memberID != "me" ) {
+} elseif ( $memberID != 'me' ) {
 
 	// assume $memberID is vanity url, search user, and …
 	$profile = findPlayerSummaryDB( $memberID );
@@ -122,7 +122,7 @@ $pageTitle = " – {$profile[ 'personaname' ]} –  Member Page";
 include_once( 'includes/header.php' );
 
 $memberClans = getPlayerClansDB( $profile[ 'steamid' ] );
-$clans = "";
+$clans = '';
 
 if ( $memberClans != false ) {
 	$clans = <<<STARTCLANS
@@ -147,7 +147,7 @@ ENDCLANS;
 }
 
 $recentEvents = getRecentAttendance( $profile[ 'steamid' ] );
-$events = "";
+$events = '';
 
 if ( $recentEvents != false ) {
 	$events = <<<STARTEVENTS
@@ -170,7 +170,7 @@ STARTEVENTS;
 ENDEVENTS;
 }
 
-$lovehatesteamlug = '<a href="//steamcommunity.com/groups/steamlug">' . ( $profile[ 'isgroupmember' ] ? "Loves SteamLUG!" : "Hasn’t joined SteamLUG proper" ) . '</a>';
+$lovehatesteamlug = '<a href="//steamcommunity.com/groups/steamlug">' . ( $profile[ 'isgroupmember' ] ? 'Loves SteamLUG!' : 'Hasn’t joined SteamLUG proper' ) . '</a>';
 $share = ( ( !array_key_exists( 'memberurl', $profile ) || ( $profile[ 'memberurl' ] == '' ) ) ? '' : "<a href=\"{$profile[ 'memberurl' ]}\">Share your profile</a><br>");
 
 /*
