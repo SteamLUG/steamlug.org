@@ -88,7 +88,7 @@ if ( true ) {
 echo $date . ': ' . count($appslist) . ' known apps, ' . $onlinux . " marked for Linux.\n<br>";
 
 $members = getGroupMembers();
-echo $date . ': ' . echo count($members) . " members.\n<br>";
+echo $date . ': ' . count($members) . " members.\n<br>";
 
 /* pointless stats tracking GET! */
 $appsmin = 2000;
