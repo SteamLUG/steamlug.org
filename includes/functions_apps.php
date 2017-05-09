@@ -34,7 +34,7 @@ function getSteamAppsDB( ) {
 
 	} catch ( Exception $e ) {
 
-		print time(). ": Oops, database failure: " . $e;
+		echo time( ) . ': Oops, database failure: ' . $e;
 	}
 	return false;
 }
@@ -65,7 +65,7 @@ function storeAppsDB( $apps ) {
 
 	} catch ( Exception $e ) {
 
-		print time(). ": Oops, database failure: " . $e;
+		echo time( ) . ': Oops, database failure: ' . $e;
 	}
 
 }
@@ -93,7 +93,7 @@ function getApp( $appid ) {
 
 	} catch ( Exception $e ) {
 
-		print time(). ": Oops, database failure: " . $e;
+		echo time( ) . ': Oops, database failure: ' . $e;
 	}
 	return false;
 }

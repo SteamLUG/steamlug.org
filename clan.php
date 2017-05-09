@@ -42,7 +42,7 @@ if ( $clanID == false and isset( $me ) ) {
 
 	// assume we’re not logged in + no requested clan
 	header( 'HTTP/1.0 404 Not Found' );
-	exit;
+	exit( );
 }
 
 if ( $clanID == false and isset( $me ) ) {

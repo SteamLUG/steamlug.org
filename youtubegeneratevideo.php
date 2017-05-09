@@ -1,28 +1,28 @@
 <?php
 $pageTitle = 'Generating YouTube Video';
-ini_set('implicit_flush', 1);
+ini_set( 'implicit_flush', 1 );
 include_once( 'includes/session.php' );
 
 // are we logged in? no → leave
-if ( ! login_check() ) {
+if ( ! login_check( ) ) {
 	header( 'Location: /' );
-	exit();
+	exit( );
 } else {
 	$me = $_SESSION['u'];
 }
 
 // are we admin? no → leave
-if ( in_array( $me, getAdmins() ) ) {
+if ( in_array( $me, getAdmins( ) ) ) {
 } else {
 	header( 'Location: /' );
-	exit();
+	exit( );
 }
 
 include_once( 'includes/functions_cast.php' );
 include_once( 'includes/functions_castvideo.php' );
 include_once( 'includes/header.php' );
 
-ob_flush();
+ob_flush( );
 
 $action	= 'Failure';
 $body	= '';
@@ -32,15 +32,15 @@ $style	= ' panel-success';
 $force = isset( $_GET[ 'force' ] ) ? true : false;
 
 /* User wanting to see a specific cast, and shownotes file exists */
-if ( $season !== '00' && $episode !== '00' && ($meta = getCastHeader( $slug ) ) ) {
+if ( $season !== '00' && $episode !== '00' && ( $meta = getCastHeader( $slug ) ) ) {
 
 	if ( file_exists( $meta[ 'ABSFILENAME' ] . '.ogg' ) ) {
 
 		if ( empty( $meta[ 'YOUTUBE' ] ) or $force ) {
-			flush(); /* visitor should get better indication that the page is actually loading now */
-			ob_start();
+			flush( ); /* visitor should get better indication that the page is actually loading now */
+			ob_start( );
 			$reply = generateVideo( $season, $episode );
-			$debugoutput = ob_get_clean();
+			$debugoutput = ob_get_clean( );
 		} else {
 			$reply = false;
 			$debugoutput = 'This cast already has a YouTube Video';

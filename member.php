@@ -1,6 +1,6 @@
 <?php
 $pageTitle = 'Member';
-$memberID = isset( $_GET[ 'uid' ] ) ? ($_GET[ 'uid' ] != '' ? $_GET[ 'uid' ]: 'me' ) : 'me';
+$memberID = isset( $_GET[ 'uid' ] ) ? ($_GET[ 'uid' ] != '' ? $_GET[ 'uid' ] : 'me' ) : 'me';
 
 include_once( 'includes/session.php' );
 include_once( 'includes/functions_steam.php' );
@@ -111,12 +111,12 @@ GAMEOVERMAN;
 	$profile = findPlayerSummaryDB( $memberID );
 }
 
-if ( !isset( $profile ) or $profile == false ) {
+if ( ! isset( $profile ) or $profile == false ) {
 
 	// oh right, we should not 404 because logging in on a page like this will break. fml.
 	// header( 'HTTP/1.0 404 Not Found' );
 	header( 'Location: /' );
-	exit;
+	exit( );
 }
 
 $pageTitle = " – {$profile[ 'personaname' ]} –  Member Page";
@@ -172,7 +172,7 @@ ENDEVENTS;
 }
 
 $lovehatesteamlug = '<a href="//steamcommunity.com/groups/steamlug">' . ( $profile[ 'isgroupmember' ] ? 'Loves SteamLUG!' : 'Hasn’t joined SteamLUG proper' ) . '</a>';
-$share = ( ( !array_key_exists( 'memberurl', $profile ) || ( $profile[ 'memberurl' ] == '' ) ) ? '' : "<a href=\"{$profile[ 'memberurl' ]}\">Share your profile</a><br>");
+$share = ( ( ! array_key_exists( 'memberurl', $profile ) || ( $profile[ 'memberurl' ] == '' ) ) ? '' : "<a href=\"{$profile[ 'memberurl' ]}\">Share your profile</a><br>");
 
 /*
 This is WIP, no idea how we want to present it atm…

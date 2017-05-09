@@ -1,10 +1,8 @@
 <?php
 $pageTitle = 'Live Stream';
-
 // because we hate cache
 header( 'Cache-Control: no-cache, must-revalidate' );
 // HTTP 1.0ld header( 'Pragma: no-cache' );
-
 include_once( 'includes/header.php' );
 include_once( 'includes/functions_events.php' );
 include_once( 'includes/functions_geturl.php' );
@@ -12,30 +10,27 @@ include_once(  'includes/functions_mumble.php' );
 
 $murmur = getMumble( );
 $maxUsers = $murmur->get_status( )['original']['x_gtmurmur_max_users'];
-$mumbleHeader = ": Offline";
-if( $murmur->is_online( ) ) {
+$mumbleHeader = ': Offline';
+if ( $murmur->is_online( ) ) {
 	$mumbleHeader = ': Online, ' . count( $murmur->get_users( ) ) . ' ⁄ ' . $maxUsers;
 }
 
 $data = getNextEvent( false );
-
 $someoneStreaming = false;
 $twitchOnline = false;
 $hitboxOnline = false;
-$streamers = "";
-
 $streamers = '<div class="row">';
 /* Twitch */
-$maybeOnline = geturl( 'https://api.twitch.tv/kraken/streams/steamlug', array(), array( 'Accept: application/vnd.twitchtv.v3.json' ) );
+$maybeOnline = geturl( 'https://api.twitch.tv/kraken/streams/steamlug', array( ), array( 'Accept: application/vnd.twitchtv.v3.json' ) );
 $twitchStream = json_decode( $maybeOnline, true );
 if ( $twitchStream['stream'] != null ) {
 	$someoneStreaming = true;
 	$twitchOnline = true;
 } else {
 	// if Twitch is offline, maybe we can pull the channel following
-	$twitchUsers = geturl( 'https://api.twitch.tv/kraken/users/steamlug/follows/channels', array(), array( 'Accept: application/vnd.twitchtv.v3.json' ) );
+	$twitchUsers = geturl( 'https://api.twitch.tv/kraken/users/steamlug/follows/channels', array( ), array( 'Accept: application/vnd.twitchtv.v3.json' ) );
 	$twitchStreamers = @json_decode( $twitchUsers, true );
-	$twitchPeeps = "";
+	$twitchPeeps = '';
 	if ( $twitchStreamers != null ) {
 		foreach ( $twitchStreamers['follows'] as $streamer ) {
 			$person = $streamer['channel'];
@@ -65,14 +60,13 @@ TWITCHBOX;
 /* HitBox */
 $hitboxUsers = geturl( 'http://api.hitbox.tv/team/steamlug' );
 $hitboxStreamers = @json_decode( $hitboxUsers, true );
-$hitboxPeeps = "";
+$hitboxPeeps = '';
 if ( $hitboxStreamers != null ) {
 	foreach ( $hitboxStreamers['members'] as $streamer ) {
-		$hitboxPeeps .= '<li>';
-		$hitboxPeeps .= '<a href="http://hitbox.tv/' . $streamer['user_name'] . '">';
-		$hitboxPeeps .= '<img src="//edge.sf.hitbox.tv/' . $streamer['user_logo_small'] . '" alt="A lovely picture of ' . $streamer['user_name'] . '" />';
-		$hitboxPeeps .= $streamer['user_name'] . '</a>';
-		$hitboxPeeps .= '</li>';
+		$hitboxPeeps .= <<<HITBOXPEEP
+<li><a href="http://hitbox.tv/{$streamer['user_name']}"><img src="//edge.sf.hitbox.tv/{$streamer['user_logo_small']}"
+alt="A lovely picture of {$streamer['user_name']}" />{$streamer['user_name']}</a></li>
+HITBOXPEEP;
 		/*
 		if ( $streamer['user_name'] == 'steamlug' and $streamer['is_live'] == 1) {
 			$someoneStreaming = true;
@@ -99,7 +93,7 @@ $streamers .= '</div>';
 
 /* If Streaming, we should: hide <h1> title, remove Next Event: */
 /* If not-streaming, show current hitbox team roster? */
-if (!$someoneStreaming) {
+if ( ! $someoneStreaming ) {
 	echo '<h1 class="text-center">Live Stream</h1>';
 }
 ?>
@@ -125,7 +119,7 @@ if (!$someoneStreaming) {
 					</div>
 <?php
 
-if ($hitboxOnline) {
+if ( $hitboxOnline ) {
 
 echo <<<HITBOX
 			<article class="panel panel-default">
@@ -139,7 +133,7 @@ echo <<<HITBOX
 				</div>
 			</article>
 HITBOX;
-} else if ($twitchOnline) {
+} elseif ( $twitchOnline ) {
 
 echo <<<TWITCH
 			<article class="panel panel-default">
@@ -174,5 +168,4 @@ WHELP;
 
 	echo $streamers;
 }
-
 include_once( 'includes/footer.php' );

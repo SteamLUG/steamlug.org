@@ -9,33 +9,33 @@ include_once( 'includes/functions_apps.php' );
 set_time_limit( 10000 );
 
 // are we logged in? no → leave
-if ( ! login_check() ) {
+if ( ! login_check( ) ) {
 	header( 'Location: /' );
-	exit();
+	exit( );
 } else {
 	$me = $_SESSION['u'];
 }
 // are we admin? no → leave
-if ( in_array( $me, getAdmins() ) ) {
+if ( in_array( $me, getAdmins( ) ) ) {
 } else {
 	header( 'Location: /' );
-	exit();
+	exit( );
 }
 
 $date = date( 'Y-m-d' );
 echo $date . ': Starting stats gathering: ' . date( 'c' ) . "\n<br>";
 
-$database = connectDB();
+$database = connectDB( );
 
 /* TODO: make this script look for the most recent date,
 	* compare to today → fail
 	* < 2 weeks since last check → fail
 	* == 2 weeks → gfi */
-foreach( $database->query( "SELECT count(1) AS number FROM steamlug.memberstats WHERE `date`='" . $date . "' LIMIT 1" ) as $res ) {
+foreach ( $database->query( "SELECT count(1) AS number FROM steamlug.memberstats WHERE `date`='" . $date . "' LIMIT 1" ) as $res ) {
 
 	if ( $res[ 'number' ] == '1' ) {
 		echo $date . ': We have already captured stats for today! Ending script.';
-		exit;
+		exit( );
 	}
 }
 
@@ -85,10 +85,10 @@ if ( true ) {
 
 	$appslist = getSteamAppsDB( );
 }
-echo $date . ': ' . count($appslist) . ' known apps, ' . $onlinux . " marked for Linux.\n<br>";
+echo $date . ': ' . count( $appslist ) . ' known apps, ' . $onlinux . " marked for Linux.\n<br>";
 
-$members = getGroupMembers();
-echo $date . ': ' . count($members) . " members.\n<br>";
+$members = getGroupMembers( );
+echo $date . ': ' . count( $members ) . " members.\n<br>";
 
 /* pointless stats tracking GET! */
 $appsmin = 2000;
@@ -103,7 +103,7 @@ foreach ( $members as $member ) {
 		$publicMembers++;
 		/* echo $member . " has " . $memberGames[ 'game_count' ] . " apps.\n<br>"; */
 
-		if ( ($memberGames[ 'game_count' ] > 0) and array_key_exists( 'games', $memberGames ) ) {
+		if ( ( $memberGames[ 'game_count' ] > 0 ) and array_key_exists( 'games', $memberGames ) ) {
 
 			if ( $memberGames[ 'game_count' ] > $appsmax )
 				$appsmax = $memberGames[ 'game_count' ];
@@ -139,7 +139,7 @@ foreach ( $members as $member ) {
 }
 
 echo $date . ': Completed stats gathering: ' . date( 'c' ) . "\n<br>";
-echo $date . ': ' . $publicMembers . ' public member profiles of ' . count($members ) . ' members read on ' . date( 'c' ) . "\n<br>";
+echo $date . ': ' . $publicMembers . ' public member profiles of ' . count( $members ) . ' members read on ' . date( 'c' ) . "\n<br>";
 flush( );
 
 $storestats = $database->prepare( 'INSERT INTO appstats (date, appid, owners, playtime, fortnight, playersfortnight) VALUES (:date, :appid, :owners, :playtime, :fortnight, :playersfortnight)' );
@@ -176,7 +176,7 @@ try {
 	$storegroupstats->execute( array(
 		'date' => $date,
 		'pubcount' => $publicMembers,
-		'count' => count($members),
+		'count' => count( $members ),
 		'min' => $appsmin,
 		'max' => $appsmax ) );
 	$database->commit( );
@@ -193,6 +193,6 @@ fclose( $logger );
 */
 
 echo $date . ': Completed stats storing: ' . date( 'c' ) . "\n<br>";
-$completion = microtime(true) - $_SERVER[ 'REQUEST_TIME_FLOAT' ];
+$completion = microtime( true ) - $_SERVER[ 'REQUEST_TIME_FLOAT' ];
 echo $date . ": Process Time: {$completion}.";
 echo $date . ': Memory: ' . memory_get_usage( ) . "\n<br>";

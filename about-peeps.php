@@ -1,8 +1,7 @@
 <?php
 $pageTitle = 'About Peeps';
 include_once( 'includes/header.php' );
-
-echo <<<DOCUMENT
+?>
 		<h1 class="text-center">SteamLUG Admins</h1>
 		<section id="peeps">
 
@@ -100,6 +99,6 @@ echo <<<DOCUMENT
 				</div>
 			</article>
 		<section>
-DOCUMENT;
 
+<?php
 include_once( 'includes/footer.php' );

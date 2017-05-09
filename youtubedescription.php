@@ -2,12 +2,12 @@
 header( 'Content-Type: text/html; charset=UTF-8' );
 include_once( 'includes/functions_cast.php' );
 
-function slenc($u) {
+function slenc( $u ) {
 	return htmlentities( $u, ENT_QUOTES, 'UTF-8' );
 }
 
 /* User wanting to see a specific cast, and shownotes file exists */
-if ( $season !== '00' && $episode !== '00' && ($meta = getCastHeader( $slug ) ) ) {
+if ( $season !== '00' && $episode !== '00' && ( $meta = getCastHeader( $slug ) ) ) {
 
 	$shownotes			= getCastBody( $slug );
 	$meta[ 'RECORDED' ]	= ( $meta[ 'RECORDED' ] === '' ? 'N/A' : $meta[ 'RECORDED' ] );
@@ -18,8 +18,8 @@ if ( $season !== '00' && $episode !== '00' && ($meta = getCastHeader( $slug ) ) 
 
 	foreach ( $shownotes as $note ) {
 		preg_replace_callback( '/(\d+:\d+:\d+)\s+\*(.*)\*/',
-			function($matches) {
-				echo slenc($matches[1]) . ' ' . slenc($matches[2]) . '<br>';
+			function( $matches ) {
+				echo slenc( $matches[1] ) . ' ' . slenc( $matches[2] ) . '<br>';
 			}, $note );
 	}
 	echo <<<FOOTERMSG

@@ -4,9 +4,8 @@ include_once( 'includes/header.php' );
 // TODO link to about-peeps
 // TODO refactor now that we’re into our 3rd year of Steam Linux gaming
 // TODO up-date history and site references
-
 ?>
-<h1 class="text-center">About SteamLUG</h1>
+		<h1 class="text-center">About SteamLUG</h1>
 		<article class="panel panel-default">
 			<header class="panel-heading">
 				<h3 class="panel-title">Community</h3>

@@ -152,8 +152,6 @@ if ( !isset( $database ) )
 			print_r($database->errorInfo());
 		}
 
-		//print_r($poll);
-		//print_r($options);
 		echo "<article class=\"panel panel-primary\">
 				<div class=\"panel-heading\">";
 		echo "\t<h3 class=\"panel-title\" data-poll-id=\"" . $poll['id'] . "\">" . htmlspecialchars($poll['title'], ENT_QUOTES) . "</h3>";
@@ -349,7 +347,7 @@ if ( !isset( $database ) )
 									$stmt->closeCursor();
 								}
 							}
-							else if ($_POST['option_name'][$i] != "")
+							elseif ($_POST['option_name'][$i] != "")
 							{
 								//insert
 								$stmt = $database->prepare("insert into poll_option (name, description, url, pollID, responseCount) values (:name, :description, :url, :pollID, 0)");

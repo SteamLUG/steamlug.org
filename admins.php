@@ -9,7 +9,6 @@ if ( ! login_check() ) {
 } else {
 	$me = $_SESSION['u'];
 }
-
 include_once( 'includes/header.php' );
 include_once( 'includes/functions_steam.php' );
 

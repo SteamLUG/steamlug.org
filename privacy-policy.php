@@ -1,8 +1,7 @@
 <?php
 $pageTitle = 'Privacy Policy';
 include_once( 'includes/header.php' );
-
-echo <<<DOCUMENT
+?>
 		<h1 class="text-center">Privacy Policy</h1>
 		<section id="pp">
 
@@ -51,6 +50,6 @@ echo <<<DOCUMENT
 				</div>
 			</article>
 		</section>
-DOCUMENT;
 
+<?php
 include_once( 'includes/footer.php' );

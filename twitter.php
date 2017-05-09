@@ -1,6 +1,6 @@
 <?php
 $pageTitle = 'Twitter';
-date_default_timezone_set('UTC');
+date_default_timezone_set( 'UTC' );
 include_once( 'includes/session.php' );
 
 // TODO, verify what happens if we post over the tweet length limit
@@ -8,18 +8,18 @@ include_once( 'includes/session.php' );
 // TODO, verify CURL doesn’t have issues (apparently it will)
 
 // are we logged in? no → leave
-if ( ! login_check() ) {
+if ( ! login_check( ) ) {
 	header( 'Location: /' );
-	exit();
+	exit( );
 } else {
 	$me = $_SESSION['u'];
 }
 
 // are we admin? no → leave
-if ( in_array( $me, getAdmins() ) ) {
+if ( in_array( $me, getAdmins( ) ) ) {
 } else {
 	header( 'Location: /' );
-	exit();
+	exit( );
 }
 
 include_once( 'includes/functions_events.php' );
@@ -92,7 +92,7 @@ if ( $body !== '' ) {
 ACTIONMSG;
 }
 
-function formatTimeDifference($diff) {
+function formatTimeDifference( $diff ) {
 	if ( $diff->invert == 0 ) {
 		return 'the past';
 	}
@@ -106,19 +106,19 @@ function formatTimeDifference($diff) {
 	if ( $diff->i > 45 ) {
 		// Round up if we just missed the hour mark
 		$hours += 1;
-	} else if ( $diff->i >= 15 ) {
+	} elseif ( $diff->i >= 15 ) {
 		// Indicate that the difference is not close to a whole hour
 		$hours .= '½';
 	}
-	return $hours . ($hours === 1 ? ' hour' : ' hours');
+	return $hours . ( $hours === 1 ? ' hour' : ' hours' );
 }
 
 if ( $nextGameEvent != null ) {
 
 	// TODO check current time vs now; this is heavily reliant on XML information
-	$eventDate = new DateTime(); $eventDate->setTimestamp($nextGameEvent['utctime']);
+	$eventDate = new DateTime( ); $eventDate->setTimestamp( $nextGameEvent['utctime'] );
 	$diff = date_diff( $eventDate, new DateTime( 'now' ) );
-	$difference = formatTimeDifference($diff);
+	$difference = formatTimeDifference( $diff );
 	$laterMessage = 'Hey #Linux gamers, join us for some ' . $nextGameEvent['title'] . " in {$difference}! Everybody’s welcome " . $nextGameEvent['url'];
 	$typicalMessage = 'Hey #Linux gamers, join us for some ' . $nextGameEvent['title'] . ' fun! Everybody’s welcome ' . $nextGameEvent['url'];
 	$when = str_replace( 'T', ' ', str_replace( '+00:00', '', date( 'c', $nextGameEvent['utctime'] ) ) ) . '.';
@@ -155,9 +155,9 @@ EVENTMSG;
 
 if ( $nextCastEvent != null ) {
 
-	$eventDate = new DateTime(); $eventDate->setTimestamp($nextCastEvent['utctime']);
+	$eventDate = new DateTime( ); $eventDate->setTimestamp( $nextCastEvent['utctime'] );
 	$diff = date_diff( $eventDate, new DateTime( 'now' ) );
-	$difference = formatTimeDifference($diff);
+	$difference = formatTimeDifference( $diff );
 	$laterMessage = "Join us for the live recording of SteamLUG Cast in {$difference}, where we will be talking about %stuff. " . $nextCastEvent['url'];
 	$typicalMessage = 'Join us for the live recording of SteamLUG Cast, where we will be talking about %stuff. ' . $nextCastEvent['url'];
 	$when = str_replace( 'T', ' ', str_replace( '+00:00', '', date( 'c', $nextCastEvent['utctime'] ) ) ) . '.';
@@ -195,8 +195,8 @@ CASTRECORDINGMSG;
 if ( $latestCast != false ) {
 	// fetch latest episode and get deets
 
-	$listHostsTwits = array(); $listGuestsTwits = array();
-	foreach ($latestCast['HOSTS2'] as $Host) {
+	$listHostsTwits = array( ); $listGuestsTwits = array( );
+	foreach ( $latestCast['HOSTS2'] as $Host ) {
 		if ( strlen( $Host['twitter'] ) > 0 )
 			$listHostsTwits[] = '@' . $Host['twitter'];
 		else
@@ -209,8 +209,8 @@ if ( $latestCast != false ) {
 		else
 			$listGuestsTwits[] = $Guest['name'];
 	}
-	$hosts = ( empty($listHostsTwits) ? '' : implode( ', ', $listHostsTwits) );
-	$guests = ( empty($listGuestsTwits) ? '' : ' speaking with ' . implode( ', ', $listGuestsTwits) );
+	$hosts = ( empty( $listHostsTwits ) ? '' : implode( ', ', $listHostsTwits) );
+	$guests = ( empty( $listGuestsTwits ) ? '' : ' speaking with ' . implode( ', ', $listGuestsTwits) );
 	$warning = ( $latestCast['PUBLISHED'] === '' ? '<span class="warning">In Progress</span>' : "<time datetime=\"{$latestCast['PUBLISHED']}\">{$latestCast['PUBLISHED']}</time>" );
 	$typicalMessage = "SteamLUG Cast {$latestCast['SLUG']} ‘{$latestCast['TITLE']}’ with {$hosts}{$guests} is now available to listen to https://steamlug.org/cast/{$latestCast['SLUG']}";
 
@@ -252,7 +252,7 @@ echo <<<DELETETABLEHEAD
 DELETETABLEHEAD;
 
 	// recent tweets, option to delete
-	foreach ($recentTweets as $tweet) {
+	foreach ( $recentTweets as $tweet ) {
 		$tweet['created_at'] = str_replace( '+00:00', '', date( 'c', strtotime( $tweet['created_at'] ) ) );
 		$tweet['created_str'] = '<time datetime="' . $tweet['created_at'] . '">' . $tweet['created_at'] . '</time>';
 		echo <<<TWEET

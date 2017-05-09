@@ -43,7 +43,7 @@
 All registered trademarks or copyrights are property of their respective owners.</p>
 <?php
 if ( $weareadmin ) {
-	print '<p class="text-muted credit text-center">Memory: ' . memory_get_usage( ) . '</p>';
+	echo '<p class="text-muted credit text-center">Memory: ' . memory_get_usage( ) . '</p>';
 }
 ?>
 			</div>

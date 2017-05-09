@@ -44,13 +44,12 @@ SVGPLATE;
  */
 function _gameplate( $string, $offset ) {
 
-	$url = "";
-	foreach ( explode( " ", $string ) as $data ) {
+	$url = '';
+	foreach ( explode( ' ', $string ) as $data ) {
 
 		// appid numbers
 		if ( preg_match( '/^([0-9]*)$/i', $data, $appidResult ) ) {
 			$appid = $appidResult[1];
-
 		} else {
 			$url = $data;
 		}
@@ -62,7 +61,7 @@ function _gameplate( $string, $offset ) {
 
 		/* TODO check this is all good, all the time */
 		$localcopy = "/avatars/apps/{$appid}.capsule_184x69.jpg";
-		if ( file_exists( '.' . $localcopy ) and !is_dir( '.' . $localcopy ) ) {
+		if ( file_exists( '.' . $localcopy ) and ! is_dir( '.' . $localcopy ) ) {
 			$url = $localcopy;
 		} else {
 			if ( writeURLToLocation( 'http:' . $url, '.' . $localcopy ) ) {
@@ -102,13 +101,13 @@ function generateImage( $season, $episode ) {
 
 		$guestsBlockOffset = 0; $hostsBlockOffset = 0;
 		$titleOffset = 360; // where to offset title with no guests
-		$guestsIncludeString = ""; $hostsIncludeString = "";
+		$guestsIncludeString = ''; $hostsIncludeString = '';
 		$alignment = array(0, 610, 520, 430, 340, 250, 160, 50);
 
 		$hostsBlockOffset = $alignment[count($meta['HOSTS'])]; $startIndex = 0;
 		foreach ($meta['HOSTS'] as $Host) {
 
-			if ($Host == "") break;
+			if ($Host == '') break;
 			$hostsIncludeString .= _nameplate( $Host, $startIndex ) ;
 			$startIndex += 180;
 		}
@@ -116,11 +115,11 @@ function generateImage( $season, $episode ) {
 		$guestsBlockOffset = $alignment[count($meta['GUESTS'])]; $startIndex = 0;
 		foreach ($meta['GUESTS'] as $Guest) {
 
-			if ($Guest == "") break;
+			if ($Guest == '') break;
 			$guestsIncludeString .= _nameplate( $Guest, $startIndex, true );
 			$startIndex += 180;
 		}
-		$gamesString = "";
+		$gamesString = '';
 
 		if ( strlen( $meta['ADDITIONAL'] ) > 0 ) {
 
@@ -133,14 +132,14 @@ function generateImage( $season, $episode ) {
 			$alignment = array(0, -91, -191, -291, -391, -491);
 			$gamesBlockOffset = $alignment[$games];
 
-			$plural = count($meta['GUESTS']) > 1 ? "s" : "";
+			$plural = count($meta['GUESTS']) > 1 ? 's' : '';
 			$gamesString = <<<GAMESINTRO
 				<text id="game-name" style="font-size:23px">With Special Guest{$plural} and Developer{$plural} of</text>
 				<g transform="translate({$gamesBlockOffset},26)">
 
 GAMESINTRO;
 
-			$gamesString .= join("", $listGames) . "\t\t\t</g>";
+			$gamesString .= join('', $listGames) . "\t\t\t</g>";
 			// TODO this needs to test if any games are being discussed
 			$titleOffset = 250;
 		}
@@ -272,28 +271,28 @@ function generateVideo( $season, $episode ) {
 	fwrite( $svgfileref, $svgcontents );
 	fclose( $svgfileref );
 
-	if ( !file_exists( $svgfile ) )
+	if ( ! file_exists( $svgfile ) )
 		return false;
 
 	$commandthumbnail = "rsvg-convert {$svgfile} > {$pngfile}";
-	print "Running: ". $commandthumbnail . "\n";
+	echo 'Running: '. $commandthumbnail . "\n";
 	echo shell_exec( $commandthumbnail . ' 2>&1' );
 
-	if ( !file_exists( $pngfile ) )
+	if ( ! file_exists( $pngfile ) )
 		return false;
 
 	$commandvideo = "ffmpeg -y -loglevel warning -loop 1 -framerate 1 -i {$pngfile} -i {$audiofile} -c:v libx264 -tune stillimage -pix_fmt yuv420p -c:a aac -strict experimental -b:a 192k -shortest {$mp4filetmp}";
-	print "Running: ". $commandvideo . "\n";
+	echo 'Running: '. $commandvideo . "\n";
 	echo shell_exec( $commandvideo . ' 2>&1' );
 
-	if ( !file_exists( $mp4filetmp ) )
+	if ( ! file_exists( $mp4filetmp ) )
 		return false;
 
 	$commandfaststart = "qt-faststart {$mp4filetmp} {$mp4file}";
-	print "Running: ". $commandfaststart . "\n";
+	echo 'Running: '. $commandfaststart . "\n";
 	echo shell_exec( $commandfaststart . ' 2>&1' );
 
-	if ( !file_exists( $mp4file ) )
+	if ( ! file_exists( $mp4file ) )
 		return false;
 
 	return $mp4file;

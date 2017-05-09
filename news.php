@@ -40,10 +40,8 @@ TWITTERWIDGET;
 	$rss->CDATA = 'content';
 	$rss->date_format = 'd M o H:i:s e';
 	$rss->items_limit = 6;
-	$rssString = '';
 	$firstItem = true;
-	if ($rs = $rss->get($eventXMLPath . '/steamlug/rss.xml'))
-	{
+	if ( $rs = $rss->get($eventXMLPath . '/steamlug/rss.xml') ) {
 
 		$youtubePatterns = array(
 			"/www.youtube.com\/watch\?v=([0-9A-Za-z_-]*)/",
@@ -53,12 +51,12 @@ TWITTERWIDGET;
 
 			include_once( 'includes/functions_youtube.php' );
 			$youtubeIDs = array();
-			foreach($rs['items'] as $item) {
+			foreach ( $rs['items'] as $item ) {
 				// preview content to grab youtube data?
 				// XXX this will be replaced once our db stuff is in
 
-				if (!preg_match("/steamlug\/events\//", $item['link'])) {
-					foreach($youtubePatterns as $pattern) {
+				if ( ! preg_match("/steamlug\/events\//", $item['link'])) {
+					foreach ( $youtubePatterns as $pattern ) {
 						if (preg_match_all($pattern, $item['description'], $vid )) {
 							$youtubeIDs = array_merge( $youtubeIDs, $vid[1] );
 						}
@@ -68,34 +66,31 @@ TWITTERWIDGET;
 			$videoDetails = getVideoDetails( $youtubeIDs );
 		}
 
-		foreach($rs['items'] as $item)
-		{
-			if (!preg_match("/steamlug\/events\//", $item['link']))
-			{
-				$item['description'] = htmlspecialchars_decode($item['description'] );
-
-				$item['description'] = str_replace(array("\r", "\r\n"), "\n", $item['description']);
-				$item['description'] = str_replace(' onclick="return AlertNonSteamSite( this );"', '', $item['description']);
-				$item['description'] = str_replace(' class="bb_link"', '', $item['description']);
-				$item['description'] = str_replace(' class="bb_ul"', '', $item['description']);
-				$item['description'] = str_replace('<br><', '<', $item['description']);
-				$item['description'] = str_replace('<i>', '<em>', $item['description']);
-				$item['description'] = str_replace('</i>', '</em>', $item['description']);
-				$item['description'] = str_replace('<b>', '<strong>', $item['description']);
-				$item['description'] = str_replace('</b>', '</strong>', $item['description']);
-				$item['description'] = str_replace('<br>-----', '-----', $item['description']);
-				$item['description'] = str_replace("<br>\n<br>", "</p>\n<p>", $item['description']);
-				$item['description'] = str_replace("</ul>\n\n<br>", "</ul>\n<p>", $item['description']);
-				$item['description'] = str_replace('<ul>', "</p>\n<ul>", $item['description']);
-				$item['description'] = str_replace('<blockquote>', "</p>\n<blockquote>", $item['description']);
-				$item['description'] = str_replace('</blockquote>', "</blockquote>\n<p>", $item['description']);
-				$item['description'] = str_replace('<br>', '<br />', $item['description']);
-				$item['description'] = str_replace('https://steamcommunity.com/linkfilter/?url=', '', $item['description']);
+		foreach ( $rs['items'] as $item ) {
+			if ( ! preg_match( "/steamlug\/events\//", $item['link'] ) ) {
+				$item['description'] = htmlspecialchars_decode( $item['description'] );
+				$item['description'] = str_replace( array( "\r", "\r\n" ), "\n", $item['description'] );
+				$item['description'] = str_replace( ' onclick="return AlertNonSteamSite( this );"', '', $item['description'] );
+				$item['description'] = str_replace( ' class="bb_link"', '', $item['description'] );
+				$item['description'] = str_replace( ' class="bb_ul"', '', $item['description'] );
+				$item['description'] = str_replace( '<br><', '<', $item['description'] );
+				$item['description'] = str_replace( '<i>', '<em>', $item['description'] );
+				$item['description'] = str_replace( '</i>', '</em>', $item['description'] );
+				$item['description'] = str_replace( '<b>', '<strong>', $item['description'] );
+				$item['description'] = str_replace( '</b>', '</strong>', $item['description'] );
+				$item['description'] = str_replace( '<br>-----', '-----', $item['description'] );
+				$item['description'] = str_replace( "<br>\n<br>", "</p>\n<p>", $item['description'] );
+				$item['description'] = str_replace( "</ul>\n\n<br>", "</ul>\n<p>", $item['description'] );
+				$item['description'] = str_replace( '<ul>', "</p>\n<ul>", $item['description'] );
+				$item['description'] = str_replace( '<blockquote>', "</p>\n<blockquote>", $item['description'] );
+				$item['description'] = str_replace( '</blockquote>', "</blockquote>\n<p>", $item['description'] );
+				$item['description'] = str_replace( '<br>', '<br />', $item['description'] );
+				$item['description'] = str_replace( 'https://steamcommunity.com/linkfilter/?url=', '', $item['description'] );
 
 				if ( true /* false if we dislike */ ) {
-					foreach($youtubePatterns as $pattern) {
+					foreach ( $youtubePatterns as $pattern ) {
 						preg_match_all( $pattern, $item['description'], $vids, PREG_SET_ORDER );
-						foreach($vids as $vid) {
+						foreach ( $vids as $vid ) {
 							$v = $videoDetails[ $vid[1] ];
 							$t = $v['thumbnails']; $t = $t['default'];
 							$d = substr( $v['description'],0,158 ) . '…';
@@ -109,7 +104,7 @@ YOUTUBE;
 					}
 				}
 
-				if (!isset($item['author']))
+				if ( ! isset($item['author']))
 				{
 					$item['author'] = 'Author';
 				}
@@ -120,7 +115,7 @@ YOUTUBE;
 				}
 				// XXX messy
 				$item['pubDate'] = preg_replace("/([0-9]{4}) /", '\\1 <span class="hidden-xxs">', $item['pubDate']) . "</span>";
-				?>
+?>
 			<article class="panel panel-default steam-parsed <?=$addclass?>">
 				<header class="panel-heading">
 					<h3 class="panel-title"><a href="<?=$item['link'];?>"><?=htmlspecialchars_decode($item['title'])?></a></h3>
@@ -134,13 +129,13 @@ YOUTUBE;
 					<div class="clearfix"></div>
 				</footer>
 			</article>
-				<?php
+<?php
 			}
 		}
     }
 	else
 	{
-		?>
+?>
 		<article class="panel panel-default">
 			<header class="panel-heading">
 				<h3 class="panel-title"><a href = 'https://steamcommunity.com/groups/steamlug/announcements/'>Error</a></h3>
@@ -150,9 +145,6 @@ YOUTUBE;
 				<p>You can try viewing news on the Steam Group <a href = 'https://steamcommunity.com/groups/steamlug/announcements/'>Announcements page</a>.</p>
 			</div>
 		</article>
-	<?php
-	}
-	echo $rssString;
-?>
 <?php
+	}
 include_once( 'includes/footer.php' );

@@ -11,22 +11,22 @@ if ( ! login_check() ) {
 	$me = $_SESSION['u'];
 }
 
-$action = "Failure";
-$body = "";
-$style = " panel-success";
+$action = 'Failure';
+$body = '';
+$style = ' panel-success';
 
 // are we supplying query for name + key? → test validity
 //	download image and store, write to log, remove secret file
 //  or → leave
 if ( isset( $_GET['name'] ) and isset( $_GET['key'] ) ) {
 
-	$action = "Users Smell (They Should Never See This)";
+	$action = 'Users Smell (They Should Never See This)';
 	$requestedName = sanitiseName( $_GET['name'] );
 	$requestedKey =  sanitiseKey( $_GET['key'] );
 	$requestPermission = $avatarKeyPath . '/' . $requestedName;
 	$continue = true;
 
-	if ( file_exists( $requestPermission ) and !is_dir( $requestPermission ) ) {
+	if ( file_exists( $requestPermission ) and ! is_dir( $requestPermission ) ) {
 		$permission = file_get_contents( $requestPermission );
 		list($givenKey, $givenAdmin, $givenTime) = explode( ':', $permission, 3 );
 	} else { $continue = false; }
@@ -63,7 +63,7 @@ if ( in_array( $me, getAdmins() ) ) {
 // are we supplying data via POST? → write to log, save image data to name
 if ( isset( $_POST['name'] ) and isset( $_FILES['userfile'] ) ) {
 
-	$action = "Upload File";
+	$action = 'Upload File';
 	$requestedName = sanitiseName( $_POST['name'] );
 	$originalPath = $avatarFilePath . '/original/' . $requestedName . '.png';
 	$requestedPath = $avatarFilePath . '/' . $requestedName . '.png';
@@ -71,7 +71,7 @@ if ( isset( $_POST['name'] ) and isset( $_FILES['userfile'] ) ) {
 	$override		= ( array_key_exists( 'overwrite', $_POST ) ? $_POST['overwrite'] : false );
 
 	// do we want to be able to overwrite?
-	if ( (!file_exists( $originalPath ) or $override == true) and !is_dir( $originalPath ) ) {
+	if ( (! file_exists( $originalPath ) or $override == true) and ! is_dir( $originalPath ) ) {
 
 		if ( is_uploaded_file( $_FILES['userfile']['tmp_name'] ) and ( $_FILES['userfile']['size'] < 500000 ) ) {
 
@@ -92,40 +92,40 @@ if ( isset( $_POST['name'] ) and isset( $_FILES['userfile'] ) ) {
 					}
 				} else {
 
-					$style = "panel-danger";
-					$body = "<p>File failed to move to location.</p>";
+					$style = 'panel-danger';
+					$body = '<p>File failed to move to location.</p>';
 				}
 			} else {
 
-				$style = "panel-danger";
-				$body = "<p>File failed to validate as an image.</p>";
+				$style = 'panel-danger';
+				$body = '<p>File failed to validate as an image.</p>';
 			}
 		} else {
 
-			$style = "panel-danger";
+			$style = 'panel-danger';
 			switch($_FILES['userfile']['error']){
 				case 0:
-					$body = "<p>There was a problem with your upload.</p>";
+					$body = '<p>There was a problem with your upload.</p>';
 					break;
 				case 1:
 				case 2:
-					$body = "<p>The file is too big.</p>";
+					$body = '<p>The file is too big.</p>';
 					break;
 				case 3:
-					$body = "<p>File upload was halted, resubmit.</p>";
+					$body = '<p>File upload was halted, resubmit.</p>';
 					break;
 				case 4:
-					$body = "<p>No file selected? Wake up Cheese :)</p>";
+					$body = '<p>No file selected? Wake up Cheese :)</p>';
 					break;
 				default:
-					$body = "<p>File failed to upload.</p>";
+					$body = '<p>File failed to upload.</p>';
 			}
 		}
 	} else {
 
 		// Either trying to overwrite a file or /
-		$style = "panel-danger";
-		$body = "<p>The choosen handle already exists, or is invalid.</p>";
+		$style = 'panel-danger';
+		$body = '<p>The choosen handle already exists, or is invalid.</p>';
 	}
 }
 
@@ -134,25 +134,25 @@ if ( isset( $_POST['name'] ) and isset( $_FILES['userfile'] ) ) {
 // also supply a URL you can give to someone in private that contains name+key
 if ( isset( $_GET['grant'] ) and isset( $_GET['name'] ) ) {
 
-	$action = "Grant Avatar Permission";
+	$action = 'Grant Avatar Permission';
 	$grantedName = sanitiseName( $_GET['name'] );
 	$grantedKey =  md5(uniqid(mt_rand(), true));
 	$requestPermission = $avatarKeyPath . '/' . $grantedName;
 
 	// do we want to be able to overwrite?
-	if ( !file_exists( $requestPermission ) and !is_dir( $requestPermission ) ) {
+	if ( ! file_exists( $requestPermission ) and ! is_dir( $requestPermission ) ) {
 
 		$permissionSlip = $grantedKey . ':' . $me . ':' . time();
 		writeAvatarLog( 0, $me, $grantedName, 'granting' );
 		file_put_contents( $requestPermission, $permissionSlip );
 		// TODO: take current URI, clean, add query
-		$theirURL = "/avatar/?name=" . $grantedName . "&amp;key=" . $grantedKey;
+		$theirURL = '/avatar/?name=' . $grantedName . '&amp;key=' . $grantedKey;
 		$body = "<p>Permission has been granted for {$grantedName}, you may give them <a href=\"{$theirURL}\">this link</a>.</p>";
 	} else {
 		/* we ought to probably read the file and reshare link here */
-		$style = "panel-danger";
+		$style = 'panel-danger';
 		// TODO: take current URI, clean, add query
-		$revokeURL = "/avatar/?name=" . $grantedName . "&amp;revoke=please";
+		$revokeURL = '/avatar/?name=' . $grantedName . '&amp;revoke=please';
 		$body = "<p>This user already has permission, do you want to <a href=\"{$revokeURL}\">revoke it</a> and try again?</p>";
 	}
 
@@ -161,11 +161,11 @@ if ( isset( $_GET['grant'] ) and isset( $_GET['name'] ) ) {
 // are we supplying query for name + email? → write to log, pull down gravatar image
 if ( isset( $_GET['email'] ) and isset( $_GET['name'] ) ) {
 
-	$action = "Gravatar Upload";
+	$action = 'Gravatar Upload';
 	$requestedName = sanitiseName( $_GET['name'] );
 	// https://en.gravatar.com/site/implement/hash/
 	$gravatar		= md5( strtolower( trim( $_GET['email'] ) ) );
-	$requestedURL	= "https://www.gravatar.com/avatar/" . $gravatar;
+	$requestedURL	= 'https://www.gravatar.com/avatar/' . $gravatar;
 	$hostedURL		= '/avatars/' . $requestedName . '.png';
 
 	$originalPath = $avatarFilePath . '/original/' . $requestedName . '.png';
@@ -182,7 +182,7 @@ if ( isset( $_GET['email'] ) and isset( $_GET['name'] ) ) {
 			$body = "<p>Fetched gravatar for user {$requestedName}. [<img height=\"14\" width=\"14\" src=\"{$requestedURL}\" />] [<img height=\"14\" width=\"14\" src=\"{$hostedURL}\" />]</p><p>These images should match.</p>";
 		} /* TODO: error for resize. also, change this to failure waterfall */
 	} else {
-		$style = "panel-danger";
+		$style = 'panel-danger';
 		$body = "<p>Failed fetching gravatar for user {$requestedName}, confirm email is attached to their system and we don’t have that user already.</p>";
 	}
 }
@@ -190,16 +190,16 @@ if ( isset( $_GET['email'] ) and isset( $_GET['name'] ) ) {
 // are we supplying query for revoke + name? → write to log, delete permission
 if ( isset( $_GET['revoke'] ) and isset( $_GET['name'] ) ) {
 
-	$action = "Revoke Avatar Permission";
+	$action = 'Revoke Avatar Permission';
 	$requestedName = sanitiseName( $_GET['name'] );
 	$requestedPath = $avatarKeyPath . '/' . $requestedName;
 
-	if ( file_exists( $requestedPath ) and !is_dir( $requestedPath ) ) {
+	if ( file_exists( $requestedPath ) and ! is_dir( $requestedPath ) ) {
 		writeAvatarLog( 0, $me, $requestedName, 'revoke' );
 		$body = "<p>Revoked permission for the user {$requestedName}.</p>";
 		unlink( $requestedPath );
 	} else {
-		$style = "panel-danger";
+		$style = 'panel-danger';
 		$body = "<p>Can not revoke permission for the user {$requestedName}.</p>";
 	}
 }
@@ -207,23 +207,21 @@ if ( isset( $_GET['revoke'] ) and isset( $_GET['name'] ) ) {
 // are we supplying query for delete + name? → write to log, delete image
 if ( isset( $_GET['delete'] ) and isset( $_GET['name'] ) ) {
 
-	$action = "Remove Avatar";
+	$action = 'Remove Avatar';
 	$requestedName = sanitiseName( $_GET['name'] );
 	$originalPath = $avatarFilePath . '/original/' . $requestedName . '.png';
 	$requestedPath = $avatarFilePath . '/' . $requestedName . '.png';
 
-	if ( file_exists( $requestedPath ) and !is_dir( $requestedPath ) ) {
+	if ( file_exists( $requestedPath ) and ! is_dir( $requestedPath ) ) {
 
-		if ( file_exists( $originalPath ) and !is_dir( $originalPath ) ) {
+		if ( file_exists( $originalPath ) and ! is_dir( $originalPath ) ) {
 			unlink( $originalPath );
 		}
-
 		writeAvatarLog( 0, $me, $requestedName, 'delete' );
 		$body = "<p>Removed avatar file for user {$requestedName}.</p>";
 		unlink( $requestedPath );
 	} else {
-		// fancy this message up.
-		$style = "panel-danger";
+		$style = 'panel-danger';
 		$body = "<p>Can not remove avatar file for user {$requestedName}.</p>";
 	}
 }

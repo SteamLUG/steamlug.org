@@ -2,11 +2,10 @@
 $pageTitle = 'Chat';
 include_once( 'includes/header.php' );
 
-$preferredNick = "";
+$preferredNick = '';
 if ( isset( $_SESSION['n'] ) ) {
-	$preferredNick = preg_replace('/[^\w{}\[\]\\`_\^\|]+/', '', $_SESSION['n'] );
+	$preferredNick = preg_replace( '/[^\w{}\[\]\\`_\^\|]+/', '', $_SESSION['n'] );
 }
-
 ?>
 		<h1 class="text-center">Chat</h1>
 <div class="row">
