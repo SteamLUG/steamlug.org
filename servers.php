@@ -6,6 +6,7 @@ $tailJS = array( '/scripts/jquery.tablesorter.min.js' );
 include_once( 'includes/header.php' );
 include_once( 'includes/GameQ.php' );
 include_once( 'includes/paths.php' );
+include_once( 'includes/functions_unicode.php' );
 $Servers = file( $serversRepo . '/serverlist' );
 ?>
 		<h1 class="text-center">Game Servers</h1>
@@ -64,7 +65,7 @@ $Servers = file( $serversRepo . '/serverlist' );
 			$data['gq_address'] = preg_replace( '/.steamlug.org/', '​.steamlug.org', $data['gq_address'], 1 );
 			echo <<<SERVERSTRING
 			<tr class="unresponsive">
-				<td></td>
+				<td><abbr title="Hosted on Earth">🌍</abbr></td>
 				<td></td>
 				<td></td>
 				<td><em>Server Unresponsive</em></td>
@@ -77,6 +78,8 @@ SERVERSTRING;
 		} else {
 			/* this block of code should be better… TODO it please */
 			$serverLoc	= geoip_country_code_by_name( $data['gq_address'] );
+			$serverFlag = country_code_to_unicode( $serverLoc );
+			$serverLoc = $serverLoc ? $serverLoc : 'Unknown';
 			$serverSec	= ! empty( $data['secure'] ) ? '<i class="fa-shield"></i>' : '';
 			$serverPass	= ! empty( $data['gq_password'] ) ? '<i class="fa-lock"></i>' : '';
 			$serverDesc	= ! empty( $data['gq_name'] ) ? $data['gq_name'] : '';
@@ -84,11 +87,11 @@ SERVERSTRING;
 			// $serverDesc	= ! empty( $data['gq_steamappid'] ) ? '<a href="/app/' . $data['gq_steamappid'] . '">' . $data['gq_name'] . '</a>' : $data['gq_name'];
 			$serverNum	= ( ! empty( $data['gq_numplayers'] ) ? $data['gq_numplayers'] : '0') . ' ⁄ ' . $data['gq_maxplayers'];
 			$serverMap	= substr( $data['gq_mapname'], 0, 18 );
-			$connectPort	= ( ! empty( $data['port'] ) ? $data['port'] : ( isset( $data['gameport'] ) ? $data['gameport'] : $data['gq_port'] ) );
+			$connectPort= ( ! empty( $data['port'] ) ? $data['port'] : ( isset( $data['gameport'] ) ? $data['gameport'] : $data['gq_port'] ) );
 			$serverHost	= $data['gq_address'] . ":" . $connectPort;
 			echo <<<SERVERSTRING
 			<tr>
-				<td><img src="/images/flags/{$serverLoc}.png" title="Hosted in {$serverLoc}" alt="{$serverLoc}" /></td>
+				<td><abbr title="Hosted in {$serverLoc}">{$serverFlag}</abbr></td>
 				<td>{$serverSec}</td>
 				<td>{$serverPass}</td>
 				<td>{$serverDesc}</td>

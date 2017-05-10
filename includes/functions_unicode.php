@@ -11,7 +11,7 @@
 function country_code_to_unicode( $country ) {
 
 	if ( ( $country === false ) or ( strlen( $country ) != 2 ) )
-		return '';
+		return '🌍';
 
 	$country = strtoupper( $country );
 
@@ -20,7 +20,7 @@ function country_code_to_unicode( $country ) {
 
 	if (( $char1 > 25 ) or ( $char2 > 25 ) or
 		( $char1 <  0 ) or ( $char2 <  0 ) )
-		return '';
+		return '🌍';
 
 	$start = 0x1F1E6;
 	$char1 += $start; $char2 += $start;
