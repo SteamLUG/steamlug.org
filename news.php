@@ -8,12 +8,8 @@ include_once( 'includes/functions_memcache.php' );
 $tweetblob = '';
 $recentTweets = array( );
 $varCache = connectMemcache( );
-if ( $varCache ) {
-	// Set expiry to 20 minutes
-	$recentTweets = fetchOrStore( $varCache, 'recent-tweets', 20 * 60, function ( ) { return getRecentTweets( 3 ); } );
-} else {
-	$recentTweets = getRecentTweets( 3 );
-}
+// Set expiry to 20 minutes
+$recentTweets = fetchOrStore( $varCache, 'recent-tweets', 20 * 60, function ( ) { return getRecentTweets( 3 ); } );
 
 foreach ( $recentTweets as $tweet ) {
 

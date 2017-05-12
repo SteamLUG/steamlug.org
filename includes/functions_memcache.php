@@ -31,10 +31,10 @@ function connectMemcache( ) {
 * @return object the data requested, either fresh or < expiry
 */
 function fetchOrStore( $memcache, $variable, $expiry, $function ) {
-	$value = memcache_get( $memcache, $variable );
+	$value = @memcache_get( $memcache, $variable );
 	if ( ! $value ) {
 		$value = $function( );
-		memcache_set( $memcache, $variable, $value, false, $expiry );
+		@memcache_set( $memcache, $variable, $value, false, $expiry );
 		// TODO this can fail to set, though we return $value so nothing will be lost?
 	}
 	return $value;
