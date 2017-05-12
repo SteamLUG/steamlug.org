@@ -95,7 +95,7 @@ TWITTERWIDGET;
 							$t = $v['thumbnails']; $t = $t['default'];
 							$d = substr( $v['description'],0,158 ) . '…';
 							$embed = <<<YOUTUBE
-					</p><div class="dynamiclink"><img src="{$t['url']}" alt="A thumbnail of the video for {$v['title']}"/><h4><a href="https://youtu.be/{$vid[1]}">{$v['title']}</a></h4><p>$d</p></div><p>
+<div class="dynamiclink"><img src="{$t['url']}" alt="A thumbnail of the video for {$v['title']}"/><h4><a href="https://youtu.be/{$vid[1]}">{$v['title']}</a></h4><p>$d</p></div><p>
 YOUTUBE;
 							$url = preg_quote($vid[0], '/');
 							$pattern = "/<a href=\"https:\/\/" . $url . "\" target=\"_blank\" rel=\"noreferrer\"  id=\"dynamiclink_[0-9]\">https:\/\/" . $url . "<\/a>/";
@@ -125,7 +125,7 @@ YOUTUBE;
 				</div>
 				<footer class="panel-footer">
 					<p class="pull-left">By <?=$item['author'];?> on <?=$item['pubDate'];?></p>
-					<p class="pull-right"><a href ="<?=$item['link'];?>"><span class="hidden-xs">View and </span>comment<span class="hidden-sm hidden-xs"> on our Steam group</span></a></p>
+					<p class="pull-right"><a href="<?=$item['link'];?>"><span class="hidden-xs">View and </span>comment<span class="hidden-sm hidden-xs"> on our Steam group</span></a></p>
 					<div class="clearfix"></div>
 				</footer>
 			</article>
