@@ -57,16 +57,6 @@ include_once( 'includes/header.php' );
 
 			<article class="panel panel-default person">
 				<header class="panel-heading">
-					<h3 class="panel-title"><a href="https://twitter.com/HeroOhOne">HER0 01</a></h3>
-				</header>
-				<div class="panel-body">
-					<img src="/avatars/HeroOhOne.png" />
-					<p>Hero. Player of games. Maker of things. Enthusiast of mine launchers. Totally not a troll.</p>
-				</div>
-			</article>
-
-			<article class="panel panel-default person">
-				<header class="panel-heading">
 					<h3 class="panel-title"><a href="https://twitter.com/Corben78">Corben</a></h3>
 				</header>
 				<div class="panel-body">
