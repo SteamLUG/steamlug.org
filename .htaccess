@@ -9,6 +9,9 @@ ErrorDocument 500 /error-page/500.php
 
 ServerSignature Off
 
+AddType image/svg+xml .svg
+AddOutputFilterByType DEFLATE image/svg+xml
+
 RewriteBase /
 RewriteEngine on
 
