@@ -4,6 +4,8 @@
 		getDBUser()
 		getDBPass()
 		getDBHost()
+		getMCHost()
+		getMCPort()
 		getAdmins()
 		getGroupID()
 		getGroupID32()
