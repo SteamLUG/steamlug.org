@@ -1,0 +1,4 @@
+#!/bin/sh
+echo " - Minifying"
+cat css/bootstrap.steamlug.css css/steamlugfont.css | yui-compressor --type css --line-break 420 -v -o css/bootstrap.steamlug.min.css
+ls -la css/bootstrap.steamlug.min.css
