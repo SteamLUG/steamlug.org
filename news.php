@@ -26,7 +26,7 @@ TWEETBLOB;
 }
 echo <<<TWITTERWIDGET
 		<h1 class="text-center">News</h1>
-		<article class="panel panel-default tweets col-md-4 col-md-push-8">
+		<article class="panel panel-default updates col-md-4 col-md-push-8">
 			<header class="panel-heading">
 				<h3 class="panel-title">Tweets</h3>
 			</header>

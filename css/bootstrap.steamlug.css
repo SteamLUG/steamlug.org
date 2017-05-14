@@ -973,8 +973,8 @@ dt.highlighted,dt.highlighted time,dt.highlighted+dd{background-color:#06A;color
 .bb_h1{font-size:15px;color:#5aa9d6;margin-top:17px;margin-bottom:12px}
 .timeline{width:520px;margin:auto}
 #twitter-widget-1{max-width:1100px;min-width:200px;width:100%}
-article.tweets{background:inherit;border:0;box-shadow:none;margin-bottom:2px}
-article.tweets .panel-heading{background:inherit;border:0;padding-left:0;padding-right:0}
+article.updates{background:inherit;border:0;box-shadow:none;margin-bottom:2px}
+article.updates .panel-heading{background:inherit;border:0;padding-left:0;padding-right:0}
 #twitter-here{padding:0;position:relative}
 #twitter-here .follow{top:-29px;position:relative;height:0;margin:auto;float:right}
 nav .nav>li>a{padding-right:11px;padding-left:10px}
