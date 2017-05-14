@@ -69,7 +69,8 @@ TWITTERWIDGET;
 					}
 				}
 			}
-			$videoDetails = getVideoDetails( $youtubeIDs );
+			$videoDetails = fetchOrStore( $varCache, 'youtube-' . implode( '-', $youtubeIDs ), 12 * 60 * 60,
+				function ( ) use ( $youtubeIDs ) { return getVideoDetails( $youtubeIDs ); } );
 		}
 
 		foreach ( $rs['items'] as $item ) {
