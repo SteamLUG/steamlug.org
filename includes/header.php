@@ -16,6 +16,13 @@ if ( ! isset($pageTitle) ) {
 if ( ! isset($rssLinks) ) {
 	$rssLinks = '<link rel="alternate" type="application/rss+xml" title="RSS" href="https://steamcommunity.com/groups/steamlug/rss/" />';
 }
+$style = '<link rel="stylesheet" href="/css/bootstrap.steamlug.min.css" type="text/css" />';
+if ( ! file_exists( __DIR__ . '/../css/bootstrap.steamlug.min.css' ) ) {
+	$style = <<<STYLE
+<link rel="stylesheet" href="/css/bootstrap.steamlug.css" type="text/css" />
+		<link rel="stylesheet" href="/css/steamlugfont.css" type="text/css" />
+STYLE;
+}
 $weareadmin = false;
 $logIn = "";
 if ( ! isset($skipAuth) ) {
@@ -61,7 +68,7 @@ header( 'Cache-Control: public, max-age=60' );
 		<meta name="description" content="<?= $description; ?>" />
 		<meta name="keywords" content="<?= $keywords; ?>" />
 		<?= $rssLinks . "\n"; ?>
-		<link rel="stylesheet" href="/css/bootstrap.steamlug.min.css" type="text/css" />
+		<?= $style . "\n"; ?>
 		<link rel="icon" href="/mobile-favicon.png" sizes="192x192" />
 		<script type="text/javascript">
 			var serverTime = <?= microtime(true); ?>;
