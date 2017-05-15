@@ -22,6 +22,11 @@ if ( isset( $_SESSION['n'] ) ) {
 				<dt>Channel Name</dt><dd>#steamlug</dd>
 				<dt>Clickable Link</dt><dd><a href="irc://irc.freenode.net/steamlug">irc://irc.freenode.net/steamlug</a></dd>
 				</dl>
+				<p>You may also join our <a href="https://matrix.org">Matrix</a> room, which is bridged to our IRC channel. For the most part, anything posted in one will appear in the other. For more information on joining us with different clients, see our <a href=https://matrix.to/#/#steamlug:matrix.org>matrix.to page</a>.</p>
+				<dl class="dl-horizontal">
+				<dt>Matrix Address</dt><dd>#steamlug:matrix.org</dd>
+				<dt>Web Client Access (via Riot)</dt><dd><a href="https://riot.im/app/#/room/#steamlug:matrix.org">https://riot.im/app/#/room/#steamlug:matrix.org</a></dd>
+				</dl>
 			</div>
 		</article>
 	</div>
