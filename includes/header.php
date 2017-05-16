@@ -66,7 +66,6 @@ header( 'Cache-Control: public, max-age=60' );
 		<script type="text/javascript">
 			var serverTime = <?= microtime(true); ?>;
 		</script>
-
 <?php
 
 	if (isset($extraCrap)) {

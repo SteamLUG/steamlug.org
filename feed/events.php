@@ -28,7 +28,7 @@
 	echo "\t<lastBuildDate>";
 	echo date("r");
 	echo "</lastBuildDate>\n";
-	echo "\t<atom:link href='https://steamlug.org/feed/events' rel = 'self' type='application/rss+xml' />\n";
+	echo "\t<atom:link href=\"https://steamlug.org/feed/events\" rel=\"self\" type=\"application/rss+xml\" />\n";
 	echo "\t<pubDate>";
 	echo date("r");
 	echo "</pubDate>\n";

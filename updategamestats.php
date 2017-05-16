@@ -128,7 +128,7 @@ foreach ( $members as $member ) {
 		} else {
 			$appsmin = 0;
 			// eh? Faulty data from Steam?
-			echo $member . ' has zero games on their profile.\n<br>';
+			echo $member . " has zero games on their profile.\n<br>";
 		}
 
 	} else {
