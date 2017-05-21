@@ -49,7 +49,7 @@ if ( !isset( $database ) )
 		try {
 			$database->beginTransaction( );
 			/* TODO: safe-ify $id */
-			$statement = $database->prepare( "SELECT * FROM steamlug.members WHERE members.steamid = :steamid LIMIT 1;" );
+			$statement = $database->prepare( "SELECT * FROM members WHERE members.steamid = :steamid LIMIT 1;" );
 			$statement->execute( array( 'steamid' => $id ) );
 			$user = $statement->fetch( PDO::FETCH_ASSOC );
 			$database->commit( );
@@ -69,7 +69,7 @@ if ( !isset( $database ) )
 			// $database->beginTransaction( );
 			/* TODO: safe-ify $id */
 			$statement = $database->prepare( "SELECT clans.clanid, memberclans.steamid, clanroles.name AS clanrole, clans.name, clans.creator, clans.description, clans.slug
-				FROM steamlug.memberclans LEFT JOIN clans ON clans.clanid = memberclans.clanid LEFT JOIN clanroles ON memberclans.role = clanroles.roleid where steamid = :steamid;" );
+				FROM memberclans LEFT JOIN clans ON clans.clanid = memberclans.clanid LEFT JOIN clanroles ON memberclans.role = clanroles.roleid where steamid = :steamid;" );
 			$statement->execute( array( 'steamid' => $id ) );
 			$clans = $statement->fetchAll( PDO::FETCH_ASSOC );
 			// $database->commit( );
@@ -86,7 +86,7 @@ if ( !isset( $database ) )
 		try {
 			$database->beginTransaction( );
 			/* TODO: safe-ify $id */
-			$statement = $database->prepare( "DELETE FROM steamlug.members WHERE members.steamid = :steamid LIMIT 1;" );
+			$statement = $database->prepare( "DELETE FROM members WHERE members.steamid = :steamid LIMIT 1;" );
 			$statement->execute( array( 'steamid' => $id ) );
 			$user = $statement->execute( );
 			$database->commit( );
@@ -103,7 +103,7 @@ if ( !isset( $database ) )
 		try {
 			$database->beginTransaction( );
 			/* TODO: safe-ify $id */
-			$statement = $database->prepare( "SELECT * FROM steamlug.members WHERE members.profileurl = :vanity LIMIT 1;" );
+			$statement = $database->prepare( "SELECT * FROM members WHERE members.profileurl = :vanity LIMIT 1;" );
 			$statement->execute( array( 'vanity' => $vanity ) );
 			$user = $statement->fetch( PDO::FETCH_ASSOC );
 			$database->commit( );
@@ -126,7 +126,7 @@ if ( !isset( $database ) )
 			$database->beginTransaction( );
 			$profile = deflatePlayerSummary( $profile );
 			/* TODO: safe-ify _everything_ */
-			$statement = $database->prepare( "INSERT INTO steamlug.members
+			$statement = $database->prepare( "INSERT INTO members
 				(steamid, personaname, profileurl, avatar, isgroupmember,
 				suggestedvisibility) VALUES (:steamid, :persona, :vanity, :avatar,
 				:group, :privacy) ON DUPLICATE KEY UPDATE personaname=VALUES(personaname),
