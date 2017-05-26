@@ -1090,7 +1090,7 @@ article.twit label.control-label{text-align:left;border:3px solid transparent;pa
 .tweet .content { line-height:1.5}
 .tweet .header{position:relative;padding-bottom:.4em;margin-top:-.2em}
 .tweet .header > a{float:right;color:#a0a0a0}
-.tweet .header img{left:-57px;top:3px;position:absolute;border-radius:4px}
+.tweet .header img{left:-57px;top:3px;position:absolute;border-radius:4px;width:48px;height:48px}
 .tweet .header abbr{padding-left:.2em;border:0}
 .tweet .footer,.tweet .footer li{padding:.1em 0;margin:.2em 0;height:1.9em}
 .tweet .footer i{width:1.5em;display:block;color:#a0a0a0;font-size:16px}
