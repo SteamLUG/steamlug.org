@@ -15,6 +15,10 @@ foreach ( $recentTweets as $tweet ) {
 
 	$time = humanTime ( $tweet[ 'created_at' ] );
 	$user = $tweet[ 'user' ];
+	// $user['profile_image_url_https'] == 'https://pbs.twimg.com/profile_images/643138854145298433/FBVCe4a6_normal.png'
+	if ( $user['name'] == 'SteamLUG' ) {
+		$user['profile_image_url_https'] = '/avatars/twitter.png';
+	}
 	if ( array_key_exists( 'retweeted_status', $tweet ) ) {
 		$user = $tweet[ 'retweeted_status' ][ 'user' ];
 		$tweet = $tweet[ 'retweeted_status' ];
