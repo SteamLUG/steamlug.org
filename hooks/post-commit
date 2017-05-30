@@ -1,0 +1,9 @@
+#!/bin/sh
+echo " - Concatenating"
+cat css/bootstrap.steamlug.css css/steamlugfont.css > css/bootstrap.steamlug.min.css
+
+# For users that install `yui-compressor`, you can get your local install to produce a .min.css file similar to the one hosted on the server
+# Otherwise, cat will be fine - test changes before your send a PR with a local commit!
+#echo " - Minifying"
+#cat css/bootstrap.steamlug.css css/steamlugfont.css | yui-compressor --type css --line-break 420 -v -o css/bootstrap.steamlug.min.css
+ls -la css/bootstrap.steamlug.min.css
