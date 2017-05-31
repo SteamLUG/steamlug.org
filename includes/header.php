@@ -16,8 +16,15 @@ if ( ! isset($pageTitle) ) {
 if ( ! isset($rssLinks) ) {
 	$rssLinks = '<link rel="alternate" type="application/rss+xml" title="RSS" href="https://steamcommunity.com/groups/steamlug/rss/" />';
 }
-$style = '<link rel="stylesheet" href="/css/bootstrap.steamlug.min.css" type="text/css" />';
-if ( ! file_exists( __DIR__ . '/../css/bootstrap.steamlug.min.css' ) ) {
+$style       = '<link rel="stylesheet" href="/css/bootstrap.steamlug.min.css" type="text/css" />';
+
+$mincss      = __DIR__ . '/../css/bootstrap.steamlug.min.css';
+$steamlugcss = __DIR__ . '/../css/bootstrap.steamlug.css';
+$fontcss     = __DIR__ . '/../css/steamlugfont.css';
+
+if ( ! file_exists( $mincss ) or
+	(filemtime( $mincss ) < filemtime( $steamlugcss )) or
+	(filemtime( $mincss ) < filemtime( $fontcss ))) {
 	$style = <<<STYLE
 <link rel="stylesheet" href="/css/bootstrap.steamlug.css" type="text/css" />
 		<link rel="stylesheet" href="/css/steamlugfont.css" type="text/css" />
