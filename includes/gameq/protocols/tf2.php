@@ -25,4 +25,9 @@ class GameQ_Protocols_Tf2 extends GameQ_Protocols_Source
 {
 	protected $name = "tf2";
 	protected $name_long = "Team Fortress 2";
+	protected function process_details() {
+		$result = parent::process_details();
+		$result['steamappid'] = 440;
+		return $result;
+	}
 }

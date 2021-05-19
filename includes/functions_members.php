@@ -14,16 +14,17 @@ if ( !isset( $database ) )
 	function inflatePlayerSummary( $profile ) {
 
 		if ($profile[ 'profileurl' ] != '' ) {
-			$profile[ 'memberurl' ] = '//steamlug.org/member/' . $profile[ 'profileurl' ];
+			$profile[ 'memberurl' ] = '/member/' . $profile[ 'profileurl' ];
 			$profile[ 'profileurl' ] = 'https://steamcommunity.com/id/' . $profile[ 'profileurl' ] . '/';
 		} else {
-			$profile[ 'memberurl' ] = '//steamlug.org/member/' . $profile[ 'steamid' ];
+			$profile[ 'memberurl' ] = '/member/' . $profile[ 'steamid' ];
 			$profile[ 'profileurl' ] = 'https://steamcommunity.com/profiles/' . $profile[ 'steamid' ] . '/';
 		}
 		$profile[ 'avatarfull' ] = '//steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/' . str_replace( '.jpg', '_full.jpg', $profile[ 'avatar' ]);
 		$profile[ 'avatarmedium' ] = '//steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/' . str_replace( '.jpg', '_medium.jpg', $profile[ 'avatar' ]);
 		$profile[ 'avatar' ] = '//steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/' . $profile[ 'avatar' ];
 		// TODO populate other fields here
+		// XXX if no personaname, convert to their steamid?
 		$profile[ 'personaname' ] = htmlspecialchars( $profile[ 'personaname' ] );
 		return $profile;
 	}
@@ -48,7 +49,7 @@ if ( !isset( $database ) )
 		try {
 			$database->beginTransaction( );
 			/* TODO: safe-ify $id */
-			$statement = $database->prepare( "SELECT * FROM steamlug.members WHERE members.steamid = :steamid LIMIT 1;" );
+			$statement = $database->prepare( "SELECT * FROM members WHERE members.steamid = :steamid LIMIT 1;" );
 			$statement->execute( array( 'steamid' => $id ) );
 			$user = $statement->fetch( PDO::FETCH_ASSOC );
 			$database->commit( );
@@ -68,7 +69,7 @@ if ( !isset( $database ) )
 			// $database->beginTransaction( );
 			/* TODO: safe-ify $id */
 			$statement = $database->prepare( "SELECT clans.clanid, memberclans.steamid, clanroles.name AS clanrole, clans.name, clans.creator, clans.description, clans.slug
-				FROM steamlug.memberclans LEFT JOIN clans ON clans.clanid = memberclans.clanid LEFT JOIN clanroles ON memberclans.role = clanroles.roleid where steamid = :steamid;" );
+				FROM memberclans LEFT JOIN clans ON clans.clanid = memberclans.clanid LEFT JOIN clanroles ON memberclans.role = clanroles.roleid where steamid = :steamid;" );
 			$statement->execute( array( 'steamid' => $id ) );
 			$clans = $statement->fetchAll( PDO::FETCH_ASSOC );
 			// $database->commit( );
@@ -85,7 +86,7 @@ if ( !isset( $database ) )
 		try {
 			$database->beginTransaction( );
 			/* TODO: safe-ify $id */
-			$statement = $database->prepare( "DELETE FROM steamlug.members WHERE members.steamid = :steamid LIMIT 1;" );
+			$statement = $database->prepare( "DELETE FROM members WHERE members.steamid = :steamid LIMIT 1;" );
 			$statement->execute( array( 'steamid' => $id ) );
 			$user = $statement->execute( );
 			$database->commit( );
@@ -102,7 +103,7 @@ if ( !isset( $database ) )
 		try {
 			$database->beginTransaction( );
 			/* TODO: safe-ify $id */
-			$statement = $database->prepare( "SELECT * FROM steamlug.members WHERE members.profileurl = :vanity LIMIT 1;" );
+			$statement = $database->prepare( "SELECT * FROM members WHERE members.profileurl = :vanity LIMIT 1;" );
 			$statement->execute( array( 'vanity' => $vanity ) );
 			$user = $statement->fetch( PDO::FETCH_ASSOC );
 			$database->commit( );
@@ -125,7 +126,7 @@ if ( !isset( $database ) )
 			$database->beginTransaction( );
 			$profile = deflatePlayerSummary( $profile );
 			/* TODO: safe-ify _everything_ */
-			$statement = $database->prepare( "INSERT INTO steamlug.members
+			$statement = $database->prepare( "INSERT INTO members
 				(steamid, personaname, profileurl, avatar, isgroupmember,
 				suggestedvisibility) VALUES (:steamid, :persona, :vanity, :avatar,
 				:group, :privacy) ON DUPLICATE KEY UPDATE personaname=VALUES(personaname),

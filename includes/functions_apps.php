@@ -34,7 +34,7 @@ function getSteamAppsDB( ) {
 
 	} catch ( Exception $e ) {
 
-		print time(). ": Oops, database failure: " . $e;
+		echo time( ) . ': Oops, database failure: ' . $e;
 	}
 	return false;
 }
@@ -65,7 +65,7 @@ function storeAppsDB( $apps ) {
 
 	} catch ( Exception $e ) {
 
-		print time(). ": Oops, database failure: " . $e;
+		echo time( ) . ': Oops, database failure: ' . $e;
 	}
 
 }
@@ -93,7 +93,7 @@ function getApp( $appid ) {
 
 	} catch ( Exception $e ) {
 
-		print time(). ": Oops, database failure: " . $e;
+		echo time( ) . ': Oops, database failure: ' . $e;
 	}
 	return false;
 }
@@ -113,7 +113,7 @@ function getRecentEventsForApp( $appid, $limit = 6 ) {
 	try {
 		// $database->beginTransaction( );
 		/* TODO: safe-ify $id */
-		$statement = $database->prepare( "SELECT appid, events.eventid, count(eventattendance.eventid) as players, title, utctime, clanid FROM steamlug.events
+		$statement = $database->prepare( "SELECT appid, events.eventid, count(eventattendance.eventid) as players, title, utctime, clanid FROM events
 			LEFT JOIN eventattendance ON eventattendance.eventid = events.eventid WHERE events.appid = :appid GROUP BY eventattendance.eventid ORDER BY utctime desc limit :limit;" );
 		$statement->execute( array(
 			'appid' => $appid,

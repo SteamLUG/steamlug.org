@@ -1,8 +1,15 @@
 <?php
+/**
+* Function collection for talking to Steam API
+* @package Steam
+*/
 
-	include_once('functions_geturl.php');
-	include_once('steam.php');
-	include_once('creds.php');
+/**
+*/
+
+	include_once( 'functions_geturl.php' );
+	include_once( 'steam.php' );
+	include_once( 'creds.php' );
 	/* TODO add support for https://github.com/xPaw/SteamID.php to normalise any incoming SteamIDs,
 	likely to need this for the server event integration due to… lol */
 

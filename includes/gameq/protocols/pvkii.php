@@ -23,4 +23,9 @@ class GameQ_Protocols_pvkii extends GameQ_Protocols_Source
 {
 	protected $name = "pvkii";
 	protected $name_long = "Pirates, Vikings and Knights II";
+	protected function process_details() {
+		$result = parent::process_details();
+		$result['steamappid'] = 17570;
+		return $result;
+	}
 }

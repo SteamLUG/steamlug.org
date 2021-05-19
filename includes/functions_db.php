@@ -1,5 +1,5 @@
 <?php
-	include_once('creds.php');
+	include_once( 'creds.php' );
 
 	function getPDODrv( ) {
 		return "mysql";
@@ -45,7 +45,7 @@
 		try {
 			/* should this be called inside a transaction? or outside to record failed ones… */
 			/* TODO: safe-ify $id */
-			$statement = $database->prepare( "INSERT INTO steamlug.happenings (what) VALUES (:msg)" );
+			$statement = $database->prepare( "INSERT INTO happenings (what) VALUES (:msg)" );
 			$statement->execute( array( 'msg' => $message ) );
 			$logmsg = $statement->fetch( PDO::FETCH_ASSOC );
 			return $logmsg;

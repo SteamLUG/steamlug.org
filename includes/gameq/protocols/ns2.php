@@ -27,6 +27,11 @@ class GameQ_Protocols_Ns2 extends GameQ_Protocols_Source
 {
 	protected $name = "ns2";
 	protected $name_long = "Natural Selection 2";
+	protected function process_details() {
+		$result = parent::process_details();
+		$result['steamappid'] = 4920;
+		return $result;
+	}
 
 	/**
 	 * Default port for this server type

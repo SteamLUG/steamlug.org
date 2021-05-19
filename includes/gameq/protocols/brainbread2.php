@@ -17,7 +17,7 @@
  */
 
 /**
- * Codename CURE Protocol Class
+ * BrainBread 2 Protocol Class
  */
 class GameQ_Protocols_Brainbread2 extends GameQ_Protocols_Source
 {

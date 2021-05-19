@@ -9,9 +9,9 @@
 include_once( 'includes/functions_events.php' );
 
 /* Setting the MIME type */
-header("Content-Type: application/json");
+header( 'Content-Type: application/json' );
 /* Allowing CORS */
-header("Access-Control-Allow-Origin: *");
+header( 'Access-Control-Allow-Origin: *' );
 
 echo json_encode( getMonthsEvents() );
-?>
+

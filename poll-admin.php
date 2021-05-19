@@ -1,11 +1,11 @@
 <?php
-$pageTitle = "Polls";
-include_once('includes/header.php');
-include_once('includes/functions_poll.php');
+$pageTitle = 'Polls';
+include_once( 'includes/header.php' );
+include_once( 'includes/functions_poll.php' );
 
 // are we logged in? no → leave
-if ( !login_check() ) {
-	header( "Location: /" );
+if ( ! login_check() ) {
+	header( 'Location: /' );
 	exit();
 } else {
 	$me = $_SESSION['u'];
@@ -49,4 +49,5 @@ FORMGROUP;
 					?>
 				</div>
 			</article>
-<?php include_once('includes/footer.php');
+<?php
+include_once( 'includes/footer.php' );

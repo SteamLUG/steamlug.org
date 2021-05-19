@@ -25,4 +25,9 @@ class GameQ_Protocols_L4d2 extends GameQ_Protocols_Source
 {
 	protected $name = "l4d2";
 	protected $name_long = "Left 4 Dead 2";
+	protected function process_details() {
+		$result = parent::process_details();
+		$result['steamappid'] = 550;
+		return $result;
+	}
 }

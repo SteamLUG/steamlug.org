@@ -1,10 +1,12 @@
 <?php
-$pageTitle = "Events";
+$pageTitle = 'Events';
 include_once( 'includes/functions_events.php' );
+//include_once( 'includes/functions_eventattendance.php' );
+//include_once( 'includes/functions_members.php' );
 
 $data = getRecentEvents( );
 
-if ( $eventID == "0" ) {
+if ( $eventID == '0' ) {
 
 	$event = getNextEvent( false, 3600 );
 	if ( $event != null ) {
@@ -36,27 +38,27 @@ include_once( 'includes/header.php' );
 ?>
 		<h1 class="text-center">SteamLUG Events</h1>
 <?php
-$eventButton = "";
-$eventImage = "";
-$eventTitle = "";
-$eventCountdown = "";
-$dt = "";
-$players = "";
+$eventButton = '';
+$eventImage = '';
+$eventTitle = '';
+$eventCountdown = '';
+$dt = '';
+$players = '';
 
 if ( isset( $eTime ) ) {
 
 	// TODO: tidy this mess, the next block, and the HEREDOC into one clean thing
 	$eventTitle = '<h3 class="centred"><a href="' . $event['url'] . '">' .  str_replace( 'SteamLUG ','',$event['title'] ) . '</a></h3>';
 	($event['appid'] !== 0 ?
-	$eventImage = "<a href=\"" . $event['url'] . "\"><img class=\"img-rounded eventimage\" src=\"" . $event['img_header'] . "\" alt=\"" . $event['title'] . "\"/></a>" :
-	$eventImage = "<h1>?</h1>"
+	$eventImage = '<a href="' . $event['url'] . '"><img class="img-rounded eventimage" src="' . $event['img_header'] . '" alt="' . $event['title'] . '"/></a>' :
+	$eventImage = '<h1>?</h1>'
 	);
-	$eventButton = "<p><a class=\"btn btn-primary btn-lg pull-right\" href=\"" . $event['url'] . "\">Click for details</a></p>";
-	$dt = $event['date'] . " " . $event['time'] . " " . $event['tz'];
+	$eventButton = '<p><a class="btn btn-primary btn-lg pull-right" href="' . $event['url'] . '">Click for details</a></p>';
+	$dt = $event['date'] . ' ' . $event['time'] . ' ' . $event['tz'];
 
 	$eventDate = new DateTime(); $eventDate->setTimestamp($eTime);
-	$diff = date_diff($eventDate, new DateTime("now"));
-	list($ed, $eh, $em, $es) = explode( ' ', $diff->format("%D %H %I %S") );
+	$diff = date_diff($eventDate, new DateTime( 'now' ) );
+	list($ed, $eh, $em, $es) = explode( ' ', $diff->format( '%D %H %I %S' ) );
 	if ($diff->invert == 0) {
 		if ($diff->y > 0 || $diff->m > 0 || $diff->d > 0 || $diff->h > 1) {
 			$eventCountdown = '<div id="countdown">This event is in the past!</div>';
@@ -108,10 +110,10 @@ echo <<<EVENTSHEAD
 				<h3 class="panel-title">About</h3>
 			</header>
 			<div class="panel-body">
-			<p>Here you can find a list of upcoming group gaming events hosted by the SteamLUG community. A countdown timer is shown for the next upcoming event. We also have a <a href = '/feed/events'>RSS feed</a> of event reminders available.</p>
+			<p>Here you can find a list of upcoming group gaming events hosted by the SteamLUG community. A countdown timer is shown for the next upcoming event. We also have a <a href="/feed/events">RSS feed</a> of event reminders available.</p>
 			<p>All times are listed in UTC, and are subject to change.</p>
 			<p>Click on an event title to post comments, find more information, and retrieve server passwords (for this, you will need to become a group member by selecting the Join Group button on the event page).</p>
-			<p>If you'd like to know more about our community, visit the <a href="/about">About page</a>, or hop into our <a href = 'irc'>IRC channel</a> and say hi. If you'd like to get involved with organising events, please contact <a href="http://twitter.com/steamlug">steamlug</a>.</p>
+			<p>If you'd like to know more about our community, visit the <a href="/about">About page</a>, or hop into our <a href="/irc">IRC channel</a> and say hi. If you'd like to get involved with organising events, please contact <a href="https://twitter.com/steamlug">steamlug</a>.</p>
 
 			<h4>Mumble</h4>
 			<p>We also run a <a href="http://mumble.sourceforge.net/">Mumble</a> voice chat server which we use in place of in-game voice chat. You can learn more about it on our <a href="/mumble">Mumble page</a>.</p>
@@ -142,10 +144,10 @@ EVENTSTABLE;
 	foreach ($data['events'] as $event)
 	{
 		// skip if it's a special (non-game/non-app) event
-		if ($event["appid"] === 0) {
+		if ($event[ 'appid' ] === 0) {
 			continue;
 		}
-		$comments = ($event['comments'] > "0" ? "<a href=\"{$event['url']}\">" . $event['comments'] . " " . ($event['comments'] == "1" ? "comment…" : "comments…") . "</a>	" : "");
+		$comments = ($event['comments'] > '0' ? "<a href=\"{$event['url']}\">" . $event['comments'] . ' ' . ($event['comments'] == '1' ? 'comment…' : 'comments…') . '</a>	' : '');
 		echo <<<EVENTSTRING
 			<tr>
 				<td class="hidden-xxs"><img class="eventLogo" src="{$event['img_capsule']}" alt="{$event['title']}" ></td>
@@ -179,10 +181,10 @@ EVENTSTRING;
 	foreach ($data['pastevents'] as $event)
 	{
 		// skip if it's a special (non-game/non-app) event
-		if ($event["appid"] === 0) {
+		if ($event[ 'appid' ] === 0) {
 			continue;
 		}
-		$comments = ($event['comments'] > "0" ? "<a href=\"{$event['url']}\">" . $event['comments'] . " " . ($event['comments'] == "1" ? "comment…" : "comments…") . "</a>" : "");
+		$comments = ($event['comments'] > '0' ? "<a href=\"{$event['url']}\">" . $event['comments'] . ' ' . ($event['comments'] == '1' ? 'comment…' : 'comments…') . '</a>' : '');
 		echo <<<EVENTSTRING
 			<tr>
 				<td class="hidden-xxs"><img class="eventLogo" src="{$event['img_capsule']}" alt="{$event['title']}" ></td>
@@ -193,11 +195,11 @@ EVENTSTRING;
 
 EVENTSTRING;
 
-
 	}
 ?>
 			</tbody>
 			</table>
 			</div>
 		</article>
-<?php include_once('includes/footer.php');
+<?php
+include_once( 'includes/footer.php' );

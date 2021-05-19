@@ -9,6 +9,9 @@ ErrorDocument 500 /error-page/500.php
 
 ServerSignature Off
 
+AddType image/svg+xml .svg
+AddOutputFilterByType DEFLATE image/svg+xml
+
 RewriteBase /
 RewriteEngine on
 
@@ -42,7 +45,7 @@ RewriteRule ^clan/(\w+)$ clan.php?clanid=$1 [NC,L]
 RewriteRule ^apple-touch-icon(.*).png$ mobile-favicon.png [L]
 
 <ifmodule mod_expires.c>
-<FilesMatch "\.(png|gif|jpg|jpeg|ico)$">
+<FilesMatch "\.(png|gif|jpg|jpeg|ico|woff|eot|ttf)$">
 	ExpiresActive On
 	ExpiresDefault "access plus 2 weeks"
 	Header append Cache-Control "public"

@@ -4,6 +4,8 @@
 		getDBUser()
 		getDBPass()
 		getDBHost()
+		getMCHost()
+		getMCPort()
 		getAdmins()
 		getGroupID()
 		getGroupID32()
@@ -11,5 +13,5 @@
 		getGoogleKeys()
 		getTwitterKeys()
 	*/
-	include( "paths.php" );
+	include( 'paths.php' );
 	include( $creds );

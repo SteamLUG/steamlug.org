@@ -25,4 +25,9 @@ class GameQ_Protocols_Insurgency extends GameQ_Protocols_Source
 {
 	protected $name = "insurgency";
 	protected $name_long = "Insurgency";
+	protected function process_details() {
+		$result = parent::process_details();
+		$result['steamappid'] = 222880;
+		return $result;
+	}
 }

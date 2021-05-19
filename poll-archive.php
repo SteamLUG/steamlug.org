@@ -1,7 +1,7 @@
 <?php
-	$pageTitle = "Polls";
-	include_once('includes/header.php');
-	include_once('includes/functions_poll.php');
+$pageTitle = 'Polls';
+include_once( 'includes/header.php' );
+include_once( 'includes/functions_poll.php' );
 ?>
 <h1 class="text-center">Community Polls</h1>
 	<article class="panel panel-default">
@@ -13,4 +13,5 @@
 		</div>
 	</article>
 					<?php showPastPolls(); ?>
-<?php include_once('includes/footer.php');
+<?php
+include_once( 'includes/footer.php' );

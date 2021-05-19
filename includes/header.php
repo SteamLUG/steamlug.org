@@ -1,44 +1,47 @@
 <?php
 // our error pages probably don’t want to touch this
-if ( !isset($skipAuth) ) {
-	include_once('session.php');
+if ( ! isset($skipAuth) ) {
+	include_once( 'session.php' );
+}
+if ( ! isset($description) ) {
+	$description = 'SteamLUG - the Steam Linux User Group! A multilingual community of Linux gamers which aims to be a fun, welcoming space for people of all backgrounds and aptitudes.';
+}
+if ( ! isset($keywords) ) {
+	$keywords = 'Linux, Gaming, Steam, Community';
+}
+if ( ! isset($pageTitle) ) {
+	$pageTitle = 'Super Secret Unnamed Page!';
 }
 
-if (!isset($description))
-{
-	$description = "SteamLUG - the Steam Linux User Group! A multilingual community of Linux gamers which aims to be a fun, welcoming space for people of all backgrounds and aptitudes.";
+if ( ! isset($rssLinks) ) {
+	$rssLinks = '<link rel="alternate" type="application/rss+xml" title="RSS" href="https://steamcommunity.com/groups/steamlug/rss/" />';
 }
-if (!isset($keywords))
-{
-	$keywords = "Linux, Gaming, Steam, Community";
-}
+$style       = '<link rel="stylesheet" href="/css/bootstrap.steamlug.min.css" type="text/css" />';
 
-if (!isset($pageTitle))
-{
-	$pageTitle = "Super Secret Unnamed Page!";
-}
+$mincss      = __DIR__ . '/../css/bootstrap.steamlug.min.css';
+$steamlugcss = __DIR__ . '/../css/bootstrap.steamlug.css';
+$fontcss     = __DIR__ . '/../css/steamlugfont.css';
 
-if (!isset($rssLinks))
-{
-	$rssLinks = '<link rel="alternate" type="application/rss+xml" title="RSS" href="http://steamcommunity.com/groups/steamlug/rss/" />';
+if ( ! file_exists( $mincss ) or
+	(filemtime( $mincss ) < filemtime( $steamlugcss )) or
+	(filemtime( $mincss ) < filemtime( $fontcss ))) {
+	$style = <<<STYLE
+<link rel="stylesheet" href="/css/bootstrap.steamlug.css" type="text/css" />
+		<link rel="stylesheet" href="/css/steamlugfont.css" type="text/css" />
+STYLE;
 }
-
 $weareadmin = false;
 $logIn = "";
-if ( !isset($skipAuth) ) {
-	if(!login_check())
-	{
+if ( ! isset($skipAuth) ) {
+	if( ! login_check()) {
 		$steam_login_verify = SteamSignIn::validate();
-		if (!empty($steam_login_verify))
-		{
+		if ( ! empty($steam_login_verify)) {
 			login($steam_login_verify);
 			header( "Location: /loggedin/" );
 			exit();
 		} else {
-
 			// If we had a session cookie, we can now eat it :>
 			sec_session_destroy();
-
 			$steam_sign_in_url = SteamSignIn::genUrl();
 			$logIn = <<<AUTHBUTTON
 <li class="steamLogin"><a href="{$steam_sign_in_url}"><img src="/images/sits_large_noborder.png" alt="Log into Steam" /></a></li>
@@ -60,7 +63,7 @@ SHOWAVATAR;
 	}
 }
 // send only after any cookie tweaks
-header("Cache-Control: public, max-age=60");
+header( 'Cache-Control: public, max-age=60' );
 
 ?>
 <!DOCTYPE html>
@@ -72,134 +75,99 @@ header("Cache-Control: public, max-age=60");
 		<meta name="description" content="<?= $description; ?>" />
 		<meta name="keywords" content="<?= $keywords; ?>" />
 		<?= $rssLinks . "\n"; ?>
-		<link rel="stylesheet" href="/css/bootstrap.steamlug.min.css" type="text/css" />
+		<?= $style . "\n"; ?>
 		<link rel="icon" href="/mobile-favicon.png" sizes="192x192" />
 		<script type="text/javascript">
 			var serverTime = <?= microtime(true); ?>;
 		</script>
-
 <?php
 
-	if (isset($extraCrap))
-	{
+	if (isset($extraCrap)) {
 		echo $extraCrap;
 	}
-	if (isset($extraJS))
-	{
-		echo "\t\t<script type=\"text/javascript\">\n";
-		echo $extraJS;
-		echo "\n\t\t</script>\n";
+	if (isset($extraJS)) {
+		echo <<<EXTRAJS
+		<script type="text/javascript">
+		{$extraJS}
+		</script>
+EXTRAJS;
 	}
-	if (isset($extraCSS))
-	{
-		echo "\t\t<style type=\"text/css\">\n";
-		echo $extraCSS;
-		echo "\t\t</style>\n";
+	if (isset($extraCSS)) {
+		echo <<<EXTRACSS
+		<style type="text/css">
+		{$extraCSS}
+		</style>
+EXTRACSS;
 	}
 ?>
 	</head>
 	<body>
 <?php
-	$newsPage = "";
-	$chatMenu = "";
-	$ircPage = "";
-	$mumblePage = "";
-	$groupPage = "";
-	$gamingMenu = "";
-	$eventsPage = "";
-	$serversPage = "";
-	$projectsMenu = "";
-	$overviewPage = "";
-	$aboutPage = "";
-	$streamPage = "";
-	$castPage = "";
-	$pollPage = "";
-	$pollArchivePage = "";
-	$adminMenu = "";
-	$avatarAdminPage = ""; $adminAdminPage = ""; $pollAdminPage = ""; $twitterAdminPage = "";
+	$newsPage = '';
+	$chatMenu = '';
+	$ircPage = '';
+	$mumblePage = '';
+	$groupPage = '';
+	$gamingMenu = '';
+	$eventsPage = '';
+	$serversPage = '';
+	$projectsMenu = '';
+	$overviewPage = '';
+	$aboutPage = '';
+	$streamPage = '';
+	$castPage = '';
+	$pollPage = '';
+	$pollArchivePage = '';
+	$adminMenu = '';
+	$avatarAdminPage = ''; $adminAdminPage = ''; $pollAdminPage = ''; $twitterAdminPage = '';
 	$active = " class=\"active\"";
 
-	if (strpos($_SERVER["SCRIPT_NAME"], "news.php"))
-	{
+	if (strpos($_SERVER['SCRIPT_NAME'], 'news.php')) {
 		$newsPage = $active;
-	}
-	else if (strpos($_SERVER["SCRIPT_NAME"], "irc.php"))
-	{
-		$chatMenu = " active";
+	} elseif (strpos($_SERVER['SCRIPT_NAME'], 'irc.php')) {
+		$chatMenu = ' active';
 		$ircPage = $active;
-	}
-	else if (strpos($_SERVER["SCRIPT_NAME"], "mumble.php"))
-	{
-		$chatMenu = " active";
+	} elseif (strpos($_SERVER['SCRIPT_NAME'], 'mumble.php')) {
+		$chatMenu = ' active';
 		$mumblePage = $active;
-	}
-	else if (strpos($_SERVER["SCRIPT_NAME"], "gaming.php"))
-	{
-		$gamingMenu = " active";
-	}
-	else if (strpos($_SERVER["SCRIPT_NAME"], "events.php"))
-	{
-		$gamingMenu = " active";
+	} elseif (strpos($_SERVER['SCRIPT_NAME'], 'gaming.php')) {
+		$gamingMenu = ' active';
+	} elseif (strpos($_SERVER['SCRIPT_NAME'], 'events.php')) {
+		$gamingMenu = ' active';
 		$eventsPage = $active;
-	}
-	else if (strpos($_SERVER["SCRIPT_NAME"], "servers.php"))
-	{
+	} elseif (strpos($_SERVER['SCRIPT_NAME'], 'servers.php')) {
 		$serversPage = $active;
-	}
-	else if (strpos($_SERVER["SCRIPT_NAME"], "stream.php"))
-	{
-		$gamingMenu = " active";
+	} elseif (strpos($_SERVER['SCRIPT_NAME'], 'stream.php')) {
+		$gamingMenu = ' active';
 		$streamPage = $active;
-	}
-	else if (strpos($_SERVER["SCRIPT_NAME"], "projects.php"))
-	{
-		$projectsMenu = " active";
+	} elseif (strpos($_SERVER['SCRIPT_NAME'], 'projects.php')) {
+		$projectsMenu = ' active';
 		$overviewPage = $active;
-	}
-	else if (strpos($_SERVER["SCRIPT_NAME"], "polls.php"))
-	{
-		$projectsMenu = " active";
+	} elseif (strpos($_SERVER['SCRIPT_NAME'], 'polls.php')) {
+		$projectsMenu = ' active';
 		$pollPage = $active;
-	}
-	else if (strpos($_SERVER["SCRIPT_NAME"], "poll-archive.php"))
-	{
-		$projectsMenu = " active";
+	} elseif (strpos($_SERVER['SCRIPT_NAME'], 'poll-archive.php')) {
+		$projectsMenu = ' active';
 		$pollArchivePage = $active;
-	}
-	else if (strpos($_SERVER["SCRIPT_NAME"], "poll-admin.php"))
-	{
-		$adminMenu = " active";
+	} elseif (strpos($_SERVER['SCRIPT_NAME'], 'poll-admin.php')) {
+		$adminMenu = ' active';
 		$pollAdminPage = $active;
-	}
-	else if (strpos($_SERVER["SCRIPT_NAME"], "avatar.php"))
-	{
-		$adminMenu = " active";
+	} elseif (strpos($_SERVER['SCRIPT_NAME'], 'avatar.php')) {
+		$adminMenu = ' active';
 		$avatarAdminPage = $active;
-	}
-	else if (strpos($_SERVER["SCRIPT_NAME"], "admins.php"))
-	{
-		$adminMenu = " active";
+	} elseif (strpos($_SERVER['SCRIPT_NAME'], 'admins.php')) {
+		$adminMenu = ' active';
 		$adminAdminPage = $active;
-	}
-	else if (strpos($_SERVER["SCRIPT_NAME"], "twitter.php"))
-	{
-		$adminMenu = " active";
+	} elseif (strpos($_SERVER['SCRIPT_NAME'], 'twitter.php')) {
+		$adminMenu = ' active';
 		$twitterAdminPage = $active;
-	}
-	else if (strpos($_SERVER["SCRIPT_NAME"], "cast.php"))
-	{
+	} elseif (strpos($_SERVER['SCRIPT_NAME'], 'cast.php'))	{
 		$castPage = $active;
-	}
-	else if (strpos($_SERVER["SCRIPT_NAME"], "cast-guests.php"))
-	{
+	} elseif (strpos($_SERVER['SCRIPT_NAME'], 'cast-guests.php')) {
 		$castPage = $active;
-	}
-	else if (strpos($_SERVER["SCRIPT_NAME"], "about.php"))
-	{
+	} elseif (strpos($_SERVER['SCRIPT_NAME'], 'about.php')) {
 		$aboutPage = $active;
-	}
-	else if (strpos($_SERVER["SCRIPT_NAME"], "about-peeps.php"))
-	{
+	} elseif (strpos($_SERVER['SCRIPT_NAME'], 'about-peeps.php')) {
 		$aboutPage = $active;
 	}
 
@@ -259,7 +227,7 @@ header("Cache-Control: public, max-age=60");
 							<li><a target="_blank" href="//data.steamlug.org/updatesteamlug.php">Update events</a></li>
 						</ul>
 					</li>
-<?php 
+<?php
 	}
 ?>
 					<?= $logIn; ?>

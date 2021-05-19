@@ -1,7 +1,7 @@
 SteamLUG Server Code
 ==============
 
-Hey! This is the source for the site http://steamlug.org/ which helps expose
+Hey! This is the source for the site https://steamlug.org/ which helps expose
 our small (~6000 users) community of Linux gamers on Steam to our community
 events, share our awesome podcast, [SteamLUG Cast](https://steamlug.org/cast),
 list our servers that are generously provided by community members and more.

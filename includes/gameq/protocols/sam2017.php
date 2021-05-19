@@ -17,15 +17,25 @@
  */
 
 /**
- * Half Life Deathmatch: Source Protocol Class
+ * Serious Sam Fusion 2017 Protocol Class
+ *
+ * Note that the game port is the query port + 1
  */
-class GameQ_Protocols_Hldms extends GameQ_Protocols_Source
+class GameQ_Protocols_Sam2017 extends GameQ_Protocols_Source
 {
-	protected $name = "hldms";
-	protected $name_long = "Half Life Deathmatch: Source";
+	protected $name = "sam2017";
+	protected $name_long = "Serious Sam Fusion 2017";
+
+	/**
+	 * Default port for this server type
+	 *
+	 * @var int
+	 */
+	protected $port = 27015;
+
 	protected function process_details() {
 		$result = parent::process_details();
-		$result['steamappid'] = 360;
+		$result['steamappid'] = 564310;
 		return $result;
 	}
 }

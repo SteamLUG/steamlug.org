@@ -35,7 +35,7 @@ button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}
 input{line-height:normal}
 input[type="checkbox"],input[type="radio"]{box-sizing:border-box;padding:0}
 input[type="number"]::-webkit-inner-spin-button,input[type="number"]::-webkit-outer-spin-button{height:auto}
-input[type="search"]{-webkit-appearance:textfield;-webkit-box-sizing:content-box;box-sizing:content-box}
+input[type="search"]{-webkit-appearance:textfield;box-sizing:content-box}
 input[type="search"]::-webkit-search-cancel-button,input[type="search"]::-webkit-search-decoration{-webkit-appearance:none}
 fieldset{padding:0;margin:0;border:0;min-width:0}
 legend{border:0;padding:0;display:block;width:100%;margin-bottom:20px;font-size:21px;line-height:inherit;border-bottom:1px solid #1c1e22;color:#fff}
@@ -62,7 +62,7 @@ td,th{padding:0}
 	.label{border:1px solid #000}
 	.table{border-collapse:collapse}
 }
-*,*:before,*:after{-webkit-box-sizing:border-box;box-sizing:border-box}
+*,*:before,*:after{box-sizing:border-box}
 input,button,select,textarea{font-family:inherit;font-size:inherit;line-height:inherit}
 a{background:transparent;color:#fff;text-decoration:none}
 a:hover,a:focus{color:#fff;text-decoration:underline}
@@ -196,7 +196,7 @@ th{text-align:left;background-color:#3d4655;color:#959595}
 col[class*="col-"]{position:static;float:none;display:table-column}
 td[class*="col-"],th[class*="col-"]{position:static;float:none;display:table-cell}
 label{display:inline-block;max-width:100%;margin-bottom:5px;font-weight:bold}
-input[type="search"]{-webkit-box-sizing:border-box;box-sizing:border-box}
+input[type="search"]{box-sizing:border-box}
 input[type="radio"],input[type="checkbox"]{margin:4px 0 0;margin-top:1px \9;line-height:normal}
 input[type="file"]{display:block}
 input[type="range"]{display:block;width:100%}
@@ -940,7 +940,7 @@ dd>a img,dd>img{height:48px}
 .container>h1{margin-bottom:20px}
 .download-links span{padding-right:1em}
 #history li,#main li{margin:0 10px;height:46px;width:100%}
-#admins tr.you td{background-color:blue}
+#admins .you td{background-color:blue}
 .tablesorter-icon{cursor:pointer}
 .tablesorter .sorter-false .tablesorter-icon{display:none}
 .tablesorter td:last-child i.fa-circle,.tablesorter td:last-child i.fa-circle-o,.tablesorter th:last-child i.fa-circle{float:right}
@@ -953,8 +953,8 @@ dd>a img,dd>img{height:48px}
 .tablesorter th i.fa-globe{float:none;display:inline-block;margin-left:.2em;width:.7em}
 audio{width:100%}
 #casts img{height:22px;vertical-align:middle}
-#casts tr.in-progress td,#casts tr.in-progress a{color:grey}
-#casts tr.in-progress img{opacity:.5}
+#casts .in-progress td,#casts tr.in-progress a{color:grey}
+#casts .in-progress img{opacity:.5}
 @media(max-width:767px){
 	#casts td, #casts th, #servers td, #servers th {padding:6px 3px}
 }
@@ -973,8 +973,8 @@ dt.highlighted,dt.highlighted time,dt.highlighted+dd{background-color:#06A;color
 .bb_h1{font-size:15px;color:#5aa9d6;margin-top:17px;margin-bottom:12px}
 .timeline{width:520px;margin:auto}
 #twitter-widget-1{max-width:1100px;min-width:200px;width:100%}
-article.tweets{background:inherit;border:0;box-shadow:none;margin-bottom:2px}
-article.tweets .panel-heading{background:inherit;border:0;padding-left:0;padding-right:0}
+article.updates{background:inherit;border:0;box-shadow:none;margin-bottom:2px}
+article.updates .panel-heading{background:inherit;border:0;padding-left:0;padding-right:0}
 #twitter-here{padding:0;position:relative}
 #twitter-here .follow{top:-29px;position:relative;height:0;margin:auto;float:right}
 nav .nav>li>a{padding-right:11px;padding-left:10px}
@@ -1003,7 +1003,7 @@ p+p{margin-top:.9em}
 .panel-footer{padding-bottom:0}
 html .panel-info>.panel-heading{background:#297cc2}
 .table{margin-bottom:0}
-.events.table tbody tr>td{vertical-align:middle}
+.events.table tr>td{vertical-align:middle}
 article ul{list-style-type:square}
 #casts a,#cast-description a,#admins a{text-decoration:none;outline:0}
 .panel-title .author{font-size:small;font-style:italic;vertical-align:middle;float:right;display:inline-block}
@@ -1090,7 +1090,7 @@ article.twit label.control-label{text-align:left;border:3px solid transparent;pa
 .tweet .content { line-height:1.5}
 .tweet .header{position:relative;padding-bottom:.4em;margin-top:-.2em}
 .tweet .header > a{float:right;color:#a0a0a0}
-.tweet .header img{left:-57px;top:3px;position:absolute;border-radius:4px}
+.tweet .header img{left:-57px;top:3px;position:absolute;border-radius:4px;width:48px;height:48px}
 .tweet .header abbr{padding-left:.2em;border:0}
 .tweet .footer,.tweet .footer li{padding:.1em 0;margin:.2em 0;height:1.9em}
 .tweet .footer i{width:1.5em;display:block;color:#a0a0a0;font-size:16px}

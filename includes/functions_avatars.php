@@ -6,10 +6,8 @@
 /**
 */
 
-
 // we need access to $avatarFilePath, $avatarKeyPath
-include_once('paths.php');
-
+include_once( 'paths.php' );
 
 /**
 * A utility function to parse our HOST string components
@@ -26,11 +24,11 @@ include_once('paths.php');
 				$person['twitter'] = $twitterResult[1];
 
 			// (johndrinkwater)
-			} else if ( preg_match( '/\(([a-z0-9_]+)\)/i', $data, $nicknameResult) ) {
+			} elseif ( preg_match( '/\(([a-z0-9_]+)\)/i', $data, $nicknameResult) ) {
 				$person['nickname'] = $nicknameResult[1];
 
 			// {//i.imgur.com/8YkJva1.jpg}
-			} else if ( preg_match( '/{(.*)}/i', $data, $avatarURLResult) ) {
+			} elseif ( preg_match( '/{(.*)}/i', $data, $avatarURLResult) ) {
 				$person['avatar'] = $avatarURLResult[1];
 
 			// John Drinkwater
