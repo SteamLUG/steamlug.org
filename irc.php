@@ -46,7 +46,7 @@ if ( isset( $_SESSION['n'] ) ) {
 					<li><a href="https://steamcommunity.com/id/johndrinkwater">johndrinkwater</a></li>
 					<li><a href="https://steamcommunity.com/id/meklu">meklu</a></li>
 					<li><a href="https://steamcommunity.com/id/xpander69">xpander</a></li>
-					<li><a href="https://steamcommunity.com/id/beansmyname">bean</a></li>
+					<li><a href="https://steamcommunity.com/id/huggabean">huggabean</a></li>
 				</ul>
 				<p>Channel operators found to be abusing their status will have their op rights suspended.</p>
 			</div>
