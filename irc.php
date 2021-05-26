@@ -18,9 +18,9 @@ if ( isset( $_SESSION['n'] ) ) {
 				<p>This page contains a webchat widget that you can use to connect to our IRC channel. Simply enter a nickname, fill out the captcha and click connect. If you plan to join us regularly, we recommend using a dedicated IRC client such as <a href="https://www.irssi.org/">irssi</a>, <a href="https://www.weechat.org/">weechat</a> or <a href="https://hexchat.github.io/">HexChat</a>.</p>
 				<p>If you are new to our community, please take the time to read our short <a href="#coc">Code of Conduct</a> :)</p>
 				<dl class="dl-horizontal">
-				<dt>IRC Server</dt><dd>irc.freenode.net</dd>
+				<dt>IRC Server</dt><dd>irc.libera.chat</dd>
 				<dt>Channel Name</dt><dd>#steamlug</dd>
-				<dt>Clickable Link</dt><dd><a href="irc://irc.freenode.net/steamlug">irc://irc.freenode.net/steamlug</a></dd>
+				<dt>Clickable Link</dt><dd><a href="ircs://irc.libera.chat:6697/#steamlug">ircs://irc.libera.chat:6697/#steamlug</a></dd>
 				</dl>
 			</div>
 		</article>
@@ -58,7 +58,7 @@ if ( isset( $_SESSION['n'] ) ) {
 				<h3 class="panel-title">Webclient</h3>
 			</header>
 			<div class="panel-body irc">
-				<iframe src="https://webchat.freenode.net?channels=steamlug&amp;nick=<?=rawurlencode(htmlspecialchars($preferredNick))?>" width="400" height="300">
+				<iframe src="https://kiwiirc.com/client/irc.libera.chat:+6697/?nick=<?=rawurlencode(htmlspecialchars($preferredNick))?>&amp;theme=cli#steamlug" width="400" height="300">
 					<p>Your browser does not support iframes.</p>
 				</iframe>
 			</div>
