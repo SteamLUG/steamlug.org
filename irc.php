@@ -58,7 +58,7 @@ if ( isset( $_SESSION['n'] ) ) {
 				<h3 class="panel-title">Webclient</h3>
 			</header>
 			<div class="panel-body irc">
-				<iframe src="https://kiwiirc.com/client/irc.libera.chat:+6697/?nick=<?=rawurlencode(htmlspecialchars($preferredNick))?>&amp;theme=cli#steamlug" width="400" height="300">
+				<iframe src="https://web.libera.chat/?nick=<?=rawurlencode(htmlspecialchars($preferredNick))?>&amp;theme=dark#steamlug" width="400" height="300">
 					<p>Your browser does not support iframes.</p>
 				</iframe>
 			</div>
