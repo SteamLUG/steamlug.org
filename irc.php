@@ -22,7 +22,7 @@ if ( isset( $_SESSION['n'] ) ) {
 				<dt>Channel Name</dt><dd>#steamlug</dd>
 				<dt>Clickable Link</dt><dd><a href="ircs://irc.libera.chat:6697/#steamlug">ircs://irc.libera.chat:6697/#steamlug</a></dd>
 				</dl>
-				<p>You may also join our <a href="https://matrix.org">Matrix</a> room, which is bridged to our IRC channel. For the most part, anything posted in one will appear in the other. Any Matrix-specific queries can be directed towards <a href=https://matrix.to/#/@HER0:matrix.org>HER0_01</a>.
+				<p>You may also join our <a href="https://matrix.org">Matrix</a> room, which is bridged to our IRC channel. For the most part, anything posted in one will appear in the other. Any Matrix-specific queries can be directed towards <a href=https://matrix.to/#/@HER0:matrix.org>HER0_01</a> (aconrad103 [at] gmail [dot] com).
 				<dl class="dl-horizontal">
 				<dt>Matrix Room</dt><dd><a href="https://matrix.to/#/#steamlug:matrix.org">#steamlug:matrix.org</a></dd>
 				</dl>
